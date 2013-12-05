@@ -1,12 +1,6 @@
-//
-//  AppDelegate.h
-//  betchyu
-//
-//  Created by Adam Baratz on 12/5/13.
-//  Copyright (c) 2013 BetchyuLLC. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
+#import "iBetchyuIncrementalStore.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -16,7 +10,12 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (strong, nonatomic) UINavigationController* navController;
+@property (strong, nonatomic) ViewController *mainViewController;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+- (void)showLoginView;
+- (void)openSession;
 
 @end
