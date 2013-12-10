@@ -4,6 +4,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+@property NSString * ownId;
+
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;

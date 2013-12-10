@@ -34,7 +34,7 @@
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor darkGrayColor]];
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // The handshake image
     UIImageView *shake = [[UIImageView alloc] initWithImage:
@@ -152,18 +152,9 @@
     newBet.opponentStakeType = bet.opponentStakeType;
     newBet.ownStakeAmount = bet.ownStakeAmount;
     newBet.ownStakeType = bet.ownStakeType;
-    // FBProfilePictureView setups
-    if (FBSession.activeSession.isOpen) {
-        // Current User's image
-        [[FBRequest requestForMe] startWithCompletionHandler:
-         ^(FBRequestConnection *connection,
-           NSDictionary<FBGraphUser> *user,
-           NSError *error) {
-             if (!error) {
-                 newBet.owner = user.id;
-             }
-         }];
-    }
+    newBet.owner = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;   // appDelegate gets/maintains the user's id
+    
+    NSLog(@"finalize: %@", newBet.owner);
     
     NSError *error;
     if (![self.managedObjectContext save:&error]) {

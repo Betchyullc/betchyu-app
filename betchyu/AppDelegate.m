@@ -6,6 +6,8 @@
 
 @implementation AppDelegate
 
+@synthesize ownId;
+
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -37,6 +39,33 @@
         // No, display the login page.
         [self showLoginView];
     }
+    
+    if (!FBSession.activeSession.isOpen) {
+        [FBSession openActiveSessionWithAllowLoginUI: YES];
+    }
+    // Fetch user data
+    [FBRequestConnection
+     startForMeWithCompletionHandler:^(FBRequestConnection *connection,
+                                       id<FBGraphUser> user,
+                                       NSError *error) {
+         if (!error) {
+             self.ownId = user.id;
+             NSLog(@"inner: %@", user.id);
+         } else {
+             self.ownId = @"";
+         }
+     }];
+    
+    // Setup the navigation bar appearance
+    UIColor *betchyu = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      betchyu,
+      NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"ProximaNova-Black" size:18.0],
+      NSFontAttributeName, nil]];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:betchyu];
     
     return YES;
 }
@@ -156,7 +185,7 @@
 
 - (void)openSession
 {
-    [FBSession openActiveSessionWithReadPermissions:nil
+    [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
                                        allowLoginUI:YES
                                   completionHandler:
      ^(FBSession *session,

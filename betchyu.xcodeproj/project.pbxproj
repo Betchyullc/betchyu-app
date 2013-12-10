@@ -21,6 +21,26 @@
 		892154B81850F36F0052A7C0 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892154AD1850F36F0052A7C0 /* LoginViewController.xib */; };
 		892154B91850F36F0052A7C0 /* TempBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AF1850F36F0052A7C0 /* TempBet.m */; };
 		892154BF1850F4900052A7C0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892154BE1850F4900052A7C0 /* FacebookSDK.framework */; };
+		892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C2185261270052A7C0 /* ProximaNova-Black.otf */; };
+		892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C3185261270052A7C0 /* ProximaNova-BlackIt.otf */; };
+		892154D2185261270052A7C0 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C4185261270052A7C0 /* ProximaNova-Bold.otf */; };
+		892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C5185261270052A7C0 /* ProximaNova-BoldIt.otf */; };
+		892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C6185261270052A7C0 /* ProximaNova-Extrabld.otf */; };
+		892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C7185261270052A7C0 /* ProximaNova-ExtrabldIt.otf */; };
+		892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C8185261270052A7C0 /* ProximaNova-Light.otf */; };
+		892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C9185261270052A7C0 /* ProximaNova-LightIt.otf */; };
+		892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CA185261270052A7C0 /* ProximaNova-Regular.otf */; };
+		892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CB185261270052A7C0 /* ProximaNova-RegularIt.otf */; };
+		892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CC185261270052A7C0 /* ProximaNova-Semibold.otf */; };
+		892154DB185261270052A7C0 /* ProximaNova-SemiboldIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CD185261270052A7C0 /* ProximaNova-SemiboldIt.otf */; };
+		892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CE185261270052A7C0 /* ProximaNova-ThinIt.otf */; };
+		892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */; };
+		892154EB185532440052A7C0 /* Lose Weight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 892154E7185532440052A7C0 /* Lose Weight.jpg */; };
+		892154EC185532440052A7C0 /* Run More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 892154E8185532440052A7C0 /* Run More.jpg */; };
+		892154ED185532440052A7C0 /* Stop Smoking.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 892154E9185532440052A7C0 /* Stop Smoking.jpg */; };
+		892154EE185532440052A7C0 /* Workout More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 892154EA185532440052A7C0 /* Workout More.jpg */; };
+		892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F0185688EF0052A7C0 /* MyBetsVC.m */; };
+		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
 		89B3F5B41850EB320055F8DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B31850EB320055F8DB /* Foundation.framework */; };
 		89B3F5B61850EB320055F8DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B51850EB320055F8DB /* CoreGraphics.framework */; };
 		89B3F5B81850EB320055F8DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B71850EB320055F8DB /* UIKit.framework */; };
@@ -77,6 +97,28 @@
 		892154AE1850F36F0052A7C0 /* TempBet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempBet.h; sourceTree = "<group>"; };
 		892154AF1850F36F0052A7C0 /* TempBet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TempBet.m; sourceTree = "<group>"; };
 		892154BE1850F4900052A7C0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		892154C2185261270052A7C0 /* ProximaNova-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Black.otf"; sourceTree = "<group>"; };
+		892154C3185261270052A7C0 /* ProximaNova-BlackIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-BlackIt.otf"; sourceTree = "<group>"; };
+		892154C4185261270052A7C0 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		892154C5185261270052A7C0 /* ProximaNova-BoldIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-BoldIt.otf"; sourceTree = "<group>"; };
+		892154C6185261270052A7C0 /* ProximaNova-Extrabld.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Extrabld.otf"; sourceTree = "<group>"; };
+		892154C7185261270052A7C0 /* ProximaNova-ExtrabldIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-ExtrabldIt.otf"; sourceTree = "<group>"; };
+		892154C8185261270052A7C0 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
+		892154C9185261270052A7C0 /* ProximaNova-LightIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-LightIt.otf"; sourceTree = "<group>"; };
+		892154CA185261270052A7C0 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		892154CB185261270052A7C0 /* ProximaNova-RegularIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegularIt.otf"; sourceTree = "<group>"; };
+		892154CC185261270052A7C0 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
+		892154CD185261270052A7C0 /* ProximaNova-SemiboldIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-SemiboldIt.otf"; sourceTree = "<group>"; };
+		892154CE185261270052A7C0 /* ProximaNova-ThinIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-ThinIt.otf"; sourceTree = "<group>"; };
+		892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaT-Thin.otf"; sourceTree = "<group>"; };
+		892154E7185532440052A7C0 /* Lose Weight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lose Weight.jpg"; sourceTree = "<group>"; };
+		892154E8185532440052A7C0 /* Run More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Run More.jpg"; sourceTree = "<group>"; };
+		892154E9185532440052A7C0 /* Stop Smoking.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Stop Smoking.jpg"; sourceTree = "<group>"; };
+		892154EA185532440052A7C0 /* Workout More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Workout More.jpg"; sourceTree = "<group>"; };
+		892154EF185688EF0052A7C0 /* MyBetsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBetsVC.h; sourceTree = "<group>"; };
+		892154F0185688EF0052A7C0 /* MyBetsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsVC.m; sourceTree = "<group>"; };
+		892154F5185760240052A7C0 /* MyGoalsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoalsVC.h; sourceTree = "<group>"; };
+		892154F6185760240052A7C0 /* MyGoalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoalsVC.m; sourceTree = "<group>"; };
 		89B3F5B01850EB320055F8DB /* betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -131,18 +173,13 @@
 			children = (
 				892154981850F2E70052A7C0 /* ViewController.h */,
 				892154991850F2E70052A7C0 /* ViewController.m */,
-				892154941850F2E70052A7C0 /* BetDetailsVC.h */,
-				892154951850F2E70052A7C0 /* BetDetailsVC.m */,
-				8921549F1850F36F0052A7C0 /* BetFinalizeVC.h */,
-				892154A01850F36F0052A7C0 /* BetFinalizeVC.m */,
-				892154A11850F36F0052A7C0 /* BetStakeVC.h */,
-				892154A21850F36F0052A7C0 /* BetStakeVC.m */,
-				892154A31850F36F0052A7C0 /* BetTypeViewController.h */,
-				892154A41850F36F0052A7C0 /* BetTypeViewController.m */,
+				892154C018524E290052A7C0 /* Create Bet Flow */,
 				892154AB1850F36F0052A7C0 /* LoginViewController.h */,
 				892154AC1850F36F0052A7C0 /* LoginViewController.m */,
-				892154961850F2E70052A7C0 /* BetStakeConfirmVC.h */,
-				892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */,
+				892154EF185688EF0052A7C0 /* MyBetsVC.h */,
+				892154F0185688EF0052A7C0 /* MyBetsVC.m */,
+				892154F5185760240052A7C0 /* MyGoalsVC.h */,
+				892154F6185760240052A7C0 /* MyGoalsVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -178,6 +215,55 @@
 				892154AD1850F36F0052A7C0 /* LoginViewController.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		892154C018524E290052A7C0 /* Create Bet Flow */ = {
+			isa = PBXGroup;
+			children = (
+				8921549F1850F36F0052A7C0 /* BetFinalizeVC.h */,
+				892154A01850F36F0052A7C0 /* BetFinalizeVC.m */,
+				892154961850F2E70052A7C0 /* BetStakeConfirmVC.h */,
+				892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */,
+				892154A11850F36F0052A7C0 /* BetStakeVC.h */,
+				892154A21850F36F0052A7C0 /* BetStakeVC.m */,
+				892154941850F2E70052A7C0 /* BetDetailsVC.h */,
+				892154951850F2E70052A7C0 /* BetDetailsVC.m */,
+				892154A31850F36F0052A7C0 /* BetTypeViewController.h */,
+				892154A41850F36F0052A7C0 /* BetTypeViewController.m */,
+			);
+			name = "Create Bet Flow";
+			sourceTree = "<group>";
+		};
+		892154C1185261270052A7C0 /* Proxima Nova */ = {
+			isa = PBXGroup;
+			children = (
+				892154C2185261270052A7C0 /* ProximaNova-Black.otf */,
+				892154C3185261270052A7C0 /* ProximaNova-BlackIt.otf */,
+				892154C4185261270052A7C0 /* ProximaNova-Bold.otf */,
+				892154C5185261270052A7C0 /* ProximaNova-BoldIt.otf */,
+				892154C6185261270052A7C0 /* ProximaNova-Extrabld.otf */,
+				892154C7185261270052A7C0 /* ProximaNova-ExtrabldIt.otf */,
+				892154C8185261270052A7C0 /* ProximaNova-Light.otf */,
+				892154C9185261270052A7C0 /* ProximaNova-LightIt.otf */,
+				892154CA185261270052A7C0 /* ProximaNova-Regular.otf */,
+				892154CB185261270052A7C0 /* ProximaNova-RegularIt.otf */,
+				892154CC185261270052A7C0 /* ProximaNova-Semibold.otf */,
+				892154CD185261270052A7C0 /* ProximaNova-SemiboldIt.otf */,
+				892154CE185261270052A7C0 /* ProximaNova-ThinIt.otf */,
+				892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */,
+			);
+			path = "Proxima Nova";
+			sourceTree = "<group>";
+		};
+		892154E618552DB20052A7C0 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				892154E7185532440052A7C0 /* Lose Weight.jpg */,
+				892154E8185532440052A7C0 /* Run More.jpg */,
+				892154E9185532440052A7C0 /* Stop Smoking.jpg */,
+				892154EA185532440052A7C0 /* Workout More.jpg */,
+			);
+			name = Photos;
 			sourceTree = "<group>";
 		};
 		89B3F5A71850EB310055F8DB = {
@@ -217,6 +303,8 @@
 		89B3F5BB1850EB320055F8DB /* betchyu */ = {
 			isa = PBXGroup;
 			children = (
+				892154E618552DB20052A7C0 /* Photos */,
+				892154C1185261270052A7C0 /* Proxima Nova */,
 				89B3F5C41850EB320055F8DB /* AppDelegate.h */,
 				89B3F5C51850EB320055F8DB /* AppDelegate.m */,
 				892154BA1850F3CD0052A7C0 /* Controllers */,
@@ -336,8 +424,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
+				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
+				892154DB185261270052A7C0 /* ProximaNova-SemiboldIt.otf in Resources */,
 				89B3F5CB1850EB320055F8DB /* Images.xcassets in Resources */,
+				892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */,
+				892154D2185261270052A7C0 /* ProximaNova-Bold.otf in Resources */,
+				892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */,
+				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
+				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
+				892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */,
+				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
+				892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */,
+				892154EE185532440052A7C0 /* Workout More.jpg in Resources */,
+				892154ED185532440052A7C0 /* Stop Smoking.jpg in Resources */,
+				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
+				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
 				892154B81850F36F0052A7C0 /* LoginViewController.xib in Resources */,
+				892154EC185532440052A7C0 /* Run More.jpg in Resources */,
+				892154EB185532440052A7C0 /* Lose Weight.jpg in Resources */,
+				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
+				892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +497,7 @@
 			files = (
 				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,
 				892154B01850F36F0052A7C0 /* Bet.m in Sources */,
+				892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */,
 				892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
 				892154B61850F36F0052A7C0 /* iBetchyuIncrementalStore.m in Sources */,
@@ -398,6 +505,7 @@
 				8921549C1850F2E70052A7C0 /* ViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
 				89B3F5C91850EB320055F8DB /* betchyu.xcdatamodeld in Sources */,
+				892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */,
 				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
 				892154B51850F36F0052A7C0 /* iBetchyuAPIClient.m in Sources */,

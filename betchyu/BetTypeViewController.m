@@ -28,9 +28,8 @@
         // Custom initialization
         betTypes = [[NSMutableArray alloc] init];
         [betTypes addObject:@"Lose Weight"];
-        [betTypes addObject:@"Save Money"];
+        [betTypes addObject:@"Stop Smoking"];
         [betTypes addObject:@"Run More"];
-        [betTypes addObject:@"Eat Less"];
         [betTypes addObject:@"Workout More"];
     }
     return self;
@@ -40,13 +39,21 @@
     // Create main UIScrollView (the container for betType page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor darkGrayColor]];
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
+    
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+    //CGRect screenRect = self.view.frame;
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height - 50; // 50 px is the navbar at the top + 10 px bottom border
     
     // Make the Buttons list
     for (int i = 0; i < betTypes.count; i++) {
-        BigButton *button = [[BigButton alloc] initWithFrame:CGRectMake(20, (20 + i*140), 280, 100)
+        BigButton *button = [[BigButton alloc] initWithFrame:CGRectMake(20, ((screenHeight/4)*i +10), (screenWidth - 40), (screenHeight / 4) -10)
                                                      primary:1
                                                        title:[betTypes objectAtIndex:i]];
+        UIImage *btnImg = [UIImage imageNamed:[[betTypes objectAtIndex:i] stringByAppendingString:@".jpg"]];
+        
+        [button setBackgroundImage:btnImg forState:UIControlStateNormal];
         [button addTarget:self
                    action:@selector(setBetDetails:)
          forControlEvents:UIControlEventTouchUpInside];

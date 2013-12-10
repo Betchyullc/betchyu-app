@@ -11,10 +11,15 @@
 #import "AppDelegate.h"
 #import "BetTypeViewController.h"
 #import "BigButton.h"
+#import "MyBetsVC.h"
+#import "MyGoalsVC.h"
 
 @interface ViewController ()
 
 -(IBAction)createGoal:(id)sender;
+-(void)showMyGoals:(id)sender;
+-(void)showMyBets:(id)sender;
+
 @property (strong, nonatomic) BetTypeViewController *createGoalController;
 
 @end
@@ -23,11 +28,11 @@
 
 @synthesize createGoalController = _createGoalController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
         
     }
     return self;
@@ -37,26 +42,26 @@
     // Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor darkGrayColor]];
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // Make the homepage Buttons
     // "My Goals" button
-    BigButton *myGoals = [[BigButton alloc] initWithFrame:CGRectMake(20, 20, 280, 100)
-                                                     primary:1 title:@"My Goals"];
-    /*[myGoals addTarget:self
-                   action:@selector(SOMETHING GOES HERE)
-         forControlEvents:UIControlEventTouchUpInside];*/
+    BigButton *myGoals = [[BigButton alloc] initWithFrame:CGRectMake(20, 20, 280, 140)
+                                                     primary:1 title:@"MY GOALS"];
+    [myGoals addTarget:self
+                action:@selector(showMyGoals:)
+         forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myGoals];
     // "My Bets" button
-    BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, 200, 280, 100)
-                                                     primary:1 title:@"My Bets"];
-    /*[myBets addTarget:self
-                   action:@selector(SOMETHING GOES HERE)
-         forControlEvents:UIControlEventTouchUpInside];*/
+    BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, 180, 280, 140)
+                                                     primary:1 title:@"MY BETS"];
+    [myBets addTarget:self
+                   action:@selector(showMyBets:)
+         forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myBets];
     // "Create Goal" button
-    BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, 280, 100)
-                                                     primary:0 title:@"Create Goal"];
+    BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 340, 280, 140)
+                                                     primary:0 title:@"CREATE\nGOAL"];
     [createGoal addTarget:self
                    action:@selector(createGoal:)
          forControlEvents:UIControlEventTouchUpInside];
@@ -65,8 +70,7 @@
     self.view = mainView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
@@ -75,15 +79,9 @@
                                               target:self
                                               action:@selector(logoutButtonWasPressed:)];
     self.navigationItem.title = @"BETCHYU";
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:1.0
-                                                                        green:(117.0/255.0)
-                                                                         blue:(63/255.0)
-                                                                        alpha:1.0];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -102,6 +100,19 @@
     
     [self.navigationController pushViewController:self.createGoalController
                                          animated:true];
+}
+
+-(void)showMyBets:(id)sender {
+    MyBetsVC *vc =[[MyBetsVC alloc] initWithNibName:nil bundle:nil];
+    vc.title = @"MY BETS";
+    // Show it.
+    [self.navigationController pushViewController:vc animated:true];
+}
+-(void)showMyGoals:(id)sender {
+    MyGoalsVC *vc =[[MyGoalsVC alloc] initWithNibName:nil bundle:nil];
+    vc.title = @"MY GOALS";
+    // Show it.
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 @end

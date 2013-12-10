@@ -29,16 +29,14 @@
         bet.betNoun = [[verbName componentsSeparatedByString:@" "] objectAtIndex:1]; // second word
         if ([bet.betNoun isEqualToString:@"Weight"]) {
             bet.betNoun = @"pounds";
-        } else if ([bet.betNoun isEqualToString:@"Money"]){
-            bet.betNoun = @"dollars";
+        } else if ([bet.betNoun isEqualToString:@"Smoking"]){
+            bet.betNoun = @"cigarettes";
         } else if ([bet.betNoun isEqualToString:@"More"]){
             if ([bet.betVerb isEqualToString:@"Workout"]) {
                 bet.betNoun = @"times";
             } else {
                 bet.betNoun = @"miles";
             }
-        } else if ([bet.betNoun isEqualToString:@"Less"]){
-            bet.betNoun = @"less calories";
         }
     }
     return self;
@@ -50,7 +48,7 @@
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor darkGrayColor]];
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     ////////////////////////
     // Top selector stuff //
