@@ -9,6 +9,7 @@
 #import "BetFinalizeVC.h"
 #import "AppDelegate.h"
 #import "Bet.h"
+#import "Invite.h"
 
 @interface BetFinalizeVC () <NSFetchedResultsControllerDelegate>
     @property NSFetchedResultsController * fetchedResultsController;
@@ -26,6 +27,9 @@
         self.bet = betObj;
         AppDelegate *appDelegate = (AppDelegate *)([[UIApplication sharedApplication] delegate]);
         self.managedObjectContext = appDelegate.managedObjectContext;
+        /*for (NSMutableDictionary<FBGraphUser> *person in bet.friends) {
+            NSLog(@"fbID: %@", person.id);
+        }*/
     }
     return self;
 }
@@ -140,7 +144,7 @@
 }
 
 - (void) betchyu:(id)sender {
-    // TODO: save the bet on the server
+    // MAKE THE NEW BET
     Bet *newBet = [NSEntityDescription insertNewObjectForEntityForName:@"Bet" inManagedObjectContext:self.managedObjectContext];
 
     newBet.betAmount = bet.betAmount;
@@ -154,8 +158,62 @@
     newBet.ownStakeType = bet.ownStakeType;
     newBet.owner = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;   // appDelegate gets/maintains the user's id
     
-    NSLog(@"finalize: %@", newBet.owner);
+    // TRY TO SAVE THE MOC
+    /*NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh..."
+                                                        message:@"The bet is invalid. Go back and fix it."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }*/
     
+    // MAKE THE INVITES TO THE BET
+    //for (NSMutableDictionary<FBGraphUser> *person in bet.friends) {
+        Invite *newInvite = [NSEntityDescription insertNewObjectForEntityForName:@"Invite" inManagedObjectContext:self.managedObjectContext];
+        newInvite.invitee = ((NSMutableDictionary<FBGraphUser> *)[bet.friends objectAtIndex:0]).id;
+        newInvite.inviter = newBet.owner;
+        newInvite.status  = @"open";
+        newInvite.bet     = newBet;
+    //}
+    
+    newBet.invites = [[NSSet alloc] initWithObjects:newInvite, nil];
+
+    
+    // TRY TO SAVE THE MOC
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        NSLog(@"error: %@", error);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh..."
+                                                        message:@"The bet is invalid. Go back and fix it."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+-(Bet *)makeBet {
+    // MAKE THE NEW BET
+    Bet *newBet = [NSEntityDescription insertNewObjectForEntityForName:@"Bet" inManagedObjectContext:self.managedObjectContext];
+    
+    newBet.betAmount = bet.betAmount;
+    newBet.betNoun = bet.betNoun;
+    newBet.betVerb = bet.betVerb;
+    newBet.createdAt = [NSDate date];
+    newBet.endDate = bet.endDate;
+    newBet.opponentStakeAmount = bet.opponentStakeAmount;
+    newBet.opponentStakeType = bet.opponentStakeType;
+    newBet.ownStakeAmount = bet.ownStakeAmount;
+    newBet.ownStakeType = bet.ownStakeType;
+    newBet.owner = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;   // appDelegate gets/maintains the user's id
+    
+    // TRY TO SAVE THE MOC
     NSError *error;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -166,8 +224,10 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        
     }
+    
+    return newBet;
 }
 
 @end

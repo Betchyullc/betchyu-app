@@ -22,5 +22,6 @@
 @dynamic ownStakeType;
 @dynamic owner;
 @dynamic opponent;
+@dynamic invites;
 
 @end

@@ -32,9 +32,24 @@
     self = [super initWithNibName:nil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+        if (!FBSession.activeSession.isOpen) {
+            [FBSession openActiveSessionWithAllowLoginUI: YES];
+        }
+        // Fetch user data
+        [FBRequestConnection
+         startForMeWithCompletionHandler:^(FBRequestConnection *connection,
+                                           id<FBGraphUser> user,
+                                           NSError *error) {
+             if (!error) {
+                 ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId = user.id;
+                 NSLog(@"inner: %@", user.id);
+             } else {
+                 ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId = @"";
+             }
+         }];
         
     }
+    
     return self;
 }
 
@@ -109,7 +124,7 @@
     [self.navigationController pushViewController:vc animated:true];
 }
 -(void)showMyGoals:(id)sender {
-    MyGoalsVC *vc =[[MyGoalsVC alloc] initWithNibName:nil bundle:nil];
+    MyGoalsVC *vc =[[MyGoalsVC alloc] initWithNibName:Nil bundle:nil];
     vc.title = @"MY GOALS";
     // Show it.
     [self.navigationController pushViewController:vc animated:true];

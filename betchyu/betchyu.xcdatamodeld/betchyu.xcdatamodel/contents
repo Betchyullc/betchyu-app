@@ -12,14 +12,16 @@
         <attribute name="owner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ownStakeAmount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="ownStakeType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="invites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Invite" inverseName="bet" inverseEntity="Invite" syncable="YES"/>
     </entity>
     <entity name="Invite" syncable="YES">
         <attribute name="invitee" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="inviter" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bet" inverseName="invites" inverseEntity="Bet" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Bet" positionX="160" positionY="192" width="128" height="208"/>
-        <element name="Invite" positionX="295" positionY="279" width="128" height="88"/>
+        <element name="Bet" positionX="160" positionY="192" width="128" height="223"/>
+        <element name="Invite" positionX="342" positionY="279" width="128" height="103"/>
     </elements>
 </model>

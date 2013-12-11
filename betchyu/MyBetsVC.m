@@ -9,6 +9,8 @@
 #import "MyBetsVC.h"
 #import "AppDelegate.h"
 #import "BigButton.h"
+#import "Bet.h"
+#import "Invite.h"
 
 @interface MyBetsVC ()
 
@@ -25,20 +27,28 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        // Useful vars
         NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
         NSManagedObjectContext *moc = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
         NSEntityDescription *e = [NSEntityDescription entityForName:@"Bet" inManagedObjectContext:moc];
+        
+        // get the ongoingBets
         NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
         fetch.entity = e;
-        fetch.predicate = [NSPredicate
-                           predicateWithFormat:@"(opponent == %@)",
-                           ownerString];
+        fetch.predicate = [NSPredicate predicateWithFormat:@"(opponent == %@)", ownerString];
         NSError *err;
         ongoingBets = [moc executeFetchRequest:fetch error:&err];
-        // prints out to test if we got the bets
-        /*for (NSManagedObject *info in bets) {
-            NSLog(@"Noun: %@", [info valueForKey:@"betNoun"]);
-        }*/
+        
+        // Get teh openInvites
+        fetch.entity = [NSEntityDescription entityForName:@"Invite" inManagedObjectContext:moc];
+        fetch.predicate = [NSPredicate predicateWithFormat:@"invitee == %@", ownerString];
+        openInvites = [moc executeFetchRequest:fetch error:&err];
+        
+        for (Invite *inv in openInvites){
+            NSLog(@"status: %@", inv.status);
+            NSLog(@"bet: %@", inv.bet);
+            NSLog(@"betNoun: %@", inv.bet.betNoun);
+        }
     }
     return self;
 }

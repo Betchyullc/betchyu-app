@@ -23,5 +23,6 @@
 @property (nonatomic, retain) NSString * ownStakeType;
 @property (nonatomic, retain) NSString *owner;
 @property (nonatomic, retain) NSString *opponent;
+@property NSSet * invites;
 
 @end

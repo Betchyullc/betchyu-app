@@ -11,5 +11,8 @@
 @interface MyGoalsVC : UIViewController
 
 @property NSArray * bets;
+@property NSString * ownerId;
+@property NSManagedObjectContext * moc;
+
 
 @end

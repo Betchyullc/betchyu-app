@@ -9,6 +9,7 @@
 #import "MyGoalsVC.h"
 #import "BigButton.h"
 #import "AppDelegate.h"
+#import "Bet.h"
 
 @interface MyGoalsVC ()
 
@@ -17,25 +18,29 @@
 @implementation MyGoalsVC
 
 @synthesize bets;
+@synthesize moc;
+@synthesize ownerId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
-        NSManagedObjectContext *moc = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
-        NSEntityDescription *e = [NSEntityDescription entityForName:@"Bet" inManagedObjectContext:moc];
+        AppDelegate *ad = (AppDelegate *)([[UIApplication sharedApplication] delegate]);
+        self.ownerId = ad.ownId;
+        self.moc = ad.managedObjectContext;
+        
+        NSEntityDescription *e = [NSEntityDescription entityForName:@"Bet" inManagedObjectContext:self.moc];
         NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
         fetch.entity = e;
         fetch.predicate = [NSPredicate
                            predicateWithFormat:@"(owner == %@)",
-                           ownerString];
+                           self.ownerId];
         NSError *err;
-        bets = [moc executeFetchRequest:fetch error:&err];
+        bets = [self.moc executeFetchRequest:fetch error:&err];
         // prints out to test if we got the bets
-        /*for (NSManagedObject *info in bets) {
-         NSLog(@"Noun: %@", [info valueForKey:@"betNoun"]);
-         }*/
+        /*for (Bet *bet in bets) {
+            NSLog(@"info: %@", bet.objectID);
+        }*/
     }
     return self;
 }
