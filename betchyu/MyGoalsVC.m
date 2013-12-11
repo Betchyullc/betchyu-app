@@ -2,7 +2,7 @@
 //  MyGoalsVC.m
 //  betchyu
 //
-//  Created by Adam Baratz on 12/10/13.
+//  Created by Daniel Zapata on 12/10/13.
 //  Copyright (c) 2013 BetchyuLLC. All rights reserved.
 //
 
@@ -21,26 +21,11 @@
 @synthesize moc;
 @synthesize ownerId;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithGoals:(NSArray *)goalsList {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        AppDelegate *ad = (AppDelegate *)([[UIApplication sharedApplication] delegate]);
-        self.ownerId = ad.ownId;
-        self.moc = ad.managedObjectContext;
-        
-        NSEntityDescription *e = [NSEntityDescription entityForName:@"Bet" inManagedObjectContext:self.moc];
-        NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-        fetch.entity = e;
-        fetch.predicate = [NSPredicate
-                           predicateWithFormat:@"(owner == %@)",
-                           self.ownerId];
-        NSError *err;
-        bets = [self.moc executeFetchRequest:fetch error:&err];
-        // prints out to test if we got the bets
-        /*for (Bet *bet in bets) {
-            NSLog(@"info: %@", bet.objectID);
-        }*/
+        self.bets = goalsList;
     }
     return self;
 }
@@ -93,7 +78,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

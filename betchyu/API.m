@@ -48,15 +48,31 @@
 }
 
 
--(void)commandWithParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
+-(void)post:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
 {
     NSMutableURLRequest *apiRequest =
     [self multipartFormRequestWithMethod:@"POST"
-                                    path:kAPIPath
+                                    path:path
                               parameters:params
                constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
                    //TODO: attach file if needed
                }];
+    
+    AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //success!
+        completionBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //failure :(
+        completionBlock([NSDictionary dictionaryWithObject:[error localizedDescription] forKey:@"error"]);
+    }];
+    
+    [operation start];
+}
+
+-(void)get:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
+{
+    NSMutableURLRequest *apiRequest = [self requestWithMethod:@"GET" path:path parameters:params];
     
     AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -13,6 +13,7 @@
 #import "BigButton.h"
 #import "MyBetsVC.h"
 #import "MyGoalsVC.h"
+#import "API.h"
 
 @interface ViewController ()
 
@@ -100,7 +101,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 -(void) logoutButtonWasPressed:(id)sender {
     [FBSession.activeSession closeAndClearTokenInformation];
 }
@@ -118,16 +118,42 @@
 }
 
 -(void)showMyBets:(id)sender {
-    MyBetsVC *vc =[[MyBetsVC alloc] initWithNibName:nil bundle:nil];
-    vc.title = @"MY BETS";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    // get the bets from the server
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"ongoingBets", @"restriction",
+                                  ownerString, @"user",
+                                  nil];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:@"bets" withParams:params
+                 onCompletion:^(NSDictionary *json) {
+                         //success
+                         MyBetsVC *vc =[[MyBetsVC alloc] initWithOngoingBets:(NSArray *)json];
+                         vc.title = @"MY BETS";
+                         // Show it.
+                         [self.navigationController pushViewController:vc animated:true];
+                 }];
 }
 -(void)showMyGoals:(id)sender {
-    MyGoalsVC *vc =[[MyGoalsVC alloc] initWithNibName:Nil bundle:nil];
-    vc.title = @"MY GOALS";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    // get the bets from the server
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"goals", @"restriction",
+                                  ownerString, @"user",
+                                  nil];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:@"bets" withParams:params
+                 onCompletion:^(NSDictionary *json) {
+                     //success
+                     MyGoalsVC *vc =[[MyGoalsVC alloc] initWithGoals:(NSArray *)json];
+                     vc.title = @"MY GOALS";
+                     // Show it.
+                     [self.navigationController pushViewController:vc animated:true];
+                 }];
 }
 
 @end

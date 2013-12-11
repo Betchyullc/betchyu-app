@@ -11,6 +11,7 @@
 #import "BigButton.h"
 #import "Bet.h"
 #import "Invite.h"
+#import "API.h"
 
 @interface MyBetsVC ()
 
@@ -22,33 +23,12 @@
 @synthesize openBets;
 @synthesize openInvites;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithOngoingBets:(NSArray *)passedOngoingBets
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        // Useful vars
-        NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
-        NSManagedObjectContext *moc = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
-        NSEntityDescription *e = [NSEntityDescription entityForName:@"Bet" inManagedObjectContext:moc];
-        
-        // get the ongoingBets
-        NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-        fetch.entity = e;
-        fetch.predicate = [NSPredicate predicateWithFormat:@"(opponent == %@)", ownerString];
-        NSError *err;
-        ongoingBets = [moc executeFetchRequest:fetch error:&err];
-        
-        // Get teh openInvites
-        fetch.entity = [NSEntityDescription entityForName:@"Invite" inManagedObjectContext:moc];
-        fetch.predicate = [NSPredicate predicateWithFormat:@"invitee == %@", ownerString];
-        openInvites = [moc executeFetchRequest:fetch error:&err];
-        
-        for (Invite *inv in openInvites){
-            NSLog(@"status: %@", inv.status);
-            NSLog(@"bet: %@", inv.bet);
-            NSLog(@"betNoun: %@", inv.bet.betNoun);
-        }
+        self.ongoingBets = passedOngoingBets;
     }
     return self;
 }

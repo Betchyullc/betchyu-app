@@ -14,5 +14,6 @@
 @property NSString * ownerId;
 @property NSManagedObjectContext * moc;
 
+-(id)initWithGoals:(NSArray *)goalsList;
 
 @end
