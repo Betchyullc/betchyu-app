@@ -8,8 +8,6 @@
 
 #import "BetFinalizeVC.h"
 #import "AppDelegate.h"
-#import "Bet.h"
-#import "Invite.h"
 #import "API.h"
 
 @interface BetFinalizeVC () <NSFetchedResultsControllerDelegate>

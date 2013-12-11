@@ -9,8 +9,6 @@
 #import "MyBetsVC.h"
 #import "AppDelegate.h"
 #import "BigButton.h"
-#import "Bet.h"
-#import "Invite.h"
 #import "API.h"
 
 @interface MyBetsVC ()
@@ -23,20 +21,20 @@
 @synthesize openBets;
 @synthesize openInvites;
 
-- (id)initWithOngoingBets:(NSArray *)passedOngoingBets
+- (id)initWithOngoingBets:(NSArray *)passedOngoingBets andOpenBets:(NSArray *)openBetsList
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         self.ongoingBets = passedOngoingBets;
+        self.openBets    = openBetsList;
     }
     return self;
 }
 
 - (void)loadView {
     // Create main UIScrollView (the container for home page buttons)
-    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
@@ -47,6 +45,8 @@
     NSString *betTitle;
     int c = ongoingBets.count;
     // Make the Ongoing Bets Button-list
+    UIScrollView *ongoingBetsView = [[UIScrollView alloc] initWithFrame:CGRectMake(mainView.frame.origin.x, mainView.frame.origin.y+40, mainView.frame.size.width, mainView.frame.size.height /2)];
+    ongoingBetsView.contentSize = CGSizeMake(screenWidth, 800);
     for (int i = 0; i < c; i++) {
         NSManagedObject *obj = [ongoingBets objectAtIndex:i];
         
@@ -71,9 +71,41 @@
         /*[button addTarget:self
                    action:@selector(setBetDetails:)
          forControlEvents:UIControlEventTouchUpInside];*/
-        [mainView addSubview:button];
+        [ongoingBetsView addSubview:button];
     }
-
+    
+    // Make the Ongoing Bets Button-list
+    UIScrollView *openBetsView = [[UIScrollView alloc] initWithFrame:CGRectMake(mainView.frame.origin.x, mainView.frame.origin.y+(mainView.frame.size.height/2)+40, mainView.frame.size.width, mainView.frame.size.height /2)];
+    openBetsView.contentSize = CGSizeMake(screenWidth, 800);
+    for (int i = 0; i < c; i++) {
+        NSManagedObject *obj = [openBets objectAtIndex:i];
+        
+        betTitle = [[[[[obj valueForKey:@"betVerb"] stringByAppendingString:
+                       @" " ] stringByAppendingString:
+                      [[obj valueForKey:@"betAmount"] stringValue]] stringByAppendingString:
+                     @" "] stringByAppendingString:
+                    [obj valueForKey:@"betNoun"]];
+        
+        CGRect buttonFrame;
+        if (c < 3) {
+            buttonFrame = CGRectMake(20, ((screenHeight/3)*i +10), (screenWidth - 40), (screenHeight / 3) -10);
+        } else if (c < 5) {
+            buttonFrame = CGRectMake(20, ((screenHeight/c)*i +10), (screenWidth - 40), (screenHeight / c) -10);
+        } else {
+            buttonFrame = CGRectMake(20, ((screenHeight/5)*i +10), (screenWidth - 40), (screenHeight / 5) -10);
+        }
+        
+        BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame
+                                                     primary:1
+                                                       title:betTitle];
+        /*[button addTarget:self
+         action:@selector(setBetDetails:)
+         forControlEvents:UIControlEventTouchUpInside];*/
+        [openBetsView addSubview:button];
+    }
+    
+    [mainView addSubview:openBetsView];
+    [mainView addSubview:ongoingBetsView];
     
     self.view = mainView;
 }

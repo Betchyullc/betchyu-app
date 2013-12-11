@@ -122,7 +122,7 @@
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  @"ongoingBets", @"restriction",
+                                  @"ongoingBetsandopenBets", @"restriction",
                                   ownerString, @"user",
                                   nil];
     
@@ -130,7 +130,8 @@
     [[API sharedInstance] get:@"bets" withParams:params
                  onCompletion:^(NSDictionary *json) {
                          //success
-                         MyBetsVC *vc =[[MyBetsVC alloc] initWithOngoingBets:(NSArray *)json];
+                     MyBetsVC *vc =[[MyBetsVC alloc] initWithOngoingBets:(NSArray *)[json objectForKey:@"ongoingBets"]
+                                                             andOpenBets:(NSArray *)[json objectForKey:@"openBets"]];
                          vc.title = @"MY BETS";
                          // Show it.
                          [self.navigationController pushViewController:vc animated:true];

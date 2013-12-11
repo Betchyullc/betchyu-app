@@ -9,7 +9,6 @@
 #import "MyGoalsVC.h"
 #import "BigButton.h"
 #import "AppDelegate.h"
-#import "Bet.h"
 
 @interface MyGoalsVC ()
 
@@ -46,11 +45,16 @@
     for (int i = 0; i < bets.count; i++) {
         NSManagedObject *obj = [bets objectAtIndex:i];
         
-        betTitle = [[[[[obj valueForKey:@"betVerb"] stringByAppendingString:
-                       @" " ] stringByAppendingString:
-                      [[obj valueForKey:@"betAmount"] stringValue]] stringByAppendingString:
-                     @" "] stringByAppendingString:
-                    [obj valueForKey:@"betNoun"]];
+        if ([[obj valueForKey:@"betNoun"] isEqualToString:@"cigarettes"]
+            || [[obj valueForKey:@"betNoun"] isEqualToString:@"Smoking"]) {
+            betTitle = @"Stop Smoking";
+        } else {
+            betTitle = [[[[[obj valueForKey:@"betVerb"] stringByAppendingString:
+                           @" " ] stringByAppendingString:
+                          [[obj valueForKey:@"betAmount"] stringValue]] stringByAppendingString:
+                         @" "] stringByAppendingString:
+                        [obj valueForKey:@"betNoun"]];
+        }
         CGRect buttonFrame;
         if (bets.count < 3) {
             buttonFrame = CGRectMake(20, ((screenHeight/3)*i +10), (screenWidth - 40), (screenHeight / 3) -10);
