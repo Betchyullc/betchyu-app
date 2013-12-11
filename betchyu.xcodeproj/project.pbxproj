@@ -42,6 +42,7 @@
 		892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F0185688EF0052A7C0 /* MyBetsVC.m */; };
 		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
 		892154FA185767250052A7C0 /* Invite.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F9185767250052A7C0 /* Invite.m */; };
+		89B1A6AD1858E4AE006A656F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6AC1858E4AE006A656F /* API.m */; };
 		89B3F5B41850EB320055F8DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B31850EB320055F8DB /* Foundation.framework */; };
 		89B3F5B61850EB320055F8DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B51850EB320055F8DB /* CoreGraphics.framework */; };
 		89B3F5B81850EB320055F8DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B71850EB320055F8DB /* UIKit.framework */; };
@@ -122,6 +123,8 @@
 		892154F6185760240052A7C0 /* MyGoalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoalsVC.m; sourceTree = "<group>"; };
 		892154F8185767250052A7C0 /* Invite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invite.h; sourceTree = "<group>"; };
 		892154F9185767250052A7C0 /* Invite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invite.m; sourceTree = "<group>"; };
+		89B1A6AB1858E4AE006A656F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
+		89B1A6AC1858E4AE006A656F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
 		89B3F5B01850EB320055F8DB /* betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -208,6 +211,8 @@
 				892154A81850F36F0052A7C0 /* iBetchyuAPIClient.m */,
 				892154A91850F36F0052A7C0 /* iBetchyuIncrementalStore.h */,
 				892154AA1850F36F0052A7C0 /* iBetchyuIncrementalStore.m */,
+				89B1A6AB1858E4AE006A656F /* API.h */,
+				89B1A6AC1858E4AE006A656F /* API.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -518,6 +523,7 @@
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
 				892154B21850F36F0052A7C0 /* BetStakeVC.m in Sources */,
+				89B1A6AD1858E4AE006A656F /* API.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
