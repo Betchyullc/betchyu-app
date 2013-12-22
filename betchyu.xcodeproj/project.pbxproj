@@ -51,6 +51,8 @@
 		89B1A74E186674D7006A656F /* MTStackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A745186674D7006A656F /* MTStackViewController.m */; };
 		89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A748186674D7006A656F /* MTZoomContainerView.m */; };
 		89B1A7521866A01A006A656F /* FlyoutMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A7511866A01A006A656F /* FlyoutMenuVC.m */; };
+		89B1A75418675E6E006A656F /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A75318675E6E006A656F /* menu.png */; };
+		89B1A757186767E9006A656F /* ProfileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A756186767E9006A656F /* ProfileView.m */; };
 		89B3F5B41850EB320055F8DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B31850EB320055F8DB /* Foundation.framework */; };
 		89B3F5B61850EB320055F8DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B51850EB320055F8DB /* CoreGraphics.framework */; };
 		89B3F5B81850EB320055F8DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B71850EB320055F8DB /* UIKit.framework */; };
@@ -147,6 +149,9 @@
 		89B1A748186674D7006A656F /* MTZoomContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTZoomContainerView.m; sourceTree = "<group>"; };
 		89B1A7501866A01A006A656F /* FlyoutMenuVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyoutMenuVC.h; sourceTree = "<group>"; };
 		89B1A7511866A01A006A656F /* FlyoutMenuVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyoutMenuVC.m; sourceTree = "<group>"; };
+		89B1A75318675E6E006A656F /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		89B1A755186767E9006A656F /* ProfileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileView.h; sourceTree = "<group>"; };
+		89B1A756186767E9006A656F /* ProfileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileView.m; sourceTree = "<group>"; };
 		89B3F5B01850EB320055F8DB /* betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -229,6 +234,8 @@
 		892154BD1850F42A0052A7C0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				89B1A755186767E9006A656F /* ProfileView.h */,
+				89B1A756186767E9006A656F /* ProfileView.m */,
 				892154A51850F36F0052A7C0 /* BigButton.h */,
 				892154A61850F36F0052A7C0 /* BigButton.m */,
 			);
@@ -276,6 +283,7 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				89B1A75318675E6E006A656F /* menu.png */,
 				89B1A6BE1864FD83006A656F /* handshake.jpg */,
 				89B1A6BC1864F789006A656F /* star.png */,
 				89B1A6BA1864ACC7006A656F /* logo.png */,
@@ -500,6 +508,7 @@
 				892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */,
 				892154D2185261270052A7C0 /* ProximaNova-Bold.otf in Resources */,
 				892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */,
+				89B1A75418675E6E006A656F /* menu.png in Resources */,
 				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
 				89B1A6BD1864F789006A656F /* star.png in Resources */,
@@ -586,6 +595,7 @@
 				89B1A74B186674D7006A656F /* ShadowView.m in Sources */,
 				89B1A7521866A01A006A656F /* FlyoutMenuVC.m in Sources */,
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
+				89B1A757186767E9006A656F /* ProfileView.m in Sources */,
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
 				89B1A6B01859236C006A656F /* API.m in Sources */,

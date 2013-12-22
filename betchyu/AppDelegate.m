@@ -68,9 +68,11 @@
               
               CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
               FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
+              UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
+              flyOutNav.navigationBarHidden = YES;
               
               [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
-              [stackViewController setLeftViewController:menuViewController];
+              [stackViewController setLeftViewController:flyOutNav];
               
               self.mainViewController = [[ViewController alloc] initWithInviteNumber:[[json valueForKey:@"count"] stringValue]];
               self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];

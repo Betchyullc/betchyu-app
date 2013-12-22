@@ -102,14 +102,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+    /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithTitle:@"Logout"
                                               style:UIBarButtonItemStyleBordered
                                               target:self
-                                              action:@selector(logoutButtonWasPressed:)];
+                                              action:@selector(logoutButtonWasPressed:)];*/
+    FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
+                                   initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
+                                   pictureCropping:FBProfilePictureCroppingOriginal];
+    mypic.frame = CGRectMake(0, 0, 26, 26);
+    mypic.layer.cornerRadius = 13;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];
     self.navigationItem.title = @"BETCHYU";
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu.png"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(showMenu:)];
 }
 
 -(void)showMenu:(id)sender {
@@ -119,9 +127,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
--(void) logoutButtonWasPressed:(id)sender {
-    [FBSession.activeSession closeAndClearTokenInformation];
 }
 
 -(IBAction)createGoal:(id)sender {
