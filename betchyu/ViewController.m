@@ -14,6 +14,7 @@
 #import "MyBetsVC.h"
 #import "MyGoalsVC.h"
 #import "API.h"
+#import "MTStackViewController.h"
 
 @interface ViewController ()
 
@@ -107,6 +108,12 @@
                                               target:self
                                               action:@selector(logoutButtonWasPressed:)];
     self.navigationItem.title = @"BETCHYU";
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu" style:UIBarButtonItemStylePlain target:self action:@selector(showMenu:)];
+}
+
+-(void)showMenu:(id)sender {
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

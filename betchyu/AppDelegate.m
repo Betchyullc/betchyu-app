@@ -4,6 +4,9 @@
 #import "LoginViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "API.h"
+#import "MTZoomContainerView.h"
+#import "MTStackViewController.h"
+#import "FlyoutMenuVC.h"
 
 @implementation AppDelegate
 
@@ -45,6 +48,7 @@
              NSLog(@"inner: %@", user.id);
          } else {
              self.ownId = @"";
+             [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding, try logging out and logging back in" delegate:Nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
          }
          
          NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -57,11 +61,24 @@
           ^(NSDictionary *json) {
               //success
               self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-              // set up view controllers
+              
+              MTStackViewController *stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
+              [stackViewController setAnimationDurationProportionalToPosition:YES];
+              stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
+              
+              CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
+              FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
+              
+              [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
+              [stackViewController setLeftViewController:menuViewController];
+              
               self.mainViewController = [[ViewController alloc] initWithInviteNumber:[[json valueForKey:@"count"] stringValue]];
-              self.navController = [[UINavigationController alloc]
-                                    initWithRootViewController:self.mainViewController];
-              self.window.rootViewController = self.navController;
+              self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
+              [stackViewController setContentViewController:self.navController];
+              
+              //stackViewController.contentViewController = self.mainViewController;
+              
+              [self.window setRootViewController:stackViewController];
               [self.window makeKeyAndVisible];
           }];
          
