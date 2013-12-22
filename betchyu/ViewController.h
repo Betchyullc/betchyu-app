@@ -10,4 +10,8 @@
 
 @interface ViewController : UIViewController
 
+@property NSString * numberOfInvites;
+
+- (id)initWithInviteNumber:(NSString *)numInvs;
+
 @end

@@ -9,6 +9,8 @@
 #import "MyGoalsVC.h"
 #import "BigButton.h"
 #import "AppDelegate.h"
+#import "ExistingBetDetailsVC.h"
+#import "API.h"
 
 @interface MyGoalsVC ()
 
@@ -30,15 +32,15 @@
 }
 
 - (void)loadView {
-    // Create main UIScrollView (the container for home page buttons)
-    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
-    
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
     //CGRect screenRect = self.view.frame;
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height - 50; // 50 px is the navbar at the top + 10 px bottom border
+    
+    // Create main UIScrollView (the container for home page buttons)
+    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    mainView.contentSize   = CGSizeMake(screenWidth, 140*bets.count);
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     NSString *betTitle;
     // Make the Buttons list
@@ -55,27 +57,35 @@
                          @" "] stringByAppendingString:
                         [obj valueForKey:@"betNoun"]];
         }
-        CGRect buttonFrame;
-        if (bets.count < 3) {
-            buttonFrame = CGRectMake(20, ((screenHeight/3)*i +10), (screenWidth - 40), (screenHeight / 3) -10);
-        } else if (bets.count < 5) {
-            buttonFrame = CGRectMake(20, ((screenHeight/bets.count)*i +10), (screenWidth - 40), (screenHeight / bets.count) -10);
-        } else {
-            buttonFrame = CGRectMake(20, ((screenHeight/5)*i +10), (screenWidth - 40), (screenHeight / 5) -10);
-        }
+        CGRect buttonFrame = CGRectMake(20, (140*i +10), (screenWidth - 40), 140 -10);
         
         BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame
                                                      primary:1
-                                                       title:betTitle];
+                                                       title:betTitle
+                                                       ident:[obj valueForKey:@"id"]];
         
-        /*[button addTarget:self
-         action:@selector(setBetDetails:)
-         forControlEvents:UIControlEventTouchUpInside];*/
+        [button addTarget:self
+         action:@selector(viewBetDetails:)
+         forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
     }
     
     
     self.view = mainView;
+}
+
+-(void)viewBetDetails:(BigButton *)sender {
+    // get the bet from the server
+    NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:path withParams:nil
+                 onCompletion:^(NSDictionary *json) {
+                     //success
+                     ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:json];
+                     // Show it.
+                     [self.navigationController pushViewController:vc animated:true];
+                 }];
 }
 
 - (void)viewDidLoad {

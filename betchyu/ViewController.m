@@ -28,9 +28,10 @@
 @implementation ViewController
 
 @synthesize createGoalController = _createGoalController;
+@synthesize numberOfInvites;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nil bundle:nibBundleOrNil];
+- (id)initWithInviteNumber:(NSString *)numInvs {
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         if (!FBSession.activeSession.isOpen) {
@@ -49,6 +50,7 @@
              }
          }];
         
+        self.numberOfInvites = numInvs;
     }
     
     return self;
@@ -57,7 +59,7 @@
 - (void) loadView {
     // Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    mainView.contentSize   = CGSizeMake(320, 600);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // Make the homepage Buttons
@@ -75,6 +77,16 @@
                    action:@selector(showMyBets:)
          forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myBets];
+    
+    UILabel *numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(281, 169, 30, 30)];
+    numNotif.text       = numberOfInvites;
+    numNotif.textAlignment      = UITextAlignmentCenter;
+    numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+    numNotif.textColor  = [UIColor whiteColor];
+    numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
+    numNotif.layer.cornerRadius = 15;
+    [mainView addSubview:numNotif];
+    
     // "Create Goal" button
     BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 340, 280, 140)
                                                      primary:0 title:@"CREATE\nGOAL"];

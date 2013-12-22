@@ -10,8 +10,14 @@
 
 @interface BigButton : UIButton
 
+@property id idKey;
+
 - (id)initWithFrame:(CGRect)frame
             primary:(int)code
               title:(NSString *)title;
+- (id)initWithFrame:(CGRect)frame
+            primary:(int)code
+              title:(NSString *)title
+              ident:(id)ident;
 
 @end

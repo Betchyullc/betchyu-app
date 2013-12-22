@@ -15,7 +15,6 @@
 		892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A41850F36F0052A7C0 /* BetTypeViewController.m */; };
 		892154B41850F36F0052A7C0 /* BigButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A61850F36F0052A7C0 /* BigButton.m */; };
 		892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AC1850F36F0052A7C0 /* LoginViewController.m */; };
-		892154B81850F36F0052A7C0 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892154AD1850F36F0052A7C0 /* LoginViewController.xib */; };
 		892154B91850F36F0052A7C0 /* TempBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AF1850F36F0052A7C0 /* TempBet.m */; };
 		892154BF1850F4900052A7C0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892154BE1850F4900052A7C0 /* FacebookSDK.framework */; };
 		892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154C2185261270052A7C0 /* ProximaNova-Black.otf */; };
@@ -39,6 +38,18 @@
 		892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F0185688EF0052A7C0 /* MyBetsVC.m */; };
 		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
 		89B1A6B01859236C006A656F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6AF1859236C006A656F /* API.m */; };
+		89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */; };
+		89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B8186355A3006A656F /* BetTrackingVC.m */; };
+		89B1A6BB1864ACC7006A656F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BA1864ACC7006A656F /* logo.png */; };
+		89B1A6BD1864F789006A656F /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BC1864F789006A656F /* star.png */; };
+		89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BE1864FD83006A656F /* handshake.jpg */; };
+		89B1A749186674D7006A656F /* FacingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A73A186674D7006A656F /* FacingView.m */; };
+		89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A73C186674D7006A656F /* MTStackFoldView.m */; };
+		89B1A74B186674D7006A656F /* ShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A73F186674D7006A656F /* ShadowView.m */; };
+		89B1A74C186674D7006A656F /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A741186674D7006A656F /* UIView+Screenshot.m */; };
+		89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A743186674D7006A656F /* MTStackDefaultContainerView.m */; };
+		89B1A74E186674D7006A656F /* MTStackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A745186674D7006A656F /* MTStackViewController.m */; };
+		89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A748186674D7006A656F /* MTZoomContainerView.m */; };
 		89B3F5B41850EB320055F8DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B31850EB320055F8DB /* Foundation.framework */; };
 		89B3F5B61850EB320055F8DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B51850EB320055F8DB /* CoreGraphics.framework */; };
 		89B3F5B81850EB320055F8DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B71850EB320055F8DB /* UIKit.framework */; };
@@ -84,7 +95,6 @@
 		892154A61850F36F0052A7C0 /* BigButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigButton.m; sourceTree = "<group>"; };
 		892154AB1850F36F0052A7C0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		892154AC1850F36F0052A7C0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		892154AD1850F36F0052A7C0 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		892154AE1850F36F0052A7C0 /* TempBet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempBet.h; sourceTree = "<group>"; };
 		892154AF1850F36F0052A7C0 /* TempBet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TempBet.m; sourceTree = "<group>"; };
 		892154BE1850F4900052A7C0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -112,6 +122,28 @@
 		892154F6185760240052A7C0 /* MyGoalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoalsVC.m; sourceTree = "<group>"; };
 		89B1A6AE1859236C006A656F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = API.h; path = ../API.h; sourceTree = "<group>"; };
 		89B1A6AF1859236C006A656F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = API.m; path = ../API.m; sourceTree = "<group>"; };
+		89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExistingBetDetailsVC.h; sourceTree = "<group>"; };
+		89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExistingBetDetailsVC.m; sourceTree = "<group>"; };
+		89B1A6B7186355A3006A656F /* BetTrackingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetTrackingVC.h; sourceTree = "<group>"; };
+		89B1A6B8186355A3006A656F /* BetTrackingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetTrackingVC.m; sourceTree = "<group>"; };
+		89B1A6BA1864ACC7006A656F /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		89B1A6BC1864F789006A656F /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		89B1A6BE1864FD83006A656F /* handshake.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = handshake.jpg; sourceTree = "<group>"; };
+		89B1A739186674D7006A656F /* FacingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacingView.h; sourceTree = "<group>"; };
+		89B1A73A186674D7006A656F /* FacingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacingView.m; sourceTree = "<group>"; };
+		89B1A73B186674D7006A656F /* MTStackFoldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTStackFoldView.h; sourceTree = "<group>"; };
+		89B1A73C186674D7006A656F /* MTStackFoldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTStackFoldView.m; sourceTree = "<group>"; };
+		89B1A73D186674D7006A656F /* PaperFoldConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaperFoldConstants.h; sourceTree = "<group>"; };
+		89B1A73E186674D7006A656F /* ShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowView.h; sourceTree = "<group>"; };
+		89B1A73F186674D7006A656F /* ShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowView.m; sourceTree = "<group>"; };
+		89B1A740186674D7006A656F /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		89B1A741186674D7006A656F /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
+		89B1A742186674D7006A656F /* MTStackDefaultContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTStackDefaultContainerView.h; sourceTree = "<group>"; };
+		89B1A743186674D7006A656F /* MTStackDefaultContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTStackDefaultContainerView.m; sourceTree = "<group>"; };
+		89B1A744186674D7006A656F /* MTStackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTStackViewController.h; sourceTree = "<group>"; };
+		89B1A745186674D7006A656F /* MTStackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTStackViewController.m; sourceTree = "<group>"; };
+		89B1A747186674D7006A656F /* MTZoomContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTZoomContainerView.h; sourceTree = "<group>"; };
+		89B1A748186674D7006A656F /* MTZoomContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTZoomContainerView.m; sourceTree = "<group>"; };
 		89B3F5B01850EB320055F8DB /* betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -163,6 +195,10 @@
 		892154BA1850F3CD0052A7C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				89B1A6B7186355A3006A656F /* BetTrackingVC.h */,
+				89B1A6B8186355A3006A656F /* BetTrackingVC.m */,
+				89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */,
+				89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */,
 				892154981850F2E70052A7C0 /* ViewController.h */,
 				892154991850F2E70052A7C0 /* ViewController.m */,
 				892154C018524E290052A7C0 /* Create Bet Flow */,
@@ -190,7 +226,6 @@
 			children = (
 				892154A51850F36F0052A7C0 /* BigButton.h */,
 				892154A61850F36F0052A7C0 /* BigButton.m */,
-				892154AD1850F36F0052A7C0 /* LoginViewController.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -236,6 +271,9 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				89B1A6BE1864FD83006A656F /* handshake.jpg */,
+				89B1A6BC1864F789006A656F /* star.png */,
+				89B1A6BA1864ACC7006A656F /* logo.png */,
 				892154E7185532440052A7C0 /* Lose Weight.jpg */,
 				892154E8185532440052A7C0 /* Run More.jpg */,
 				892154E9185532440052A7C0 /* Stop Smoking.jpg */,
@@ -251,6 +289,44 @@
 				89B1A6AF1859236C006A656F /* API.m */,
 			);
 			name = Networking;
+			sourceTree = "<group>";
+		};
+		89B1A737186674D7006A656F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				89B1A738186674D7006A656F /* FoldView */,
+				89B1A742186674D7006A656F /* MTStackDefaultContainerView.h */,
+				89B1A743186674D7006A656F /* MTStackDefaultContainerView.m */,
+				89B1A744186674D7006A656F /* MTStackViewController.h */,
+				89B1A745186674D7006A656F /* MTStackViewController.m */,
+				89B1A746186674D7006A656F /* ZoomView */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		89B1A738186674D7006A656F /* FoldView */ = {
+			isa = PBXGroup;
+			children = (
+				89B1A739186674D7006A656F /* FacingView.h */,
+				89B1A73A186674D7006A656F /* FacingView.m */,
+				89B1A73B186674D7006A656F /* MTStackFoldView.h */,
+				89B1A73C186674D7006A656F /* MTStackFoldView.m */,
+				89B1A73D186674D7006A656F /* PaperFoldConstants.h */,
+				89B1A73E186674D7006A656F /* ShadowView.h */,
+				89B1A73F186674D7006A656F /* ShadowView.m */,
+				89B1A740186674D7006A656F /* UIView+Screenshot.h */,
+				89B1A741186674D7006A656F /* UIView+Screenshot.m */,
+			);
+			path = FoldView;
+			sourceTree = "<group>";
+		};
+		89B1A746186674D7006A656F /* ZoomView */ = {
+			isa = PBXGroup;
+			children = (
+				89B1A747186674D7006A656F /* MTZoomContainerView.h */,
+				89B1A748186674D7006A656F /* MTZoomContainerView.m */,
+			);
+			path = ZoomView;
 			sourceTree = "<group>";
 		};
 		89B3F5A71850EB310055F8DB = {
@@ -276,6 +352,7 @@
 		89B3F5B21850EB320055F8DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89B1A737186674D7006A656F /* Classes */,
 				892154BE1850F4900052A7C0 /* FacebookSDK.framework */,
 				89B3F5B31850EB320055F8DB /* Foundation.framework */,
 				89B3F5B51850EB320055F8DB /* CoreGraphics.framework */,
@@ -412,6 +489,7 @@
 			files = (
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
+				89B1A6BB1864ACC7006A656F /* logo.png in Resources */,
 				892154DB185261270052A7C0 /* ProximaNova-SemiboldIt.otf in Resources */,
 				89B3F5CB1850EB320055F8DB /* Images.xcassets in Resources */,
 				892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */,
@@ -419,14 +497,15 @@
 				892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */,
 				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
+				89B1A6BD1864F789006A656F /* star.png in Resources */,
 				892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */,
+				89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */,
 				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
 				892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */,
 				892154EE185532440052A7C0 /* Workout More.jpg in Resources */,
 				892154ED185532440052A7C0 /* Stop Smoking.jpg in Resources */,
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
-				892154B81850F36F0052A7C0 /* LoginViewController.xib in Resources */,
 				892154EC185532440052A7C0 /* Run More.jpg in Resources */,
 				892154EB185532440052A7C0 /* Lose Weight.jpg in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
@@ -482,15 +561,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89B1A749186674D7006A656F /* FacingView.m in Sources */,
 				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,
+				89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */,
 				892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */,
+				89B1A74E186674D7006A656F /* MTStackViewController.m in Sources */,
+				89B1A74C186674D7006A656F /* UIView+Screenshot.m in Sources */,
 				892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				8921549C1850F2E70052A7C0 /* ViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
+				89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */,
 				892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */,
+				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
+				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,
+				89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */,
+				89B1A74B186674D7006A656F /* ShadowView.m in Sources */,
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,

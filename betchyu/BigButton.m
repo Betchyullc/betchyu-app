@@ -10,6 +10,14 @@
 
 @implementation BigButton
 
+@synthesize idKey;
+
+- (id)initWithFrame:(CGRect)frame primary:(int)code title:(NSString *)title ident:(id)ident {
+    self.idKey = ident;
+    self = [self initWithFrame:frame primary:code title:title];
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
             primary:(int)code
               title:(NSString *)title

@@ -3,6 +3,7 @@
 #import "ViewController.h"
 #import "LoginViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "API.h"
 
 @implementation AppDelegate
 
@@ -21,15 +22,6 @@
     [NSURLCache setSharedURLCache:URLCache];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // set up view controllers
-    self.mainViewController = [[ViewController alloc]
-                               initWithNibName:@"ViewController" bundle:nil];
-    self.navController = [[UINavigationController alloc]
-                          initWithRootViewController:self.mainViewController];
-    self.window.rootViewController = self.navController;
-    [self.window makeKeyAndVisible];
     
     // See if the app has a valid token for the current state.
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
@@ -54,6 +46,25 @@
          } else {
              self.ownId = @"";
          }
+         
+         NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"count", @"restriction",
+                                       self.ownId, @"user",
+                                       nil];
+         
+         //make the call to the web API
+         [[API sharedInstance] get:@"invites" withParams:params onCompletion:
+          ^(NSDictionary *json) {
+              //success
+              self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+              // set up view controllers
+              self.mainViewController = [[ViewController alloc] initWithInviteNumber:[[json valueForKey:@"count"] stringValue]];
+              self.navController = [[UINavigationController alloc]
+                                    initWithRootViewController:self.mainViewController];
+              self.window.rootViewController = self.navController;
+              [self.window makeKeyAndVisible];
+          }];
+         
      }];
     
     // Setup the navigation bar appearance
@@ -134,7 +145,7 @@
     // complete. In that case, notify the login view so it can update its UI appropriately.
     if (![modalViewController isKindOfClass:[LoginViewController class]]) {
         LoginViewController* loginViewController = [[LoginViewController alloc]
-                                                    initWithNibName:@"LoginViewController"
+                                                    initWithNibName:nil
                                                     bundle:nil];
         [topViewController presentViewController:loginViewController animated:NO completion:nil];
     } else {

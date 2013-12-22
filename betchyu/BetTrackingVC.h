@@ -1,0 +1,13 @@
+//
+//  BetTrackingVC.h
+//  betchyu
+//
+//  Created by Adam Baratz on 12/19/13.
+//  Copyright (c) 2013 BetchyuLLC. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface BetTrackingVC : UIViewController
+
+@end
