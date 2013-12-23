@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "ExistingBetDetailsVC.h"
 #import "API.h"
+#import "BetTrackingVC.h"
 
 @interface MyGoalsVC ()
 
@@ -82,7 +83,7 @@
     [[API sharedInstance] get:path withParams:nil
                  onCompletion:^(NSDictionary *json) {
                      //success
-                     ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:json];
+                     BetTrackingVC *vc =[[BetTrackingVC alloc] initWithJSON:json];
                      // Show it.
                      [self.navigationController pushViewController:vc animated:true];
                  }];

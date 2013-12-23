@@ -8,6 +8,7 @@
 
 #import "FlyoutMenuVC.h"
 #import "ProfileView.h"
+#import "HowItWorks.h"
 
 @interface FlyoutMenuVC ()
 
@@ -28,7 +29,7 @@
 
 -(void)loadView {
     self.view = [[UIView alloc] initWithFrame:self.passedFrame];
-    self.view.backgroundColor = [UIColor colorWithRed:(95/255.0) green:(95/255.0) blue:(95/255.0) alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:(69/255.0) green:(69/255.0) blue:(69/255.0) alpha:1.0];
     UIView *lineView;
     ///////////////////////
     // My Profile Button
@@ -121,11 +122,14 @@
 -(void) profileButtonWasPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
     vc.view = [[ProfileView alloc] initWithFrame:self.passedFrame AndOwner:self];
-    vc.title = @"MY GOALS";
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }
 -(void) howItWorksPressed:(id)sender {
+    UIViewController *vc =[[UIViewController alloc] init];
+    vc.view = [[HowItWorks alloc] initWithFrame:self.passedFrame AndOwner:self];
+    // Show it.
+    [self.navigationController pushViewController:vc animated:true];
     
 }
 -(void) aboutUsPressed:(id)sender {

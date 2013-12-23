@@ -22,7 +22,7 @@
         
         UIView *lineView;  //used for drawing lines
         
-        self.backgroundColor = [UIColor colorWithRed:(95/255.0) green:(95/255.0) blue:(95/255.0) alpha:1.0];
+        self.backgroundColor = [UIColor colorWithRed:(69/255.0) green:(69/255.0) blue:(69/255.0) alpha:1.0];
         
         /////////////////////
         // The back button

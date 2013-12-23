@@ -55,7 +55,7 @@
     // Make the homepage Buttons
     // "facebook login" button
     UIButton *login = [[UIButton alloc] initWithFrame:CGRectMake(40, 350, 240, 50)];
-    login.backgroundColor = [UIColor blueColor];
+    login.backgroundColor = [UIColor colorWithRed:(71.0/255.0) green:(99.0/255.0) blue:(158.0/255.0) alpha:1.0];
     login.layer.cornerRadius = 6;
     login.clipsToBounds = YES;
     [login setTitle:@"SIGN IN WITH FACEBOOK" forState:UIControlStateNormal];
