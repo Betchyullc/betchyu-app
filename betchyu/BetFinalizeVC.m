@@ -45,9 +45,14 @@
     shake.frame = CGRectMake(0, 0, 320, 280);
     
     // The bet summary text
-    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, 320, 70)];
+    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, 320, 100)];
     betDescription.textAlignment = NSTextAlignmentCenter;
     betDescription.textColor     = [UIColor whiteColor];
+    betDescription.font          = [UIFont fontWithName:@"ProximaNova-Black" size:30];
+    betDescription.numberOfLines = 0;
+    betDescription.lineBreakMode = NSLineBreakByWordWrapping;
+    betDescription.shadowColor   = [UIColor blackColor];
+    betDescription.shadowOffset  = CGSizeMake(-1, 1);
     int days = (int)[bet.endDate timeIntervalSinceNow]/(24*60*60); // # of days the challenge will last
     betDescription.text          = [[[[[[[bet.betVerb stringByAppendingString:
                                           @" " ] stringByAppendingString:
@@ -59,13 +64,17 @@
                                     @" days"];
     
     // The stake summary text
-    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, 300, 80)];
+    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, 300, 90)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
-    stakeDescription.text          = [[[@"If I successfully complete my challenge, you owe me " stringByAppendingString:
-                                        [bet.ownStakeAmount stringValue]] stringByAppendingString:
-                                       @" "] stringByAppendingString:
-                                      bet.ownStakeType];
+    stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@", bet.ownStakeAmount, bet.ownStakeType];
+    } else if ([bet.ownStakeAmount integerValue] == 1) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@", bet.ownStakeAmount, bet.ownStakeType];
+    } else {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s", bet.ownStakeAmount, bet.ownStakeType];
+    }
     
     // Add the subviews
     [mainView addSubview:shake];    // add the handshake image first, so it is under the other stuff
@@ -93,6 +102,9 @@
                  name.textAlignment = NSTextAlignmentCenter;
                  name.textColor = [UIColor whiteColor];
                  name.text      = user.first_name;
+                 name.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+                 name.shadowColor   = [UIColor blackColor];
+                 name.shadowOffset  = CGSizeMake(-1, 1);
                  [mainView addSubview:name];
              }
          }];
@@ -110,6 +122,9 @@
         name.textAlignment = NSTextAlignmentCenter;
         name.textColor = [UIColor whiteColor];
         name.text      = ((NSDictionary<FBGraphUser> *)[bet.friends objectAtIndex:0]).first_name;
+        name.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        name.shadowColor   = [UIColor blackColor];
+        name.shadowOffset  = CGSizeMake(-1, 1);
         [mainView addSubview:name];
     }
     

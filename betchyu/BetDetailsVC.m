@@ -202,9 +202,19 @@
 }
 
 - (void) updateSlider1Value:(id)sender {
-    int amount = (int)((((UISlider *)sender).value)*10);
+    int amount;
+    if ([bet.betVerb isEqualToString:@"Run"]) {
+        amount = (int)((((UISlider *)sender).value)*199)+1;
+    } else if ([bet.betVerb isEqualToString:@"Lose"]) {
+        amount = (int)((((UISlider *)sender).value)*19)+1;
+    } else if ([bet.betVerb isEqualToString:@"Workout"]) {
+        amount = (int)((((UISlider *)sender).value)*59)+1;
+    } else {
+        amount = (int)((((UISlider *)sender).value)*10);
+    }
+    
     bet.betAmount = [NSNumber numberWithInt:amount];
-    detailLabel1.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.betNoun]];
+    detailLabel1.text = [NSString stringWithFormat:@"%i %@", amount, bet.betNoun];
 }
 - (void) updateSlider2Value:(id)sender {
     int days = (int)((((UISlider *)sender).value)*29)+1;

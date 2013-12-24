@@ -29,6 +29,7 @@
         // Custom initialization
         stakeImageHeight = 280;
         bet = betObj;
+        currentStake = 1;
     }
     return self;
 }
@@ -49,14 +50,21 @@
     
     UIButton *up = [[UIButton alloc] initWithFrame:CGRectMake(130, 20, 50, 50)];
     [up setTitle:@"+" forState:UIControlStateNormal];
+    up.font = [UIFont fontWithName:@"ProximaNova-Black" size:40];
+    [up setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     [up addTarget:self action:@selector(increaseStake:) forControlEvents:UIControlEventTouchUpInside];
     UIButton *dwn = [[UIButton alloc] initWithFrame:CGRectMake(130, 180, 50, 50)];
     [dwn setTitle:@"-" forState:UIControlStateNormal];
+    dwn.font = [UIFont fontWithName:@"ProximaNova-Black" size:40];
+    [dwn setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     [dwn addTarget:self action:@selector(lowerStake:) forControlEvents:UIControlEventTouchUpInside];
     
     stakeLabel               = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 320, 70)];
     stakeLabel.textAlignment = NSTextAlignmentCenter;
     stakeLabel.textColor     = [UIColor whiteColor];
+    stakeLabel.font          = [UIFont fontWithName:@"ProximaNova-Black" size:40];
+    stakeLabel.shadowColor   = [UIColor blackColor];
+    stakeLabel.shadowOffset  = CGSizeMake(-1, 1);
     
     [mainView addSubview:stakePic];
     [mainView addSubview:up];
@@ -66,6 +74,7 @@
     verboseLabel               = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, 300, 80)];
     verboseLabel.numberOfLines = 0;
     verboseLabel.textColor     = [UIColor whiteColor];
+    verboseLabel.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
     [self updateLabels];
     [mainView addSubview:verboseLabel];
     
@@ -95,6 +104,12 @@
 
 // Move on to selecting their friend
 -(void)setBetStake:(id)sender {
+    [[[UIAlertView alloc] initWithTitle: @"Reminder"
+                                message: @"It is up to you and your friend to pay this stake after the bet. Betchyu just helps you track things."
+                               delegate: nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    
     if (!fbFriendVC) {
         fbFriendVC = [[FBFriendPickerViewController alloc] initWithNibName:nil bundle:nil];
         // Set the friend picker delegate
@@ -107,16 +122,43 @@
     [self.navigationController pushViewController:fbFriendVC animated:true];
 }
 -(void)increaseStake:(id)sender {
-    currentStake++;
+    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        if (currentStake == 1){
+            currentStake += 4;
+        } else {
+            currentStake += 5;
+        }
+    } else {
+        currentStake++;
+    }
     [self updateLabels];
 }
 -(void)lowerStake:(id)sender {
-    currentStake--;
+    if (currentStake == 1) {
+        return;
+    }
+    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        if (currentStake == 5){
+            currentStake -= 4;
+        } else {
+            currentStake -= 5;
+        }
+    } else {
+        currentStake--;
+    }
     [self updateLabels];
 }
 
 - (void) updateLabels {
-    stakeLabel.text = [[[@(currentStake) stringValue] stringByAppendingString:@" "] stringByAppendingString:bet.ownStakeType];
+    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        stakeLabel.text = [NSString stringWithFormat:@"$%i", currentStake];
+    } else {
+        if (currentStake == 1) {
+            stakeLabel.text = [[[@(currentStake) stringValue] stringByAppendingString:@" "] stringByAppendingString:bet.ownStakeType];
+        } else {
+            stakeLabel.text = [NSString stringWithFormat:@"%i %@s", currentStake, bet.ownStakeType];
+        }
+    }
     verboseLabel.text = [@"If I successfully complete my challenge, you owe me " stringByAppendingString:stakeLabel.text];
     bet.ownStakeAmount = [NSNumber numberWithInt:currentStake];
     bet.opponentStakeAmount = bet.ownStakeAmount;
