@@ -30,6 +30,7 @@
 
 @synthesize createGoalController = _createGoalController;
 @synthesize numberOfInvites;
+@synthesize numNotif;
 
 - (id)initWithInviteNumber:(NSString *)numInvs {
     self = [super initWithNibName:nil bundle:nil];
@@ -80,14 +81,14 @@
     [mainView addSubview:myBets];
     
     if (![self.numberOfInvites isEqualToString:@"0"]) {
-        UILabel *numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(281, 169, 30, 30)];
-        numNotif.text       = numberOfInvites;
-        numNotif.textAlignment      = UITextAlignmentCenter;
-        numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
-        numNotif.textColor  = [UIColor whiteColor];
-        numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
-        numNotif.layer.cornerRadius = 15;
-        [mainView addSubview:numNotif];
+        self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(281, 169, 30, 30)];
+        self.numNotif.text       = numberOfInvites;
+        self.numNotif.textAlignment      = UITextAlignmentCenter;
+        self.numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+        self.numNotif.textColor  = [UIColor whiteColor];
+        self.numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
+        self.numNotif.layer.cornerRadius = 15;
+        [mainView addSubview:self.numNotif];
     }
     
     
@@ -122,16 +123,45 @@
                                                                             target:self
                                                                             action:@selector(showMenu:)];
 }
-
--(void)showMenu:(id)sender {
-    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // check for new offered Bets
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"count", @"restriction",
+                                  ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId, @"user",
+                                  nil];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:@"invites" withParams:params onCompletion:^(NSDictionary *json) {
+        self.numberOfInvites = [[json valueForKey:@"count"] stringValue];
+        
+        if ([self.numberOfInvites isEqualToString:@"0"]) {
+            [self.numNotif removeFromSuperview];
+        } else {
+            [self.numNotif removeFromSuperview];
+            self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(281, 169, 30, 30)];
+            self.numNotif.text       = numberOfInvites;
+            self.numNotif.textAlignment      = UITextAlignmentCenter;
+            self.numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+            self.numNotif.textColor  = [UIColor whiteColor];
+            self.numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
+            self.numNotif.layer.cornerRadius = 15;
+            [self.view addSubview:self.numNotif];
+        }
+    }];
+    
+    // check for finished bets
+}
 
+// actions
+-(void)showMenu:(id)sender {
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
+}
 -(IBAction)createGoal:(id)sender {
     // change to the correct view
     if (!self.createGoalController) {
@@ -143,7 +173,6 @@
     [self.navigationController pushViewController:self.createGoalController
                                          animated:true];
 }
-
 -(void)showMyBets:(id)sender {
     // get the bets from the server
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;

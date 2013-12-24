@@ -218,6 +218,36 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
+    items = [bet.betAmount integerValue] - items;
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                        fromDate:[NSDate date]
+                                                          toDate:bet.endDate
+                                                         options:0];
+    
+    if (!self.isOffer && items <= 0) {
+        // the bet is over, alert them.
+        UIAlertView *alert = [[UIAlertView alloc] init];
+        [alert setTitle:@"Bet Finished!"];
+        [alert setMessage:@"You lose the bet! Have you paid your friend the prize yet?"];
+        [alert setDelegate:self];
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"No"];
+        [alert show];
+    } else if (!self.isOffer && components.day <=0) {
+        UIAlertView *alert = [[UIAlertView alloc] init];
+        [alert setTitle:@"Bet Finished!"];
+        [alert setMessage:@"You win this bet! Has your friend paid you yet?"];
+        [alert setDelegate:self];
+        [alert addButtonWithTitle:@"Yes"];
+        [alert addButtonWithTitle:@"No"];
+        [alert show];
+    }
+}
 
 -(void)acceptTheBet:(id)sender {
     NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
@@ -263,5 +293,42 @@
          [self.navigationController popToRootViewControllerAnimated:YES];
      }];
 }
+
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        // Yes, bet payment was received
+        NSString* path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
+        NSMutableDictionary* params;
+        if ([alertView.message isEqualToString:@"You lose the bet! Have you paid your friend the prize yet?"]) {
+            params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"true", @"paid", nil];
+        } else {
+            params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"true", @"received", nil];
+        }
+        // PUT /bets/:id = {received=> true}
+        [[API sharedInstance] put:path withParams:params onCompletion:
+         ^(NSDictionary *json) {
+             //success do nothing...
+         }];
+    }
+    else if (buttonIndex == 1) {
+        // No, bet payment was not received
+        // set bet.received on server to false
+        NSString* path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
+        NSMutableDictionary* params;
+        if ([alertView.message isEqualToString:@"You lose the bet! Have you paid your friend the prize yet?"]) {
+            params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"false", @"paid", nil];
+        } else {
+            params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"false", @"received", nil];
+        }
+        // PUT /bets/:id = {received=> true}
+        [[API sharedInstance] put:path withParams:params onCompletion:
+         ^(NSDictionary *json) {
+             //success do nothing...
+         }];
+    }
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 
 @end

@@ -23,7 +23,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        stakes = [[NSArray alloc] initWithObjects:@"Beer", @"Amazon", nil];
+        stakes = [[NSArray alloc] initWithObjects:@"Drink", @"Meal", @"Amazon", nil];
         stakeImageHeight = 220;
         
         bet = betObj;
@@ -39,14 +39,12 @@
     
     // code
     for (int i = 0; i < stakes.count; i++) {
-        UIImageView *stakePic = [[UIImageView alloc] initWithImage:
-                                 [UIImage imageNamed:
-                                  [[stakes objectAtIndex:i] stringByAppendingString:@".jpg"]]];
-        stakePic.frame = CGRectMake(20, (i*(stakeImageHeight+20))+20, 280, stakeImageHeight);
-        stakePic.userInteractionEnabled = YES;
-        UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stakeTapped:)];
-        [stakePic addGestureRecognizer:gr];
-        [mainView addSubview:stakePic];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, (i*(stakeImageHeight+20))+20, 280, stakeImageHeight)];
+        [btn setBackgroundImage:[UIImage imageNamed:[[stakes objectAtIndex:i] stringByAppendingString:@".jpg"]] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(stakeTapped:) forControlEvents:UIControlEventTouchUpInside];
+        btn.layer.cornerRadius = 10.0f;
+        
+        [mainView addSubview:btn];
 
     }
     
@@ -64,8 +62,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) stakeTapped:(UITapGestureRecognizer *)sender{
-    int i                 = (((UIImageView *)sender.view).frame.origin.y - 20)
+- (void) stakeTapped:(UIButton *)sender {
+    int i                 = (sender.frame.origin.y - 20)
                                 /(stakeImageHeight+20);
     bet.opponentStakeType = [stakes objectAtIndex:i];
     bet.ownStakeType      = [stakes objectAtIndex:i];

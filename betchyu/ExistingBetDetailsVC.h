@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TempBet.h"
 
-@interface ExistingBetDetailsVC : UIViewController
+@interface ExistingBetDetailsVC : UIViewController <UIAlertViewDelegate>
 
 @property NSDictionary * betJSON;
 @property TempBet * bet;

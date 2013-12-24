@@ -10,7 +10,7 @@
 #import "TempBet.h"
 #import "CorePlot-CocoaTouch.h"
 
-@interface BetTrackingVC : UIViewController <CPTPlotDataSource>
+@interface BetTrackingVC : UIViewController <CPTPlotDataSource, UIAlertViewDelegate>
 
 @property NSDictionary * betJSON;
 @property TempBet * bet;

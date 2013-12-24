@@ -58,6 +58,10 @@
 		89B1A7B318688C08006A656F /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B1A7B218688C08006A656F /* libCorePlot-CocoaTouch.a */; };
 		89B1A7B518689C05006A656F /* flyout_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7B418689C05006A656F /* flyout_menu.png */; };
 		89B1A7B71868C2D3006A656F /* info_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7B61868C2D3006A656F /* info_button.png */; };
+		89B1A7B9186916A7006A656F /* amazon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7B8186916A7006A656F /* amazon.jpg */; };
+		89B1A7BD186916B4006A656F /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BA186916B4006A656F /* beer.jpg */; };
+		89B1A7BE186916B4006A656F /* drink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BB186916B4006A656F /* drink.jpg */; };
+		89B1A7BF186916B4006A656F /* meal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BC186916B4006A656F /* meal.jpg */; };
 		89B3F5B41850EB320055F8DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B31850EB320055F8DB /* Foundation.framework */; };
 		89B3F5B61850EB320055F8DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B51850EB320055F8DB /* CoreGraphics.framework */; };
 		89B3F5B81850EB320055F8DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B71850EB320055F8DB /* UIKit.framework */; };
@@ -241,6 +245,10 @@
 		89B1A7B218688C08006A656F /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		89B1A7B418689C05006A656F /* flyout_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flyout_menu.png; sourceTree = "<group>"; };
 		89B1A7B61868C2D3006A656F /* info_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_button.png; sourceTree = "<group>"; };
+		89B1A7B8186916A7006A656F /* amazon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = amazon.jpg; sourceTree = "<group>"; };
+		89B1A7BA186916B4006A656F /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
+		89B1A7BB186916B4006A656F /* drink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drink.jpg; sourceTree = "<group>"; };
+		89B1A7BC186916B4006A656F /* meal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meal.jpg; sourceTree = "<group>"; };
 		89B3F5B01850EB320055F8DB /* betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -375,6 +383,10 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				89B1A7BA186916B4006A656F /* beer.jpg */,
+				89B1A7BB186916B4006A656F /* drink.jpg */,
+				89B1A7BC186916B4006A656F /* meal.jpg */,
+				89B1A7B8186916A7006A656F /* amazon.jpg */,
 				89B1A7B61868C2D3006A656F /* info_button.png */,
 				89B1A7B418689C05006A656F /* flyout_menu.png */,
 				89B1A75D18679CD2006A656F /* slider.png */,
@@ -694,6 +706,7 @@
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
 				89B1A6BB1864ACC7006A656F /* logo.png in Resources */,
+				89B1A7BD186916B4006A656F /* beer.jpg in Resources */,
 				892154DB185261270052A7C0 /* ProximaNova-SemiboldIt.otf in Resources */,
 				89B1A7B518689C05006A656F /* flyout_menu.png in Resources */,
 				89B3F5CB1850EB320055F8DB /* Images.xcassets in Resources */,
@@ -702,12 +715,14 @@
 				892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */,
 				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
+				89B1A7B9186916A7006A656F /* amazon.jpg in Resources */,
 				89B1A6BD1864F789006A656F /* star.png in Resources */,
 				89B1A7B71868C2D3006A656F /* info_button.png in Resources */,
 				89B1A75E18679CD2006A656F /* slider.png in Resources */,
 				892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */,
 				89B1A75C186778C1006A656F /* howItWorksLogo.png in Resources */,
 				89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */,
+				89B1A7BF186916B4006A656F /* meal.jpg in Resources */,
 				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
 				892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */,
 				892154EE185532440052A7C0 /* Workout More.jpg in Resources */,
@@ -717,6 +732,7 @@
 				892154EC185532440052A7C0 /* Run More.jpg in Resources */,
 				892154EB185532440052A7C0 /* Lose Weight.jpg in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
+				89B1A7BE186916B4006A656F /* drink.jpg in Resources */,
 				892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
