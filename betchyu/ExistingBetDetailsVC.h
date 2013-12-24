@@ -13,7 +13,11 @@
 
 @property NSDictionary * betJSON;
 @property TempBet * bet;
+@property BOOL isOffer;
+@property UILabel *stakeDescription;
+@property NSDictionary *invite;
 
 -(id) initWithJSON:(NSDictionary *)json;
+-(id) initWithJSON:(NSDictionary *)json AndOfferBool:(BOOL)passedOffer;
 
 @end

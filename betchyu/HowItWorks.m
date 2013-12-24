@@ -28,7 +28,7 @@
         // actual buttom
         UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(25, 40, 80, 30)];
         [backBtn setTitle:@"< Menu" forState:UIControlStateNormal];
-        backBtn.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        backBtn.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
         [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
         // it's line
         lineView = [[UIView alloc] initWithFrame:CGRectMake(29, 80, frame.size.width, 2)];
@@ -45,7 +45,7 @@
         int wide = frame.size.width * 0.8;
         logo.frame = CGRectMake((frame.size.width-wide)/2, 100, wide, (103.0/381)*wide);
         // it's line
-        lineView = [[UIView alloc] initWithFrame:CGRectMake(29, 110 + ((103.0/381)*wide), frame.size.width, 2)];
+        lineView = [[UIView alloc] initWithFrame:CGRectMake(29, 125 + ((103.0/381)*wide), frame.size.width, 2)];
         lineView.backgroundColor = [UIColor whiteColor];
         //add to the view
         [self addSubview:logo];
@@ -54,7 +54,15 @@
         ////////////////////
         // The copy Text
         ////////////////////
-        // TODO
+        // ui label containing said text
+        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, frame.size.width-60, 3*frame.size.height/4)];
+        copy.text = @"To help people achieve their goals, we have found a way to leverage accountability to one's friends, relatives and acquaintances, as well as the natural desire to prove doubters wrong, and the motivation sparked by the chance to win money or prizes. Because of the unprecedented ease and frequency with which social networks are now connected, the Betchyu app is able to tap into the goodwill of those in our lives, drawing upon reserves of support available to every individual.";
+        copy.numberOfLines = 0;
+        copy.textAlignment = NSTextAlignmentLeft;
+        copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:14];
+        copy.textColor = [UIColor whiteColor];
+        [self addSubview:copy];
+        
     }
     return self;
 }

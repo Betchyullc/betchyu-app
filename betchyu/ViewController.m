@@ -79,14 +79,17 @@
          forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myBets];
     
-    UILabel *numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(281, 169, 30, 30)];
-    numNotif.text       = numberOfInvites;
-    numNotif.textAlignment      = UITextAlignmentCenter;
-    numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
-    numNotif.textColor  = [UIColor whiteColor];
-    numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
-    numNotif.layer.cornerRadius = 15;
-    [mainView addSubview:numNotif];
+    if (![self.numberOfInvites isEqualToString:@"0"]) {
+        UILabel *numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(281, 169, 30, 30)];
+        numNotif.text       = numberOfInvites;
+        numNotif.textAlignment      = UITextAlignmentCenter;
+        numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+        numNotif.textColor  = [UIColor whiteColor];
+        numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
+        numNotif.layer.cornerRadius = 15;
+        [mainView addSubview:numNotif];
+    }
+    
     
     // "Create Goal" button
     BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 340, 280, 140)

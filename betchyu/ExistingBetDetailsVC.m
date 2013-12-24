@@ -9,6 +9,8 @@
 #import "ExistingBetDetailsVC.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
+#import "BigButton.h"
+#import "API.h"
 
 @interface ExistingBetDetailsVC ()
 
@@ -18,7 +20,10 @@
 
 @synthesize betJSON;
 @synthesize bet;
+@synthesize isOffer;
+@synthesize stakeDescription;
 
+// ===== Initializers ===== //
 - (id)initWithJSON:(NSDictionary *)json {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
@@ -37,7 +42,17 @@
         self.bet.betAmount = [betJSON valueForKey:@"betAmount"];
         self.bet.ownStakeAmount = [betJSON valueForKey:@"ownStakeAmount"];
         self.bet.ownStakeType = [betJSON valueForKey:@"ownStakeType"];
+        self.bet.opponentStakeAmount = [betJSON valueForKey:@"opponentStakeAmount"];
+        self.bet.opponentStakeType = [betJSON valueForKey:@"opponentStakeType"];
+        self.bet.owner = [betJSON valueForKey:@"owner"];
+        
+        self.isOffer = NO;
     }
+    return self;
+}
+- (id)initWithJSON:(NSDictionary *)json AndOfferBool:(BOOL)passedOffer{
+    self = [self initWithJSON:json];
+    self.isOffer = passedOffer;
     return self;
 }
 
@@ -80,7 +95,7 @@
     betDescription.text          = [self readableBetTitle];
     
     // The stake summary text
-    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2 +10, w-20, 100)];
+    self.stakeDescription          = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2 +10, w-20, 100)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
     stakeDescription.textColor     = [UIColor whiteColor];
@@ -102,7 +117,7 @@
     int dim = w / 4;
     // the picture
     FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
-                                   initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
+                                   initWithProfileID:bet.owner
                                    pictureCropping:FBProfilePictureCroppingOriginal];
     mypic.frame = CGRectMake(2, 2, dim-4, dim-4);
     mypic.layer.cornerRadius = (dim-4)/2;
@@ -118,7 +133,9 @@
     [mainView addSubview:betDescription];
     [mainView addSubview:stakeDescription];
     [mainView addSubview:heading];
-    [mainView addSubview:current];
+    if (!self.isOffer) {
+        [mainView addSubview:current];
+    }
     [mainView addSubview:border];
     
     self.view = mainView;
@@ -177,11 +194,74 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"The Bet";
+    if (self.isOffer) {
+        int w = self.view.frame.size.width;
+        int h = self.view.frame.size.height;
+        
+        self.navigationItem.title = @"The Offer";
+        self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win %@ %@.", bet.ownStakeAmount, bet.ownStakeType, bet.opponentStakeAmount, bet.opponentStakeType];
+        
+        BigButton *acceptBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*h/3 +20, w-40, 110) primary:0 title:@"ACCEPT"];
+        [acceptBtn addTarget:self action:@selector(acceptTheBet:) forControlEvents:UIControlEventTouchUpInside];
+        
+        BigButton *rejectBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*h/3 +140, w-40, 110) primary:1 title:@"REJECT"];
+        [rejectBtn addTarget:self action:@selector(rejectTheBet:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:acceptBtn];
+        [self.view addSubview:rejectBtn];
+    } else {
+        self.navigationItem.title = @"The Bet";
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)acceptTheBet:(id)sender {
+    NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
+    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  ownId, @"opponent",
+                                  nil];
+    
+    //make the call to the web API
+    // PUT /bets/:bet_id => {data}
+    [[API sharedInstance] put:path withParams:params onCompletion:
+     ^(NSDictionary *json) {
+         //success
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+          message:@"You have accepted your friend's bet. Be sure to pay out if you lose, and collect if you win."
+          delegate:nil
+          cancelButtonTitle:@"OK!"
+          otherButtonTitles:nil]
+          show];
+         [self.navigationController popToRootViewControllerAnimated:YES];
+     }];
+}
+-(void)rejectTheBet:(id)sender {
+    NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
+    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  ownId, @"reject",
+                                  nil];
+    
+    //make the call to the web API
+    // GET /bets/:bet_id?reject=OWNID => rejects the bet invite
+    [[API sharedInstance] get:path withParams:params onCompletion:
+     ^(NSDictionary *json) {
+         //success
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:@"You have rejected your friend's bet. Which is lame..."
+                                    delegate:nil
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+         [self.navigationController popToRootViewControllerAnimated:YES];
+     }];
 }
 
 @end
