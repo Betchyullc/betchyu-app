@@ -46,6 +46,8 @@
     
     NSString *betTitle;
     int c = openBets.count;
+    int bH = screenHeight / 3.5;
+    int bH2 = bH +10;
     // Make the Open Bets Button-list
     for (int i = 0; i < c; i++) {
         NSManagedObject *obj = [openBets objectAtIndex:i];
@@ -60,7 +62,7 @@
                         [obj valueForKey:@"betNoun"]];
         }
         
-        CGRect buttonFrame = CGRectMake(20, (150*i)+10, (screenWidth - 40), 140);
+        CGRect buttonFrame = CGRectMake(20, (bH2*i)+10, (screenWidth - 40), bH);
                      
         BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame
                                                      primary:1
@@ -72,7 +74,7 @@
         [mainView addSubview:button];
         
         UIImageView *star   = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star.png"]];
-        star.frame = CGRectMake(279, 140*i +1, 30, 30);
+        star.frame = CGRectMake(279, bH2*i +1, 30, 30);
         [mainView addSubview:star];
     }
     
@@ -91,7 +93,7 @@
                         [obj valueForKey:@"betNoun"]];
         }
         
-        CGRect buttonFrame = CGRectMake(20, (150*i +10+(160*openBets.count)), (screenWidth - 40), 140);
+        CGRect buttonFrame = CGRectMake(20, (bH2*i +10+(bH2*openBets.count)), (screenWidth - 40), bH);
         
         BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame primary:1 title:betTitle];
         button.idKey = [obj valueForKey:@"id"];
