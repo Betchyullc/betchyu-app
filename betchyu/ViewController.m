@@ -60,24 +60,24 @@
 
 - (void) loadView {
     // Create main UIScrollView (the container for home page buttons)
-    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 600);
+    UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     CGFloat w = mainView.frame.size.width;
     CGFloat h = mainView.frame.size.height;
     
     int bH = h / 3.7;
+    int buffer = 50;
     
     // Make the homepage Buttons
     // "My Goals" button
-    BigButton *myGoals = [[BigButton alloc] initWithFrame:CGRectMake(20, 20, w-40, bH)
+    BigButton *myGoals = [[BigButton alloc] initWithFrame:CGRectMake(20, 20+buffer, w-40, bH)
                                                      primary:1 title:@"MY GOALS"];
     [myGoals addTarget:self
                 action:@selector(showMyGoals:)
          forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myGoals];
     // "My Bets" button
-    BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, bH+30, w-40, bH)
+    BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, bH+30+buffer, w-40, bH)
                                                      primary:1 title:@"MY BETS"];
     [myBets addTarget:self
                    action:@selector(showMyBets:)
@@ -85,7 +85,7 @@
     [mainView addSubview:myBets];
     
     if (![self.numberOfInvites isEqualToString:@"0"]) {
-        self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(w-39, bH+19, 30, 30)];
+        self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(w-39, bH+19+buffer, 30, 30)];
         self.numNotif.text       = numberOfInvites;
         self.numNotif.textAlignment      = UITextAlignmentCenter;
         self.numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
@@ -97,7 +97,7 @@
     
     
     // "Create Goal" button
-    BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*bH+40, w-40, bH)
+    BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*bH+40+buffer, w-40, bH)
                                                      primary:0 title:@"CREATE\nGOAL"];
     [createGoal addTarget:self
                    action:@selector(createGoal:)
@@ -150,9 +150,10 @@
             CGFloat w = self.view.frame.size.width;
             CGFloat h = self.view.frame.size.height;
             int bH = h / 3.7;
+            int buffer = 50;
 
             [self.numNotif removeFromSuperview];
-            self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(w-39, bH+19, 30, 30)];
+            self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(w-39, bH+19+buffer, 30, 30)];
             self.numNotif.text       = numberOfInvites;
             self.numNotif.textAlignment      = NSTextAlignmentCenter;
             self.numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];

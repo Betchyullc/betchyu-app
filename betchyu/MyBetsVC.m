@@ -38,16 +38,16 @@
     //CGRect screenRect = self.view.frame;
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height - 50; // 50 px is the navbar at the top + 10 px bottom border
+    int bH = screenHeight / 3.5;
+    int bH2 = bH +10;
     
     // Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize = CGSizeMake(screenWidth, 160*(self.ongoingBets.count + self.openBets.count) );
+    mainView.contentSize = CGSizeMake(screenWidth, bH2*(self.ongoingBets.count + self.openBets.count)+10 );
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     NSString *betTitle;
     int c = openBets.count;
-    int bH = screenHeight / 3.5;
-    int bH2 = bH +10;
     // Make the Open Bets Button-list
     for (int i = 0; i < c; i++) {
         NSManagedObject *obj = [openBets objectAtIndex:i];

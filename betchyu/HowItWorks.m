@@ -14,6 +14,7 @@
 
 - (id)initWithFrame:(CGRect)frame AndOwner:(UIViewController *)passedOwner {
     self = [super initWithFrame:frame];
+    NSLog(@"%f",frame.size.height);
     if (self) {
         // Initialization code
         self.owner = passedOwner;
@@ -55,11 +56,17 @@
         // The copy Text
         ////////////////////
         // ui label containing said text
-        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, frame.size.width-60, 3*frame.size.height/4)];
+        UILabel *copy;
+        if (frame.size.height > 500) {
+            copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, frame.size.width-60, 3*frame.size.height/4)];
+            copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
+        } else {
+            copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 150, frame.size.width-60, frame.size.height-140)];
+            copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:13];
+        }
         copy.text = @"To help people achieve their goals, we have found a way to leverage accountability to one's friends, relatives and acquaintances, as well as the natural desire to prove doubters wrong, and the motivation sparked by the chance to win money or prizes. Because of the unprecedented ease and frequency with which social networks are now connected, the Betchyu app is able to tap into the goodwill of those in our lives, drawing upon reserves of support available to every individual.";
         copy.numberOfLines = 0;
         copy.textAlignment = NSTextAlignmentLeft;
-        copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:14];
         copy.textColor = [UIColor whiteColor];
         [self addSubview:copy];
         

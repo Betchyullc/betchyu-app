@@ -200,6 +200,7 @@
                           self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.betNoun];
                           self.slider.value = 0.0;
                       }
+                      [self initPlot];
                   }];
 }
 - (void)makeUpdate:(id)sender {
