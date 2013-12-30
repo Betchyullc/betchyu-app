@@ -59,11 +59,10 @@
 - (void)loadView {
     // Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
-    
     int w = mainView.frame.size.width;
     int h = mainView.frame.size.height;
+    mainView.contentSize   = CGSizeMake(w, 2*h/3 +120);
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // The bet-type image
     UIImageView *img;
@@ -97,7 +96,6 @@
     // The stake summary text
     self.stakeDescription          = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2 +10, w-20, 100)];
     stakeDescription.numberOfLines = 0;
-    stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
     stakeDescription.textColor     = [UIColor whiteColor];
     stakeDescription.text          = [[[@"If I succeed, I win " stringByAppendingString:
                                         [bet.ownStakeAmount stringValue]] stringByAppendingString:
@@ -107,9 +105,20 @@
     // The current state text
     UILabel *current      = [[UILabel alloc] initWithFrame:CGRectMake(10, 2*h/3 +10, w-20, 100)];
     current.numberOfLines = 0;
-    current.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
     current.textColor     = [UIColor whiteColor];
-    current.text          = [self currentStateText];
+    current.text          = [self currentStateText]; // string formatter
+    
+    
+    //fonts
+    
+    if (h > 500) {
+        current.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
+        stakeDescription.font = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
+    } else {
+        current.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+        stakeDescription.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+        self.stakeDescription.frame = CGRectMake(10, h/2, w-20, 90);
+    }
     
     ////////////////////////
     // The Profile Picture
@@ -199,7 +208,11 @@
         int h = self.view.frame.size.height;
         
         self.navigationItem.title = @"The Offer";
-        self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win %@ %@.", bet.ownStakeAmount, bet.ownStakeType, bet.opponentStakeAmount, bet.opponentStakeType];
+        if ([bet.ownStakeAmount integerValue] == 1) {
+            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win %@ %@.", bet.ownStakeAmount, bet.ownStakeType, bet.opponentStakeAmount, bet.opponentStakeType];
+        } else {
+            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@s, otherwise, you win %@ %@s.", bet.ownStakeAmount, bet.ownStakeType, bet.opponentStakeAmount, bet.opponentStakeType];
+        }
         
         BigButton *acceptBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*h/3 +20, w-40, 110) primary:0 title:@"ACCEPT"];
         [acceptBtn addTarget:self action:@selector(acceptTheBet:) forControlEvents:UIControlEventTouchUpInside];
@@ -209,6 +222,7 @@
         
         [self.view addSubview:acceptBtn];
         [self.view addSubview:rejectBtn];
+        ((UIScrollView *) self.view).contentSize = CGSizeMake(w, 2*h/3 +140 +110 +20);
     } else {
         self.navigationItem.title = @"The Bet";
     }

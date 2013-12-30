@@ -161,7 +161,12 @@
     [self currentStateText];
     
     // update btn
-    BigButton *update = [[BigButton alloc] initWithFrame:CGRectMake(20, h-90, w-40, 70) primary:0 title:@"UPDATE"];
+    BigButton *update;
+    if (h > 500) {
+        update = [[BigButton alloc] initWithFrame:CGRectMake(20, h-90, w-40, 70) primary:0 title:@"UPDATE"];
+    } else {
+        update = [[BigButton alloc] initWithFrame:CGRectMake(20, h-65, w-40, 70) primary:0 title:@"UPDATE"];
+    }
     [update addTarget:self action:@selector(makeUpdate:) forControlEvents:UIControlEventTouchUpInside];
     
     // the data graph
@@ -377,8 +382,14 @@
 
 -(void)configureHost {
     int h = self.view.frame.size.height;
+    int w = self.view.frame.size.width;
 
-    self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:CGRectMake(20, 230, 280, h/3)];
+    if (h > 500) {
+        self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:CGRectMake(20, 230, w-40, h/3)];
+    } else {
+        self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:CGRectMake(20, 215, w-40, h/3)];
+    }
+    
     self.hostView.allowPinchScaling = YES;
     [self.view addSubview:self.hostView];
 }

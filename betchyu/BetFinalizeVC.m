@@ -190,6 +190,12 @@
                              NSLog(@"%@", json);
                          }];
                      }
+                      
+                      [[[UIAlertView alloc] initWithTitle: @"Congratulations!"
+                                                  message: @"An invitation has been sent to your friends' Betchyu app. The first person to accept becomes your opponent."
+                                                 delegate: nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil] show];
                      
                      [self.navigationController popToRootViewControllerAnimated:YES];
                  }];
