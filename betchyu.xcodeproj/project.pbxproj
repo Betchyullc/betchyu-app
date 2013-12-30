@@ -55,8 +55,8 @@
 		89B1A7B71868C2D3006A656F /* info_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7B61868C2D3006A656F /* info_button.png */; };
 		89B1A7B9186916A7006A656F /* Amazon Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7B8186916A7006A656F /* Amazon Gift Card.jpg */; };
 		89B1A7BD186916B4006A656F /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BA186916B4006A656F /* beer.jpg */; };
-		89B1A7BE186916B4006A656F /* drink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BB186916B4006A656F /* drink.jpg */; };
-		89B1A7BF186916B4006A656F /* meal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BC186916B4006A656F /* meal.jpg */; };
+		89B1A7BE186916B4006A656F /* Drink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BB186916B4006A656F /* Drink.jpg */; };
+		89B1A7BF186916B4006A656F /* Meal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BC186916B4006A656F /* Meal.jpg */; };
 		89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C0186A1341006A656F /* Lose Weight.jpg */; };
 		89B1A7C3186A13A2006A656F /* Run More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C2186A13A2006A656F /* Run More.jpg */; };
 		89B1A7C6186A13E3006A656F /* Workout More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C4186A13E3006A656F /* Workout More.jpg */; };
@@ -242,8 +242,8 @@
 		89B1A7B61868C2D3006A656F /* info_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_button.png; sourceTree = "<group>"; };
 		89B1A7B8186916A7006A656F /* Amazon Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Amazon Gift Card.jpg"; sourceTree = "<group>"; };
 		89B1A7BA186916B4006A656F /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
-		89B1A7BB186916B4006A656F /* drink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drink.jpg; sourceTree = "<group>"; };
-		89B1A7BC186916B4006A656F /* meal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = meal.jpg; sourceTree = "<group>"; };
+		89B1A7BB186916B4006A656F /* Drink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Drink.jpg; sourceTree = "<group>"; };
+		89B1A7BC186916B4006A656F /* Meal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Meal.jpg; sourceTree = "<group>"; };
 		89B1A7C0186A1341006A656F /* Lose Weight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lose Weight.jpg"; sourceTree = "<group>"; };
 		89B1A7C2186A13A2006A656F /* Run More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Run More.jpg"; sourceTree = "<group>"; };
 		89B1A7C4186A13E3006A656F /* Workout More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Workout More.jpg"; sourceTree = "<group>"; };
@@ -388,8 +388,8 @@
 				89B1A7C2186A13A2006A656F /* Run More.jpg */,
 				89B1A7C0186A1341006A656F /* Lose Weight.jpg */,
 				89B1A7BA186916B4006A656F /* beer.jpg */,
-				89B1A7BB186916B4006A656F /* drink.jpg */,
-				89B1A7BC186916B4006A656F /* meal.jpg */,
+				89B1A7BB186916B4006A656F /* Drink.jpg */,
+				89B1A7BC186916B4006A656F /* Meal.jpg */,
 				89B1A7B8186916A7006A656F /* Amazon Gift Card.jpg */,
 				89B1A7B61868C2D3006A656F /* info_button.png */,
 				89B1A7B418689C05006A656F /* flyout_menu.png */,
@@ -725,14 +725,14 @@
 				892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */,
 				89B1A75C186778C1006A656F /* howItWorksLogo.png in Resources */,
 				89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */,
-				89B1A7BF186916B4006A656F /* meal.jpg in Resources */,
+				89B1A7BF186916B4006A656F /* Meal.jpg in Resources */,
 				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
 				892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */,
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
 				89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
-				89B1A7BE186916B4006A656F /* drink.jpg in Resources */,
+				89B1A7BE186916B4006A656F /* Drink.jpg in Resources */,
 				892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -125,7 +125,9 @@
     }
     
     [fbFriendVC loadData];
-    [self.navigationController pushViewController:fbFriendVC animated:true];
+    [self presentViewController:self.fbFriendVC animated:YES completion:^(void){
+        [self addSearchBarToFriendPickerView];
+    }];
 }
 -(void)increaseStake:(id)sender {
     if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
@@ -170,6 +172,56 @@
     bet.opponentStakeAmount = bet.ownStakeAmount;
 }
 
+//////////////////////
+// search bar stuff
+//////////////////////
+- (void)addSearchBarToFriendPickerView {
+    if (self.searchBar == nil) {
+        CGFloat searchBarHeight = 44.0;
+        self.searchBar =
+        [[UISearchBar alloc]
+         initWithFrame:
+         CGRectMake(0,0,
+                    self.view.bounds.size.width,
+                    searchBarHeight)];
+        self.searchBar.autoresizingMask = self.searchBar.autoresizingMask |
+        UIViewAutoresizingFlexibleWidth;
+        self.searchBar.delegate = self;
+        self.searchBar.showsCancelButton = YES;
+        /*self.searchBar.barTintColor = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+        self.searchBar.translucent = NO;*/
+        
+        [self.fbFriendVC.canvasView addSubview:self.searchBar];
+        CGRect newFrame = self.fbFriendVC.view.bounds;
+        newFrame.size.height -= searchBarHeight;
+        newFrame.origin.y = searchBarHeight;
+        self.fbFriendVC.tableView.frame = newFrame;
+    }
+}
+
+- (void) handleSearch:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    self.searchText = searchBar.text;
+    [self.fbFriendVC updateView];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
+    [self handleSearch:searchBar];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+    self.searchText = nil;
+    [searchBar resignFirstResponder];
+    [self.fbFriendVC updateView];
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    self.searchText = searchText;
+    [self.fbFriendVC updateView];
+}
+
+////////////////////////
+// friend picker stuff
+////////////////////////
 - (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker {
     bet.friends = friendPicker.selection;
     
@@ -235,6 +287,7 @@
                 }
             }];
         }
+        [self dismissViewControllerAnimated:YES completion:^(void){}];
         
         BetFinalizeVC *vc = [[BetFinalizeVC alloc] initWithBet:bet];
         vc.title = @"Finalize Goal";
@@ -243,6 +296,23 @@
     }
 }
 
+- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
+                 shouldIncludeUser:(id<FBGraphUser>)user
+{
+    if (self.searchText && ![self.searchText isEqualToString:@""]) {
+        NSRange result = [user.name
+                          rangeOfString:self.searchText
+                          options:NSCaseInsensitiveSearch];
+        if (result.location != NSNotFound) {
+            return YES;
+        } else {
+            return NO;
+        }
+    } else {
+        return YES;
+    }
+    return YES;
+}
 
 /**
  * A function for parsing URL parameters.

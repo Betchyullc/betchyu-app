@@ -14,7 +14,6 @@
 
 - (id)initWithFrame:(CGRect)frame AndOwner:(UIViewController *)passedOwner {
     self = [super initWithFrame:frame];
-    NSLog(@"%f",frame.size.height);
     if (self) {
         // Initialization code
         self.owner = passedOwner;

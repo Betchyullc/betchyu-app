@@ -56,14 +56,11 @@
     betDescription.shadowColor   = [UIColor blackColor];
     betDescription.shadowOffset  = CGSizeMake(-1, 1);
     int days = (int)[bet.endDate timeIntervalSinceNow]/(24*60*60); // # of days the challenge will last
-    betDescription.text          = [[[[[[[bet.betVerb stringByAppendingString:
-                                          @" " ] stringByAppendingString:
-                                         [bet.betAmount stringValue]] stringByAppendingString:
-                                        @" "] stringByAppendingString:
-                                       bet.betNoun] stringByAppendingString:
-                                      @" in "] stringByAppendingString:
-                                     [@(days) stringValue]] stringByAppendingString:
-                                    @" days"];
+    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        betDescription.text = [NSString stringWithFormat:@"Stop Smoking for %i days", days];
+    } else {
+        betDescription.text = [NSString stringWithFormat:@"%@ %@ %@ in %i days", bet.betVerb, bet.betAmount, bet.betNoun, days];
+    }
     
     // The stake summary text
     UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, w-20, 90)];

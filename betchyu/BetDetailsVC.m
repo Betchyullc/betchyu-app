@@ -47,7 +47,7 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    int h = mainView.frame.size.height;
+    int h = mainView.frame.size.height- 40;
     int w = mainView.frame.size.width;
     mainView.contentSize   = CGSizeMake(w, 520);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
@@ -61,9 +61,12 @@
     /////////////////
     // Next Button //
     /////////////////
-    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 400, w-40, 100)
-                                                  primary:0
-                                                    title:@"Next"];
+    BigButton *nextBtn;
+    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, h - (h/4), w-40, h/4.2) primary:0 title:@"Next"];
+    } else {
+        nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 400, w-40, 100) primary:0 title:@"Next"];
+    }
     [nextBtn addTarget:self
                action:@selector(setBetStake:)
      forControlEvents:UIControlEventTouchUpInside];
@@ -73,16 +76,18 @@
 }
 
 -(UIScrollView *)loadSingleDetailsHandler:(UIScrollView *)mainView {
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
     ////////////////////////
     // Only selector stuff //
     ////////////////////////
     // The label indicating what the user is selecting
-    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 200)];
+    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, w-40, h/4)];
     label1.text         = [[@"I WILL " stringByAppendingString:[[[bet.betVerb uppercaseString] stringByAppendingString:@" "] stringByAppendingString:[bet.betNoun uppercaseString]]] stringByAppendingString:@" FOR:"];
     label1.textColor    = [UIColor whiteColor];
     label1.textAlignment= NSTextAlignmentCenter;
     label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
-    label1.lineBreakMode = UILineBreakModeWordWrap;
+    label1.lineBreakMode = NSLineBreakByWordWrapping;
     label1.numberOfLines = 0;
     [mainView addSubview:label1];
     
@@ -113,7 +118,7 @@
     [mainView addSubview:label2];*/
     
     // The slider the user uses to select values
-    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, 200, 280, 70)];
+    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, h/4, w-40, h/5)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
@@ -121,7 +126,7 @@
     [mainView addSubview:slider2];
     
     // the label indicating the slider's value
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, 250, 280, 100)];
+    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, h/5 + h/4, w-40, h/4)];
     detailLabel2.textColor = betchyuOrange;
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];

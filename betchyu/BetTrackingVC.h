@@ -15,6 +15,7 @@
 @property NSDictionary * betJSON;
 @property TempBet * bet;
 @property UILabel *updateText;
+@property UILabel *boolGraphSub;
 @property UISlider *slider;
 @property NSDate *currentBooleanDate;
 @property NSArray *previousUpdates;

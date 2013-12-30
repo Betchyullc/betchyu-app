@@ -21,6 +21,7 @@
 @synthesize betJSON;
 @synthesize bet;
 @synthesize isOffer;
+@synthesize isOwn;
 @synthesize stakeDescription;
 
 // ===== Initializers ===== //
@@ -47,6 +48,7 @@
         self.bet.owner = [betJSON valueForKey:@"owner"];
         
         self.isOffer = NO;
+        self.isOwn = NO;
     }
     return self;
 }
@@ -234,6 +236,10 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if (self.isOwn) {
+        return;
+    }
     
     int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
     items = [bet.betAmount integerValue] - items;

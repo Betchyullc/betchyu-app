@@ -14,6 +14,7 @@
 @property NSDictionary * betJSON;
 @property TempBet * bet;
 @property BOOL isOffer;
+@property BOOL isOwn;
 @property UILabel *stakeDescription;
 @property NSDictionary *invite;
 

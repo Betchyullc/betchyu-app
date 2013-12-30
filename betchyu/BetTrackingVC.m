@@ -23,6 +23,7 @@
 @synthesize slider;
 @synthesize currentBooleanDate;
 @synthesize previousUpdates;
+@synthesize boolGraphSub;
 
 @synthesize hostView;
 
@@ -109,8 +110,15 @@
     BigButton *updateNo = [[BigButton alloc] initWithFrame:CGRectMake((w-40)/2+20, 155, (w-40)/2-10, 50) primary:1 title:@"NO"];
     [updateNo addTarget:self action:@selector(makeBoolUpdate:) forControlEvents:UIControlEventTouchUpInside];
     
-    // the data graph
-    //self.list = [[ProgressGraphView alloc] initWithFrame:CGRectMake(20, 230, w-40, h/3) AndDataArray:self.previousUpdates];
+    // the data graph substitute
+    self.boolGraphSub               = [[UILabel alloc] initWithFrame:CGRectMake(20, 175, w-40, h-175)];
+    self.boolGraphSub.numberOfLines = 0;
+    self.boolGraphSub.textAlignment = NSTextAlignmentCenter;
+    self.boolGraphSub.font          = [UIFont fontWithName:@"ProximaNova-Black" size:30];
+    self.boolGraphSub.textColor     = [UIColor whiteColor];
+    int toGo = [self numberOfDaysTheBetLasts] - self.previousUpdates.count;
+    self.boolGraphSub.text          = [NSString stringWithFormat:@"Days In A Row: %i\nDays To Go: %i", self.previousUpdates.count, toGo];
+    
     
     // Add the subviews
     [currentView addSubview:self.slider];
@@ -118,6 +126,7 @@
     [currentView addSubview:self.updateText];
     [currentView addSubview:update];
     [currentView addSubview:updateNo];
+    [currentView addSubview:self.boolGraphSub];
     
     [self booleanDateUpdate];
     
@@ -237,6 +246,14 @@
 
 // ===== BOOLEAN BET-TYPE METHODS ====== //
 - (void)makeBoolUpdate:(BigButton *)sender {
+    if (currentBooleanDate > [NSDate date]) {
+        [[[UIAlertView alloc] initWithTitle: @"Sorry..."
+                                    message: @"That day hasn't happened just yet."
+                                   delegate: nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+        return;
+    }
     int val = [sender.currentTitle isEqualToString:@"YES"] ? 1 : 0 ;
     
     /*if (previousUpdates.count ==) {
@@ -283,6 +300,8 @@
          
          NSString *dateString = [[NSString stringWithFormat:@"%@", currentBooleanDate] substringWithRange:NSMakeRange(0, 10)];
          self.updateText.text = [NSString stringWithFormat:@"on %@", dateString];
+         int toGo = [self numberOfDaysTheBetLasts] - self.previousUpdates.count;
+         self.boolGraphSub.text = [NSString stringWithFormat:@"Days In A Row: %i\nDays To Go: %i", self.previousUpdates.count, toGo];
      }];
 }
 
@@ -310,6 +329,22 @@
     return [dates subarrayWithRange:NSMakeRange(0, dates.count)];
 }
 -(void)handleBetFinish {
+    // handle boolean-type bets
+    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        if (self.previousUpdates.count != [self numberOfDaysTheBetLasts]) {
+            return;
+        } else {
+            for (NSDictionary *obj in self.previousUpdates) {
+                if ([[obj valueForKey:@"value"] integerValue] == 0){
+                    // handle loss and break execution
+                }
+            }
+            // else they won, handle win and break execution
+            return;
+        }
+    }
+    
+    // handle normal-type bets
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
                                                         fromDate:bet.endDate
@@ -349,6 +384,7 @@
 // navigation method(s)
 -(void)showDetailsPage:(id)sender {
     ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:self.betJSON];
+    vc.isOwn = YES;
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }
@@ -358,6 +394,8 @@
     [super viewDidAppear:animated];
     if (![bet.betVerb isEqualToString:@"Stop"]) {
         [self initPlot];
+    } else {
+        [self booleanDateUpdate];
     }
     [self handleBetFinish];
 }
