@@ -27,9 +27,13 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        stakeImageHeight = 280;
-        bet = betObj;
-        currentStake = 1;
+        self.stakeImageHeight = 280;
+        self.bet = betObj;
+        if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+            self.currentStake = 10;
+        } else {
+            self.currentStake = 1;
+        }
     }
     return self;
 }
@@ -37,7 +41,9 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 500);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     /////////////////////
@@ -46,7 +52,7 @@
     UIImageView *stakePic = [[UIImageView alloc] initWithImage:
                              [UIImage imageNamed:
                               [bet.ownStakeType stringByAppendingString:@".jpg"]]];
-    stakePic.frame = CGRectMake(0, 0, 320, stakeImageHeight);
+    stakePic.frame = CGRectMake(0, 0, w, stakeImageHeight);
     
     UIButton *up = [[UIButton alloc] initWithFrame:CGRectMake(130, 20, 50, 50)];
     [up setTitle:@"+" forState:UIControlStateNormal];
@@ -59,7 +65,7 @@
     [dwn setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     [dwn addTarget:self action:@selector(lowerStake:) forControlEvents:UIControlEventTouchUpInside];
     
-    stakeLabel               = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 320, 70)];
+    stakeLabel               = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, w, 70)];
     stakeLabel.textAlignment = NSTextAlignmentCenter;
     stakeLabel.textColor     = [UIColor whiteColor];
     stakeLabel.font          = [UIFont fontWithName:@"ProximaNova-Black" size:40];
@@ -71,7 +77,7 @@
     [mainView addSubview:dwn];
     [mainView addSubview:stakeLabel];
     
-    verboseLabel               = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, 300, 80)];
+    verboseLabel               = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, w-20, 80)];
     verboseLabel.numberOfLines = 0;
     verboseLabel.textColor     = [UIColor whiteColor];
     verboseLabel.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
@@ -81,7 +87,7 @@
     /////////////////
     // Next Button //
     /////////////////
-    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, 280, 100)
+    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, w-40, 100)
                                                   primary:0
                                                     title:@"Set Stake"];
     [nextBtn addTarget:self

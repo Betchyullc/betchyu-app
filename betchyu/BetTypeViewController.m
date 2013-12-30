@@ -38,7 +38,9 @@
 - (void) loadView {
     // Create main UIScrollView (the container for betType page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, h);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];

@@ -47,7 +47,9 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 520);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     if ([bet.betNoun isEqualToString:@"Smoking"]){
@@ -59,7 +61,7 @@
     /////////////////
     // Next Button //
     /////////////////
-    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 400, 280, 100)
+    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 400, w-40, 100)
                                                   primary:0
                                                     title:@"Next"];
     [nextBtn addTarget:self
@@ -141,7 +143,7 @@
     // Top selector stuff //
     ////////////////////////
     // The label indicating what the user is selecting
-    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(00, 20, 320, 100)];
+    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 320, 100)];
     label1.text         = [[@"I WILL " stringByAppendingString:[bet.betVerb uppercaseString]] stringByAppendingString:@":"];
     label1.textColor    = [UIColor whiteColor];
     label1.textAlignment= NSTextAlignmentCenter;

@@ -36,16 +36,18 @@
 - (void)loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 500);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // The handshake image
     UIImageView *shake = [[UIImageView alloc] initWithImage:
                              [UIImage imageNamed:@"handshake.jpg"]];
-    shake.frame = CGRectMake(0, 0, 320, 280);
+    shake.frame = CGRectMake(0, 0, w, 280);
     
     // The bet summary text
-    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, 320, 100)];
+    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, w, 100)];
     betDescription.textAlignment = NSTextAlignmentCenter;
     betDescription.textColor     = [UIColor whiteColor];
     betDescription.font          = [UIFont fontWithName:@"ProximaNova-Black" size:30];
@@ -64,7 +66,7 @@
                                     @" days"];
     
     // The stake summary text
-    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, 300, 90)];
+    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, w-20, 90)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
     stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
@@ -129,7 +131,7 @@
     }
     
     // Betchyu button (to finish creating the bet)
-    BigButton *betchyu = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, 280, 100)
+    BigButton *betchyu = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, w-40, 100)
                                                   primary:0
                                                     title:@"Betchyu!"];
     [betchyu addTarget:self

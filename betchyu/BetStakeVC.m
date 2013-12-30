@@ -34,12 +34,14 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 20 + ((stakeImageHeight+20)*stakes.count));
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // code
     for (int i = 0; i < stakes.count; i++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, (i*(stakeImageHeight+20))+20, 280, stakeImageHeight)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, (i*(stakeImageHeight+20))+20, w-40, stakeImageHeight)];
         [btn setBackgroundImage:[UIImage imageNamed:[[stakes objectAtIndex:i] stringByAppendingString:@".jpg"]] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(stakeTapped:) forControlEvents:UIControlEventTouchUpInside];
         btn.layer.cornerRadius = 10.0f;
