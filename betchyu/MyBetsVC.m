@@ -9,8 +9,9 @@
 #import "MyBetsVC.h"
 #import "AppDelegate.h"
 #import "BigButton.h"
-#import "Bet.h"
-#import "Invite.h"
+#import "API.h"
+#import "ExistingBetDetailsVC.h"
+#import "BetTrackingVC.h"
 
 @interface MyBetsVC ()
 
@@ -22,80 +23,112 @@
 @synthesize openBets;
 @synthesize openInvites;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)initWithOngoingBets:(NSArray *)passedOngoingBets andOpenBets:(NSArray *)openBetsList {
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        // Useful vars
-        NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
-        NSManagedObjectContext *moc = ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
-        NSEntityDescription *e = [NSEntityDescription entityForName:@"Bet" inManagedObjectContext:moc];
-        
-        // get the ongoingBets
-        NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-        fetch.entity = e;
-        fetch.predicate = [NSPredicate predicateWithFormat:@"(opponent == %@)", ownerString];
-        NSError *err;
-        ongoingBets = [moc executeFetchRequest:fetch error:&err];
-        
-        // Get teh openInvites
-        fetch.entity = [NSEntityDescription entityForName:@"Invite" inManagedObjectContext:moc];
-        fetch.predicate = [NSPredicate predicateWithFormat:@"invitee == %@", ownerString];
-        openInvites = [moc executeFetchRequest:fetch error:&err];
-        
-        for (Invite *inv in openInvites){
-            NSLog(@"status: %@", inv.status);
-            NSLog(@"bet: %@", inv.bet);
-            NSLog(@"betNoun: %@", inv.bet.betNoun);
-        }
+        self.ongoingBets = passedOngoingBets;
+        self.openBets    = openBetsList;
     }
     return self;
 }
 
 - (void)loadView {
-    // Create main UIScrollView (the container for home page buttons)
-    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
-    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
-    
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
     //CGRect screenRect = self.view.frame;
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height - 50; // 50 px is the navbar at the top + 10 px bottom border
+    int bH = screenHeight / 3.5;
+    int bH2 = bH +10;
+    
+    // Create main UIScrollView (the container for home page buttons)
+    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    mainView.contentSize = CGSizeMake(screenWidth, bH2*(self.ongoingBets.count + self.openBets.count)+10 );
+    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     NSString *betTitle;
-    int c = ongoingBets.count;
-    // Make the Ongoing Bets Button-list
+    int c = openBets.count;
+    // Make the Open Bets Button-list
     for (int i = 0; i < c; i++) {
-        NSManagedObject *obj = [ongoingBets objectAtIndex:i];
-        
-        betTitle = [[[[[obj valueForKey:@"betVerb"] stringByAppendingString:
-                         @" " ] stringByAppendingString:
-                        [[obj valueForKey:@"betAmount"] stringValue]] stringByAppendingString:
-                       @" "] stringByAppendingString:
-                      [obj valueForKey:@"betNoun"]];
-        
-        CGRect buttonFrame;
-        if (c < 3) {
-            buttonFrame = CGRectMake(20, ((screenHeight/3)*i +10), (screenWidth - 40), (screenHeight / 3) -10);
-        } else if (c < 5) {
-            buttonFrame = CGRectMake(20, ((screenHeight/c)*i +10), (screenWidth - 40), (screenHeight / c) -10);
+        NSManagedObject *obj = [openBets objectAtIndex:i];
+        if ([[obj valueForKey:@"betNoun"] isEqualToString:@"cigarettes"]
+            || [[obj valueForKey:@"betNoun"] isEqualToString:@"Smoking"]) {
+            betTitle = @"Stop Smoking";
         } else {
-            buttonFrame = CGRectMake(20, ((screenHeight/5)*i +10), (screenWidth - 40), (screenHeight / 5) -10);
+            betTitle = [[[[[obj valueForKey:@"betVerb"] stringByAppendingString:
+                           @" " ] stringByAppendingString:
+                          [[obj valueForKey:@"betAmount"] stringValue]] stringByAppendingString:
+                         @" "] stringByAppendingString:
+                        [obj valueForKey:@"betNoun"]];
         }
+        
+        CGRect buttonFrame = CGRectMake(20, (bH2*i)+10, (screenWidth - 40), bH);
                      
         BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame
                                                      primary:1
                                                        title:betTitle];
-        /*[button addTarget:self
-                   action:@selector(setBetDetails:)
-         forControlEvents:UIControlEventTouchUpInside];*/
+        button.idKey = [obj valueForKey:@"id"];
+        [button addTarget:self
+                   action:@selector(acceptOrDeclineBet:)
+         forControlEvents:UIControlEventTouchUpInside];
+        [mainView addSubview:button];
+        
+        UIImageView *star   = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star.png"]];
+        star.frame = CGRectMake(279, bH2*i +1, 30, 30);
+        [mainView addSubview:star];
+    }
+    
+    // Make the Ongoing Bets Button-list
+    for (int i = 0; i < ongoingBets.count; i++) {
+        NSManagedObject *obj = [ongoingBets objectAtIndex:i];
+        
+        if ([[obj valueForKey:@"betNoun"] isEqualToString:@"cigarettes"]
+            || [[obj valueForKey:@"betNoun"] isEqualToString:@"Smoking"]) {
+            betTitle = @"Stop Smoking";
+        } else {
+            betTitle = [[[[[obj valueForKey:@"betVerb"] stringByAppendingString:
+                           @" " ] stringByAppendingString:
+                          [[obj valueForKey:@"betAmount"] stringValue]] stringByAppendingString:
+                         @" "] stringByAppendingString:
+                        [obj valueForKey:@"betNoun"]];
+        }
+        
+        CGRect buttonFrame = CGRectMake(20, (bH2*i +10+(bH2*openBets.count)), (screenWidth - 40), bH);
+        
+        BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame primary:1 title:betTitle];
+        button.idKey = [obj valueForKey:@"id"];
+        [button addTarget:self
+         action:@selector(showBetDetails:)
+         forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
     }
-
     
     self.view = mainView;
+}
+
+-(void)acceptOrDeclineBet:(BigButton *)sender {
+    // get the bet from the server
+    NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        //success
+        ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:json AndOfferBool:YES];
+        // Show it.
+        [self.navigationController pushViewController:vc animated:true];
+    }];
+}
+-(void)showBetDetails:(BigButton *)sender {
+    // get the bet from the server
+    NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        //success
+        ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:json];
+        // Show it.
+        [self.navigationController pushViewController:vc animated:true];
+    }];
 }
 
 - (void)viewDidLoad {

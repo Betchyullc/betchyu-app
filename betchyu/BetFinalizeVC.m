@@ -8,8 +8,7 @@
 
 #import "BetFinalizeVC.h"
 #import "AppDelegate.h"
-#import "Bet.h"
-#import "Invite.h"
+#import "API.h"
 
 @interface BetFinalizeVC () <NSFetchedResultsControllerDelegate>
     @property NSFetchedResultsController * fetchedResultsController;
@@ -37,36 +36,44 @@
 - (void)loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 500);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // The handshake image
     UIImageView *shake = [[UIImageView alloc] initWithImage:
                              [UIImage imageNamed:@"handshake.jpg"]];
-    shake.frame = CGRectMake(0, 0, 320, 280);
+    shake.frame = CGRectMake(0, 0, w, 280);
     
     // The bet summary text
-    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, 320, 70)];
+    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, w, 100)];
     betDescription.textAlignment = NSTextAlignmentCenter;
     betDescription.textColor     = [UIColor whiteColor];
+    betDescription.font          = [UIFont fontWithName:@"ProximaNova-Black" size:30];
+    betDescription.numberOfLines = 0;
+    betDescription.lineBreakMode = NSLineBreakByWordWrapping;
+    betDescription.shadowColor   = [UIColor blackColor];
+    betDescription.shadowOffset  = CGSizeMake(-1, 1);
     int days = (int)[bet.endDate timeIntervalSinceNow]/(24*60*60); // # of days the challenge will last
-    betDescription.text          = [[[[[[[bet.betVerb stringByAppendingString:
-                                          @" " ] stringByAppendingString:
-                                         [bet.betAmount stringValue]] stringByAppendingString:
-                                        @" "] stringByAppendingString:
-                                       bet.betNoun] stringByAppendingString:
-                                      @" in "] stringByAppendingString:
-                                     [@(days) stringValue]] stringByAppendingString:
-                                    @" days"];
+    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        betDescription.text = [NSString stringWithFormat:@"Stop Smoking for %i days", days];
+    } else {
+        betDescription.text = [NSString stringWithFormat:@"%@ %@ %@ in %i days", bet.betVerb, bet.betAmount, bet.betNoun, days];
+    }
     
     // The stake summary text
-    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, 300, 80)];
+    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, w-20, 90)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
-    stakeDescription.text          = [[[@"If I successfully complete my challenge, you owe me " stringByAppendingString:
-                                        [bet.ownStakeAmount stringValue]] stringByAppendingString:
-                                       @" "] stringByAppendingString:
-                                      bet.ownStakeType];
+    stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@", bet.ownStakeAmount, bet.ownStakeType];
+    } else if ([bet.ownStakeAmount integerValue] == 1) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@", bet.ownStakeAmount, bet.ownStakeType];
+    } else {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s", bet.ownStakeAmount, bet.ownStakeType];
+    }
     
     // Add the subviews
     [mainView addSubview:shake];    // add the handshake image first, so it is under the other stuff
@@ -94,6 +101,9 @@
                  name.textAlignment = NSTextAlignmentCenter;
                  name.textColor = [UIColor whiteColor];
                  name.text      = user.first_name;
+                 name.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+                 name.shadowColor   = [UIColor blackColor];
+                 name.shadowOffset  = CGSizeMake(-1, 1);
                  [mainView addSubview:name];
              }
          }];
@@ -111,11 +121,14 @@
         name.textAlignment = NSTextAlignmentCenter;
         name.textColor = [UIColor whiteColor];
         name.text      = ((NSDictionary<FBGraphUser> *)[bet.friends objectAtIndex:0]).first_name;
+        name.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        name.shadowColor   = [UIColor blackColor];
+        name.shadowOffset  = CGSizeMake(-1, 1);
         [mainView addSubview:name];
     }
     
     // Betchyu button (to finish creating the bet)
-    BigButton *betchyu = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, 280, 100)
+    BigButton *betchyu = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, w-40, 100)
                                                   primary:0
                                                     title:@"Betchyu!"];
     [betchyu addTarget:self
@@ -145,89 +158,45 @@
 
 - (void) betchyu:(id)sender {
     // MAKE THE NEW BET
-    Bet *newBet = [NSEntityDescription insertNewObjectForEntityForName:@"Bet" inManagedObjectContext:self.managedObjectContext];
-
-    newBet.betAmount = bet.betAmount;
-    newBet.betNoun = bet.betNoun;
-    newBet.betVerb = bet.betVerb;
-    newBet.createdAt = [NSDate date];
-    newBet.endDate = bet.endDate;
-    newBet.opponentStakeAmount = bet.opponentStakeAmount;
-    newBet.opponentStakeType = bet.opponentStakeType;
-    newBet.ownStakeAmount = bet.ownStakeAmount;
-    newBet.ownStakeType = bet.ownStakeType;
-    newBet.owner = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;   // appDelegate gets/maintains the user's id
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  bet.betAmount,            @"betAmount",
+                                  bet.betNoun,              @"betNoun",
+                                  bet.betVerb,              @"betVerb",
+                                  bet.endDate,              @"endDate",
+                                  bet.opponentStakeAmount,  @"opponentStakeAmount",
+                                  bet.opponentStakeType,    @"opponentStakeType",
+                                  bet.ownStakeAmount,       @"ownStakeAmount",
+                                  bet.ownStakeType,         @"ownStakeType",
+                                  ownerString,              @"owner",
+                                  nil];
     
-    // TRY TO SAVE THE MOC
-    /*NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh..."
-                                                        message:@"The bet is invalid. Go back and fix it."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }*/
-    
-    // MAKE THE INVITES TO THE BET
-    //for (NSMutableDictionary<FBGraphUser> *person in bet.friends) {
-        Invite *newInvite = [NSEntityDescription insertNewObjectForEntityForName:@"Invite" inManagedObjectContext:self.managedObjectContext];
-        newInvite.invitee = ((NSMutableDictionary<FBGraphUser> *)[bet.friends objectAtIndex:0]).id;
-        newInvite.inviter = newBet.owner;
-        newInvite.status  = @"open";
-        newInvite.bet     = newBet;
-    //}
-    
-    newBet.invites = [[NSSet alloc] initWithObjects:newInvite, nil];
-
-    
-    // TRY TO SAVE THE MOC
-    NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        NSLog(@"error: %@", error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh..."
-                                                        message:@"The bet is invalid. Go back and fix it."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
+    //make the call to the web API
+    // POST /bets => {data}
+    [[API sharedInstance] post:@"bets" withParams:params
+                  onCompletion:^(NSDictionary *json) {
+                     //success
+                     for (NSMutableDictionary<FBGraphUser> *friend in bet.friends) {
+                         NSMutableDictionary *newParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                           friend.id,                   @"invitee",
+                                                           ownerString,                 @"inviter",
+                                                           @"open",                     @"status",
+                                                           [json objectForKey:@"id"],   @"bet_id",
+                                                           nil];
+                         // POST /invites => {data}
+                         [[API sharedInstance] post:@"invites" withParams:newParams onCompletion:^(NSDictionary *json) {
+                             // handle response
+                             NSLog(@"%@", json);
+                         }];
+                     }
+                      
+                      [[[UIAlertView alloc] initWithTitle: @"Congratulations!"
+                                                  message: @"An invitation has been sent to your friends' Betchyu app. The first person to accept becomes your opponent."
+                                                 delegate: nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil] show];
+                     
+                     [self.navigationController popToRootViewControllerAnimated:YES];
+                 }];
 }
-
--(Bet *)makeBet {
-    // MAKE THE NEW BET
-    Bet *newBet = [NSEntityDescription insertNewObjectForEntityForName:@"Bet" inManagedObjectContext:self.managedObjectContext];
-    
-    newBet.betAmount = bet.betAmount;
-    newBet.betNoun = bet.betNoun;
-    newBet.betVerb = bet.betVerb;
-    newBet.createdAt = [NSDate date];
-    newBet.endDate = bet.endDate;
-    newBet.opponentStakeAmount = bet.opponentStakeAmount;
-    newBet.opponentStakeType = bet.opponentStakeType;
-    newBet.ownStakeAmount = bet.ownStakeAmount;
-    newBet.ownStakeType = bet.ownStakeType;
-    newBet.owner = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;   // appDelegate gets/maintains the user's id
-    
-    // TRY TO SAVE THE MOC
-    NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uh oh..."
-                                                        message:@"The bet is invalid. Go back and fix it."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else {
-        
-    }
-    
-    return newBet;
-}
-
 @end

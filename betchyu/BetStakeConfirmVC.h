@@ -10,7 +10,7 @@
 #import "TempBet.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface BetStakeConfirmVC : UIViewController <FBFriendPickerDelegate>
+@interface BetStakeConfirmVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate>
 
 @property int stakeImageHeight;
 @property (strong) TempBet *bet;
@@ -18,6 +18,8 @@
 @property (strong) UILabel *stakeLabel;
 @property (strong) UILabel *verboseLabel;
 @property (strong, nonatomic) FBFriendPickerViewController *fbFriendVC;
+@property (retain, nonatomic) UISearchBar *searchBar;
+@property (retain, nonatomic) NSString *searchText;
 
 - (id)initWithBet:(TempBet *)betObj;
 -(void)setBetStake:(id)sender;

@@ -1,6 +1,5 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
-#import "iBetchyuIncrementalStore.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

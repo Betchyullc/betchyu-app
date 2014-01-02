@@ -19,6 +19,7 @@
 @synthesize bet;
 @synthesize detailLabel1;
 @synthesize detailLabel2;
+@synthesize betchyuOrange;
 
 - (id)initWithBetVerb:(NSString *)verbName {
     self = [super initWithNibName:nil bundle:nil];
@@ -29,8 +30,6 @@
         bet.betNoun = [[verbName componentsSeparatedByString:@" "] objectAtIndex:1]; // second word
         if ([bet.betNoun isEqualToString:@"Weight"]) {
             bet.betNoun = @"pounds";
-        } else if ([bet.betNoun isEqualToString:@"Smoking"]){
-            bet.betNoun = @"cigarettes";
         } else if ([bet.betNoun isEqualToString:@"More"]){
             if ([bet.betVerb isEqualToString:@"Workout"]) {
                 bet.betNoun = @"times";
@@ -38,31 +37,63 @@
                 bet.betNoun = @"miles";
             }
         }
+        
+        // useful variable
+        self.betchyuOrange = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
     }
     return self;
 }
 
 - (void) loadView {
-    // useful variables
-    UIColor *bethcyuOrange =[UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height- 40;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 520);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
+    if ([bet.betNoun isEqualToString:@"Smoking"]){
+        mainView = [self loadSingleDetailsHandler:mainView];
+    } else {
+        mainView = [self loadGenericDetailsHandler:mainView];
+    }
+    
+    /////////////////
+    // Next Button //
+    /////////////////
+    BigButton *nextBtn;
+    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, h - (h/4), w-40, h/4.2) primary:0 title:@"Next"];
+    } else {
+        nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 400, w-40, 100) primary:0 title:@"Next"];
+    }
+    [nextBtn addTarget:self
+               action:@selector(setBetStake:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [mainView addSubview:nextBtn];
+    
+    self.view = mainView;
+}
+
+-(UIScrollView *)loadSingleDetailsHandler:(UIScrollView *)mainView {
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
     ////////////////////////
-    // Top selector stuff //
+    // Only selector stuff //
     ////////////////////////
     // The label indicating what the user is selecting
-    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, 280, 100)];
-    label1.text         = [[@"I bet I can " stringByAppendingString:bet.betVerb] stringByAppendingString:@":"];
+    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, w-40, h/4)];
+    label1.text         = [[@"I WILL " stringByAppendingString:[[[bet.betVerb uppercaseString] stringByAppendingString:@" "] stringByAppendingString:[bet.betNoun uppercaseString]]] stringByAppendingString:@" FOR:"];
     label1.textColor    = [UIColor whiteColor];
     label1.textAlignment= NSTextAlignmentCenter;
+    label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    label1.lineBreakMode = NSLineBreakByWordWrapping;
+    label1.numberOfLines = 0;
     [mainView addSubview:label1];
     
-    // The slider the user uses to select values
+    /*// The slider the user uses to select values
     UISlider *slider1   = [[UISlider alloc] initWithFrame:CGRectMake(20, 80, 280, 70)];
-    [slider1 setMinimumTrackTintColor:bethcyuOrange];
+    [slider1 setMinimumTrackTintColor:betchyuOrange];
     [slider1 addTarget:self
                 action:@selector(updateSlider1Value:)
       forControlEvents:UIControlEventValueChanged];
@@ -70,8 +101,73 @@
     
     // the label indicating the slider's value
     detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 130, 280, 100)];
-    detailLabel1.textColor = bethcyuOrange;
+    detailLabel1.textColor = betchyuOrange;
     detailLabel1.textAlignment = NSTextAlignmentCenter;
+    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel1];*/
+    
+    ///////////////////////////
+    // Bottom Selector stuff //
+    ///////////////////////////
+    // The label indicating what the user is selecting
+    /*UILabel *label2     = [[UILabel alloc] initWithFrame:CGRectMake(20, 80, 280, 100)];
+    label2.text         = @"FOR:";
+    label2.textColor    = [UIColor whiteColor];
+    label2.textAlignment= NSTextAlignmentCenter;
+    label2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:label2];*/
+    
+    // The slider the user uses to select values
+    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, h/4, w-40, h/5)];
+    [slider2 setMinimumTrackTintColor:betchyuOrange];
+    [slider2 addTarget:self
+                action:@selector(updateSlider2Value:)
+      forControlEvents:UIControlEventValueChanged];
+    [mainView addSubview:slider2];
+    
+    // the label indicating the slider's value
+    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, h/5 + h/4, w-40, h/4)];
+    detailLabel2.textColor = betchyuOrange;
+    detailLabel2.textAlignment = NSTextAlignmentCenter;
+    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel2];
+
+    ////////
+    // Fake the first label details, because we arent showing it
+    ////////
+    detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 130, 280, 100)];
+    int amount = 0;
+    bet.betAmount = [NSNumber numberWithInt:amount];
+    detailLabel1.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.betNoun]];
+    
+    return mainView;
+}
+
+-(UIScrollView *)loadGenericDetailsHandler:(UIScrollView *)mainView {
+    ////////////////////////
+    // Top selector stuff //
+    ////////////////////////
+    // The label indicating what the user is selecting
+    UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, 320, 100)];
+    label1.text         = [[@"I WILL " stringByAppendingString:[bet.betVerb uppercaseString]] stringByAppendingString:@":"];
+    label1.textColor    = [UIColor whiteColor];
+    label1.textAlignment= NSTextAlignmentCenter;
+    label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:30];
+    [mainView addSubview:label1];
+    
+    // The slider the user uses to select values
+    UISlider *slider1   = [[UISlider alloc] initWithFrame:CGRectMake(20, 80, 280, 70)];
+    [slider1 setMinimumTrackTintColor:betchyuOrange];
+    [slider1 addTarget:self
+                action:@selector(updateSlider1Value:)
+      forControlEvents:UIControlEventValueChanged];
+    [mainView addSubview:slider1];
+    
+    // the label indicating the slider's value
+    detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 130, 280, 100)];
+    detailLabel1.textColor = betchyuOrange;
+    detailLabel1.textAlignment = NSTextAlignmentCenter;
+    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
     [mainView addSubview:detailLabel1];
     
     ///////////////////////////
@@ -79,14 +175,15 @@
     ///////////////////////////
     // The label indicating what the user is selecting
     UILabel *label2     = [[UILabel alloc] initWithFrame:CGRectMake(20, 220, 280, 100)];
-    label2.text         = @"In:";
+    label2.text         = @"IN:";
     label2.textColor    = [UIColor whiteColor];
     label2.textAlignment= NSTextAlignmentCenter;
+    label2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
     [mainView addSubview:label2];
     
     // The slider the user uses to select values
     UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, 280, 280, 70)];
-    [slider2 setMinimumTrackTintColor:bethcyuOrange];
+    [slider2 setMinimumTrackTintColor:betchyuOrange];
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
@@ -94,22 +191,12 @@
     
     // the label indicating the slider's value
     detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, 330, 280, 100)];
-    detailLabel2.textColor = bethcyuOrange;
+    detailLabel2.textColor = betchyuOrange;
     detailLabel2.textAlignment = NSTextAlignmentCenter;
+    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
     [mainView addSubview:detailLabel2];
     
-    /////////////////
-    // Next Button //
-    /////////////////
-    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 400, 280, 100)
-                                                  primary:0
-                                                    title:@"Next"];
-    [nextBtn addTarget:self
-               action:@selector(setBetStake:)
-     forControlEvents:UIControlEventTouchUpInside];
-    [mainView addSubview:nextBtn];
-    
-    self.view = mainView;
+    return mainView;
 }
 
 - (void)viewDidLoad {
@@ -122,21 +209,35 @@
 }
 
 - (void) updateSlider1Value:(id)sender {
-    int amount = (int)((((UISlider *)sender).value)*10);
+    int amount;
+    if ([bet.betVerb isEqualToString:@"Run"]) {
+        amount = (int)((((UISlider *)sender).value)*199)+1;
+    } else if ([bet.betVerb isEqualToString:@"Lose"]) {
+        amount = (int)((((UISlider *)sender).value)*19)+1;
+    } else if ([bet.betVerb isEqualToString:@"Workout"]) {
+        amount = (int)((((UISlider *)sender).value)*59)+1;
+    } else {
+        amount = (int)((((UISlider *)sender).value)*10);
+    }
+    
     bet.betAmount = [NSNumber numberWithInt:amount];
-    detailLabel1.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.betNoun]];
+    detailLabel1.text = [NSString stringWithFormat:@"%i %@", amount, bet.betNoun];
 }
 - (void) updateSlider2Value:(id)sender {
-    int days = (int)((((UISlider *)sender).value)*10);
+    int days = (int)((((UISlider *)sender).value)*29)+1;
     bet.endDate = [[NSDate alloc] initWithTimeIntervalSinceNow:(days*24*60*60)];
     detailLabel2.text = [[@(days) stringValue] stringByAppendingString:@" days"];
 }
 
 - (void) setBetStake:(id)sender{
     // If user has not selected bet Details...
-    if ([detailLabel1.text length] == 0 && [detailLabel2.text length] == 0) {
+    if ([detailLabel1.text length] == 0 || [detailLabel2.text length] == 0) {
         // Show warning message
-        // TODO
+        [[[UIAlertView alloc] initWithTitle: @"Wait!"
+                                    message: @"I think you forgot to define your bet..."
+                                   delegate: nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
         
         // and bail from the method
         return;

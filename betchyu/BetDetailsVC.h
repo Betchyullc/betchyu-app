@@ -14,6 +14,7 @@
 @property (strong) TempBet *bet;
 @property (strong) UILabel *detailLabel1;
 @property (strong) UILabel *detailLabel2;
+@property UIColor *betchyuOrange;
 
 - (id)initWithBetVerb:(NSString *)verbName;
 - (void)updateSlider1Value:(id)sender;

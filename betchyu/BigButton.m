@@ -10,6 +10,14 @@
 
 @implementation BigButton
 
+@synthesize idKey;
+
+- (id)initWithFrame:(CGRect)frame primary:(int)code title:(NSString *)title ident:(id)ident {
+    self.idKey = ident;
+    self = [self initWithFrame:frame primary:code title:title];
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
             primary:(int)code
               title:(NSString *)title
@@ -20,8 +28,10 @@
         [self setTitle:title forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.font = [UIFont fontWithName:@"ProximaNova-Black" size:40];
-        self.titleLabel.textAlignment = UITextAlignmentCenter;
-        self.lineBreakMode = UILineBreakModeWordWrap;
+        self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.lineBreakMode = NSLineBreakByWordWrapping;
+        [self setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+
         //self.titleLabel.shadowColor = ;
         //self.titleLabel.shadowOffset = ;
         self.layer.cornerRadius = 10;

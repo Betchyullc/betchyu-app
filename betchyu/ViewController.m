@@ -13,6 +13,8 @@
 #import "BigButton.h"
 #import "MyBetsVC.h"
 #import "MyGoalsVC.h"
+#import "API.h"
+#import "MTStackViewController.h"
 
 @interface ViewController ()
 
@@ -27,9 +29,11 @@
 @implementation ViewController
 
 @synthesize createGoalController = _createGoalController;
+@synthesize numberOfInvites;
+@synthesize numNotif;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nil bundle:nibBundleOrNil];
+- (id)initWithInviteNumber:(NSString *)numInvs {
+    self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         if (!FBSession.activeSession.isOpen) {
@@ -48,6 +52,7 @@
              }
          }];
         
+        self.numberOfInvites = numInvs;
     }
     
     return self;
@@ -55,27 +60,44 @@
 
 - (void) loadView {
     // Create main UIScrollView (the container for home page buttons)
-    UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
+    CGFloat w = mainView.frame.size.width;
+    CGFloat h = mainView.frame.size.height;
+    
+    int bH = h / 3.7;
+    int buffer = 50;
     
     // Make the homepage Buttons
     // "My Goals" button
-    BigButton *myGoals = [[BigButton alloc] initWithFrame:CGRectMake(20, 20, 280, 140)
+    BigButton *myGoals = [[BigButton alloc] initWithFrame:CGRectMake(20, 20+buffer, w-40, bH)
                                                      primary:1 title:@"MY GOALS"];
     [myGoals addTarget:self
                 action:@selector(showMyGoals:)
          forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myGoals];
     // "My Bets" button
-    BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, 180, 280, 140)
+    BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, bH+30+buffer, w-40, bH)
                                                      primary:1 title:@"MY BETS"];
     [myBets addTarget:self
                    action:@selector(showMyBets:)
          forControlEvents:UIControlEventTouchUpInside];
     [mainView addSubview:myBets];
+    
+    if (![self.numberOfInvites isEqualToString:@"0"]) {
+        self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(w-39, bH+19+buffer, 30, 30)];
+        self.numNotif.text       = numberOfInvites;
+        self.numNotif.textAlignment      = UITextAlignmentCenter;
+        self.numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+        self.numNotif.textColor  = [UIColor whiteColor];
+        self.numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
+        self.numNotif.layer.cornerRadius = 15;
+        [mainView addSubview:self.numNotif];
+    }
+    
+    
     // "Create Goal" button
-    BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 340, 280, 140)
+    BigButton *createGoal = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*bH+40+buffer, w-40, bH)
                                                      primary:0 title:@"CREATE\nGOAL"];
     [createGoal addTarget:self
                    action:@selector(createGoal:)
@@ -88,23 +110,67 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+    /*self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
                                               initWithTitle:@"Logout"
                                               style:UIBarButtonItemStyleBordered
                                               target:self
-                                              action:@selector(logoutButtonWasPressed:)];
+                                              action:@selector(logoutButtonWasPressed:)];*/
+    FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
+                                   initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
+                                   pictureCropping:FBProfilePictureCroppingOriginal];
+    mypic.frame = CGRectMake(0, 0, 26, 26);
+    mypic.layer.cornerRadius = 13;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];
     self.navigationItem.title = @"BETCHYU";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"flyout_menu.png"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(showMenu:)];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // check for new offered Bets
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"count", @"restriction",
+                                  ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId, @"user",
+                                  nil];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:@"invites" withParams:params onCompletion:^(NSDictionary *json) {
+        self.numberOfInvites = [[json valueForKey:@"count"] stringValue];
+        
+        if ([self.numberOfInvites isEqualToString:@"0"]) {
+            [self.numNotif removeFromSuperview];
+        } else {
+            CGFloat w = self.view.frame.size.width;
+            CGFloat h = self.view.frame.size.height;
+            int bH = h / 3.7;
+            int buffer = 50;
 
--(void) logoutButtonWasPressed:(id)sender {
-    [FBSession.activeSession closeAndClearTokenInformation];
+            [self.numNotif removeFromSuperview];
+            self.numNotif   = [[UILabel alloc] initWithFrame:CGRectMake(w-39, bH+19+buffer, 30, 30)];
+            self.numNotif.text       = numberOfInvites;
+            self.numNotif.textAlignment      = NSTextAlignmentCenter;
+            self.numNotif.backgroundColor    = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+            self.numNotif.textColor  = [UIColor whiteColor];
+            self.numNotif.font       = [UIFont fontWithName:@"ProximaNova-Black" size:25];
+            self.numNotif.layer.cornerRadius = 15;
+            [self.view addSubview:self.numNotif];
+        }
+    }];
+    
+    // check for finished bets
 }
 
+// actions
+-(void)showMenu:(id)sender {
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
+}
 -(IBAction)createGoal:(id)sender {
     // change to the correct view
     if (!self.createGoalController) {
@@ -116,18 +182,44 @@
     [self.navigationController pushViewController:self.createGoalController
                                          animated:true];
 }
-
 -(void)showMyBets:(id)sender {
-    MyBetsVC *vc =[[MyBetsVC alloc] initWithNibName:nil bundle:nil];
-    vc.title = @"MY BETS";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    // get the bets from the server
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"ongoingBetsandopenBets", @"restriction",
+                                  ownerString, @"user",
+                                  nil];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:@"bets" withParams:params
+                 onCompletion:^(NSDictionary *json) {
+                         //success
+                     MyBetsVC *vc =[[MyBetsVC alloc] initWithOngoingBets:(NSArray *)[json objectForKey:@"ongoingBets"]
+                                                             andOpenBets:(NSArray *)[json objectForKey:@"openBets"]];
+                         vc.title = @"MY BETS";
+                         // Show it.
+                         [self.navigationController pushViewController:vc animated:true];
+                 }];
 }
 -(void)showMyGoals:(id)sender {
-    MyGoalsVC *vc =[[MyGoalsVC alloc] initWithNibName:Nil bundle:nil];
-    vc.title = @"MY GOALS";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    // get the bets from the server
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"goals", @"restriction",
+                                  ownerString, @"user",
+                                  nil];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:@"bets" withParams:params
+                 onCompletion:^(NSDictionary *json) {
+                     //success
+                     MyGoalsVC *vc =[[MyGoalsVC alloc] initWithGoals:(NSArray *)json];
+                     vc.title = @"MY GOALS";
+                     // Show it.
+                     [self.navigationController pushViewController:vc animated:true];
+                 }];
 }
 
 @end

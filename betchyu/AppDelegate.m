@@ -3,6 +3,10 @@
 #import "ViewController.h"
 #import "LoginViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "API.h"
+#import "MTZoomContainerView.h"
+#import "MTStackViewController.h"
+#import "FlyoutMenuVC.h"
 
 @implementation AppDelegate
 
@@ -21,15 +25,6 @@
     [NSURLCache setSharedURLCache:URLCache];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // set up view controllers
-    self.mainViewController = [[ViewController alloc]
-                               initWithNibName:@"ViewController" bundle:nil];
-    self.navController = [[UINavigationController alloc]
-                          initWithRootViewController:self.mainViewController];
-    self.window.rootViewController = self.navController;
-    [self.window makeKeyAndVisible];
     
     // See if the app has a valid token for the current state.
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
@@ -53,7 +48,42 @@
              NSLog(@"inner: %@", user.id);
          } else {
              self.ownId = @"";
+             [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding, try logging out and logging back in" delegate:Nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
          }
+         
+         NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       @"count", @"restriction",
+                                       self.ownId, @"user",
+                                       nil];
+         
+         //make the call to the web API
+         [[API sharedInstance] get:@"invites" withParams:params onCompletion:
+          ^(NSDictionary *json) {
+              //success
+              self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+              
+              MTStackViewController *stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
+              [stackViewController setAnimationDurationProportionalToPosition:YES];
+              stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
+              
+              CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
+              FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
+              UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
+              flyOutNav.navigationBarHidden = YES;
+              
+              [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
+              [stackViewController setLeftViewController:flyOutNav];
+              
+              self.mainViewController = [[ViewController alloc] initWithInviteNumber:[[json valueForKey:@"count"] stringValue]];
+              self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
+              [stackViewController setContentViewController:self.navController];
+              
+              //stackViewController.contentViewController = self.mainViewController;
+              
+              [self.window setRootViewController:stackViewController];
+              [self.window makeKeyAndVisible];
+          }];
+         
      }];
     
     // Setup the navigation bar appearance
@@ -134,7 +164,7 @@
     // complete. In that case, notify the login view so it can update its UI appropriately.
     if (![modalViewController isKindOfClass:[LoginViewController class]]) {
         LoginViewController* loginViewController = [[LoginViewController alloc]
-                                                    initWithNibName:@"LoginViewController"
+                                                    initWithNibName:nil
                                                     bundle:nil];
         [topViewController presentViewController:loginViewController animated:NO completion:nil];
     } else {
@@ -192,65 +222,6 @@
        FBSessionState state, NSError *error) {
          [self sessionStateChanged:session state:state error:error];
      }];
-}
-
-
-#pragma mark - Core Data stack
-
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
-
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"betchyu" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (_persistentStoreCoordinator) {
-        return _persistentStoreCoordinator;
-    }
-    
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    
-    AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[_persistentStoreCoordinator addPersistentStoreWithType:[iBetchyuIncrementalStore type] configuration:nil URL:nil options:nil error:nil];
-    
-    NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:@"betchyu.sqlite"];
-    
-    NSDictionary *options = @{
-                              NSInferMappingModelAutomaticallyOption : @(YES),
-                              NSMigratePersistentStoresAutomaticallyOption: @(YES)
-                              };
-    
-    NSError *error = nil;
-    if (![incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
 }
 
 #pragma mark - Application's Documents directory

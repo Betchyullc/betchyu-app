@@ -10,4 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property NSString * numberOfInvites;
+@property UILabel * numNotif;
+
+- (id)initWithInviteNumber:(NSString *)numInvs;
+
 @end

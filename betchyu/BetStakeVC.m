@@ -23,7 +23,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        stakes = [[NSArray alloc] initWithObjects:@"Beer", @"Amazon", nil];
+        stakes = [[NSArray alloc] initWithObjects:@"Drink", @"Meal", @"Amazon Gift Card", nil];
         stakeImageHeight = 220;
         
         bet = betObj;
@@ -34,22 +34,26 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(320, 1000);
+    int h = mainView.frame.size.height;
+    int w = mainView.frame.size.width;
+    mainView.contentSize   = CGSizeMake(w, 20 + ((stakeImageHeight+20)*stakes.count));
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // code
     for (int i = 0; i < stakes.count; i++) {
-        UIImageView *stakePic = [[UIImageView alloc] initWithImage:
-                                 [UIImage imageNamed:
-                                  [[stakes objectAtIndex:i] stringByAppendingString:@".jpg"]]];
-        stakePic.frame = CGRectMake(20, (i*(stakeImageHeight+20))+20, 280, stakeImageHeight);
-        stakePic.userInteractionEnabled = YES;
-        UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stakeTapped:)];
-        [stakePic addGestureRecognizer:gr];
-        [mainView addSubview:stakePic];
-
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, (i*(stakeImageHeight+20))+20, w-40, stakeImageHeight)];
+        [btn setBackgroundImage:[UIImage imageNamed:[[stakes objectAtIndex:i] stringByAppendingString:@".jpg"]] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(stakeTapped:) forControlEvents:UIControlEventTouchUpInside];
+        btn.layer.cornerRadius = 10.0f;
+        btn.clipsToBounds = YES;
+        [btn setTitle:[stakes objectAtIndex:i] forState:UIControlStateNormal];
+        btn.font = [UIFont fontWithName:@"ProximaNova-Black" size:40];
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btn.lineBreakMode = NSLineBreakByWordWrapping;
+        [btn setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        [mainView addSubview:btn];
     }
-    
     
     // add the UIScrollView we've been compiling to the actual screen.
     self.view = mainView;
@@ -64,8 +68,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) stakeTapped:(UITapGestureRecognizer *)sender{
-    int i                 = (((UIImageView *)sender.view).frame.origin.y - 20)
+- (void) stakeTapped:(UIButton *)sender {
+    int i                 = (sender.frame.origin.y - 20)
                                 /(stakeImageHeight+20);
     bet.opponentStakeType = [stakes objectAtIndex:i];
     bet.ownStakeType      = [stakes objectAtIndex:i];
