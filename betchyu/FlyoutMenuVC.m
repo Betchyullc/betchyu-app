@@ -126,14 +126,13 @@
     [self.navigationController pushViewController:vc animated:true];
 }
 -(void) howItWorksPressed:(id)sender {
+    
+}
+-(void) aboutUsPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
     vc.view = [[HowItWorks alloc] initWithFrame:self.passedFrame AndOwner:self];
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
-    
-}
--(void) aboutUsPressed:(id)sender {
-    
 }
 
 - (void)viewDidLoad {

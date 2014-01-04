@@ -21,5 +21,6 @@
 @synthesize ownStakeAmount;
 @synthesize ownStakeType;
 @synthesize owner;
+@synthesize current;
 
 @end

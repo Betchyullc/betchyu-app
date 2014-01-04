@@ -58,12 +58,12 @@
         UILabel *copy;
         if (frame.size.height > 500) {
             copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 140, frame.size.width-60, 3*frame.size.height/4)];
-            copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
+            copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         } else {
             copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 150, frame.size.width-60, frame.size.height-140)];
-            copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:13];
+            copy.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
         }
-        copy.text = @"To help people achieve their goals, we have found a way to leverage accountability to one's friends, relatives and acquaintances, as well as the natural desire to prove doubters wrong, and the motivation sparked by the chance to win money or prizes. Because of the unprecedented ease and frequency with which social networks are now connected, the Betchyu app is able to tap into the goodwill of those in our lives, drawing upon reserves of support available to every individual.";
+        copy.text = @"Betchyu is a startup based in Cleveland, Ohio. We’re a team of guys who started working together in August 2013. We love building awesome products that can change people’s lives. We aspire to make it easier than ever for people to attain personal goals. Still have questions? Learn more at betchyu.com.";
         copy.numberOfLines = 0;
         copy.textAlignment = NSTextAlignmentLeft;
         copy.textColor = [UIColor whiteColor];

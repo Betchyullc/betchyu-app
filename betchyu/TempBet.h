@@ -21,5 +21,6 @@
 @property (nonatomic, retain) NSNumber * ownStakeAmount;
 @property (nonatomic, retain) NSString * ownStakeType;
 @property (nonatomic, retain) NSString *owner;
+@property NSNumber *current;
 
 @end

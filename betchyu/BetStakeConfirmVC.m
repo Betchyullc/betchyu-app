@@ -295,6 +295,10 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+// handles the user touching the done button on the FB friend selector
+- (void)facebookViewControllerCancelWasPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
                  shouldIncludeUser:(id<FBGraphUser>)user

@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "TempBet.h"
 
-@interface BetDetailsVC : UIViewController
+@interface BetDetailsVC : UIViewController <UITextFieldDelegate>
 
 @property (strong) TempBet *bet;
 @property (strong) UILabel *detailLabel1;
 @property (strong) UILabel *detailLabel2;
+@property UITextField *weightInput;
 @property UIColor *betchyuOrange;
 
 - (id)initWithBetVerb:(NSString *)verbName;

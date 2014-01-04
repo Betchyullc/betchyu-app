@@ -48,7 +48,7 @@
         // the picture
         FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
                                        initWithProfileID:ownId
-                                         pictureCropping:FBProfilePictureCroppingOriginal];
+                                         pictureCropping:FBProfilePictureCroppingSquare];
         mypic.frame = CGRectMake(2, 2, dim-4, dim-4);
         mypic.layer.cornerRadius = (dim-4)/2;
         // The border
