@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 BetchyuLLC. All rights reserved.
 //
 
-#import "HowItWorks.h"
+#import "AboutUs.h"
 
-@implementation HowItWorks
+@implementation AboutUs
 
 @synthesize owner;
 

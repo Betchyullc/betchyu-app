@@ -131,13 +131,15 @@
     }];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    if (self.ongoingBets.count == 0 && self.openBets.count == 0) {
+        [[[UIAlertView alloc] initWithTitle:@"Umm..."
+                                    message:@"You don't have any goals yet. You should make one!"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK!"
+                          otherButtonTitles:nil]
+         show];
+    }
 }
 
 @end

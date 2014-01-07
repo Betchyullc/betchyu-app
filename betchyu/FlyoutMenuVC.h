@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface FlyoutMenuVC : UIViewController
+@interface FlyoutMenuVC : UIViewController <UIPageViewControllerDataSource>
 
 @property CGRect passedFrame;
 

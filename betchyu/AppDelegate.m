@@ -4,8 +4,6 @@
 #import "LoginViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "API.h"
-#import "MTZoomContainerView.h"
-#import "MTStackViewController.h"
 #import "FlyoutMenuVC.h"
 
 @implementation AppDelegate
@@ -18,13 +16,34 @@
 
 @synthesize navController = _navController;
 @synthesize mainViewController = _mainViewController;
+@synthesize stackViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.ownId = @"";
+    
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:8 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
+    [stackViewController setAnimationDurationProportionalToPosition:YES];
+    stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
+    
+    CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
+    FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
+    UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
+    flyOutNav.navigationBarHidden = YES;
+    
+    [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
+    [stackViewController setLeftViewController:flyOutNav];
+    
+    self.mainViewController = [[ViewController alloc] initWithInviteNumber:@"0"];
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
+    [stackViewController setContentViewController:self.navController];
     
     // See if the app has a valid token for the current state.
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
@@ -34,43 +53,7 @@
         // No, display the login page.
         [self showLoginView];
     }
-    // Fetch user data
-    [FBRequestConnection
-     startForMeWithCompletionHandler:^(FBRequestConnection *connection,
-                                       id<FBGraphUser> user,
-                                       NSError *error) {
-         if (!error) {
-             self.ownId = user.id;
-             NSLog(@"inner: %@", user.id);
-         } else {
-             self.ownId = @"";
-             [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding, try logging out and logging back in" delegate:Nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
-         }
-         
-         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-         
-         MTStackViewController *stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
-         [stackViewController setAnimationDurationProportionalToPosition:YES];
-         stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
-         
-         CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
-         FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
-         UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
-         flyOutNav.navigationBarHidden = YES;
-         
-         [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
-         [stackViewController setLeftViewController:flyOutNav];
-         
-         self.mainViewController = [[ViewController alloc] initWithInviteNumber:@"0"];
-         self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-         [stackViewController setContentViewController:self.navController];
-         
-         //stackViewController.contentViewController = self.mainViewController;
-         
-         [self.window setRootViewController:stackViewController];
-         [self.window makeKeyAndVisible];
-
-     }];
+    
     
     // Setup the navigation bar appearance
     UIColor *betchyu = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
@@ -137,25 +120,22 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return [FBSession.activeSession handleOpenURL:url];
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
-- (void)showLoginView
-{
-    UIViewController *topViewController = [self.navController topViewController];
-    UIViewController *modalViewController = [topViewController modalViewController];
-    
+- (void)showLoginView {
     // If the login screen is not already displayed, display it. If the login screen is
     // displayed, then getting back here means the login in progress did not successfully
     // complete. In that case, notify the login view so it can update its UI appropriately.
-    if (![modalViewController isKindOfClass:[LoginViewController class]]) {
+    if (![self.window.rootViewController isKindOfClass:[LoginViewController class]]) {
         LoginViewController* loginViewController = [[LoginViewController alloc]
                                                     initWithNibName:nil
                                                     bundle:nil];
-        [topViewController presentViewController:loginViewController animated:NO completion:nil];
+        
+        [self.window setRootViewController:loginViewController];
+        [self.window makeKeyAndVisible];
     } else {
-        LoginViewController* loginViewController =
-        (LoginViewController*)modalViewController;
+        LoginViewController* loginViewController = (LoginViewController*)self.window.rootViewController;
         [loginViewController loginFailed];
     }
 }
@@ -165,13 +145,24 @@
                       error:(NSError *)error
 {
     switch (state) {
+        case FBSessionStateOpenTokenExtended:
         case FBSessionStateOpen: {
-            UIViewController *topViewController =
-            [self.navController topViewController];
-            if ([[topViewController modalViewController]
-                 isKindOfClass:[LoginViewController class]]) {
-                [topViewController dismissModalViewControllerAnimated:YES];
-            }
+            // Fetch user data
+            [FBRequestConnection
+             startForMeWithCompletionHandler:^(FBRequestConnection *connection,
+                                               id<FBGraphUser> user,
+                                               NSError *error) {
+                 if (!error) {
+                     self.ownId = user.id;
+                     NSLog(@"inner: %@", user.id);
+                 } else {
+                     self.ownId = @"";
+                     [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding, try logging out and logging back in" delegate:Nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+                 }
+             }];
+            
+            [self.window setRootViewController:stackViewController];
+            [self.window makeKeyAndVisible];
         }
             break;
         case FBSessionStateClosed:

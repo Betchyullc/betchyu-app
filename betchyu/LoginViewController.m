@@ -50,7 +50,7 @@
     motto.textAlignment = NSTextAlignmentCenter;
     motto.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:16];
     motto.textColor     = [UIColor blackColor];
-    motto.text          = @"Goals are hard. Betchyu is easy.";
+    motto.text          = @"Cracking the Code on Motivation";
     
     // Make the homepage Buttons
     // "facebook login" button
@@ -58,7 +58,7 @@
     login.backgroundColor = [UIColor colorWithRed:(71.0/255.0) green:(99.0/255.0) blue:(158.0/255.0) alpha:1.0];
     login.layer.cornerRadius = 6;
     login.clipsToBounds = YES;
-    [login setTitle:@"SIGN IN WITH FACEBOOK" forState:UIControlStateNormal];
+    [login setTitle:@"Login with Facebook" forState:UIControlStateNormal];
     [login addTarget:self action:@selector(performLogin:) forControlEvents:UIControlEventTouchUpInside];
     
     //add the subviews

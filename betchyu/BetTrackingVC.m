@@ -213,7 +213,7 @@
         //success
         self.previousUpdates = (NSArray*)json;
         if (((NSArray*)json).count > 0) {
-            int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] integerValue];
+            int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
             self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.betNoun];
             self.slider.value = [[NSNumber numberWithInt:val] floatValue];
         } else {
@@ -334,9 +334,7 @@
     return [dates subarrayWithRange:NSMakeRange(0, dates.count)];
 }
 -(void)handleBetFinish {
-    if (self.isFinished) {
-        return;
-    }
+    if (self.isFinished) { return; }
     // useful vars
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
@@ -351,14 +349,7 @@
             for (NSDictionary *obj in self.previousUpdates) {
                 if ([[obj valueForKey:@"value"] integerValue] == 0){
                     // handle loss and break execution
-                    UIAlertView *alert = [[UIAlertView alloc] init];
-                    [alert setTitle:@"Goal Failed!"];
-                    [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
-                    [alert setDelegate:self];
-                    [alert addButtonWithTitle:@"Yes"];
-                    [alert addButtonWithTitle:@"No"];
-                    [alert show];
-                    self.isFinished = YES;
+                    [self loseAndAsk];
                     return;
                 }
             }
@@ -399,14 +390,7 @@
                  show];
                 self.isFinished = YES;
             } else if (components.day > 1) {
-                UIAlertView *alert = [[UIAlertView alloc] init];
-                [alert setTitle:@"Goal Failed!"];
-                [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
-                [alert setDelegate:self];
-                [alert addButtonWithTitle:@"Yes"];
-                [alert addButtonWithTitle:@"No"];
-                [alert show];
-                self.isFinished = YES;
+                [self loseAndAsk];
             }
         }
         return;  // bail to prevent other checks from being run--we ran everything we need to already.
@@ -434,15 +418,20 @@
          show];
         self.isFinished = YES;
     } else if (components.day > 1) {
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        [alert setTitle:@"Goal Failed!"];
-        [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
-        [alert setDelegate:self];
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert show];
-        self.isFinished = YES;
+        [self loseAndAsk];
     }
+}
+
+// shows the pop-up to alert the user that he lost and ask if he has paid up yet.
+-(void)loseAndAsk {
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    [alert setTitle:@"Goal Failed!"];
+    [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
+    [alert setDelegate:self];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"No"];
+    [alert show];
+    self.isFinished = YES;
 }
 
 // navigation method(s)
@@ -711,8 +700,10 @@
             [self showDetailsPage:nil];
         }
     }
+}
+
+-(void) popUpToFinishBet {
     
-    //
 }
 
 @end

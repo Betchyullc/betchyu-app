@@ -8,7 +8,9 @@
 
 #import "FlyoutMenuVC.h"
 #import "ProfileView.h"
-#import "HowItWorks.h"
+#import "AboutUs.h"
+#import "HowItWorksVC.h"
+#import "AppDelegate.h"
 
 @interface FlyoutMenuVC ()
 
@@ -126,11 +128,23 @@
     [self.navigationController pushViewController:vc animated:true];
 }
 -(void) howItWorksPressed:(id)sender {
+    UIPageViewController *pvc = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    pvc.dataSource = self;
+    pvc.view.frame = self.view.frame;
     
+    HowItWorksVC *firstPage = [self viewControllerAtIndex:0];
+    NSArray *viewControllers = [NSArray arrayWithObject:firstPage];
+    
+    [pvc setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    AppDelegate *app =(AppDelegate *)([[UIApplication sharedApplication] delegate]);
+    
+    [app.window setRootViewController:pvc];
+    [app.window makeKeyAndVisible];
 }
 -(void) aboutUsPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
-    vc.view = [[HowItWorks alloc] initWithFrame:self.passedFrame AndOwner:self];
+    vc.view = [[AboutUs alloc] initWithFrame:self.passedFrame AndOwner:self];
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }
@@ -142,6 +156,57 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - UIPageViewControllerDataSource methods implementation
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+      viewControllerBeforeViewController:(UIViewController *)viewController {
+    
+    NSUInteger index = [(HowItWorksVC *)viewController index];
+    
+    if (index == 0) {
+        return nil;
+    }
+    
+    index--;
+    
+    return [self viewControllerAtIndex:index];
+    
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+       viewControllerAfterViewController:(UIViewController *)viewController {
+    
+    NSUInteger index = [(HowItWorksVC *)viewController index];
+    
+    
+    index++;
+    
+    if (index == 5) {
+        return nil;
+    }
+    
+    return [self viewControllerAtIndex:index];
+    
+}
+
+- (HowItWorksVC *)viewControllerAtIndex:(NSUInteger)index {
+    
+    HowItWorksVC *childViewController = [[HowItWorksVC alloc] initWithNibName:nil bundle:nil];
+    childViewController.index = index;
+    
+    return childViewController;
+    
+}
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
+    // The number of items reflected in the page indicator.
+    return 5;
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
+    // The selected item reflected in the page indicator.
+    return 0;
 }
 
 @end

@@ -80,22 +80,23 @@
     NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
     
     //make the call to the web API
-    [[API sharedInstance] get:path withParams:nil
-                 onCompletion:^(NSDictionary *json) {
-                     //success
-                     BetTrackingVC *vc =[[BetTrackingVC alloc] initWithJSON:json];
-                     // Show it.
-                     [self.navigationController pushViewController:vc animated:true];
-                 }];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        //success
+        BetTrackingVC *vc =[[BetTrackingVC alloc] initWithJSON:json];
+        // Show it.
+        [self.navigationController pushViewController:vc animated:true];
+    }];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    if (self.bets.count == 0) {
+        [[[UIAlertView alloc] initWithTitle:@"Umm..."
+                                    message:@"You don't have any goals yet. You should make one!"
+                                   delegate:nil
+                          cancelButtonTitle:@"OK!"
+                          otherButtonTitles:nil]
+         show];
+    }
 }
 
 @end

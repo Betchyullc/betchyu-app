@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
+#import "MTZoomContainerView.h"
+#import "MTStackViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -13,6 +15,7 @@
 
 @property (strong, nonatomic) UINavigationController* navController;
 @property (strong, nonatomic) ViewController *mainViewController;
+@property MTStackViewController *stackViewController;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

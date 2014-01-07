@@ -101,7 +101,7 @@
                                               action:@selector(logoutButtonWasPressed:)];*/
     FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
                                    initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
-                                   pictureCropping:FBProfilePictureCroppingOriginal];
+                                   pictureCropping:FBProfilePictureCroppingSquare];
     mypic.frame = CGRectMake(0, 0, 26, 26);
     mypic.layer.cornerRadius = 13;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];
@@ -117,11 +117,15 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    NSString *userId = ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId;
+    if ([userId isEqualToString:@""]) {
+        return;
+    }
     
     // check for new offered Bets
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   @"count", @"restriction",
-                                  ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId, @"user",
+                                  userId, @"user",
                                   nil];
     
     //make the call to the web API
@@ -148,7 +152,12 @@
         }
     }];
     
-    // check for finished bets
+    FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
+                                   initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
+                                   pictureCropping:FBProfilePictureCroppingSquare];
+    mypic.frame = CGRectMake(0, 0, 26, 26);
+    mypic.layer.cornerRadius = 13;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];
 }
 
 // actions

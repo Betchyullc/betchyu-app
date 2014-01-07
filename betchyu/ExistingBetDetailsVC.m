@@ -129,7 +129,7 @@
     // the picture
     FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
                                    initWithProfileID:bet.owner
-                                   pictureCropping:FBProfilePictureCroppingOriginal];
+                                   pictureCropping:FBProfilePictureCroppingSquare];
     mypic.frame = CGRectMake(2, 2, dim-4, dim-4);
     mypic.layer.cornerRadius = (dim-4)/2;
     // The border
@@ -229,10 +229,6 @@
         self.navigationItem.title = @"The Bet";
     }
     
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

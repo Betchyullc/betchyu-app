@@ -1,5 +1,5 @@
 //
-//  HowItWorks.h
+//  AboutUs.h
 //  betchyu
 //
 //  Created by Adam Baratz on 12/22/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HowItWorks : UIView
+@interface AboutUs : UIView
 
 @property UIViewController *owner;
 
