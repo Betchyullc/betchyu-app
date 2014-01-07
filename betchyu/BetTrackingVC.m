@@ -24,6 +24,7 @@
 @synthesize currentBooleanDate;
 @synthesize previousUpdates;
 @synthesize boolGraphSub;
+@synthesize isFinished;
 
 @synthesize hostView;
 
@@ -48,8 +49,11 @@
         self.bet.opponentStakeAmount = [betJSON valueForKey:@"opponentStakeAmount"];
         self.bet.opponentStakeType = [betJSON valueForKey:@"opponentStakeType"];
         self.bet.owner = [betJSON valueForKey:@"owner"];
+        self.bet.current = [betJSON valueForKey:@"current"];
         
         self.previousUpdates = [NSArray array];
+        
+        self.isFinished = NO;
     }
     return self;
 }
@@ -61,14 +65,13 @@
     
     if ([bet.betVerb isEqualToString:@"Stop"]) {
         self.view = [self makeBooleanUpdater:mainView];
-    /*} else if ([bet.betVerb isEqualToString:@"Lose"]){
-        // the customization for the weight-loss bet-type
-        self.view = [self makeWeightUpdater:mainView];*/
+    } else if ([bet.betVerb isEqualToString:@"Lose"]){   // the customization for the weight-loss bet-type
+        self.view = [self makeWeightUpdater:mainView];
     } else {
         self.view = [self makeNormalUpdater:mainView];
     }
 }
-
+// Helper Method to create copy from bet type
 -(NSString *)trackingHeading {
     if ([bet.betVerb isEqualToString:@"Stop"]) {
         return @"I DIDN'T SMOKE:";
@@ -77,7 +80,7 @@
     } else if ([bet.betVerb isEqualToString:@"Workout"]){
         return @"I'VE WORKED OUT:";
     } else if ([bet.betVerb isEqualToString:@"Lose"]){
-        return @"I'VE LOST:"; // The generic version of this bet-type
+        return [bet.current integerValue] == 0 ? @"I'VE LOST:" : @"I WEIGH:"; // The generic version of this bet-type
         //return @"I WEIGH:"; // The cusomized version of this option
     } else {
         return [NSString stringWithFormat:@"I'VE %@ED:", bet.betVerb];
@@ -135,10 +138,14 @@
 // cusomized view for tracking weight, where we just ask them for their current weight
 -(UIView *)makeWeightUpdater:(UIView *)currentView {
     currentView = [self makeNormalUpdater:currentView];
+    if ([bet.current integerValue] == 0) {
+        return currentView;
+    }
     // this valueForKey:@"current" requires the initially created Bet to include a current => WEIGHT_DATA mapping in it, which is a TODO
-    float val = [betJSON valueForKey:@"current"] == [NSNull null] ? 200.0 : [[betJSON valueForKey:@"current"] floatValue];
-    self.slider.minimumValue = val - [bet.betAmount floatValue];
-    self.slider.maximumValue = val;
+    float val = bet.current == 0 ? 200.0 : [bet.current floatValue];
+    self.slider.minimumValue = val - [bet.betAmount floatValue] - 3;
+    self.slider.maximumValue = val + 3;
+    self.slider.value = val;
     return currentView;
 }
 -(UIView *)makeNormalUpdater:(UIView *)currentView {
@@ -202,22 +209,29 @@
     
     //make the call to the web API
     // GET /bets/:bet_id/updates => {data}
-    [[API sharedInstance] get:path withParams:nil
-                  onCompletion:^(NSDictionary *json) {
-                      //success
-                      self.previousUpdates = (NSArray*)json;
-                      if (((NSArray*)json).count > 0) {
-                          int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] integerValue];
-                          self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.betNoun];
-                          self.slider.value = [[NSNumber numberWithInt:val] floatValue];
-                      } else {
-                          self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.betNoun];
-                          self.slider.value = 0.0;
-                      }
-                      [self initPlot];
-                  }];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        //success
+        self.previousUpdates = (NSArray*)json;
+        if (((NSArray*)json).count > 0) {
+            int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] integerValue];
+            self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.betNoun];
+            self.slider.value = [[NSNumber numberWithInt:val] floatValue];
+        } else {
+            if (self.slider.value == 0.0) {
+                self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.betNoun];
+                self.slider.value = self.slider.value == 0.0 ? 0.0 : self.slider.value;
+            } else {
+                self.updateText.text = [NSString stringWithFormat:@"%i %@", (int)self.slider.value, bet.betNoun];
+            }
+        }
+        [self initPlot];
+        [self handleBetFinish];
+    }];
 }
 - (void)makeUpdate:(id)sender {
+    if (self.isFinished) {
+        return; // bail because bet is done.
+    }
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [NSNumber numberWithFloat:self.slider.value], @"value",
                                   [betJSON valueForKey:@"id"],                  @"bet_id",
@@ -230,22 +244,13 @@
          //success
          [self currentStateText];
      }];
-    
-    // If they just won, congratulate them, and pop to home page
-    if (self.slider.value == [bet.betAmount floatValue]) {
-        [[[UIAlertView alloc] initWithTitle:@"Goal Completed!"
-                                    message:@"You win the bet! Be sure to collect your prize from your friend."
-                                   delegate:nil
-                          cancelButtonTitle:@"OK!"
-                          otherButtonTitles:nil]
-         show];
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-
 }
 
 // ===== BOOLEAN BET-TYPE METHODS ====== //
 - (void)makeBoolUpdate:(BigButton *)sender {
+    if (self.isFinished) {
+        return; // bail because bet is done.
+    }
     if (currentBooleanDate > [NSDate date]) {
         [[[UIAlertView alloc] initWithTitle: @"Sorry..."
                                     message: @"That day hasn't happened just yet."
@@ -329,29 +334,86 @@
     return [dates subarrayWithRange:NSMakeRange(0, dates.count)];
 }
 -(void)handleBetFinish {
-    // handle boolean-type bets
-    if ([bet.betNoun isEqualToString:@"Smoking"]) {
-        if (self.previousUpdates.count != [self numberOfDaysTheBetLasts]) {
-            return;
-        } else {
-            for (NSDictionary *obj in self.previousUpdates) {
-                if ([[obj valueForKey:@"value"] integerValue] == 0){
-                    // handle loss and break execution
-                }
-            }
-            // else they won, handle win and break execution
-            return;
-        }
+    if (self.isFinished) {
+        return;
     }
-    
-    // handle normal-type bets
+    // useful vars
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
                                                         fromDate:bet.endDate
                                                           toDate:[NSDate date]
                                                          options:0];
+    // handle boolean-type bets
+    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        if (self.previousUpdates.count != [self numberOfDaysTheBetLasts]) { // there have not been enough updates to know if the bet is over
+            return;
+        } else {
+            for (NSDictionary *obj in self.previousUpdates) {
+                if ([[obj valueForKey:@"value"] integerValue] == 0){
+                    // handle loss and break execution
+                    UIAlertView *alert = [[UIAlertView alloc] init];
+                    [alert setTitle:@"Goal Failed!"];
+                    [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
+                    [alert setDelegate:self];
+                    [alert addButtonWithTitle:@"Yes"];
+                    [alert addButtonWithTitle:@"No"];
+                    [alert show];
+                    self.isFinished = YES;
+                    return;
+                }
+            }
+            // else they won, handle win and break execution
+            UIAlertView *alert = [[UIAlertView alloc] init];
+            [alert setTitle:@"Goal Completed!"];
+            [alert setMessage:@"You have won this bet! Has your friend paid you yet?"];
+            [alert setDelegate:self];
+            [alert addButtonWithTitle:@"Yes"];
+            [alert addButtonWithTitle:@"No"];
+            [alert show];
+            self.isFinished = YES;
+            return;
+        }
+    } else if ([bet.betNoun isEqualToString:@"pounds"]) {
+        if ([bet.current integerValue] == 0) {     // handle old bet type
+            
+        } else {                    // handle new bet type
+            // if the latest update is smaller than the goal weight
+            if ((self.previousUpdates.count > 0) &&
+                (([bet.current intValue] - [bet.betAmount intValue]) >= [[[previousUpdates lastObject] valueForKey:@"value"] integerValue])) {
+                
+                // they win
+                UIAlertView *alert = [[UIAlertView alloc] init];
+                [alert setTitle:@"Goal Completed!"];
+                [alert setMessage:@"You have won this bet! Has your friend paid you yet?"];
+                [alert setDelegate:self];
+                [alert addButtonWithTitle:@"Yes"];
+                [alert addButtonWithTitle:@"No"];
+                [alert show];
+                self.isFinished = YES;
+            } else if (components.day == 1) {
+                [[[UIAlertView alloc] initWithTitle:@"Goal Failed!"
+                                            message:@"You lose the bet! Be sure to pay your friend the prize."
+                                           delegate:nil
+                                  cancelButtonTitle:@"OK!"
+                                  otherButtonTitles:nil]
+                 show];
+                self.isFinished = YES;
+            } else if (components.day > 1) {
+                UIAlertView *alert = [[UIAlertView alloc] init];
+                [alert setTitle:@"Goal Failed!"];
+                [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
+                [alert setDelegate:self];
+                [alert addButtonWithTitle:@"Yes"];
+                [alert addButtonWithTitle:@"No"];
+                [alert show];
+                self.isFinished = YES;
+            }
+        }
+        return;  // bail to prevent other checks from being run--we ran everything we need to already.
+    }
     
-    int current = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
+    // handle normal-type bets
+    int current = [bet.current intValue];
     // If user has WON the bet
     if (current >= [bet.betAmount intValue]) {
         UIAlertView *alert = [[UIAlertView alloc] init];
@@ -361,6 +423,7 @@
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
         [alert show];
+        self.isFinished = YES;
     } else if (components.day == 1) {  // the user has not won the bet, and the bet time has expired,
         // the user LOST the bet
         [[[UIAlertView alloc] initWithTitle:@"Goal Failed!"
@@ -369,7 +432,7 @@
                           cancelButtonTitle:@"OK!"
                           otherButtonTitles:nil]
          show];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        self.isFinished = YES;
     } else if (components.day > 1) {
         UIAlertView *alert = [[UIAlertView alloc] init];
         [alert setTitle:@"Goal Failed!"];
@@ -378,6 +441,7 @@
         [alert addButtonWithTitle:@"Yes"];
         [alert addButtonWithTitle:@"No"];
         [alert show];
+        self.isFinished = YES;
     }
 }
 
@@ -621,11 +685,13 @@
             [[API sharedInstance] put:path withParams:params onCompletion:
              ^(NSDictionary *json) {
                  //success do nothing...
+                 [self.navigationController popToRootViewControllerAnimated:YES];
              }];
         }
         else if (buttonIndex == 1) {
             // No, bet payment was not received
             // do nothing.
+            [self showDetailsPage:nil];
         }
     } else {
         if (buttonIndex == 0) {
@@ -636,15 +702,17 @@
             [[API sharedInstance] put:path withParams:params onCompletion:
              ^(NSDictionary *json) {
                  //success do nothing...
+                 [self.navigationController popToRootViewControllerAnimated:YES];
              }];
         }
         else if (buttonIndex == 1) {
             // No, bet payment was not paid
             // do nothing.
+            [self showDetailsPage:nil];
         }
     }
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    //
 }
 
 @end

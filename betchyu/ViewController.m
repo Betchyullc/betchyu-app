@@ -36,22 +36,6 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        if (!FBSession.activeSession.isOpen) {
-            [FBSession openActiveSessionWithAllowLoginUI: YES];
-        }
-        // Fetch user data
-        [FBRequestConnection
-         startForMeWithCompletionHandler:^(FBRequestConnection *connection,
-                                           id<FBGraphUser> user,
-                                           NSError *error) {
-             if (!error) {
-                 ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId = user.id;
-                 NSLog(@"inner: %@", user.id);
-             } else {
-                 ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId = @"";
-             }
-         }];
-        
         self.numberOfInvites = numInvs;
     }
     

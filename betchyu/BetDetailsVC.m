@@ -97,20 +97,20 @@
     label1.numberOfLines = 0;
     [mainView addSubview:label1];
     
+    // the label indicating the slider's value
+    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, h/4, w-40, h/4)];
+    detailLabel2.textColor = betchyuOrange;
+    detailLabel2.textAlignment = NSTextAlignmentCenter;
+    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel2];
+    
     // The slider the user uses to select values
-    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, h/4, w-40, h/5)];
+    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, h/5 + h/4, w-40, h/5)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:slider2];
-    
-    // the label indicating the slider's value
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, h/5 + h/4, w-40, h/4)];
-    detailLabel2.textColor = betchyuOrange;
-    detailLabel2.textAlignment = NSTextAlignmentCenter;
-    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
-    [mainView addSubview:detailLabel2];
 
     ////////
     // Fake the first label details, because we arent showing it
@@ -137,20 +137,20 @@
     label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:30];
     [mainView addSubview:label1];
     
+    // the label indicating the slider's value
+    detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, h/9, w2, h/9)];
+    detailLabel1.textColor = betchyuOrange;
+    detailLabel1.textAlignment = NSTextAlignmentCenter;
+    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel1];
+    
     // The slider the user uses to select values
-    UISlider *slider1   = [[UISlider alloc] initWithFrame:CGRectMake(20, h/9, w2, h/9)];
+    UISlider *slider1   = [[UISlider alloc] initWithFrame:CGRectMake(20, 2*h/9, w2, h/9)];
     [slider1 setMinimumTrackTintColor:betchyuOrange];
     [slider1 addTarget:self
                 action:@selector(updateSlider1Value:)
       forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:slider1];
-    
-    // the label indicating the slider's value
-    detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 2*h/9, w2, h/9)];
-    detailLabel1.textColor = betchyuOrange;
-    detailLabel1.textAlignment = NSTextAlignmentCenter;
-    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
-    [mainView addSubview:detailLabel1];
     
     ///////////////////////////
     // Bottom Selector stuff //
@@ -163,20 +163,20 @@
     label2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
     [mainView addSubview:label2];
     
+    // the label indicating the slider's value
+    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 4*h/9, w2, h/9)];
+    detailLabel2.textColor = betchyuOrange;
+    detailLabel2.textAlignment = NSTextAlignmentCenter;
+    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel2];
+    
     // The slider the user uses to select values
-    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, 20 + 4*h/9, w2, h/9)];
+    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, 20 + 5*h/9, w2, h/9)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:slider2];
-    
-    // the label indicating the slider's value
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, 20 + 5*h/9, w2, h/9)];
-    detailLabel2.textColor = betchyuOrange;
-    detailLabel2.textAlignment = NSTextAlignmentCenter;
-    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
-    [mainView addSubview:detailLabel2];
     
     return mainView;
 }
@@ -215,20 +215,20 @@
     label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:30];
     [mainView addSubview:label1];
     
+    // the label indicating the slider's value
+    detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(h/9), w2, h/9)];
+    detailLabel1.textColor = betchyuOrange;
+    detailLabel1.textAlignment = NSTextAlignmentCenter;
+    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel1];
+    
     // The slider the user uses to select values
-    UISlider *slider1   = [[UISlider alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(h/9), w2, h/9)];
+    UISlider *slider1   = [[UISlider alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(2*h/9), w2, h/9)];
     [slider1 setMinimumTrackTintColor:betchyuOrange];
     [slider1 addTarget:self
                 action:@selector(updateSlider1Value:)
       forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:slider1];
-    
-    // the label indicating the slider's value
-    detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(2*h/9), w2, h/9)];
-    detailLabel1.textColor = betchyuOrange;
-    detailLabel1.textAlignment = NSTextAlignmentCenter;
-    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
-    [mainView addSubview:detailLabel1];
     
     ///////////////////////////
     // Bottom Selector stuff //
@@ -241,20 +241,20 @@
     label2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
     [mainView addSubview:label2];
     
+    // the label indicating the slider's value
+    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(20 + 4*h/9), w2, h/9)];
+    detailLabel2.textColor = betchyuOrange;
+    detailLabel2.textAlignment = NSTextAlignmentCenter;
+    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
+    [mainView addSubview:detailLabel2];
+    
     // The slider the user uses to select values
-    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(20 + 4*h/9), w2, h/9)];
+    UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(20 + 5*h/9), w2, h/9)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
     [mainView addSubview:slider2];
-    
-    // the label indicating the slider's value
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(20 + 5*h/9), w2, h/9)];
-    detailLabel2.textColor = betchyuOrange;
-    detailLabel2.textAlignment = NSTextAlignmentCenter;
-    detailLabel2.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
-    [mainView addSubview:detailLabel2];
     
     return mainView;
 }

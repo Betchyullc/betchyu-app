@@ -19,6 +19,7 @@
 @property UISlider *slider;
 @property NSDate *currentBooleanDate;
 @property NSArray *previousUpdates;
+@property BOOL isFinished;
 
 @property (nonatomic, strong) CPTGraphHostingView *hostView;
 

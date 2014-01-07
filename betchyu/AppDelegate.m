@@ -34,10 +34,6 @@
         // No, display the login page.
         [self showLoginView];
     }
-    
-    if (!FBSession.activeSession.isOpen) {
-        [FBSession openActiveSessionWithAllowLoginUI: YES];
-    }
     // Fetch user data
     [FBRequestConnection
      startForMeWithCompletionHandler:^(FBRequestConnection *connection,
@@ -51,39 +47,29 @@
              [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding, try logging out and logging back in" delegate:Nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
          }
          
-         NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                       @"count", @"restriction",
-                                       self.ownId, @"user",
-                                       nil];
+         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
          
-         //make the call to the web API
-         [[API sharedInstance] get:@"invites" withParams:params onCompletion:
-          ^(NSDictionary *json) {
-              //success
-              self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-              
-              MTStackViewController *stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
-              [stackViewController setAnimationDurationProportionalToPosition:YES];
-              stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
-              
-              CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
-              FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
-              UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
-              flyOutNav.navigationBarHidden = YES;
-              
-              [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
-              [stackViewController setLeftViewController:flyOutNav];
-              
-              self.mainViewController = [[ViewController alloc] initWithInviteNumber:[[json valueForKey:@"count"] stringValue]];
-              self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
-              [stackViewController setContentViewController:self.navController];
-              
-              //stackViewController.contentViewController = self.mainViewController;
-              
-              [self.window setRootViewController:stackViewController];
-              [self.window makeKeyAndVisible];
-          }];
+         MTStackViewController *stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
+         [stackViewController setAnimationDurationProportionalToPosition:YES];
+         stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
          
+         CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
+         FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
+         UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
+         flyOutNav.navigationBarHidden = YES;
+         
+         [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
+         [stackViewController setLeftViewController:flyOutNav];
+         
+         self.mainViewController = [[ViewController alloc] initWithInviteNumber:@"0"];
+         self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
+         [stackViewController setContentViewController:self.navController];
+         
+         //stackViewController.contentViewController = self.mainViewController;
+         
+         [self.window setRootViewController:stackViewController];
+         [self.window makeKeyAndVisible];
+
      }];
     
     // Setup the navigation bar appearance
