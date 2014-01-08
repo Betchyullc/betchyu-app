@@ -23,6 +23,7 @@
 @synthesize isOffer;
 @synthesize isOwn;
 @synthesize stakeDescription;
+@synthesize current;
 
 // ===== Initializers ===== //
 - (id)initWithJSON:(NSDictionary *)json {
@@ -99,16 +100,19 @@
     self.stakeDescription          = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2 +10, w-20, 100)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
-    stakeDescription.text          = [[[@"If I succeed, I win " stringByAppendingString:
-                                        [bet.ownStakeAmount stringValue]] stringByAppendingString:
-                                       @" "] stringByAppendingString:
-                                      bet.ownStakeType];
+    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@.", bet.ownStakeAmount, bet.ownStakeType];
+    } else if ([bet.ownStakeAmount integerValue] == 1) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@.", bet.ownStakeAmount, bet.ownStakeType];
+    } else {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s.", bet.ownStakeAmount, bet.ownStakeType];
+    }
     
     // The current state text
-    UILabel *current      = [[UILabel alloc] initWithFrame:CGRectMake(10, 2*h/3 +10, w-20, 100)];
-    current.numberOfLines = 0;
-    current.textColor     = [UIColor whiteColor];
-    current.text          = [self currentStateText]; // string formatter
+    self.current               = [[UILabel alloc] initWithFrame:CGRectMake(10, 2*h/3 +10, w-20, 100)];
+    self.current.numberOfLines = 0;
+    self.current.textColor     = [UIColor whiteColor];
+    self.current.text          = [self currentStateText]; // string formatter
     
     
     //fonts
@@ -181,7 +185,7 @@
                                                           toDate:bet.endDate
                                                          options:0];
     long days =(long)[components day];
-    int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
+    int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] intValue];
     items = [bet.betAmount integerValue] - items;
     
     
@@ -190,6 +194,39 @@
             return [NSString stringWithFormat:@"Currently, there are %ld days to go.", days];
         } else {
             return @"Currently, there is 1 day to go.";
+        }
+    } else if ([bet.betVerb isEqualToString:@"Lose"]) {     // handle the weight-loss bet
+        items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] intValue];
+        if (items == 0) {
+            items = [self.bet.betAmount intValue] - items;
+            if (days != 1) {
+                return [NSString stringWithFormat:@"Currently, there are %ld days to go, and %d %@ to %@", days, items, self.bet.betNoun, self.bet.betVerb];
+            } else {
+                return [NSString stringWithFormat:@"Currently, there is 1 day to go, and %d %@ to %@", items, self.bet.betNoun, self.bet.betVerb];
+            }
+        } else {
+            NSString* path =[NSString stringWithFormat:@"bets/%@/updates", [betJSON valueForKey:@"id"]];
+            
+            //make the call to the web API
+            // GET /bets/:bet_id/updates => {data}
+            [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+                //success
+                if (((NSArray*)json).count > 0) {
+                    int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
+                    self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %i pounds to lose.", days, items - val];
+                } else {
+                    if (days != 1) {
+                        self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %@ pounds to lose.", days, self.bet.betAmount];
+                    } else {
+                        self.current.text = [NSString stringWithFormat:@"Currently, there is 1 day to go, and %@ pounds to lose.", self.bet.betAmount];
+                    }
+                }
+            }];
+            if (days != 1) {
+                return [NSString stringWithFormat:@"Currently, there are %ld days to go.", days];
+            } else {
+                return @"Currently, there is 1 day to go.";
+            }
         }
         
     } else {

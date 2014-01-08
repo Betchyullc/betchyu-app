@@ -262,7 +262,7 @@
 		89B1A7C2186A13A2006A656F /* Run More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Run More.jpg"; sourceTree = "<group>"; };
 		89B1A7C4186A13E3006A656F /* Workout More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Workout More.jpg"; sourceTree = "<group>"; };
 		89B1A7C5186A13E3006A656F /* Stop Smoking.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Stop Smoking.jpg"; sourceTree = "<group>"; };
-		89B3F5B01850EB320055F8DB /* betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89B3F5B01850EB320055F8DB /* Betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		89B3F5B71850EB320055F8DB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -585,7 +585,7 @@
 		89B3F5B11850EB320055F8DB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				89B3F5B01850EB320055F8DB /* betchyu.app */,
+				89B3F5B01850EB320055F8DB /* Betchyu.app */,
 				89B3F5D01850EB320055F8DB /* betchyuTests.xctest */,
 			);
 			name = Products;
@@ -656,9 +656,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		89B3F5AF1850EB320055F8DB /* betchyu */ = {
+		89B3F5AF1850EB320055F8DB /* Betchyu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 89B3F5E21850EB320055F8DB /* Build configuration list for PBXNativeTarget "betchyu" */;
+			buildConfigurationList = 89B3F5E21850EB320055F8DB /* Build configuration list for PBXNativeTarget "Betchyu" */;
 			buildPhases = (
 				1ACC11939C0A45A7A4570DF6 /* Check Pods Manifest.lock */,
 				89B3F5AC1850EB320055F8DB /* Sources */,
@@ -670,9 +670,9 @@
 			);
 			dependencies = (
 			);
-			name = betchyu;
+			name = Betchyu;
 			productName = betchyu;
-			productReference = 89B3F5B01850EB320055F8DB /* betchyu.app */;
+			productReference = 89B3F5B01850EB320055F8DB /* Betchyu.app */;
 			productType = "com.apple.product-type.application";
 		};
 		89B3F5CF1850EB320055F8DB /* betchyuTests */ = {
@@ -720,7 +720,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				89B3F5AF1850EB320055F8DB /* betchyu */,
+				89B3F5AF1850EB320055F8DB /* Betchyu */,
 				89B3F5CF1850EB320055F8DB /* betchyuTests */,
 			);
 		};
@@ -861,7 +861,7 @@
 /* Begin PBXTargetDependency section */
 		89B3F5D71850EB320055F8DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 89B3F5AF1850EB320055F8DB /* betchyu */;
+			target = 89B3F5AF1850EB320055F8DB /* Betchyu */;
 			targetProxy = 89B3F5D61850EB320055F8DB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1064,7 +1064,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		89B3F5E21850EB320055F8DB /* Build configuration list for PBXNativeTarget "betchyu" */ = {
+		89B3F5E21850EB320055F8DB /* Build configuration list for PBXNativeTarget "Betchyu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				89B3F5E31850EB320055F8DB /* Debug */,

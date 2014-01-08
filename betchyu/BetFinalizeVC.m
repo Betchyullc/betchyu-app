@@ -36,18 +36,18 @@
 - (void)loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    int h = mainView.frame.size.height;
+    int h = mainView.frame.size.height - 40;
     int w = mainView.frame.size.width;
-    mainView.contentSize   = CGSizeMake(w, 500);
+    mainView.contentSize   = CGSizeMake(w, h);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     // The handshake image
     UIImageView *shake = [[UIImageView alloc] initWithImage:
                              [UIImage imageNamed:@"handshake.jpg"]];
-    shake.frame = CGRectMake(0, 0, w, 280);
+    shake.frame = CGRectMake(0, 0, w, h/2);
     
     // The bet summary text
-    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(20, 160, w-40, 100)];
+    UILabel *betDescription      = [[UILabel alloc] initWithFrame:CGRectMake(20, h/2 - 110, w-40, 100)];
     betDescription.textAlignment = NSTextAlignmentCenter;
     betDescription.textColor     = [UIColor whiteColor];
     betDescription.font          = [UIFont fontWithName:@"ProximaNova-Black" size:30];
@@ -63,7 +63,7 @@
     }
     
     // The stake summary text
-    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, 280, w-20, 90)];
+    UILabel *stakeDescription      = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2, w-20, 90)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
     stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
@@ -83,7 +83,7 @@
     // FBProfilePictureView setups
     if (FBSession.activeSession.isOpen) {
         // Current User's image
-        int dim = w / 3.5;
+        int dim = h / 7;
         // the picture
         FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
                                        initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
@@ -91,7 +91,7 @@
         mypic.frame = CGRectMake(2, 2, dim-4, dim-4);
         mypic.layer.cornerRadius = (dim-4)/2;
         // The border
-        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(35, 35, dim, dim)];
+        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(w/2 - dim/2, h/15, dim, dim)];
         border.backgroundColor = [UIColor whiteColor];
         border.layer.cornerRadius = dim/2;
         [border addSubview:mypic];
@@ -100,7 +100,7 @@
         [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
             if (!error) {
                 // Success! Include your code to handle the results here
-                UILabel *name  = [[UILabel alloc] initWithFrame:CGRectMake(35, 120, dim, 30)];
+                UILabel *name  = [[UILabel alloc] initWithFrame:CGRectMake(w/2 - dim/2, h/15 + dim, dim, 30)];
                 name.textAlignment = NSTextAlignmentCenter;
                 name.textColor = [UIColor whiteColor];
                 name.text      = [result valueForKey:@"first_name"];
@@ -113,30 +113,10 @@
                 // See: https://developers.facebook.com/docs/ios/errors
             }
         }];
-        
-        FBProfilePictureView *otherPic = [[FBProfilePictureView alloc] initWithProfileID:((NSDictionary<FBGraphUser> *)[bet.friends objectAtIndex:0]).id pictureCropping:FBProfilePictureCroppingSquare];
-        otherPic.frame = CGRectMake(2, 2, dim-4, dim-4);
-        otherPic.layer.cornerRadius = (dim-4)/2;
-        
-        border = [[UIView alloc] initWithFrame:CGRectMake(205, 35, dim, dim)];
-        border.backgroundColor = [UIColor whiteColor];
-        border.layer.cornerRadius = dim/2;
-        [border addSubview:otherPic];
-        
-        [mainView addSubview:border];
-        
-        UILabel *name  = [[UILabel alloc] initWithFrame:CGRectMake(205, 120, dim, 30)];
-        name.textAlignment = NSTextAlignmentCenter;
-        name.textColor = [UIColor whiteColor];
-        name.text      = ((NSDictionary<FBGraphUser> *)[bet.friends objectAtIndex:0]).first_name;
-        name.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-        name.shadowColor   = [UIColor blackColor];
-        name.shadowOffset  = CGSizeMake(-1, 1);
-        [mainView addSubview:name];
     }
     
     // Betchyu button (to finish creating the bet)
-    BigButton *betchyu = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, w-40, 100)
+    BigButton *betchyu = [[BigButton alloc] initWithFrame:CGRectMake(20, h - 120, w-40, 100)
                                                   primary:0
                                                     title:@"Betchyu!"];
     [betchyu addTarget:self

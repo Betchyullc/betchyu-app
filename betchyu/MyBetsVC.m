@@ -134,7 +134,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     if (self.ongoingBets.count == 0 && self.openBets.count == 0) {
         [[[UIAlertView alloc] initWithTitle:@"Umm..."
-                                    message:@"You don't have any goals yet. You should make one!"
+                                    message:@"You don't have any bets yet. You should encourage your friends to make one!"
                                    delegate:nil
                           cancelButtonTitle:@"OK!"
                           otherButtonTitles:nil]

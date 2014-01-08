@@ -41,9 +41,9 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    int h = mainView.frame.size.height;
+    int h = mainView.frame.size.height - 40;
     int w = mainView.frame.size.width;
-    mainView.contentSize   = CGSizeMake(w, 500);
+    mainView.contentSize   = CGSizeMake(w, h);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
     /////////////////////
@@ -52,14 +52,14 @@
     UIImageView *stakePic = [[UIImageView alloc] initWithImage:
                              [UIImage imageNamed:
                               [bet.ownStakeType stringByAppendingString:@".jpg"]]];
-    stakePic.frame = CGRectMake(0, 0, w, stakeImageHeight);
+    stakePic.frame = CGRectMake(0, 0, w, h/2);
     
-    UIButton *up = [[UIButton alloc] initWithFrame:CGRectMake(130, 20, 50, 50)];
+    UIButton *up = [[UIButton alloc] initWithFrame:CGRectMake(w/2 - 25, 20, 50, 50)];
     [up setTitle:@"+" forState:UIControlStateNormal];
     up.font = [UIFont fontWithName:@"ProximaNova-Black" size:40];
     [up setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     [up addTarget:self action:@selector(increaseStake:) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *dwn = [[UIButton alloc] initWithFrame:CGRectMake(130, 180, 50, 50)];
+    UIButton *dwn = [[UIButton alloc] initWithFrame:CGRectMake(w/2 - 25, 180, 50, 50)];
     [dwn setTitle:@"-" forState:UIControlStateNormal];
     dwn.font = [UIFont fontWithName:@"ProximaNova-Black" size:40];
     [dwn setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -77,7 +77,7 @@
     [mainView addSubview:dwn];
     [mainView addSubview:stakeLabel];
     
-    verboseLabel               = [[UILabel alloc] initWithFrame:CGRectMake(10, 270, w-20, 80)];
+    verboseLabel               = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2, w-20, 80)];
     verboseLabel.numberOfLines = 0;
     verboseLabel.textColor     = [UIColor whiteColor];
     verboseLabel.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
@@ -87,7 +87,7 @@
     /////////////////
     // Next Button //
     /////////////////
-    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 380, w-40, 100)
+    BigButton *nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, h-120, w-40, 100)
                                                   primary:0
                                                     title:@"Set Stake"];
     [nextBtn addTarget:self

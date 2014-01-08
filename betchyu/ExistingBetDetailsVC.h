@@ -16,6 +16,7 @@
 @property BOOL isOffer;
 @property BOOL isOwn;
 @property UILabel *stakeDescription;
+@property UILabel *current;
 @property NSDictionary *invite;
 
 -(id) initWithJSON:(NSDictionary *)json;

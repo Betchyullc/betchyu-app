@@ -36,6 +36,7 @@
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     int h = mainView.frame.size.height;
     int w = mainView.frame.size.width;
+    self.stakeImageHeight = 0.78 * w;
     mainView.contentSize   = CGSizeMake(w, 20 + ((stakeImageHeight+20)*stakes.count));
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
