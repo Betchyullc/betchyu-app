@@ -130,14 +130,33 @@
     // The Profile Picture
     ////////////////////////
     int dim = w / 4;
-    // the picture
-    FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
-                                   initWithProfileID:bet.owner
-                                   pictureCropping:FBProfilePictureCroppingSquare];
+    FBProfilePictureView *mypic2;
+    UIView *border2;
+    
+    // the Owner's picture
+    FBProfilePictureView *mypic = [[FBProfilePictureView alloc] initWithProfileID:bet.owner pictureCropping:FBProfilePictureCroppingSquare];
     mypic.frame = CGRectMake(2, 2, dim-4, dim-4);
     mypic.layer.cornerRadius = (dim-4)/2;
-    // The border
-    UIView *border = [[UIView alloc] initWithFrame:CGRectMake((w/2)-(dim/2), 30, dim, dim)];
+    UIView *border;
+    
+    if ([betJSON valueForKey:@"opponent"] != [NSNull null]) {
+        // the Opponent's picture
+        mypic2 = [[FBProfilePictureView alloc] initWithProfileID:[betJSON valueForKey:@"opponent"] pictureCropping:FBProfilePictureCroppingSquare];
+        mypic2.frame = CGRectMake(2, 2, dim-4, dim-4);
+        mypic2.layer.cornerRadius = (dim-4)/2;
+        // The border
+        border2 = [[UIView alloc] initWithFrame:CGRectMake((3*w/4)-(dim/2), 30, dim, dim)];
+        border2.backgroundColor = [UIColor whiteColor];
+        border2.layer.cornerRadius = dim/2;
+        
+        [border2 addSubview:mypic2];
+        
+        border = [[UIView alloc] initWithFrame:CGRectMake((w/4)-(dim/2), 30, dim, dim)];
+    } else {
+        border = [[UIView alloc] initWithFrame:CGRectMake((w/2)-(dim/2), 30, dim, dim)];
+    }
+    
+    // The border for the owner's picture
     border.backgroundColor = [UIColor whiteColor];
     border.layer.cornerRadius = dim/2;
     [border addSubview:mypic];
@@ -152,6 +171,9 @@
         [mainView addSubview:current];
     }
     [mainView addSubview:border];
+    if (border2) {
+        [mainView addSubview:border2];
+    }
     
     self.view = mainView;
 }
@@ -247,10 +269,14 @@
         int h = self.view.frame.size.height;
         
         self.navigationItem.title = @"The Offer";
-        if ([bet.ownStakeAmount integerValue] == 1) {
-            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win %@ %@.", bet.ownStakeAmount, bet.ownStakeType, bet.opponentStakeAmount, bet.opponentStakeType];
+        if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {     // handle the weight-loss bet
+            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay a $%@ %@, otherwise, you win one.", bet.ownStakeAmount, bet.ownStakeType];
         } else {
-            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@s, otherwise, you win %@ %@s.", bet.ownStakeAmount, bet.ownStakeType, bet.opponentStakeAmount, bet.opponentStakeType];
+            if ([bet.ownStakeAmount integerValue] == 1) {
+                self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win one.", bet.ownStakeAmount, bet.ownStakeType];
+            } else {
+                self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@s, otherwise, you win them.", bet.ownStakeAmount, bet.ownStakeType];
+            }
         }
         
         BigButton *acceptBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, 2*h/3 +20, w-40, 110) primary:0 title:@"ACCEPT"];

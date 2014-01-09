@@ -248,10 +248,10 @@
 
 // ===== BOOLEAN BET-TYPE METHODS ====== //
 - (void)makeBoolUpdate:(BigButton *)sender {
-    if (self.isFinished) {
-        return; // bail because bet is done.
-    }
-    if (currentBooleanDate > [NSDate date]) {
+    
+    if (self.isFinished) { return; /* bail because bet is done. */ }
+    
+    if ([currentBooleanDate compare:[NSDate date]] > 0) {
         [[[UIAlertView alloc] initWithTitle: @"Sorry..."
                                     message: @"That day hasn't happened just yet."
                                    delegate: nil
@@ -272,15 +272,14 @@
     
     //make the call to the web API
     // POST /updates => {data}
-    [[API sharedInstance] post:@"updates" withParams:params
-                  onCompletion:^(NSDictionary *json) {
-                      //success
-                      
-                      // REDRAW self.graph
-                      
-                      //[self.navigationController popToRootViewControllerAnimated:YES];
-                      [self booleanDateUpdate];
-                  }];
+    [[API sharedInstance] post:@"updates" withParams:params onCompletion:^(NSDictionary *json) {
+        //success
+        
+        // REDRAW self.graph
+        
+        //[self.navigationController popToRootViewControllerAnimated:YES];
+        [self booleanDateUpdate];
+    }];
     
 }
 -(void)booleanDateUpdate {
@@ -307,6 +306,7 @@
          self.updateText.text = [NSString stringWithFormat:@"on %@", dateString];
          int toGo = [self numberOfDaysTheBetLasts] - self.previousUpdates.count;
          self.boolGraphSub.text = [NSString stringWithFormat:@"Days In A Row: %i\nDays To Go: %i", self.previousUpdates.count, toGo];
+         [self handleBetFinish];
      }];
 }
 
@@ -343,16 +343,16 @@
                                                          options:0];
     // handle boolean-type bets
     if ([bet.betNoun isEqualToString:@"Smoking"]) {
+        for (NSDictionary *obj in self.previousUpdates) {
+            if ([[obj valueForKey:@"value"] integerValue] == 0){
+                // handle loss and break execution
+                [self loseAndAsk];
+                return;
+            }
+        }
         if (self.previousUpdates.count != [self numberOfDaysTheBetLasts]) { // there have not been enough updates to know if the bet is over
             return;
         } else {
-            for (NSDictionary *obj in self.previousUpdates) {
-                if ([[obj valueForKey:@"value"] integerValue] == 0){
-                    // handle loss and break execution
-                    [self loseAndAsk];
-                    return;
-                }
-            }
             // else they won, handle win and break execution
             UIAlertView *alert = [[UIAlertView alloc] init];
             [alert setTitle:@"Goal Completed!"];
@@ -674,6 +674,7 @@
             [[API sharedInstance] put:path withParams:params onCompletion:
              ^(NSDictionary *json) {
                  //success do nothing...
+                 [self popUpToFinishBet];
                  [self.navigationController popToRootViewControllerAnimated:YES];
              }];
         }
@@ -691,6 +692,7 @@
             [[API sharedInstance] put:path withParams:params onCompletion:
              ^(NSDictionary *json) {
                  //success do nothing...
+                 [self popUpToFinishBet];
                  [self.navigationController popToRootViewControllerAnimated:YES];
              }];
         }
@@ -703,7 +705,12 @@
 }
 
 -(void) popUpToFinishBet {
-    
+    [[[UIAlertView alloc] initWithTitle:@"Bet Finished!"
+                                message:@"You're now done with this bet, and it won't show up on your list any more."
+                               delegate:nil
+                      cancelButtonTitle:@"OK!"
+                      otherButtonTitles:nil]
+     show];
 }
 
 @end

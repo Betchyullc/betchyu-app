@@ -7,6 +7,7 @@
 //
 
 #import "HowItWorksVC.h"
+#import "AppDelegate.h"
 
 @interface HowItWorksVC ()
 
@@ -34,7 +35,17 @@
     self.tutorialImage =[UIImage imageNamed:[NSString stringWithFormat:@"%i.jpg",self.index+1]];
     UIImageView *imgView = [[UIImageView alloc] initWithImage:self.tutorialImage];
     imgView.frame = self.parentViewController.view.frame;
+    
     self.view = imgView;
+}
+-(void)viewDidAppear:(BOOL)animated {
+    
+    if (self.index == 5) {
+        AppDelegate *app =(AppDelegate *)([[UIApplication sharedApplication] delegate]);
+        
+        [app.window setRootViewController:app.stackViewController];
+        [app.window makeKeyAndVisible];
+    }
 }
 
 - (void)didReceiveMemoryWarning
