@@ -12,7 +12,6 @@
 
 @property NSArray * bets;
 @property NSString * ownerId;
-@property NSManagedObjectContext * moc;
 
 -(id)initWithGoals:(NSArray *)goalsList;
 -(void)viewBetDetails:(id)sender;

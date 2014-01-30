@@ -34,6 +34,7 @@
 		892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */; };
 		892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F0185688EF0052A7C0 /* MyBetsVC.m */; };
 		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
+		8957380D189830BB00E693A5 /* Graph.m in Sources */ = {isa = PBXBuildFile; fileRef = 8957380C189830BB00E693A5 /* Graph.m */; };
 		8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818B187C4C9800CCC9DC /* AboutUs.m */; };
 		8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818E187C510300CCC9DC /* HowItWorksVC.m */; };
 		89588196187C67CF00CCC9DC /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588191187C67CF00CCC9DC /* 1.jpg */; };
@@ -213,6 +214,8 @@
 		892154F0185688EF0052A7C0 /* MyBetsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsVC.m; sourceTree = "<group>"; };
 		892154F5185760240052A7C0 /* MyGoalsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoalsVC.h; sourceTree = "<group>"; };
 		892154F6185760240052A7C0 /* MyGoalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoalsVC.m; sourceTree = "<group>"; };
+		8957380B189830BB00E693A5 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
+		8957380C189830BB00E693A5 /* Graph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Graph.m; sourceTree = "<group>"; };
 		8958818A187C4C9800CCC9DC /* AboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUs.h; sourceTree = "<group>"; };
 		8958818B187C4C9800CCC9DC /* AboutUs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUs.m; sourceTree = "<group>"; };
 		8958818D187C510300CCC9DC /* HowItWorksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowItWorksVC.h; sourceTree = "<group>"; };
@@ -444,6 +447,8 @@
 				89B1A756186767E9006A656F /* ProfileView.m */,
 				892154A51850F36F0052A7C0 /* BigButton.h */,
 				892154A61850F36F0052A7C0 /* BigButton.m */,
+				8957380B189830BB00E693A5 /* Graph.h */,
+				8957380C189830BB00E693A5 /* Graph.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -702,6 +707,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = BetchyuLLC;
 				TargetAttributes = {
+					89B3F5AF1850EB320055F8DB = {
+						DevelopmentTeam = 7Z958Z38Q3;
+					};
 					89B3F5CF1850EB320055F8DB = {
 						TestTargetID = 89B3F5AF1850EB320055F8DB;
 					};
@@ -830,6 +838,7 @@
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				8921549C1850F2E70052A7C0 /* ViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
+				8957380D189830BB00E693A5 /* Graph.m in Sources */,
 				89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */,
 				892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */,
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
@@ -966,6 +975,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Betchyu LLC (7Z958Z38Q3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Betchyu/Documents/FacebookSDK,
@@ -980,6 +990,7 @@
 					"/Users/Betchyu/Documents/betchyu-app/iOS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "74DBCC8A-302E-4F53-BB48-FBFBB6A6B199";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1005,7 +1016,7 @@
 					"/Users/Betchyu/Documents/betchyu-app/iOS",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4F1FF816-F910-4162-96E3-F9424198515B";
+				PROVISIONING_PROFILE = "74DBCC8A-302E-4F53-BB48-FBFBB6A6B199";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

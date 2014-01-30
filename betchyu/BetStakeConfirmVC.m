@@ -223,8 +223,18 @@
 // friend picker stuff
 ////////////////////////
 - (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker {
-    bet.friends = friendPicker.selection;
-    
+    for (id<FBGraphUser> obj in friendPicker.selection) {
+        BOOL isAlreadyInList = NO;
+        for (id<FBGraphUser> onList in bet.friends) {
+            if ([obj.id isEqualToString:onList.id]) {
+                isAlreadyInList = YES;
+            }
+        }
+        if (!isAlreadyInList) {
+            NSMutableArray *newList = [[NSMutableArray alloc] initWithArray:bet.friends];
+            bet.friends = [newList arrayByAddingObject:obj];
+        }
+    }
 }
 
 // handles the user touching the done button on the FB friend selector
@@ -236,8 +246,9 @@
                                    delegate: nil
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
+        return;
     } else {
-        [self makePost:0];
+        [self makePost:[NSNumber numberWithInt:0]];
     }
     [self dismissViewControllerAnimated:YES completion:^(void){}];
     
@@ -286,12 +297,10 @@
 
 
 // index is the objectAtIndex of bet.friends used to get the friend's user id
-- (void)makePost:(int)index {
-    
-    NSString* fid;
+- (void)makePost:(NSNumber *)index {
     
     // get facebook friend's ID from selection
-    fid = ((id<FBGraphUser>)[bet.friends objectAtIndex:index]).id;
+    NSString* fid = ((id<FBGraphUser>)[bet.friends objectAtIndex:[index integerValue]]).id;
     
     //Make the post.
     NSMutableDictionary* params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
@@ -324,18 +333,11 @@
                                       @"Posted story, id: %@",
                                       [urlParams valueForKey:@"post_id"]];
                      NSLog(@"%@", msg);
-                     // Show the result in an alert
-                     /*[[[UIAlertView alloc] initWithTitle:@"Result"
-                      message:msg
-                      delegate:nil
-                      cancelButtonTitle:@"OK!"
-                      otherButtonTitles:nil]
-                      show];*/
                  }
              }
          }
-         if (bet.friends.count > index+1) {
-             [self makePost:index+1];
+         if (bet.friends.count > [index integerValue]+1) {
+             [self performSelector:@selector(makePost:) withObject:[NSNumber numberWithInt:([index integerValue]+1)] afterDelay:0];
          }
      }];
 }

@@ -235,7 +235,7 @@
                 //success
                 if (((NSArray*)json).count > 0) {
                     int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
-                    self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %i pounds to lose.", days, items - val];
+                    self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %i pounds to lose.", days, [self.bet.betAmount integerValue] - (items - val)];
                 } else {
                     if (days != 1) {
                         self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %@ pounds to lose.", days, self.bet.betAmount];

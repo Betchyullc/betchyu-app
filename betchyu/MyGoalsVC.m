@@ -20,7 +20,6 @@
 @implementation MyGoalsVC
 
 @synthesize bets;
-@synthesize moc;
 @synthesize ownerId;
 
 - (id)initWithGoals:(NSArray *)goalsList {
@@ -40,13 +39,67 @@
     
     // Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(screenWidth, 140*bets.count);
+    mainView.contentSize   = CGSizeMake(screenWidth, 140*bets.count +20);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
-    
+
+    // Accepted Goals title.
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, screenWidth - 40, 30)];
+    title.text = @"Accepted";
+    title.font = [UIFont fontWithName:@"ProximaNova-Black" size:26];
+    title.textAlignment = NSTextAlignmentCenter;
+    title.textColor = [UIColor whiteColor];
+    [mainView addSubview:title];
+
     NSString *betTitle;
-    // Make the Buttons list
+    int numAccepted = 0;
+    // Make the Accepted Goals Buttons list
     for (int i = 0; i < bets.count; i++) {
         NSManagedObject *obj = [bets objectAtIndex:i];
+        
+        if ([obj valueForKey:@"opponent"] == [NSNull null]) { continue; }
+        
+        if ([[obj valueForKey:@"betNoun"] isEqualToString:@"cigarettes"]
+            || [[obj valueForKey:@"betNoun"] isEqualToString:@"Smoking"]) {
+            betTitle = @"Stop Smoking";
+        } else {
+            betTitle = [NSString stringWithFormat:@"%@ %@ %@",
+                        [obj valueForKey:@"betVerb"],
+                        [obj valueForKey:@"betAmount"],
+                        [obj valueForKey:@"betNoun"]];
+        }
+        CGRect buttonFrame = CGRectMake(20, (140*numAccepted +50), (screenWidth - 40), 140 -10);
+        
+        BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame
+                                                     primary:1
+                                                       title:betTitle
+                                                       ident:[obj valueForKey:@"id"]];
+        
+        [button addTarget:self
+         action:@selector(viewBetDetails:)
+         forControlEvents:UIControlEventTouchUpInside];
+        [mainView addSubview:button];
+        
+        numAccepted++;
+    }
+    
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(20, (140*numAccepted +50), screenWidth - 40, 2)];
+    line.backgroundColor = [UIColor whiteColor];
+    [mainView addSubview:line];
+    
+    // Pending Goals
+    UILabel *pending = [[UILabel alloc] initWithFrame:CGRectMake(20, (140*numAccepted +50)+10, screenWidth - 40, 30)];
+    pending.font = [UIFont fontWithName:@"ProximaNova-Black" size:26];
+    pending.textAlignment = NSTextAlignmentCenter;
+    pending.textColor = [UIColor whiteColor];
+    pending.text = @"Pending";
+    [mainView addSubview:pending];
+    
+    int numPending = 0;
+    // Make the Pending Goals Buttons list
+    for (int i = 0; i < bets.count; i++) {
+        NSManagedObject *obj = [bets objectAtIndex:i];
+        
+        if ([obj valueForKey:@"opponent"] != [NSNull null]) { continue; }
         
         if ([[obj valueForKey:@"betNoun"] isEqualToString:@"cigarettes"]
             || [[obj valueForKey:@"betNoun"] isEqualToString:@"Smoking"]) {
@@ -58,7 +111,7 @@
                          @" "] stringByAppendingString:
                         [obj valueForKey:@"betNoun"]];
         }
-        CGRect buttonFrame = CGRectMake(20, (140*i +10), (screenWidth - 40), 140 -10);
+        CGRect buttonFrame = CGRectMake(20, (140*(numPending+numAccepted) +60+35), (screenWidth - 40), 140 -10);
         
         BigButton *button = [[BigButton alloc] initWithFrame:buttonFrame
                                                      primary:1
@@ -66,11 +119,11 @@
                                                        ident:[obj valueForKey:@"id"]];
         
         [button addTarget:self
-         action:@selector(viewBetDetails:)
+                   action:@selector(viewBetDetails:)
          forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
+        numPending++;
     }
-    
     
     self.view = mainView;
 }

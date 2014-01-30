@@ -12,6 +12,7 @@
 
 @property NSString * numberOfInvites;
 @property UILabel * numNotif;
+@property BOOL hasShownHowItWorks;
 
 - (id)initWithInviteNumber:(NSString *)numInvs;
 

@@ -76,11 +76,11 @@
     if ([bet.betVerb isEqualToString:@"Stop"]) {
         return @"I DIDN'T SMOKE:";
     } else if ([bet.betVerb isEqualToString:@"Run"]){
-        return @"I'VE RUN:";
+        return @"TOTAL, I'VE RUN:";
     } else if ([bet.betVerb isEqualToString:@"Workout"]){
         return @"I'VE WORKED OUT:";
     } else if ([bet.betVerb isEqualToString:@"Lose"]){
-        return [bet.current integerValue] == 0 ? @"I'VE LOST:" : @"I WEIGH:"; // The generic version of this bet-type
+        return [bet.current integerValue] == 0 ? @"I'VE LOST:" : @"TODAY, I WEIGH:"; // The generic version of this bet-type
         //return @"I WEIGH:"; // The cusomized version of this option
     } else {
         return [NSString stringWithFormat:@"I'VE %@ED:", bet.betVerb];
@@ -146,6 +146,21 @@
     self.slider.minimumValue = val - [bet.betAmount floatValue] - 3;
     self.slider.maximumValue = val + 3;
     self.slider.value = val;
+    self.slider.transform = CGAffineTransformRotate(self.slider.transform, 180.0/180*M_PI);
+    self.slider.minimumTrackTintColor = [UIColor whiteColor];
+    self.slider.maximumTrackTintColor = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+    
+    // add start/end bars
+    CGRect f = self.slider.frame;
+    int unit = f.size.width / (slider.maximumValue - slider.minimumValue);
+    UIView *startBar = [[UIView alloc] initWithFrame:CGRectMake(f.origin.x + (3*unit), f.origin.y +14, 2, 22)];
+    startBar.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
+    [currentView addSubview:startBar];
+    
+    UIView *endBar = [[UIView alloc] initWithFrame:CGRectMake(f.origin.x + f.size.width - (3*unit), f.origin.y +14, 2, 22)];
+    endBar.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
+    [currentView addSubview:endBar];
+    
     return currentView;
 }
 -(UIView *)makeNormalUpdater:(UIView *)currentView {
@@ -216,6 +231,7 @@
             int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
             self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.betNoun];
             self.slider.value = [[NSNumber numberWithInt:val] floatValue];
+            bet.current = @(val);
         } else {
             if (self.slider.value == 0.0) {
                 self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.betNoun];
@@ -398,6 +414,7 @@
     
     // handle normal-type bets
     int current = [bet.current intValue];
+    NSLog(@"current: %i betAmnt: %i",current, [bet.betAmount intValue]);
     // If user has WON the bet
     if (current >= [bet.betAmount intValue]) {
         UIAlertView *alert = [[UIAlertView alloc] init];

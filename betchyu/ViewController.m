@@ -15,6 +15,7 @@
 #import "MyGoalsVC.h"
 #import "API.h"
 #import "MTStackViewController.h"
+#import "FlyoutMenuVC.h"
 
 @interface ViewController ()
 
@@ -31,12 +32,14 @@
 @synthesize createGoalController = _createGoalController;
 @synthesize numberOfInvites;
 @synthesize numNotif;
+@synthesize hasShownHowItWorks;
 
 - (id)initWithInviteNumber:(NSString *)numInvs {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         self.numberOfInvites = numInvs;
+        self.hasShownHowItWorks = NO;
     }
     
     return self;
@@ -119,6 +122,7 @@
     [super viewDidAppear:animated];
     NSString *userId = ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId;
     if ([userId isEqualToString:@""]) {
+        [self performSelector:@selector(viewDidAppear:) withObject:NO afterDelay:3];
         return;
     }
     
@@ -128,7 +132,7 @@
                                   userId, @"user",
                                   nil];
     
-    //make the call to the web API
+    //make the call to the web API to get the number of pending invites (which shows up on the screen)
     [[API sharedInstance] get:@"invites" withParams:params onCompletion:^(NSDictionary *json) {
         self.numberOfInvites = [[json valueForKey:@"count"] stringValue];
         
@@ -152,12 +156,51 @@
         }
     }];
     
+    // check for new pop-up notifications
+    [[API sharedInstance] get:@"notifications" withParams:params onCompletion:^(NSDictionary *json) {
+        for (NSDictionary* obj in json) {
+            [FBRequestConnection startWithGraphPath:[obj valueForKey:@"data"] completionHandler:
+             ^(FBRequestConnection *connection, id result, NSError *error) {
+                if ([[obj valueForKey:@"kind"] integerValue] == 1) {        // rejected invite
+                    [[[UIAlertView alloc] initWithTitle:@"Notification"
+                                                message:[NSString stringWithFormat:@"Your friend %@ rejected your bet.",[result valueForKey:@"name"]]
+                                               delegate:nil
+                                      cancelButtonTitle:@"Oh well..."
+                                      otherButtonTitles:nil]
+                     show];
+                } else if ([[obj valueForKey:@"kind"] integerValue] == 2) { // accepted invite
+                    [[[UIAlertView alloc] initWithTitle:@"Notification"
+                                                message:[NSString stringWithFormat:@"Your friend %@ accepted your bet! Yay!", [result valueForKey:@"name"]]
+                                               delegate:nil
+                                      cancelButtonTitle:@"OK!"
+                                      otherButtonTitles:nil]
+                     show];
+                }
+                NSString *newPath = [NSString stringWithFormat:@"notifications/%@", [obj valueForKey:@"id"]];
+                [[API sharedInstance] deletePath:newPath parameters:nil success:nil failure:nil];
+
+            }];
+        }
+    }];
+    
+    // set up the profile picture
     FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
                                    initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
                                    pictureCropping:FBProfilePictureCroppingSquare];
     mypic.frame = CGRectMake(0, 0, 26, 26);
     mypic.layer.cornerRadius = 13;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];
+    
+    // show them the how it works if it's their first time.
+    if (self.hasShownHowItWorks) { return; }
+    NSString *path = [NSString stringWithFormat:@"user/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        if ([[json valueForKey:@"has_acted"] boolValue] == NO) {
+            self.hasShownHowItWorks = YES;
+            [self showMenu:nil];
+            [((UINavigationController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).stackViewController.leftViewController).topViewController performSelector:@selector(howItWorksPressed:) withObject:nil afterDelay:1];
+        }
+    }];
 }
 
 // actions
