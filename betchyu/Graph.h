@@ -13,6 +13,8 @@
 - (NSArray *) valsArr;
 - (int) max;
 - (int) min;
+- (int) xCoordForIndex:(int)index;
+- (long) numberOfDaysTheBetLasts;
 
 @end
 
@@ -20,5 +22,9 @@
 
 @property (nonatomic, weak) id <GraphDelegate> delegate;
 @property NSArray *vals;
+@property NSMutableArray *points;
+@property BOOL isWeightLoss;
+
+-(void)makeVisual;
 
 @end

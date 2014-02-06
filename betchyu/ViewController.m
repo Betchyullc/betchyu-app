@@ -33,6 +33,7 @@
 @synthesize numberOfInvites;
 @synthesize numNotif;
 @synthesize hasShownHowItWorks;
+@synthesize canLeavePage;
 
 - (id)initWithInviteNumber:(NSString *)numInvs {
     self = [super initWithNibName:nil bundle:nil];
@@ -40,6 +41,7 @@
         // Custom initialization
         self.numberOfInvites = numInvs;
         self.hasShownHowItWorks = NO;
+        self.canLeavePage = NO;
     }
     
     return self;
@@ -122,7 +124,7 @@
     [super viewDidAppear:animated];
     NSString *userId = ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId;
     if ([userId isEqualToString:@""]) {
-        [self performSelector:@selector(viewDidAppear:) withObject:NO afterDelay:3];
+        [self performSelector:@selector(viewDidAppear:) withObject:NO afterDelay:1];
         return;
     }
     
@@ -134,6 +136,7 @@
     
     //make the call to the web API to get the number of pending invites (which shows up on the screen)
     [[API sharedInstance] get:@"invites" withParams:params onCompletion:^(NSDictionary *json) {
+        self.canLeavePage = YES; // allow the page to be switched (initially not for API calling reasons)
         self.numberOfInvites = [[json valueForKey:@"count"] stringValue];
         
         if ([self.numberOfInvites isEqualToString:@"0"]) {
@@ -208,6 +211,7 @@
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
 }
 -(IBAction)createGoal:(id)sender {
+    if (!self.canLeavePage) { return; }
     // change to the correct view
     if (!self.createGoalController) {
         self.createGoalController = [[BetTypeViewController alloc]
@@ -219,6 +223,7 @@
                                          animated:true];
 }
 -(void)showMyBets:(id)sender {
+    if (!self.canLeavePage) { return; }
     // get the bets from the server
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     
@@ -239,6 +244,7 @@
                  }];
 }
 -(void)showMyGoals:(id)sender {
+    if (!self.canLeavePage) { return; }
     // get the bets from the server
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     

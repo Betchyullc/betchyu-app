@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "TempBet.h"
-#import "CorePlot-CocoaTouch.h"
+#import "Graph.h"
 
-@interface BetTrackingVC : UIViewController <CPTPlotDataSource, UIAlertViewDelegate>
+@interface BetTrackingVC : UIViewController <UIAlertViewDelegate, GraphDelegate>
 
 @property NSDictionary * betJSON;
 @property TempBet * bet;
@@ -21,7 +21,7 @@
 @property NSArray *previousUpdates;
 @property BOOL isFinished;
 
-@property (nonatomic, strong) CPTGraphHostingView *hostView;
+@property (nonatomic, strong) Graph *hostView;
 
 -(id) initWithJSON:(NSDictionary *)json;
 

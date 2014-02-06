@@ -13,6 +13,7 @@
 @property NSString * numberOfInvites;
 @property UILabel * numNotif;
 @property BOOL hasShownHowItWorks;
+@property BOOL canLeavePage;
 
 - (id)initWithInviteNumber:(NSString *)numInvs;
 
