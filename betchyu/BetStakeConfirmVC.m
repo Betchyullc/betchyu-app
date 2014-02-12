@@ -223,22 +223,18 @@
 // friend picker stuff
 ////////////////////////
 - (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker {
-    for (id<FBGraphUser> obj in friendPicker.selection) {
-        BOOL isAlreadyInList = NO;
-        for (id<FBGraphUser> onList in bet.friends) {
-            if ([obj.id isEqualToString:onList.id]) {
-                isAlreadyInList = YES;
-            }
-        }
-        if (!isAlreadyInList) {
-            NSMutableArray *newList = [[NSMutableArray alloc] initWithArray:bet.friends];
-            bet.friends = [newList arrayByAddingObject:obj];
-        }
-    }
+    // need to clear the search, so that the facebookVC will re-determine the selection list.
+    // this prevents bugs with search-selected people not being included in the actual invitations
+    self.searchText = nil;
+    [self.searchBar resignFirstResponder];
+    [self.fbFriendVC updateView];
+    // this re-updates the list of friends we're gonna use to make invitations.
+    bet.friends = friendPicker.selection;
 }
 
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerDoneWasPressed:(id)sender {
+    NSLog(@"%@", bet.friends);
     // handle the user NOT selecting a friend... bad users.
     if (bet.friends.count == 0) {
         [[[UIAlertView alloc] initWithTitle: @"Hey!"

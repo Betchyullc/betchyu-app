@@ -11,6 +11,7 @@
 #import "AboutUs.h"
 #import "HowItWorksVC.h"
 #import "AppDelegate.h"
+#import "Feedback.h"
 
 @interface FlyoutMenuVC ()
 
@@ -76,13 +77,34 @@
     [self.view addSubview:lineView];
     
     ///////////////////////
-    // About Us Button
+    // Feedback Button
     ///////////////////////
     // The line above it
     lineView = [[UIView alloc] initWithFrame:CGRectMake(25, 170, passedFrame.size.width, 2)];
     lineView.backgroundColor = [UIColor whiteColor];
     // convenience frame
     useRect = CGRectMake(25, 180, 280, 40);
+    // the button
+    UIButton *feedback = [[UIButton alloc] initWithFrame:useRect];
+    [feedback addTarget:self action:@selector(feedbackPressed:) forControlEvents:UIControlEventTouchUpInside];
+    // The separate Text label for easier control
+    UILabel *feedbackLabel  = [[UILabel alloc] initWithFrame:useRect];
+    feedbackLabel.text      = @"Feedback";
+    feedbackLabel.textColor = [UIColor whiteColor];
+    feedbackLabel.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+    // add all the subviews
+    [self.view addSubview:feedback];
+    [self.view addSubview:feedbackLabel];
+    [self.view addSubview:lineView];
+    
+    ///////////////////////
+    // About Us Button
+    ///////////////////////
+    // The line above it
+    lineView = [[UIView alloc] initWithFrame:CGRectMake(25, 230, passedFrame.size.width, 2)];
+    lineView.backgroundColor = [UIColor whiteColor];
+    // convenience frame
+    useRect = CGRectMake(25, 240, 280, 40);
     // the button
     UIButton *about = [[UIButton alloc] initWithFrame:useRect];
     [about addTarget:self action:@selector(aboutUsPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -119,6 +141,9 @@
     
 }
 -(void) logoutButtonWasPressed:(id)sender {
+    // switch back to the main menu for when they log back in
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
+    // actual FB API call to log out
     [FBSession.activeSession closeAndClearTokenInformation];
 }
 -(void) profileButtonWasPressed:(id)sender {
@@ -145,6 +170,12 @@
 -(void) aboutUsPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
     vc.view = [[AboutUs alloc] initWithFrame:self.passedFrame AndOwner:self];
+    // Show it.
+    [self.navigationController pushViewController:vc animated:true];
+}
+-(void) feedbackPressed:(id)sender {
+    UIViewController *vc =[[UIViewController alloc] init];
+    vc.view = [[Feedback alloc] initWithFrame:self.passedFrame AndOwner:self];
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }

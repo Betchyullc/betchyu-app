@@ -12,6 +12,7 @@
 
 @property NSArray * bets;
 @property NSString * ownerId;
+@property BOOL buttonsAreLocked;
 
 -(id)initWithGoals:(NSArray *)goalsList;
 -(void)viewBetDetails:(id)sender;

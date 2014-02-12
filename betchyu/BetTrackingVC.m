@@ -174,21 +174,21 @@
     heading.textColor     = [UIColor whiteColor];
     heading.text          = [self trackingHeading];
     
+    // The tracking summary text
+    self.updateText               = [[UILabel alloc] initWithFrame:CGRectMake(10, 140, w-20, 30)];
+    self.updateText.textAlignment = NSTextAlignmentCenter;
+    self.updateText.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
+    self.updateText.textColor     = bOr;
+    [self currentStateText];
+    
     // tracking slider
-    self.slider              = [[UISlider alloc] initWithFrame:CGRectMake(20, 130, w-40, 50)];
+    self.slider              = [[UISlider alloc] initWithFrame:CGRectMake(20, 180, w-40, 50)];
     self.slider.minimumValue = 0.0;
     self.slider.maximumValue = [bet.betAmount floatValue];
     [self.slider setMinimumTrackTintColor:bOr];
     [self.slider addTarget:self
                 action:@selector(updateSliderValue:)
       forControlEvents:UIControlEventValueChanged];
-    
-    // The tracking summary text
-    self.updateText               = [[UILabel alloc] initWithFrame:CGRectMake(10, 180, w-20, 30)];
-    self.updateText.textAlignment = NSTextAlignmentCenter;
-    self.updateText.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:25];
-    self.updateText.textColor     = bOr;
-    [self currentStateText];
     
     // update btn
     BigButton *update;
@@ -245,14 +245,12 @@
     }];
 }
 - (void)makeUpdate:(id)sender {
-    if (self.isFinished) {
-        return; // bail because bet is done.
-    }
+    if (self.isFinished) { return; } // bail because bet is done.
+    
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [NSNumber numberWithFloat:self.slider.value], @"value",
                                   [betJSON valueForKey:@"id"],                  @"bet_id",
                                   nil];
-    
     //make the call to the web API
     // POST /updates => {data}
     [[API sharedInstance] post:@"updates" withParams:params onCompletion:

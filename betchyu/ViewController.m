@@ -67,7 +67,7 @@
     [mainView addSubview:myGoals];
     // "My Bets" button
     BigButton *myBets = [[BigButton alloc] initWithFrame:CGRectMake(20, bH+30+buffer, w-40, bH)
-                                                     primary:1 title:@"MY BETS"];
+                                                     primary:1 title:@"FRIEND'S GOALS"];
     [myBets addTarget:self
                    action:@selector(showMyBets:)
          forControlEvents:UIControlEventTouchUpInside];

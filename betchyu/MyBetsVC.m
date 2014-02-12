@@ -22,6 +22,7 @@
 @synthesize ongoingBets;
 @synthesize openBets;
 @synthesize openInvites;
+@synthesize buttonsAreLocked;
 
 - (id)initWithOngoingBets:(NSArray *)passedOngoingBets andOpenBets:(NSArray *)openBetsList {
     self = [super initWithNibName:nil bundle:nil];
@@ -29,6 +30,7 @@
         // Custom initialization
         self.ongoingBets = passedOngoingBets;
         self.openBets    = openBetsList;
+        self.buttonsAreLocked = NO;
     }
     return self;
 }
@@ -107,6 +109,8 @@
 }
 
 -(void)acceptOrDeclineBet:(BigButton *)sender {
+    if (self.buttonsAreLocked) { return; }
+    self.buttonsAreLocked = YES;            // these lines prevent from lag allowing users to open 2 goals at once like idiots.
     // get the bet from the server
     NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
     
@@ -119,6 +123,8 @@
     }];
 }
 -(void)showBetDetails:(BigButton *)sender {
+    if (self.buttonsAreLocked) { return; }
+    self.buttonsAreLocked = YES;            // these lines prevent from lag allowing users to open 2 goals at once like idiots.
     // get the bet from the server
     NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
     

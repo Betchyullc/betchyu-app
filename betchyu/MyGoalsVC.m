@@ -21,12 +21,14 @@
 
 @synthesize bets;
 @synthesize ownerId;
+@synthesize buttonsAreLocked;
 
 - (id)initWithGoals:(NSArray *)goalsList {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         self.bets = goalsList;
+        buttonsAreLocked = NO;
     }
     return self;
 }
@@ -129,6 +131,8 @@
 }
 
 -(void)viewBetDetails:(BigButton *)sender {
+    if (self.buttonsAreLocked) { return; }
+    self.buttonsAreLocked = YES;            // these lines prevent from lag allowing users to open 2 goals at once like idiots.
     // get the bet from the server
     NSString * path = [NSString stringWithFormat:@"bets/%@", sender.idKey];
     

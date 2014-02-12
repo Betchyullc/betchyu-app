@@ -82,6 +82,7 @@
 		89B3F5D51850EB320055F8DB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B91850EB320055F8DB /* CoreData.framework */; };
 		89B3F5DD1850EB320055F8DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89B3F5DB1850EB320055F8DB /* InfoPlist.strings */; };
 		89B3F5DF1850EB320055F8DB /* betchyuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3F5DE1850EB320055F8DB /* betchyuTests.m */; };
+		89F9DE7218A9980E00411AFD /* Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F9DE7118A9980E00411AFD /* Feedback.m */; };
 		C97E2F24B94F4D9FB61A267C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A85FBA56BA43B5932AE364 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +203,8 @@
 		89B3F5DA1850EB320055F8DB /* betchyuTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "betchyuTests-Info.plist"; sourceTree = "<group>"; };
 		89B3F5DC1850EB320055F8DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		89B3F5DE1850EB320055F8DB /* betchyuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = betchyuTests.m; sourceTree = "<group>"; };
+		89F9DE7018A9980E00411AFD /* Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feedback.h; sourceTree = "<group>"; };
+		89F9DE7118A9980E00411AFD /* Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feedback.m; sourceTree = "<group>"; };
 		F7A85FBA56BA43B5932AE364 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -268,6 +271,8 @@
 			children = (
 				8958818A187C4C9800CCC9DC /* AboutUs.h */,
 				8958818B187C4C9800CCC9DC /* AboutUs.m */,
+				89F9DE7018A9980E00411AFD /* Feedback.h */,
+				89F9DE7118A9980E00411AFD /* Feedback.m */,
 				89B1A755186767E9006A656F /* ProfileView.h */,
 				89B1A756186767E9006A656F /* ProfileView.m */,
 				892154A51850F36F0052A7C0 /* BigButton.h */,
@@ -667,6 +672,7 @@
 				892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */,
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
+				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
 				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,
 				89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */,
 				89B1A74B186674D7006A656F /* ShadowView.m in Sources */,
