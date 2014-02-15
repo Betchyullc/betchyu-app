@@ -120,6 +120,7 @@
         ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:json AndOfferBool:YES];
         // Show it.
         [self.navigationController pushViewController:vc animated:true];
+        self.buttonsAreLocked = NO;            // allows user who comes back to this page to go to a new page
     }];
 }
 -(void)showBetDetails:(BigButton *)sender {
@@ -134,6 +135,7 @@
         ExistingBetDetailsVC *vc =[[ExistingBetDetailsVC alloc] initWithJSON:json];
         // Show it.
         [self.navigationController pushViewController:vc animated:true];
+        self.buttonsAreLocked = NO;            // allows user who comes back to this page to go to a new page
     }];
 }
 

@@ -296,9 +296,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (self.isOwn) {
-        return;
-    }
+    if (self.isOwn) { return; }
     
     int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
     items = [bet.betAmount integerValue] - items;
@@ -307,6 +305,14 @@
                                                         fromDate:[NSDate date]
                                                           toDate:bet.endDate
                                                          options:0];
+    
+    if ([bet.betVerb isEqualToString:@"Stop"]) {
+        if (components.day <= 0) {
+            // TODO: handle the bet being finished
+        }
+        // else/after, gg from this method.
+        return;
+    }
     
     if (!self.isOffer && items <= 0) {
         // the bet is over, alert them.

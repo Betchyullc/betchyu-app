@@ -234,7 +234,6 @@
 
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerDoneWasPressed:(id)sender {
-    NSLog(@"%@", bet.friends);
     // handle the user NOT selecting a friend... bad users.
     if (bet.friends.count == 0) {
         [[[UIAlertView alloc] initWithTitle: @"Hey!"

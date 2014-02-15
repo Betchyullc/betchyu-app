@@ -79,8 +79,7 @@
     } else if ([bet.betVerb isEqualToString:@"Workout"]){
         return @"I'VE WORKED OUT:";
     } else if ([bet.betVerb isEqualToString:@"Lose"]){
-        return [bet.current integerValue] == 0 ? @"I'VE LOST:" : @"TODAY, I WEIGH:"; // The generic version of this bet-type
-        //return @"I WEIGH:"; // The cusomized version of this option
+        return @"TODAY, I WEIGH:";
     } else {
         return [NSString stringWithFormat:@"I'VE %@ED:", bet.betVerb];
     }
@@ -137,12 +136,10 @@
 // cusomized view for tracking weight, where we just ask them for their current weight
 -(UIView *)makeWeightUpdater:(UIView *)currentView {
     currentView = [self makeNormalUpdater:currentView];
-    if ([bet.current integerValue] == 0) {
-        return currentView;
-    }
+    
     // this valueForKey:@"current" requires the initially created Bet to include a current => WEIGHT_DATA mapping in it, which is a TODO
     float val = bet.current == 0 ? 200.0 : [bet.current floatValue];
-    self.slider.minimumValue = val - [bet.betAmount floatValue] - 3;
+    self.slider.minimumValue = val - [bet.betAmount floatValue];
     self.slider.maximumValue = val + 3;
     self.slider.value = val;
     self.slider.transform = CGAffineTransformRotate(self.slider.transform, 180.0/180*M_PI);
@@ -156,9 +153,9 @@
     startBar.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
     [currentView addSubview:startBar];
     
-    UIView *endBar = [[UIView alloc] initWithFrame:CGRectMake(f.origin.x + f.size.width - (3*unit), f.origin.y +14, 2, 22)];
+    /*UIView *endBar = [[UIView alloc] initWithFrame:CGRectMake(f.origin.x + f.size.width - (3*unit), f.origin.y +14, 2, 22)];
     endBar.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
-    [currentView addSubview:endBar];
+    [currentView addSubview:endBar];*/
     
     return currentView;
 }
@@ -230,7 +227,7 @@
             int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
             self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.betNoun];
             self.slider.value = [[NSNumber numberWithInt:val] floatValue];
-            bet.current = @(val);
+            //bet.current = @(val);
         } else {
             if (self.slider.value == 0.0) {
                 self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.betNoun];
@@ -379,40 +376,35 @@
             return;
         }
     } else if ([bet.betNoun isEqualToString:@"pounds"]) {
-        if ([bet.current integerValue] == 0) {     // handle old bet type
+        // if the latest update is smaller than the goal weight
+        if ((self.previousUpdates.count > 0) &&
+            (([bet.current intValue] - [bet.betAmount intValue]) == [[[previousUpdates lastObject] valueForKey:@"value"] integerValue])) {
             
-        } else {                    // handle new bet type
-            // if the latest update is smaller than the goal weight
-            if ((self.previousUpdates.count > 0) &&
-                (([bet.current intValue] - [bet.betAmount intValue]) >= [[[previousUpdates lastObject] valueForKey:@"value"] integerValue])) {
-                
-                // they win
-                UIAlertView *alert = [[UIAlertView alloc] init];
-                [alert setTitle:@"Goal Completed!"];
-                [alert setMessage:@"You have won this bet! Has your friend paid you yet?"];
-                [alert setDelegate:self];
-                [alert addButtonWithTitle:@"Yes"];
-                [alert addButtonWithTitle:@"No"];
-                [alert show];
-                self.isFinished = YES;
-            } else if (components.day == 1) {
-                [[[UIAlertView alloc] initWithTitle:@"Goal Failed!"
-                                            message:@"You lose the bet! Be sure to pay your friend the prize."
-                                           delegate:nil
-                                  cancelButtonTitle:@"OK!"
-                                  otherButtonTitles:nil]
-                 show];
-                self.isFinished = YES;
-            } else if (components.day > 1) {
-                [self loseAndAsk];
-            }
+            // they win
+            UIAlertView *alert = [[UIAlertView alloc] init];
+            [alert setTitle:@"Goal Completed!"];
+            [alert setMessage:@"You have won this bet! Has your friend paid you yet?"];
+            [alert setDelegate:self];
+            [alert addButtonWithTitle:@"Yes"];
+            [alert addButtonWithTitle:@"No"];
+            [alert show];
+            self.isFinished = YES;
+        } else if (components.day == 1) {
+            [[[UIAlertView alloc] initWithTitle:@"Goal Failed!"
+                                        message:@"You lose the bet! Be sure to pay your friend the prize."
+                                       delegate:nil
+                              cancelButtonTitle:@"OK!"
+                              otherButtonTitles:nil]
+             show];
+            self.isFinished = YES;
+        } else if (components.day > 1) {
+            [self loseAndAsk];
         }
         return;  // bail to prevent other checks from being run--we ran everything we need to already.
     }
     
     // handle normal-type bets
-    int current = [bet.current intValue];
-    NSLog(@"current: %i betAmnt: %i",current, [bet.betAmount intValue]);
+    int current = (int)slider.value;
     // If user has WON the bet
     if (current >= [bet.betAmount intValue]) {
         UIAlertView *alert = [[UIAlertView alloc] init];
@@ -560,7 +552,6 @@
         }
     }
 }
-
 -(void) popUpToFinishBet {
     [[[UIAlertView alloc] initWithTitle:@"Bet Finished!"
                                 message:@"You're now done with this bet, and it won't show up on your list any more."

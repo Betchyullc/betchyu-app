@@ -107,6 +107,7 @@
     // The slider the user uses to select values
     UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, h/5 + h/4, w-40, h/5)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
+    slider2.maximumValue = 30;
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
@@ -173,6 +174,7 @@
     // The slider the user uses to select values
     UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, 20 + 5*h/9, w2, h/9)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
+    slider2.maximumValue = 30;
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
@@ -251,6 +253,7 @@
     // The slider the user uses to select values
     UISlider *slider2   = [[UISlider alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(20 + 5*h/9), w2, h/9)];
     [slider2 setMinimumTrackTintColor:betchyuOrange];
+    slider2.maximumValue = 30;
     [slider2 addTarget:self
                 action:@selector(updateSlider2Value:)
       forControlEvents:UIControlEventValueChanged];
@@ -284,7 +287,7 @@
     detailLabel1.text = [NSString stringWithFormat:@"%i %@", amount, bet.betNoun];
 }
 - (void) updateSlider2Value:(id)sender {
-    int days = (int)((((UISlider *)sender).value)*29)+1;
+    int days = (int)((UISlider *)sender).value;
     bet.endDate = [[NSDate alloc] initWithTimeIntervalSinceNow:(days*24*60*60)];
     detailLabel2.text = [[@(days) stringValue] stringByAppendingString:@" days"];
 }

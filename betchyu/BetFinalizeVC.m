@@ -55,7 +55,7 @@
     betDescription.lineBreakMode = NSLineBreakByWordWrapping;
     betDescription.shadowColor   = [UIColor blackColor];
     betDescription.shadowOffset  = CGSizeMake(-1, 1);
-    int days = (int)[bet.endDate timeIntervalSinceNow]/(24*60*60); // # of days the challenge will last
+    int days = ceilf([bet.endDate timeIntervalSinceNow]/(24*60*60)); // # of days the challenge will last
     if ([bet.betNoun isEqualToString:@"Smoking"]) {
         betDescription.text = [NSString stringWithFormat:@"Stop Smoking for %i days", days];
     } else {

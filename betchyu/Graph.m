@@ -118,7 +118,7 @@
         int min = [self.delegate min];
         int unit = h / (max - min);
         CGContextMoveToPoint(ctx, rect.origin.x + bf/2, rect.origin.y + bf + (unit*3));
-        CGContextAddLineToPoint(ctx, bounds.size.width - bf/2, bounds.size.height - (unit*3));
+        CGContextAddLineToPoint(ctx, bounds.size.width - bf/2, bounds.size.height);
     } else {
         CGContextMoveToPoint(ctx, rect.origin.x + bf/2, rect.origin.y + bf);
         CGContextAddLineToPoint(ctx, bounds.size.width - bf/2, bounds.size.height);

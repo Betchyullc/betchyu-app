@@ -142,6 +142,7 @@
         BetTrackingVC *vc =[[BetTrackingVC alloc] initWithJSON:json];
         // Show it.
         [self.navigationController pushViewController:vc animated:true];
+        self.buttonsAreLocked = NO;            // allows user who comes back to this page to go to a new page
     }];
 }
 

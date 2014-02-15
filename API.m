@@ -8,8 +8,8 @@
 
 #import "API.h"
 
-#define kAPIHost @"http://betchyu.herokuapp.com"
-//#define kAPIHost @"http://localhost:5000"
+//#define kAPIHost @"http://betchyu.herokuapp.com"
+#define kAPIHost @"http://localhost:5000"
 
 @implementation API
 
