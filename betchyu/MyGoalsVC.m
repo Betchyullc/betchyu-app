@@ -41,7 +41,7 @@
     
     // Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    mainView.contentSize   = CGSizeMake(screenWidth, 140*bets.count +20);
+    mainView.contentSize   = CGSizeMake(screenWidth, 140*bets.count +100);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
 
     // Accepted Goals title.

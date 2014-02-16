@@ -179,7 +179,7 @@
     [self currentStateText];
     
     // tracking slider
-    self.slider              = [[UISlider alloc] initWithFrame:CGRectMake(20, 180, w-40, 50)];
+    self.slider              = [[UISlider alloc] initWithFrame:CGRectMake(20, 170, w-40, 50)];
     self.slider.minimumValue = 0.0;
     self.slider.maximumValue = [bet.betAmount floatValue];
     [self.slider setMinimumTrackTintColor:bOr];
