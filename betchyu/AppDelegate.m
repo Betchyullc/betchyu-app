@@ -115,13 +115,13 @@
     }
 }
 
-- (BOOL)application:(UIApplication *)application
+/*- (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-}
+}*/
 
 - (void)showLoginView {
     // If the login screen is not already displayed, display it. If the login screen is
@@ -167,11 +167,19 @@
             break;
         case FBSessionStateClosed:
         case FBSessionStateClosedLoginFailed:
+            [FBSession.activeSession closeAndClearTokenInformation];
+            if (error) {
+                // handle error here, for example by showing an alert to the user
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not login with Facebook"
+                                                                message:@"Facebook login failed. Please check your Facebook settings on your phone to allow this app."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
             // Once the user has logged in, we want them to
             // be looking at the root view.
             [self.navController popToRootViewControllerAnimated:NO];
-            
-            [FBSession.activeSession closeAndClearTokenInformation];
             
             [self showLoginView];
             break;

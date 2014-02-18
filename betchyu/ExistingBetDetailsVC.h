@@ -18,6 +18,7 @@
 @property UILabel *stakeDescription;
 @property UILabel *current;
 @property NSDictionary *invite;
+@property NSArray *updates;
 
 -(id) initWithJSON:(NSDictionary *)json;
 -(id) initWithJSON:(NSDictionary *)json AndOfferBool:(BOOL)passedOffer;

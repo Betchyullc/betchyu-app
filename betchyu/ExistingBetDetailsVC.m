@@ -24,6 +24,7 @@
 @synthesize isOwn;
 @synthesize stakeDescription;
 @synthesize current;
+@synthesize updates;
 
 // ===== Initializers ===== //
 - (id)initWithJSON:(NSDictionary *)json {
@@ -50,6 +51,16 @@
         
         self.isOffer = NO;
         self.isOwn = NO;
+        
+        NSString* path =[NSString stringWithFormat:@"bets/%@/updates", [betJSON valueForKey:@"id"]];
+        
+        //make the call to the web API to get the updates for this bet
+        // GET /bets/:bet_id/updates => {data}
+        [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+            //success
+            self.updates = (NSArray*)json;
+            [self checkForCompletedBet];
+        }];
     }
     return self;
 }
@@ -295,6 +306,8 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+-(void)checkForCompletedBet {
     
     if (self.isOwn) { return; }
     
@@ -307,8 +320,17 @@
                                                          options:0];
     
     if ([bet.betVerb isEqualToString:@"Stop"]) {
+        for (NSDictionary *obj in self.updates) {
+            if ([[obj valueForKey:@"value"] integerValue] == 0){ // 0 => betowner missed a day
+                // handle win and break execution
+                [self winAndAsk];
+                return;
+            }
+        }
         if (components.day <= 0) {
-            // TODO: handle the bet being finished
+            // else they lost, handle win and break execution
+            [self loseAndAsk];
+            return;
         }
         // else/after, gg from this method.
         return;
@@ -316,21 +338,9 @@
     
     if (!self.isOffer && items <= 0) {
         // the bet is over, alert them.
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        [alert setTitle:@"Bet Finished!"];
-        [alert setMessage:@"You lose the bet! Have you paid your friend the prize yet?"];
-        [alert setDelegate:self];
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert show];
+        [self loseAndAsk];
     } else if (!self.isOffer && components.day <=0) {
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        [alert setTitle:@"Bet Finished!"];
-        [alert setMessage:@"You win this bet! Has your friend paid you yet?"];
-        [alert setDelegate:self];
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert show];
+        [self winAndAsk];
     }
 }
 
@@ -377,6 +387,26 @@
           show];
          [self.navigationController popToRootViewControllerAnimated:YES];
      }];
+}
+
+// help methods to pop up the appropriate UIAlert and handle the user's response
+-(void)loseAndAsk {
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    [alert setTitle:@"Bet Finished!"];
+    [alert setMessage:@"You lose the bet! Have you paid your friend the prize yet?"];
+    [alert setDelegate:self];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"No"];
+    [alert show];
+}
+-(void)winAndAsk {
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    [alert setTitle:@"Bet Finished!"];
+    [alert setMessage:@"You win this bet! Has your friend paid you yet?"];
+    [alert setDelegate:self];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"No"];
+    [alert show];
 }
 
 #pragma mark - UIAlertViewDelegate methods
