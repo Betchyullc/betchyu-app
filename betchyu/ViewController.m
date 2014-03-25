@@ -238,7 +238,7 @@
                          //success
                      MyBetsVC *vc =[[MyBetsVC alloc] initWithOngoingBets:(NSArray *)[json objectForKey:@"ongoingBets"]
                                                              andOpenBets:(NSArray *)[json objectForKey:@"openBets"]];
-                         vc.title = @"MY BETS";
+                         vc.title = @"FRIEND'S GOALS";
                          // Show it.
                          [self.navigationController pushViewController:vc animated:true];
                  }];

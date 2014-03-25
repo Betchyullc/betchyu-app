@@ -309,7 +309,7 @@
 }
 -(void)checkForCompletedBet {
     
-    if (self.isOwn) { return; }
+    if (self.isOwn || self.isOffer) { return; }
     
     int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
     items = [bet.betAmount integerValue] - items;
@@ -328,13 +328,26 @@
             }
         }
         if (components.day <= 0) {
-            // else they lost, handle win and break execution
-            [self loseAndAsk];
-            return;
+            if (self.updates.count == 0) {
+                [self winAndAsk];   // they never put in data, so we win.
+            } else {                // else they lost, handle win and break execution
+                [self loseAndAsk];
+            }
         }
         // else/after, gg from this method.
         return;
+    } else if ([bet.betNoun isEqualToString:@"pounds"]) {
+        // if the latest update is smaller than the goal weight
+        if ((self.updates.count > 0) &&
+            (([bet.current intValue] - [bet.betAmount intValue]) == [[[updates lastObject] valueForKey:@"value"] integerValue])) {
+            
+            [self loseAndAsk];
+        } else if (components.day <= 0) {
+            [self winAndAsk];
+        }
+        return;  // bail to prevent other checks from being run--we ran everything we need to already.
     }
+
     
     if (!self.isOffer && items <= 0) {
         // the bet is over, alert them.

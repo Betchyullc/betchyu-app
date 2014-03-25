@@ -115,13 +115,13 @@
     }
 }
 
-/*- (BOOL)application:(UIApplication *)application
+- (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
-}*/
+}
 
 - (void)showLoginView {
     // If the login screen is not already displayed, display it. If the login screen is
