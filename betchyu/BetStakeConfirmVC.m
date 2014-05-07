@@ -2,6 +2,10 @@
 //  BetStakeConfirmVC.m
 //  iBetchyu
 //
+//  this file askes the user to set the amount of the stake, then to pick their friends, then to input their payment bullshit
+//  after which, it submits the info to the server for processing
+//  it's a lot of stuff.
+//
 //  Created by Betchyu Computer on 11/24/13.
 //  Copyright (c) 2013 Betchyu Computer. All rights reserved.
 //
@@ -172,9 +176,9 @@
     bet.opponentStakeAmount = bet.ownStakeAmount;
 }
 
-//////////////////////
-// search bar stuff
-//////////////////////
+//////////////////////////////////////////
+// search bar stuff for FBFriendPicker  //
+//////////////////////////////////////////
 - (void)addSearchBarToFriendPickerView {
     if (self.searchBar == nil) {
         CGFloat searchBarHeight = 44.0;
@@ -198,17 +202,14 @@
         self.fbFriendVC.tableView.frame = newFrame;
     }
 }
-
 - (void) handleSearch:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     self.searchText = searchBar.text;
     [self.fbFriendVC updateView];
 }
-
 - (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
     [self handleSearch:searchBar];
 }
-
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
     self.searchText = nil;
     [searchBar resignFirstResponder];
@@ -246,17 +247,12 @@
         [self makePost:[NSNumber numberWithInt:0]];
     }
     [self dismissViewControllerAnimated:YES completion:^(void){}];
-    
-    BetFinalizeVC *vc = [[BetFinalizeVC alloc] initWithBet:bet];
-    vc.title = @"Finalize Goal";
-    
-    [self.navigationController pushViewController:vc animated:YES];
 }
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerCancelWasPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+// allows us to limit which friends get shown on the friend picker (based on the search)
 - (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
                  shouldIncludeUser:(id<FBGraphUser>)user
 {
@@ -313,6 +309,17 @@
              // Error launching the dialog or publishing a story.
              NSLog(@"Error publishing story.");
          } else {
+             // show helpful message when the last visible FBpost modal is done
+             if ([index integerValue] == bet.friends.count-1) {
+                 [[[UIAlertView alloc] initWithTitle: @"Last Step!"
+                                             message: @"To make this real, we need your payment info. Once your friend confirms with his info, the bet is on! Only the loser will be charged at the end."
+                                            delegate: self
+                                   cancelButtonTitle:@"OK"
+                                   otherButtonTitles:nil] show];
+                 // due to action of delegate (set above) when the click OK, the next viewcontroller will come up
+             }
+             
+            // handling differently based on what the user actually did with the modal
              if (result == FBWebDialogResultDialogNotCompleted) {
                  // User clicked the "x" icon
                  NSLog(@"User canceled story publishing.");
@@ -335,5 +342,26 @@
              [self performSelector:@selector(makePost:) withObject:[NSNumber numberWithInt:([index integerValue]+1)] afterDelay:0];
          }
      }];
+}
+
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    /*PaymentVC *vc = [[PaymentVC alloc] init];
+    vc.title = @"Finalize Goal";
+    
+    [self.navigationController pushViewController:vc animated:YES];*/
+    BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+    //paymentViewController.delegate = self;
+    // Now, display the navigation controller that contains the payment form, eg modally:
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+}
+
+#pragma mark - BTPaymentViewControllerDelegate methods
+- (void)paymentViewController:(BTPaymentViewController *)paymentViewController
+        didSubmitCardWithInfo:(NSDictionary *)cardInfo
+         andCardInfoEncrypted:(NSDictionary *)cardInfoEncrypted {
+    // Do something with cardInfo dictionary
+    // Then dismiss the paymentViewController
+    // (cardInfoEncrypted is nil)
 }
 @end

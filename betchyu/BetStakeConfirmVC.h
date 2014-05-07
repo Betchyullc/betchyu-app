@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "TempBet.h"
+#import "BTPaymentViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface BetStakeConfirmVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate>
+@interface BetStakeConfirmVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate, UIAlertViewDelegate, BTPaymentViewControllerDelegate>
 
 @property int stakeImageHeight;
 @property (strong) TempBet *bet;
