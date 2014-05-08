@@ -17,6 +17,6 @@
 @property NSManagedObjectContext * managedObjectContext;
 
 -(id)initWithBet:(TempBet *)betObj;
--(void)betchyu:(id)sender;
+-(void) home;
 
 @end

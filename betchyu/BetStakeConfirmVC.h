@@ -10,6 +10,7 @@
 #import "TempBet.h"
 #import "BTPaymentViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "BetSummaryVC.h"
 
 @interface BetStakeConfirmVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate, UIAlertViewDelegate, BTPaymentViewControllerDelegate>
 

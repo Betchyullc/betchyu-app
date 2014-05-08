@@ -13,6 +13,7 @@
 #import "BetStakeConfirmVC.h"
 #import "BigButton.h"
 #import "BetFinalizeVC.h"
+#import "API.h"
 
 @interface BetStakeConfirmVC ()
 
@@ -161,6 +162,7 @@
     [self updateLabels];
 }
 
+// updates the visual notation of the stake and the TempBet (self.bet) version of the the stake
 - (void) updateLabels {
     if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
         stakeLabel.text = [NSString stringWithFormat:@"$%i", currentStake];
@@ -344,14 +346,59 @@
      }];
 }
 
+//method to send the bet data to the server
+
+- (void) betchyu {
+    // MAKE THE NEW BET
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  bet.betAmount,            @"betAmount",
+                                  bet.betNoun,              @"betNoun",
+                                  bet.betVerb,              @"betVerb",
+                                  bet.endDate,              @"endDate",
+                                  bet.opponentStakeAmount,  @"opponentStakeAmount",
+                                  bet.opponentStakeType,    @"opponentStakeType",
+                                  bet.ownStakeAmount,       @"ownStakeAmount",
+                                  bet.ownStakeType,         @"ownStakeType",
+                                  ownerString,              @"owner",
+                                  bet.current,              @"current",
+                                  nil];
+    
+    //make the call to the web API
+    // POST /bets => {data}
+    [[API sharedInstance] post:@"bets" withParams:params onCompletion:^(NSDictionary *json) {
+        //success
+        for (NSMutableDictionary<FBGraphUser> *friend in bet.friends) {
+            NSMutableDictionary *newParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                              friend.id,                   @"invitee",
+                                              ownerString,                 @"inviter",
+                                              @"open",                     @"status",
+                                              [json objectForKey:@"id"],   @"bet_id",
+                                              nil];
+            // POST /invites => {data}
+            [[API sharedInstance] post:@"invites" withParams:newParams onCompletion:^(NSDictionary *json) {
+                // handle response
+                NSLog(@"%@", json);
+            }];
+        }
+    }];
+    [[[UIAlertView alloc] initWithTitle: @"Congratulations!"
+                                message: @"An invitation has been sent to your friends' Betchyu app. The first person to accept becomes your opponent."
+                               delegate: nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     /*PaymentVC *vc = [[PaymentVC alloc] init];
     vc.title = @"Finalize Goal";
     
     [self.navigationController pushViewController:vc animated:YES];*/
+    
+    // showing BrainTree's CrediCard processing page, after the user clicks the OK button on the alert we gave them
     BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
-    //paymentViewController.delegate = self;
+    paymentViewController.delegate = self;
     // Now, display the navigation controller that contains the payment form, eg modally:
     [self.navigationController pushViewController:paymentViewController animated:YES];
 }
@@ -361,7 +408,24 @@
         didSubmitCardWithInfo:(NSDictionary *)cardInfo
          andCardInfoEncrypted:(NSDictionary *)cardInfoEncrypted {
     // Do something with cardInfo dictionary
+    NSLog(@"cardInfo: %@",cardInfo);
+    NSLog(@"cardInfoEncrypted: %@",cardInfoEncrypted);
+    
+    // submit the bet to the server
+    [self betchyu];
+    
     // Then dismiss the paymentViewController
+    // Don't forget to call the cleanup method,
+    // `prepareForDismissal`, on your `BTPaymentViewController` in order to remove the loading thing that pops up automatically
+    [paymentViewController prepareForDismissal];
+    [self.navigationController popViewControllerAnimated:NO];
+    
+    // make the summary VC
+    BetSummaryVC *vc = [[BetSummaryVC alloc]initWithBet:self.bet];
+    vc.title = @"Bet Summary";
+    // show the summary vc
+    [self.navigationController pushViewController:vc animated:YES];
+    
     // (cardInfoEncrypted is nil)
 }
 @end

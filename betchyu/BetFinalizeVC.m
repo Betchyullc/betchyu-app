@@ -10,10 +10,6 @@
 #import "AppDelegate.h"
 #import "API.h"
 
-@interface BetFinalizeVC () <NSFetchedResultsControllerDelegate>
-    @property NSFetchedResultsController * fetchedResultsController;
-@end
-
 @implementation BetFinalizeVC
 
 @synthesize bet;
@@ -132,12 +128,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    /*NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Bet"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"completedAt" ascending:NO]];
-    
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController.delegate = self;
-    [self.fetchedResultsController performFetch:nil];*/
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
