@@ -14,6 +14,7 @@
 #import "BigButton.h"
 #import "BetFinalizeVC.h"
 #import "API.h"
+#import <Braintree/BTEncryption.h>
 
 @interface BetStakeConfirmVC ()
 
@@ -391,16 +392,31 @@
 
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    /*PaymentVC *vc = [[PaymentVC alloc] init];
-    vc.title = @"Finalize Goal";
-    
-    [self.navigationController pushViewController:vc animated:YES];*/
-    
-    // showing BrainTree's CrediCard processing page, after the user clicks the OK button on the alert we gave them
-    BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
-    paymentViewController.delegate = self;
-    // Now, display the navigation controller that contains the payment form, eg modally:
-    [self.navigationController pushViewController:paymentViewController animated:YES];
+    if ([alertView.title isEqualToString:@"Credit Card"]) {
+        if ([alertView.message isEqualToString:@"good"]) {
+            // submit the bet to the server, after having checked that the card is good
+            [self betchyu];
+            
+            // Then dismiss the paymentViewController
+            // the loading thing is removed before the alert comes up
+            [self.navigationController popViewControllerAnimated:NO];
+            
+            // make the summary VC
+            BetSummaryVC *vc = [[BetSummaryVC alloc]initWithBet:self.bet];
+            vc.title = @"Bet Summary";
+            // show the summary vc
+            [self.navigationController pushViewController:vc animated:YES];
+
+        } else {
+            // the card was bad, so do nothing
+        }
+    } else {
+        // showing BrainTree's CrediCard processing page, after the user clicks the OK button on the alert we gave them
+        BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+        paymentViewController.delegate = self;
+        // Now, display the navigation controller that contains the payment form, eg modally:
+        [self.navigationController pushViewController:paymentViewController animated:YES];
+    }
 }
 
 #pragma mark - BTPaymentViewControllerDelegate methods
@@ -409,23 +425,38 @@
          andCardInfoEncrypted:(NSDictionary *)cardInfoEncrypted {
     // Do something with cardInfo dictionary
     NSLog(@"cardInfo: %@",cardInfo);
-    NSLog(@"cardInfoEncrypted: %@",cardInfoEncrypted);
+    NSLog(@"cardInfoEncrypted: %@",cardInfoEncrypted);// is nil unless VenmoTouch is used
+    NSMutableDictionary *enc = [[NSMutableDictionary alloc]initWithDictionary:cardInfoEncrypted];
     
-    // submit the bet to the server
-    [self betchyu];
+    // manually encrypt the cardInfo
+    BTEncryption * braintree = [[BTEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAmRehlELjqxPOltj1/bpsQE92opagAj6tFB8wo4Z/Dy0x7nugGnC7fvvvIEo5MEoKg6HvU1GSmpP7VQ4XU/8YDXblbaKsLgb5K92BySKwM1FyHoL2IfRrEDdJcV9tMJ9hjZbIcg7uBUYhT/rgpWBRaDVLMEAMnqvSH7UZ2wlCjjT1NJScrMDd4EyXQQcXSdc5ri9C62QfzopVxA6iOvK8YPkzRkmNUQOkEf67v+kiUgh2w2YWEXogmRCUoUpdzODJ689UcpqyMHrwouC+WxqLJK/0zDHy44Fofc/Sqp4Wf19fslXmb4HW8u5GqQUV/5PXi3B+j4tOeXxXynTeOKtcqQIDAQAB"];
+    [cardInfo enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+        [enc setObject: [braintree encryptString: object] forKey: key];
+    }];
     
-    // Then dismiss the paymentViewController
-    // Don't forget to call the cleanup method,
-    // `prepareForDismissal`, on your `BTPaymentViewController` in order to remove the loading thing that pops up automatically
-    [paymentViewController prepareForDismissal];
-    [self.navigationController popViewControllerAnimated:NO];
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    [enc setValue:ownerString forKey:@"user"];
+    [enc setValue:bet.opponentStakeAmount forKey:@"amount"];
     
-    // make the summary VC
-    BetSummaryVC *vc = [[BetSummaryVC alloc]initWithBet:self.bet];
-    vc.title = @"Bet Summary";
-    // show the summary vc
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    // (cardInfoEncrypted is nil)
+    //make the call to the web API to post the card info and determine valid-ness
+    // POST /card => {data}
+    [[API sharedInstance] post:@"card" withParams:enc onCompletion:^(NSDictionary *json) {
+        // call this, because we aren't loading anymore
+        // Don't forget to call the cleanup method,
+        // `prepareForDismissal`, on your `BTPaymentViewController` in order to remove the loading thing that pops up automatically
+        [(BTPaymentViewController *)self.navigationController.topViewController prepareForDismissal];
+        
+        NSLog(@"%@", json);
+        // show the credit card status, and do things based on it
+        [[[UIAlertView alloc] initWithTitle: @"Credit Card"
+                                    message: [json objectForKey:@"msg"]
+                                   delegate: self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+        // delegate handles following events:
+        // 1. submit the bet-data to the server
+        // 2. dismiss the paymentViewController
+        // 3. switch to the BetSummaryVC
+    }];
 }
 @end
