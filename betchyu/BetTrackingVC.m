@@ -357,7 +357,7 @@
         for (NSDictionary *obj in self.previousUpdates) {
             if ([[obj valueForKey:@"value"] integerValue] == 0){
                 // handle loss and break execution
-                [self loseAndAsk];
+                [self loseTheBet];
                 return;
             }
         }
@@ -365,14 +365,15 @@
             return;
         } else {
             // else they won, handle win and break execution
-            UIAlertView *alert = [[UIAlertView alloc] init];
+            /*UIAlertView *alert = [[UIAlertView alloc] init];
             [alert setTitle:@"Goal Completed!"];
             [alert setMessage:@"You have won this bet! Has your friend paid you yet?"];
             [alert setDelegate:self];
             [alert addButtonWithTitle:@"Yes"];
             [alert addButtonWithTitle:@"No"];
             [alert show];
-            self.isFinished = YES;
+            self.isFinished = YES;*/
+            [self winTheBet];
             return;
         }
     } else if ([bet.betNoun isEqualToString:@"pounds"]) {
@@ -381,25 +382,11 @@
             (([bet.current intValue] - [bet.betAmount intValue]) == [[[previousUpdates lastObject] valueForKey:@"value"] integerValue])) {
             
             // they win
-            UIAlertView *alert = [[UIAlertView alloc] init];
-            [alert setTitle:@"Goal Completed!"];
-            [alert setMessage:@"You have won this bet! Has your friend paid you yet?"];
-            [alert setDelegate:self];
-            [alert addButtonWithTitle:@"Yes"];
-            [alert addButtonWithTitle:@"No"];
-            [alert show];
-            self.isFinished = YES;
-        } else if (components.day == 1) {
-            [[[UIAlertView alloc] initWithTitle:@"Goal Failed!"
-                                        message:@"You lose the bet! Be sure to pay your friend the prize."
-                                       delegate:nil
-                              cancelButtonTitle:@"OK!"
-                              otherButtonTitles:nil]
-             show];
-            self.isFinished = YES;
-        } else if (components.day > 1) {
-            [self loseAndAsk];
+            [self winTheBet];
+        } else if (components.day >= 1) {
+            [self loseTheBet];
         }
+        // else, it's all good.
         return;  // bail to prevent other checks from being run--we ran everything we need to already.
     }
     
@@ -407,38 +394,61 @@
     int current = (int)slider.value;
     // If user has WON the bet
     if (current >= [bet.betAmount intValue]) {
-        UIAlertView *alert = [[UIAlertView alloc] init];
-        [alert setTitle:@"Goal Completed!"];
-        [alert setMessage:@"You have already won this bet! Has your friend paid you yet?"];
-        [alert setDelegate:self];
-        [alert addButtonWithTitle:@"Yes"];
-        [alert addButtonWithTitle:@"No"];
-        [alert show];
-        self.isFinished = YES;
-    } else if (components.day == 1) {  // the user has not won the bet, and the bet time has expired,
+        [self winTheBet];
+    } else if (components.day >= 1) {  // the user has not won the bet, and the bet time has expired,
         // the user LOST the bet
-        [[[UIAlertView alloc] initWithTitle:@"Goal Failed!"
-                                    message:@"You lose the bet! Be sure to pay your friend the prize."
-                                   delegate:nil
-                          cancelButtonTitle:@"OK!"
-                          otherButtonTitles:nil]
-         show];
-        self.isFinished = YES;
-    } else if (components.day > 1) {
-        [self loseAndAsk];
+        [self loseTheBet];
     }
 }
 
-// shows the pop-up to alert the user that he lost and ask if he has paid up yet.
--(void)loseAndAsk {
-    UIAlertView *alert = [[UIAlertView alloc] init];
-    [alert setTitle:@"Goal Failed!"];
-    [alert setMessage:@"You lost this bet! Have you paid your friend yet?"];
-    [alert setDelegate:self];
-    [alert addButtonWithTitle:@"Yes"];
-    [alert addButtonWithTitle:@"No"];
+// shows a pop-up to alert the user that he lost the bet
+// and tells the server to update the bet/submit the transaction for completion
+-(void)loseTheBet {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Goal Failed!"
+                                                    message:@"You lost this bet! The card you entered originally will now be charged."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
     [alert show];
+    
     self.isFinished = YES;
+    
+    // send a message to server informing of the grand occurences
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [betJSON valueForKey:@"id"], @"bet_id",
+                                  [betJSON valueForKey:@"owner"], @"user",
+                                  nil];
+    // PUT /pay = {bet_id=> bet#, user => self#}
+    [[API sharedInstance] put:@"pay" withParams:params onCompletion:^(NSDictionary *json) {
+        //success do nothing...
+        [self popUpToFinishBet];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+}
+// shows an alert to tell the user that he won the bet
+// sends an update to the server to submit the transaction for completion
+-(void)winTheBet {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Goal Completed!"
+                                                    message:@"You won this bet! The prize will now be purchased by your friend."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    
+    self.isFinished = YES;
+    
+    // Inform Lord SERVERus immediatley, slave!
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [betJSON valueForKey:@"id"], @"bet_id",
+                                  [betJSON valueForKey:@"opponent"], @"user", // we won, so it's the opponent who's gotta pay
+                                  nil];
+    // PUT /pay = {bet_id=> bet#, user => opponent#}
+    [[API sharedInstance] put:@"pay" withParams:params onCompletion:^(NSDictionary *json) {
+        //success do nothing...
+        [self popUpToFinishBet];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
 }
 
 // navigation method(s)

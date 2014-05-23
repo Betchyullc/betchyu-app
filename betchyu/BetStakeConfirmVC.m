@@ -289,7 +289,6 @@
     return params;
 }
 
-
 // index is the objectAtIndex of bet.friends used to get the friend's user id
 - (void)makePost:(NSNumber *)index {
     
@@ -393,7 +392,7 @@
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:@"Credit Card"]) {
-        if ([alertView.message isEqualToString:@"good"]) {
+        if ([alertView.message isEqualToString:@"Card is approved"]) {
             // submit the bet to the server, after having checked that the card is good
             [self betchyu];
             
@@ -414,7 +413,7 @@
         // showing BrainTree's CrediCard processing page, after the user clicks the OK button on the alert we gave them
         BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
         paymentViewController.delegate = self;
-        // Now, display the navigation controller that contains the payment form, eg modally:
+        // Now, display the navigation controller that contains the payment form
         [self.navigationController pushViewController:paymentViewController animated:YES];
     }
 }
@@ -433,7 +432,7 @@
     [cardInfo enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
         [enc setObject: [braintree encryptString: object] forKey: key];
     }];
-    
+
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     [enc setValue:ownerString forKey:@"user"];
     [enc setValue:bet.opponentStakeAmount forKey:@"amount"];

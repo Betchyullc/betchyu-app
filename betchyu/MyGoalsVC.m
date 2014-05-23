@@ -57,7 +57,7 @@
     // Make the Accepted Goals Buttons list
     for (int i = 0; i < bets.count; i++) {
         NSManagedObject *obj = [bets objectAtIndex:i];
-        
+        // if the opponent doesn't exist, this object shouldn't be in this list, so we "continue;"
         if ([obj valueForKey:@"opponent"] == [NSNull null]) { continue; }
         
         if ([[obj valueForKey:@"betNoun"] isEqualToString:@"cigarettes"]

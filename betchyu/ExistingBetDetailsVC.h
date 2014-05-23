@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "TempBet.h"
+#import <Braintree/BTEncryption.h>
+#import "BTPaymentViewController.h"
 
-@interface ExistingBetDetailsVC : UIViewController <UIAlertViewDelegate>
+@interface ExistingBetDetailsVC : UIViewController <UIAlertViewDelegate, BTPaymentViewControllerDelegate>
 
 @property NSDictionary * betJSON;
 @property TempBet * bet;

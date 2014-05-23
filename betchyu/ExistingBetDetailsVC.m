@@ -308,8 +308,8 @@
     [super viewDidAppear:animated];
 }
 -(void)checkForCompletedBet {
-    
-    if (self.isOwn || self.isOffer) { return; }
+    return;
+    if (self.isOwn || self.isOffer) { return; } // don't need to run this method when it's our own bet or only an offer
     
     int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
     items = [bet.betAmount integerValue] - items;
@@ -358,26 +358,30 @@
 }
 
 -(void)acceptTheBet:(id)sender {
-    NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
-    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
-    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  ownId, @"opponent",
-                                  nil];
+    // this method does the following, in order:
+    //  1. asks for Credit Card info via BTLibrary
+    //  2. tells the server the info, which makes, but does not submit the transaction
+    //  3. tells the server that the bet is accepted
+    //  4. UIAlerts the user that the process is done
     
-    //make the call to the web API
-    // PUT /bets/:bet_id => {data}
-    [[API sharedInstance] put:path withParams:params onCompletion:
-     ^(NSDictionary *json) {
-         //success
-         // Show the result in an alert
-         [[[UIAlertView alloc] initWithTitle:@"Result"
-          message:@"You have accepted your friend's bet. Be sure to pay out if you lose, and collect if you win."
-          delegate:nil
-          cancelButtonTitle:@"OK!"
-          otherButtonTitles:nil]
-          show];
-         [self.navigationController popToRootViewControllerAnimated:YES];
-     }];
+    /* Do #1 */
+    // tell the user wtf is going on
+    [[[UIAlertView alloc] initWithTitle:@"We Need Something"
+                                message:@"We're gonna need a valid credit card for you to do that. Don't worry, we won't charge it until the bet is over--and even then only if you lost."
+                               delegate:nil
+                      cancelButtonTitle:@"Fair Enough"
+                      otherButtonTitles:nil]
+     show];
+    // showing BrainTree's CreditCard processing page
+    BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+    paymentViewController.delegate = self;
+    // Now, display the navigation controller that contains the payment form
+    [self.navigationController pushViewController:paymentViewController animated:YES];
+    
+    /* Do #2-4 */
+    // is done within the delegate methods below. line 370 sets this up ^^
+    
+    
 }
 -(void)rejectTheBet:(id)sender {
     NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
@@ -394,6 +398,29 @@
          // Show the result in an alert
          [[[UIAlertView alloc] initWithTitle:@"Result"
                                      message:@"You have rejected your friend's bet. Which is lame..."
+                                    delegate:nil
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+         [self.navigationController popToRootViewControllerAnimated:YES];
+     }];
+}
+-(void)tellServerOfAcceptedBet {
+    /* Do #3 */
+    NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
+    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  ownId, @"opponent",
+                                  nil];
+    
+    //make the call to the web API
+    // PUT /bets/:bet_id => {data}
+    [[API sharedInstance] put:path withParams:params onCompletion:
+     ^(NSDictionary *json) {
+         /* Do #4 */
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:@"You have accepted your friend's bet. Your card will be charged if you lose the bet."
                                     delegate:nil
                            cancelButtonTitle:@"OK!"
                            otherButtonTitles:nil]
@@ -424,7 +451,7 @@
 
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
+    /*if (buttonIndex == 0) {
         // Yes, bet payment was received
         NSString* path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];
         NSMutableDictionary* params;
@@ -455,8 +482,55 @@
              //success do nothing...
          }];
     }
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];*/
+    if ([alertView.title isEqualToString:@"Credit Card"]) {
+        if ([alertView.message isEqualToString:@"Card is approved"]) {
+            // submit the bet to the server, after having checked that the card is good
+            [self tellServerOfAcceptedBet];
+        } else {
+            // the card was bad, so do nothing
+        }
+    }
 }
 
-
+#pragma mark - BTPaymentViewControllerDelegate methods
+- (void)paymentViewController:(BTPaymentViewController *)paymentViewController
+        didSubmitCardWithInfo:(NSDictionary *)cardInfo
+         andCardInfoEncrypted:(NSDictionary *)cardInfoEncrypted {
+    // Do something with cardInfo dictionary
+    NSLog(@"cardInfo: %@",cardInfo);
+    NSLog(@"cardInfoEncrypted: %@",cardInfoEncrypted);// is nil unless VenmoTouch is used
+    NSMutableDictionary *enc = [[NSMutableDictionary alloc]initWithDictionary:cardInfoEncrypted];
+    
+    // manually encrypt the cardInfo
+    BTEncryption *braintree = [[BTEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAmRehlELjqxPOltj1/bpsQE92opagAj6tFB8wo4Z/Dy0x7nugGnC7fvvvIEo5MEoKg6HvU1GSmpP7VQ4XU/8YDXblbaKsLgb5K92BySKwM1FyHoL2IfRrEDdJcV9tMJ9hjZbIcg7uBUYhT/rgpWBRaDVLMEAMnqvSH7UZ2wlCjjT1NJScrMDd4EyXQQcXSdc5ri9C62QfzopVxA6iOvK8YPkzRkmNUQOkEf67v+kiUgh2w2YWEXogmRCUoUpdzODJ689UcpqyMHrwouC+WxqLJK/0zDHy44Fofc/Sqp4Wf19fslXmb4HW8u5GqQUV/5PXi3B+j4tOeXxXynTeOKtcqQIDAQAB"];
+    [cardInfo enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+        [enc setObject: [braintree encryptString: object] forKey: key];
+    }];
+    
+    NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    [enc setValue:ownerString forKey:@"user"];
+    [enc setValue:bet.opponentStakeAmount forKey:@"amount"];
+    [enc setValue:[betJSON valueForKey:@"id"] forKey:@"bet_id"];
+    
+    //make the call to the web API to post the card info and determine valid-ness
+    // POST /card => {data}
+    [[API sharedInstance] post:@"card" withParams:enc onCompletion:^(NSDictionary *json) {
+        // call this, because we aren't loading anymore
+        // Don't forget to call the cleanup method,
+        // `prepareForDismissal`, on your `BTPaymentViewController` in order to remove the loading thing that pops up automatically
+        [(BTPaymentViewController *)self.navigationController.topViewController prepareForDismissal];
+        
+        NSLog(@"%@", json);
+        // show the credit card status, and do things based on it
+        [[[UIAlertView alloc] initWithTitle: @"Credit Card"
+                                    message: [json objectForKey:@"msg"]
+                                   delegate: self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+        // delegate handles following events:
+        // 1. submit the bet-data to the server
+        // 2. dismiss the paymentViewController and popToRootViewController
+    }];
+}
 @end

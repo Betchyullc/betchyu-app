@@ -122,6 +122,7 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    // quick check to see that we know who we are
     NSString *userId = ((AppDelegate *)([UIApplication sharedApplication].delegate)).ownId;
     if ([userId isEqualToString:@""]) {
         [self performSelector:@selector(viewDidAppear:) withObject:NO afterDelay:1];
@@ -160,29 +161,49 @@
     }];
     
     // check for new pop-up notifications
+    [params removeObjectForKey:@"restriction"]; // remove a parameter from the last request
     [[API sharedInstance] get:@"notifications" withParams:params onCompletion:^(NSDictionary *json) {
         for (NSDictionary* obj in json) {
-            [FBRequestConnection startWithGraphPath:[obj valueForKey:@"data"] completionHandler:
-             ^(FBRequestConnection *connection, id result, NSError *error) {
-                if ([[obj valueForKey:@"kind"] integerValue] == 1) {        // rejected invite
-                    [[[UIAlertView alloc] initWithTitle:@"Notification"
-                                                message:[NSString stringWithFormat:@"Your friend %@ rejected your bet.",[result valueForKey:@"name"]]
-                                               delegate:nil
-                                      cancelButtonTitle:@"Oh well..."
-                                      otherButtonTitles:nil]
-                     show];
-                } else if ([[obj valueForKey:@"kind"] integerValue] == 2) { // accepted invite
-                    [[[UIAlertView alloc] initWithTitle:@"Notification"
-                                                message:[NSString stringWithFormat:@"Your friend %@ accepted your bet! Yay!", [result valueForKey:@"name"]]
-                                               delegate:nil
-                                      cancelButtonTitle:@"OK!"
-                                      otherButtonTitles:nil]
-                     show];
-                }
-                NSString *newPath = [NSString stringWithFormat:@"notifications/%@", [obj valueForKey:@"id"]];
-                [[API sharedInstance] deletePath:newPath parameters:nil success:nil failure:nil];
-
-            }];
+            // if it is an accept/rejected bet notification
+            if ([[obj valueForKey:@"kind"] integerValue] <= 2) {
+                [FBRequestConnection startWithGraphPath:[obj valueForKey:@"data"] completionHandler:
+                 ^(FBRequestConnection *connection, id result, NSError *error) {
+                     if ([[obj valueForKey:@"kind"] integerValue] == 1) {        // rejected invite
+                         [[[UIAlertView alloc] initWithTitle:@"Notification"
+                                                     message:[NSString stringWithFormat:@"Your friend %@ rejected your bet.",[result valueForKey:@"name"]]
+                                                    delegate:nil
+                                           cancelButtonTitle:@"Oh well..."
+                                           otherButtonTitles:nil]
+                          show];
+                     } else if ([[obj valueForKey:@"kind"] integerValue] == 2) { // accepted invite
+                         [[[UIAlertView alloc] initWithTitle:@"Notification"
+                                                     message:[NSString stringWithFormat:@"Your friend %@ accepted your bet! Yay!", [result valueForKey:@"name"]]
+                                                    delegate:nil
+                                           cancelButtonTitle:@"OK!"
+                                           otherButtonTitles:nil]
+                          show];
+                     }
+                }];
+            // if it's a won a bet notif
+            } else if ([[obj valueForKey:@"kind"] integerValue] == 3) {
+                [[[UIAlertView alloc] initWithTitle:@"Notification"
+                                            message:[NSString stringWithFormat:@"You've won a bet. You'll get a $%@ gift card.", [obj valueForKey:@"data"]]
+                                           delegate:nil
+                                  cancelButtonTitle:@"Sweet!"
+                                  otherButtonTitles:nil]
+                 show];
+            // it's a 'lost a bet' notif
+            } else if ([[obj valueForKey:@"kind"] integerValue] == 4) {
+                [[[UIAlertView alloc] initWithTitle:@"Notification"
+                                            message:[NSString stringWithFormat:@"You've lost a bet. Your friend is getting a $%@ gift card on you.", [obj valueForKey:@"data"]]
+                                           delegate:nil
+                                  cancelButtonTitle:@"fine..."
+                                  otherButtonTitles:nil]
+                 show];
+            }
+            // DELETE /notifications/:id the notificaiton we just displayed, because it's done.
+            NSString *newPath = [NSString stringWithFormat:@"notifications/%@", [obj valueForKey:@"id"]];
+            [[API sharedInstance] deletePath:newPath parameters:nil success:nil failure:nil];
         }
     }];
     
@@ -248,20 +269,16 @@
     // get the bets from the server
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     
-    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  @"goals", @"restriction",
-                                  ownerString, @"user",
-                                  nil];
+    NSString *path = [NSString stringWithFormat:@"goals/%@", ownerString];
     
     //make the call to the web API
-    [[API sharedInstance] get:@"bets" withParams:params
-                 onCompletion:^(NSDictionary *json) {
-                     //success
-                     MyGoalsVC *vc =[[MyGoalsVC alloc] initWithGoals:(NSArray *)json];
-                     vc.title = @"MY GOALS";
-                     // Show it.
-                     [self.navigationController pushViewController:vc animated:true];
-                 }];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        //success
+        MyGoalsVC *vc =[[MyGoalsVC alloc] initWithGoals:(NSArray *)json];
+        vc.title = @"MY GOALS";
+        // Show it.
+        [self.navigationController pushViewController:vc animated:true];
+    }];
 }
 
 @end
