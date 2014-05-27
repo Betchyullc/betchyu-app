@@ -35,7 +35,7 @@
         // Custom initialization
         self.stakeImageHeight = 280;
         self.bet = betObj;
-        if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+        if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
             self.currentStake = 10;
         } else {
             self.currentStake = 1;
@@ -136,7 +136,7 @@
     }];
 }
 -(void)increaseStake:(id)sender {
-    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+    if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
         if (currentStake == 1){
             currentStake += 4;
         } else {
@@ -151,7 +151,7 @@
     if (currentStake == 1) {
         return;
     }
-    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+    if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
         if (currentStake == 5){
             currentStake -= 4;
         } else {
@@ -165,7 +165,7 @@
 
 // updates the visual notation of the stake and the TempBet (self.bet) version of the the stake
 - (void) updateLabels {
-    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
+    if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
         stakeLabel.text = [NSString stringWithFormat:@"$%i", currentStake];
     } else {
         if (currentStake == 1) {

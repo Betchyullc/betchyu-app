@@ -87,12 +87,9 @@
         name.textColor = [UIColor whiteColor];
         name.font = [UIFont fontWithName:@"ProximaNova-Regular" size:18];
         [self addSubview:name];
-        // actual value
-        NSMutableDictionary *params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                      @"completedCount", @"restriction",
-                                      ownId, @"user",
-                                      nil];
-        [[API sharedInstance] get:@"bets" withParams:params onCompletion:^(NSDictionary *json) {
+        // actual value of goals achieved
+        NSString *path = [NSString stringWithFormat:@"achievements-count/%@", ownId];
+        [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
             UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, (frame.size.width/2)-(dim/2) + dim +110, frame.size.width, 60)];
             name.text = [[json valueForKey:@"count"] stringValue];
             name.textAlignment = NSTextAlignmentCenter;

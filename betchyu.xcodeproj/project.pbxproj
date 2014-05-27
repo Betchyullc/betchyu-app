@@ -33,6 +33,7 @@
 		892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */; };
 		892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F0185688EF0052A7C0 /* MyBetsVC.m */; };
 		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
+		89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89294AE81934C96200094389 /* Target Gift Card.jpg */; };
 		8957380D189830BB00E693A5 /* Graph.m in Sources */ = {isa = PBXBuildFile; fileRef = 8957380C189830BB00E693A5 /* Graph.m */; };
 		8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818B187C4C9800CCC9DC /* AboutUs.m */; };
 		8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818E187C510300CCC9DC /* HowItWorksVC.m */; };
@@ -136,6 +137,7 @@
 		892154F0185688EF0052A7C0 /* MyBetsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsVC.m; sourceTree = "<group>"; };
 		892154F5185760240052A7C0 /* MyGoalsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoalsVC.h; sourceTree = "<group>"; };
 		892154F6185760240052A7C0 /* MyGoalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoalsVC.m; sourceTree = "<group>"; };
+		89294AE81934C96200094389 /* Target Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Target Gift Card.jpg"; sourceTree = "<group>"; };
 		8957380B189830BB00E693A5 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
 		8957380C189830BB00E693A5 /* Graph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Graph.m; sourceTree = "<group>"; };
 		8958818A187C4C9800CCC9DC /* AboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUs.h; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				89294AE81934C96200094389 /* Target Gift Card.jpg */,
 				89588191187C67CF00CCC9DC /* 1.jpg */,
 				89588192187C67CF00CCC9DC /* 2.jpg */,
 				89588193187C67CF00CCC9DC /* 3.jpg */,
@@ -577,6 +580,7 @@
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
 				89B1A7C7186A13E3006A656F /* Stop Smoking.jpg in Resources */,
+				89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */,
 				89B1A6BB1864ACC7006A656F /* logo.png in Resources */,
 				89B1A7BD186916B4006A656F /* beer.jpg in Resources */,
 				89588196187C67CF00CCC9DC /* 1.jpg in Resources */,
