@@ -347,7 +347,6 @@
 }
 
 //method to send the bet data to the server
-
 - (void) betchyu {
     // MAKE THE NEW BET
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
@@ -393,9 +392,6 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:@"Credit Card"]) {
         if ([alertView.message isEqualToString:@"Card is approved"]) {
-            // submit the bet to the server, after having checked that the card is good
-            [self betchyu];
-            
             // Then dismiss the paymentViewController
             // the loading thing is removed before the alert comes up
             [self.navigationController popViewControllerAnimated:NO];
@@ -453,7 +449,11 @@
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil] show];
         // delegate handles following events:
-        // 1. submit the bet-data to the server
+        // 1. submit the bet-data to the server // not anymore
+        if ([[json objectForKey:@"msg"] isEqualToString:@"Card is approved"]) {
+            // submit the bet to the server, after having checked that the card is good
+            [self betchyu];
+        }
         // 2. dismiss the paymentViewController
         // 3. switch to the BetSummaryVC
     }];

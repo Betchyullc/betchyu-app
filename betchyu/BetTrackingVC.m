@@ -406,10 +406,11 @@
 -(void)loseTheBet {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Goal Failed!"
                                                     message:@"You lost this bet! The card you entered originally will now be charged."
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+    // delegate method tells them the bet is done and goes to the homepage when they press OK
     
     self.isFinished = YES;
     
@@ -420,9 +421,7 @@
                                   nil];
     // PUT /pay = {bet_id=> bet#, user => self#}
     [[API sharedInstance] put:@"pay" withParams:params onCompletion:^(NSDictionary *json) {
-        //success do nothing...
-        [self popUpToFinishBet];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        NSLog(@"%@", json);
     }];
 }
 // shows an alert to tell the user that he won the bet
@@ -431,10 +430,11 @@
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Goal Completed!"
                                                     message:@"You won this bet! The prize will now be purchased by your friend."
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+    // delegate method tells them the bet is done and goes to the homepage when they press OK
     
     self.isFinished = YES;
     
@@ -445,9 +445,7 @@
                                   nil];
     // PUT /pay = {bet_id=> bet#, user => opponent#}
     [[API sharedInstance] put:@"pay" withParams:params onCompletion:^(NSDictionary *json) {
-        //success do nothing...
-        [self popUpToFinishBet];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        NSLog(@"%@", json);
     }];
 }
 
@@ -524,6 +522,7 @@
 
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    /*
     if ([alertView.title isEqualToString:@"Goal Completed!"]) {
         if (buttonIndex == 0) {
             // Yes, bet payment was received
@@ -560,7 +559,10 @@
             // do nothing.
             [self showDetailsPage:nil];
         }
-    }
+    }*/
+    
+    [self popUpToFinishBet];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void) popUpToFinishBet {
     [[[UIAlertView alloc] initWithTitle:@"Bet Finished!"
