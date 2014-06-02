@@ -560,14 +560,16 @@
             [self showDetailsPage:nil];
         }
     }*/
-    
-    [self popUpToFinishBet];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([alertView.title hasPrefix:@"Goal"]) {
+        [self popUpToFinishBet];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 -(void) popUpToFinishBet {
     [[[UIAlertView alloc] initWithTitle:@"Bet Finished!"
                                 message:@"You're now done with this bet, and it won't show up on your list any more."
-                               delegate:nil
+                               delegate:self
                       cancelButtonTitle:@"OK!"
                       otherButtonTitles:nil]
      show];

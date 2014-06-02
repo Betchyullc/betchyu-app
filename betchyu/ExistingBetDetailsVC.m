@@ -503,7 +503,7 @@
     NSMutableDictionary *enc = [[NSMutableDictionary alloc]initWithDictionary:cardInfoEncrypted];
     
     // manually encrypt the cardInfo
-    BTEncryption *braintree = [[BTEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAmRehlELjqxPOltj1/bpsQE92opagAj6tFB8wo4Z/Dy0x7nugGnC7fvvvIEo5MEoKg6HvU1GSmpP7VQ4XU/8YDXblbaKsLgb5K92BySKwM1FyHoL2IfRrEDdJcV9tMJ9hjZbIcg7uBUYhT/rgpWBRaDVLMEAMnqvSH7UZ2wlCjjT1NJScrMDd4EyXQQcXSdc5ri9C62QfzopVxA6iOvK8YPkzRkmNUQOkEf67v+kiUgh2w2YWEXogmRCUoUpdzODJ689UcpqyMHrwouC+WxqLJK/0zDHy44Fofc/Sqp4Wf19fslXmb4HW8u5GqQUV/5PXi3B+j4tOeXxXynTeOKtcqQIDAQAB"];
+    BTEncryption *braintree = [[BTEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEA1FfiDXfYBxtcOCu7wcOK+0/n4q4C6WUaakP8/PzflZRJ30Ac+onTkzPLct4InPoL/P6CCkLOUQrcFcXZRFIdvCieAks1dY53c5TnBV8f8dqFA/CZQm+J1O/W+m+aAIIUyre6qbZ7Wv2IC2tRDM4nW9RcWIIQ7c9ZNpHfdP4muIpEWvF0D0VplRjkdTZUMSxR9/nJ7fqfYTazEmo9GXDa7LPf22r178Iq9WTlKfk6APNE7aYrx8zN21FshweJgBBRZxh4LFmBd+j1DzLciBJNjFh1JA98D+40XGLj+9SPXoVCSznshW4X5sV970W0rnCwU01VTBk/8N3HWgwbZK6mnwIDAQAB"];
     [cardInfo enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
         [enc setObject: [braintree encryptString: object] forKey: key];
     }];
