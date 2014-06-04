@@ -2,6 +2,7 @@
 #import "ViewController.h"
 #import "MTZoomContainerView.h"
 #import "MTStackViewController.h"
+#import "DashboardVC.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -14,7 +15,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (strong, nonatomic) UINavigationController* navController;
-@property (strong, nonatomic) ViewController *mainViewController;
+@property (strong, nonatomic) DashboardVC *mainViewController;
 @property MTStackViewController *stackViewController;
 
 - (void)saveContext;

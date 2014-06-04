@@ -83,6 +83,10 @@
 		89B3F5D51850EB320055F8DB /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B91850EB320055F8DB /* CoreData.framework */; };
 		89B3F5DD1850EB320055F8DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89B3F5DB1850EB320055F8DB /* InfoPlist.strings */; };
 		89B3F5DF1850EB320055F8DB /* betchyuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3F5DE1850EB320055F8DB /* betchyuTests.m */; };
+		89C65163193D1E15004B64B6 /* Dashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C65162193D1E15004B64B6 /* Dashboard.m */; };
+		89C65166193D1E31004B64B6 /* DashboardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C65165193D1E31004B64B6 /* DashboardVC.m */; };
+		89C65169193D232F004B64B6 /* DashHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C65168193D232F004B64B6 /* DashHeaderView.m */; };
+		89C6516C193E4BE9004B64B6 /* PendingBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C6516B193E4BE9004B64B6 /* PendingBetsView.m */; };
 		89E2F788191AB95F001BB854 /* BetSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E2F787191AB95F001BB854 /* BetSummaryVC.m */; };
 		89F9DE7218A9980E00411AFD /* Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F9DE7118A9980E00411AFD /* Feedback.m */; };
 		C97E2F24B94F4D9FB61A267C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A85FBA56BA43B5932AE364 /* libPods.a */; };
@@ -206,6 +210,14 @@
 		89B3F5DA1850EB320055F8DB /* betchyuTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "betchyuTests-Info.plist"; sourceTree = "<group>"; };
 		89B3F5DC1850EB320055F8DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		89B3F5DE1850EB320055F8DB /* betchyuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = betchyuTests.m; sourceTree = "<group>"; };
+		89C65161193D1E15004B64B6 /* Dashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dashboard.h; sourceTree = "<group>"; };
+		89C65162193D1E15004B64B6 /* Dashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dashboard.m; sourceTree = "<group>"; };
+		89C65164193D1E31004B64B6 /* DashboardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardVC.h; sourceTree = "<group>"; };
+		89C65165193D1E31004B64B6 /* DashboardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardVC.m; sourceTree = "<group>"; };
+		89C65167193D232F004B64B6 /* DashHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashHeaderView.h; sourceTree = "<group>"; };
+		89C65168193D232F004B64B6 /* DashHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashHeaderView.m; sourceTree = "<group>"; };
+		89C6516A193E4BE9004B64B6 /* PendingBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingBetsView.h; sourceTree = "<group>"; };
+		89C6516B193E4BE9004B64B6 /* PendingBetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingBetsView.m; sourceTree = "<group>"; };
 		89E2F786191AB95F001BB854 /* BetSummaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetSummaryVC.h; sourceTree = "<group>"; };
 		89E2F787191AB95F001BB854 /* BetSummaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetSummaryVC.m; sourceTree = "<group>"; };
 		89F9DE7018A9980E00411AFD /* Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feedback.h; sourceTree = "<group>"; };
@@ -245,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				89588190187C515400CCC9DC /* Bet Details/Update */,
+				89C65164193D1E31004B64B6 /* DashboardVC.h */,
+				89C65165193D1E31004B64B6 /* DashboardVC.m */,
 				892154981850F2E70052A7C0 /* ViewController.h */,
 				892154991850F2E70052A7C0 /* ViewController.m */,
 				892154C018524E290052A7C0 /* Create Bet Flow */,
@@ -274,16 +288,9 @@
 		892154BD1850F42A0052A7C0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8958818A187C4C9800CCC9DC /* AboutUs.h */,
-				8958818B187C4C9800CCC9DC /* AboutUs.m */,
-				89F9DE7018A9980E00411AFD /* Feedback.h */,
-				89F9DE7118A9980E00411AFD /* Feedback.m */,
-				89B1A755186767E9006A656F /* ProfileView.h */,
-				89B1A756186767E9006A656F /* ProfileView.m */,
-				892154A51850F36F0052A7C0 /* BigButton.h */,
-				892154A61850F36F0052A7C0 /* BigButton.m */,
-				8957380B189830BB00E693A5 /* Graph.h */,
-				8957380C189830BB00E693A5 /* Graph.m */,
+				89C6516E193E4C0F004B64B6 /* Menu */,
+				89C6516D193E4C03004B64B6 /* Dashboard */,
+				89C6516F193E4C1E004B64B6 /* Widgets */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -495,6 +502,43 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		89C6516D193E4C03004B64B6 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				89C65161193D1E15004B64B6 /* Dashboard.h */,
+				89C65162193D1E15004B64B6 /* Dashboard.m */,
+				89C65167193D232F004B64B6 /* DashHeaderView.h */,
+				89C65168193D232F004B64B6 /* DashHeaderView.m */,
+				89C6516A193E4BE9004B64B6 /* PendingBetsView.h */,
+				89C6516B193E4BE9004B64B6 /* PendingBetsView.m */,
+			);
+			name = Dashboard;
+			sourceTree = "<group>";
+		};
+		89C6516E193E4C0F004B64B6 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				8958818A187C4C9800CCC9DC /* AboutUs.h */,
+				8958818B187C4C9800CCC9DC /* AboutUs.m */,
+				89F9DE7018A9980E00411AFD /* Feedback.h */,
+				89F9DE7118A9980E00411AFD /* Feedback.m */,
+				89B1A755186767E9006A656F /* ProfileView.h */,
+				89B1A756186767E9006A656F /* ProfileView.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		89C6516F193E4C1E004B64B6 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				892154A51850F36F0052A7C0 /* BigButton.h */,
+				892154A61850F36F0052A7C0 /* BigButton.m */,
+				8957380B189830BB00E693A5 /* Graph.h */,
+				8957380C189830BB00E693A5 /* Graph.m */,
+			);
+			name = Widgets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -668,11 +712,14 @@
 				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,
 				89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */,
 				892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */,
+				89C6516C193E4BE9004B64B6 /* PendingBetsView.m in Sources */,
 				89B1A74E186674D7006A656F /* MTStackViewController.m in Sources */,
 				8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */,
 				89B1A74C186674D7006A656F /* UIView+Screenshot.m in Sources */,
 				892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */,
+				89C65169193D232F004B64B6 /* DashHeaderView.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
+				89C65166193D1E31004B64B6 /* DashboardVC.m in Sources */,
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				8921549C1850F2E70052A7C0 /* ViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
@@ -683,6 +730,7 @@
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
+				89C65163193D1E15004B64B6 /* Dashboard.m in Sources */,
 				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,
 				89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */,
 				89B1A74B186674D7006A656F /* ShadowView.m in Sources */,

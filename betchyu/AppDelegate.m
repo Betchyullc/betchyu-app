@@ -41,7 +41,7 @@
     [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
     [stackViewController setLeftViewController:flyOutNav];
     
-    self.mainViewController = [[ViewController alloc] initWithInviteNumber:@"0"];
+    self.mainViewController = [[DashboardVC alloc] initWithInviteNumber:@"0"];
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
     [stackViewController setContentViewController:self.navController];
     
@@ -59,11 +59,12 @@
     UIColor *betchyu = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
-      betchyu,
+      [UIColor whiteColor],
       NSForegroundColorAttributeName,
       [UIFont fontWithName:@"ProximaNova-Black" size:18.0],
       NSFontAttributeName, nil]];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setBackgroundColor:betchyu];
+    [[UINavigationBar appearance] setBarTintColor:betchyu];
     [[UINavigationBar appearance] setTintColor:betchyu];
     
     return YES;
