@@ -82,7 +82,7 @@
         /////////////////////////
         // heading label
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, (frame.size.width/2)-(dim/2) + dim +90, frame.size.width, 20)];
-        name.text = @"GOALS ACHEIVED:";
+        name.text = @"GOALS ACHIEVED:";
         name.textAlignment = NSTextAlignmentCenter;
         name.textColor = [UIColor whiteColor];
         name.font = [UIFont fontWithName:@"ProximaNova-Regular" size:18];

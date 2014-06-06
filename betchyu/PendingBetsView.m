@@ -2,18 +2,23 @@
 //  PendingBetsView.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/3/14.
+//  Created by Daniel Zapata on 6/3/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
 //
 
 #import "PendingBetsView.h"
+#import <Braintree/BTEncryption.h>
+#import "BTPaymentViewController.h"
 
 @implementation PendingBetsView
 
-- (id)initWithFrame:(CGRect)frame //AndPendingBets:(NSArray *)pending
+//@synthesize controller;
+
+- (id)initWithFrame:(CGRect)frame //AndController:(DashboardVC *)cont
 {
     self = [super initWithFrame:frame];
     if (self) {
+        //self.controller = cont;
         // Initialization code
         int fontSize = 14;
         int rowHt = 100;
@@ -53,6 +58,7 @@
     return self;
 }
 
+// helpers
 -(UIView *)getFBPic:(NSString *)userId WithDiameter:(int)dim AndFrame:(CGRect)frame{
     // The Border
     UIView *profBorder = [[UIView alloc] initWithFrame:frame];
@@ -68,12 +74,11 @@
     [profBorder addSubview:profPic];
     return profBorder;
 }
-
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             // Success! Include your code to handle the results here
-            lab.text = [NSString stringWithFormat:@"%@ will %@ %@ %@ in ", [result valueForKey:@"name"], [obj valueForKey:@"betVerb"], [obj valueForKey:@"betAmount"], [obj valueForKey:@"betNoun"]];
+            lab.text = [NSString stringWithFormat:@"%@ will %@ %@ %@ in %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], [obj valueForKey:@"amount"], [obj valueForKey:@"noun"], [obj valueForKey:@"duration"]];
             [self addSubview:lab];
         } else {
             // An error occurred, we need to handle the error
@@ -82,6 +87,7 @@
     }];
 }
 
+// populate the main area with bets stuff
 -(void)addBets:(NSArray *)pending {
     // convinience variables
     CGRect frame = self.frame;
@@ -101,21 +107,29 @@
     int off = fontSize*1.8;
     if (c == 0) {
         // show --None-- message
+        UILabel *none = [[UILabel alloc]initWithFrame:CGRectMake(0, off, frame.size.width, frame.size.height-off)];
+        none.text = @"None";
+        none.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize*1.4];
+        none.textColor = dark;
+        none.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:none];
     } else {
         for (int i = 0; i < c; i++) {
             NSDictionary *obj = [pending objectAtIndex:i];
-            // Profile image
+            // Profile imag
             int diameter = frame.size.width / 6.7 ;
             CGRect picF  = CGRectMake(frame.size.width/16, rowHt * i + off + rowHt/6, diameter, diameter);
             UIView *pic = [self getFBPic:[obj valueForKey:@"owner"] WithDiameter:diameter AndFrame:picF];
             
             // Buttons
-            int yB      = (rowHt * i) + rowHt/1.5 + off;
+            int yB      = (rowHt * i) + rowHt/1.6 + off;
             int xMargin = frame.size.width/4.4;
             int widthB  = frame.size.width/5.5;
             int heightB = rowHt / 3.4;
             // Accept Button
-            UIButton * accept = [[UIButton alloc] initWithFrame:CGRectMake(xMargin, yB, widthB, heightB)];
+            UIButton * accept = [[UIButton alloc] initWithFrame:CGRectMake(xMargin, yB*i + yB, widthB, heightB)];
+            accept.tag = i;
+            [accept addTarget:self action:@selector(acceptBet:) forControlEvents:UIControlEventTouchUpInside];
             accept.backgroundColor = green;
             [accept setTitle:@"Accept" forState:UIControlStateNormal];
             [accept setTintColor:[UIColor whiteColor]];
@@ -123,7 +137,7 @@
             accept.layer.cornerRadius = 9;
             accept.clipsToBounds = YES;
             // Reject Button
-            UIButton * reject = [[UIButton alloc] initWithFrame:CGRectMake(xMargin + widthB + widthB/6, yB, widthB, heightB)];
+            UIButton * reject = [[UIButton alloc] initWithFrame:CGRectMake(xMargin + widthB + widthB/6, yB*i + yB, widthB, heightB)];
             reject.backgroundColor = red;
             [reject setTitle:@"Reject" forState:UIControlStateNormal];
             [reject setTintColor:[UIColor whiteColor]];
@@ -132,12 +146,13 @@
             reject.clipsToBounds = YES;
             
             // Description string
-            UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin + 10, off + off/2 + rowHt*i, frame.size.width/2.4, rowHt/1.7)];
+            UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin + 10, off + off/4 + rowHt*i, frame.size.width/2, rowHt/1.7)];
             [self setBetDescription:obj ForLabel:desc];
             desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
             desc.textColor     = dark;
             desc.textAlignment = NSTextAlignmentLeft;
             desc.lineBreakMode = NSLineBreakByWordWrapping;
+            desc.numberOfLines = 0;
             
             // Bottom line divider thingie
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/16, rowHt + off + rowHt*i, 14*frame.size.width/16, 2)];
@@ -148,18 +163,36 @@
             [self addSubview:reject];
             [self addSubview:pic];
             [self addSubview:line];
-            //[self addSubview:desc];
+            //[self addSubview:desc]; Don't need to do this b/c [self setBetDescription: ForLabel]
         }
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+// API call stuff
+-(void)acceptBet:(UIButton *)sender {
+    // this method does the following, in order:
+    //  1. asks for Credit Card info via BTLibrary
+    //  2. tells the server the info, which makes, but does not submit the transaction
+    //  3. tells the server that the bet is accepted
+    //  4. UIAlerts the user that the process is done
+    
+    /* Do #1 */
+    // tell the user wtf is going on
+    [[[UIAlertView alloc] initWithTitle:@"We Need Something"
+                                message:@"We're gonna need a valid credit card for you to do that. Don't worry, we won't charge it until the bet is over--and even then only if you lost."
+                               delegate:nil
+                      cancelButtonTitle:@"Fair Enough"
+                      otherButtonTitles:nil]
+     show];
+    /*// showing BrainTree's CreditCard processing page
+    BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+    //paymentViewController.delegate = self.controller;
+    // Now, display the navigation controller that contains the payment form
+    [self.controller.navigationController pushViewController:paymentViewController animated:YES];*/
+    
+    /* Do #2-4 */
+    // is done within the delegate methods below. line 370 sets this up ^^
 }
-*/
+
 
 @end

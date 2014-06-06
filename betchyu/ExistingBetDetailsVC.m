@@ -2,7 +2,7 @@
 //  ExistingBetDetailsVC.m
 //  betchyu
 //
-//  Created by Adam Baratz on 12/16/13.
+//  Created by Daniel Zapata on 12/16/13.
 //  Copyright (c) 2013 BetchyuLLC. All rights reserved.
 //
 
@@ -380,8 +380,6 @@
     
     /* Do #2-4 */
     // is done within the delegate methods below. line 370 sets this up ^^
-    
-    
 }
 -(void)rejectTheBet:(id)sender {
     NSString *path =[NSString stringWithFormat:@"bets/%@", [betJSON valueForKey:@"id"]];

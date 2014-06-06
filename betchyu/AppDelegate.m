@@ -32,6 +32,7 @@
     self.stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
     [stackViewController setAnimationDurationProportionalToPosition:YES];
     stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
+    stackViewController.leftViewControllerEnabled = NO;
     
     CGRect foldFrame = CGRectMake(0, 0, stackViewController.slideOffset, CGRectGetHeight(self.window.bounds));
     FlyoutMenuVC *menuViewController = [[FlyoutMenuVC alloc] initWithFrame:foldFrame];
@@ -65,7 +66,7 @@
       NSFontAttributeName, nil]];
     [[UINavigationBar appearance] setBackgroundColor:betchyu];
     [[UINavigationBar appearance] setBarTintColor:betchyu];
-    [[UINavigationBar appearance] setTintColor:betchyu];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     return YES;
 }

@@ -12,47 +12,71 @@
 
 @synthesize head;
 @synthesize pending;
+@synthesize my;
 
-- (id)initWithFrame:(CGRect)frame
+@synthesize oneH;
+@synthesize twoH;
+
+//@synthesize controller;
+
+- (id)initWithFrame:(CGRect)frame //AndController:(DashboardVC *)cont
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        //self.controller = cont;
+        oneH = 120;
+        twoH = 220;
+        if (frame.size.width > 700) {
+            oneH = 140;
+            twoH = 280;
+        }
         
         // Sire, we must have the frames made, one for each portion of the page!
         int headHt = MAX((frame.size.height/7), 74);
         CGRect headRect    = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, headHt); // bad, should be dynamic height
-        CGRect pendingRect = CGRectMake(frame.origin.x, frame.origin.y + headHt, frame.size.width, 220); // also bad
-        CGRect currentRect = CGRectMake(frame.origin.x, frame.origin.y + 600, frame.size.width, 200); // bad, should be dynamic height
+        CGRect pendingRect = CGRectMake(frame.origin.x, frame.origin.y + headHt, frame.size.width, twoH); // also bad
+        CGRect myRect = CGRectMake(frame.origin.x, pendingRect.origin.y + pendingRect.size.height, frame.size.width, twoH); // bad, should be dynamic height
         CGRect friendRect  = CGRectMake(frame.origin.x, frame.origin.y + 800, frame.size.width, 400); // also bad
         
         // Sir Mallory, I hereby charge you with the instantiation of said view-portions.
-        DashHeaderView *head    = [[DashHeaderView alloc] initWithFrame:headRect];
-        PendingBetsView *pending = [[PendingBetsView alloc] initWithFrame:pendingRect AndPendingBets:[NSArray arrayWithObjects:@{@"owner": @"1206433"}, @{@"owner":@"1253342"}, nil]];
-        /*DashHeaderView *current = [[DashHeaderView alloc] initWithFrame:currentRect];
-        DashHeaderView *friend  = [[DashHeaderView alloc] initWithFrame:friendRect];*/
+        self.head    = [[DashHeaderView alloc] initWithFrame:headRect];
+        self.pending = [[PendingBetsView alloc] initWithFrame:pendingRect]; //AndController:cont];
+        self.my = [[MyBetsView alloc] initWithFrame:myRect];
+        /*DashHeaderView *friend  = [[DashHeaderView alloc] initWithFrame:friendRect];*/
         
         // Sire, it has been done as you requested. *bows* May I now add these views to our self-same kingdom? (kingdom = view)
         // Let it be so.
         [self addSubview:head];
         [self addSubview:pending];
-        /*[self addSubview:current];
-        [self addSubview:friend];*/
+        [self addSubview:my];
+        /*[self addSubview:friend];*/
     }
     return self;
 }
 
--(void) showPendingBets {
-    
-    
+-(void)adjustPendingHeight:(int)numItems {
+    CGRect f = self.pending.frame;
+    if (numItems <= 1) {
+        [self.pending setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
+        [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - oneH), my.frame.size.width, my.frame.size.height)];
+        //[self.friend setFrame:CGRectMake(pending.frame.origin.x, pending.frame.origin.y, pending.frame.size.width, 100)];
+    } else {
+        [self.pending setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, twoH)];
+        [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - twoH), my.frame.size.width, my.frame.size.height)];
+        //[self.friend setFrame:CGRectMake(pending.frame.origin.x, pending.frame.origin.y, pending.frame.size.width, 100)];
+    }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+-(void)adjustMyBetsHeight:(int)numItems {
+    CGRect f = self.my.frame;
+    if (numItems <= 1) {
+        [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
+        //[self.friend setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - 100), my.frame.size.width, my.frame.size.height)];
+    } else {
+        [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, twoH)];
+        self.my.scroller.contentSize = CGSizeMake(f.size.width, oneH*numItems);
+        //[self.friend setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - 220), my.frame.size.width, my.frame.size.height)];
+    }
 }
-*/
 
 @end

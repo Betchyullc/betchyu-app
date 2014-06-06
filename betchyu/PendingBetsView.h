@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+//@class DashboardVC;
 
 @interface PendingBetsView : UIView
 
--(id) initWithFrame:(CGRect)frame //AndPendingBets:(NSArray*)pending;
+//@property DashboardVC * controller;
+
+-(id) initWithFrame:(CGRect)frame;// AndController:(DashboardVC *)cont;
 -(void) addBets:(NSArray *)pending;
 
 @end

@@ -9,10 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "DashHeaderView.h"
 #import "PendingBetsView.h"
+#import "MyBetsView.h"
 
 @interface Dashboard : UIView
 
 @property DashHeaderView * head;
 @property PendingBetsView * pending;
+@property MyBetsView * my;
+//@property DashboardVC * controller;
+
+@property int oneH;
+@property int twoH;
+
+-(void) adjustPendingHeight:(int)numItems;
+-(void) adjustMyBetsHeight:(int)numItems;
+
+-(id)initWithFrame:(CGRect)frame;// AndController:(DashboardVC *)cont;
 
 @end

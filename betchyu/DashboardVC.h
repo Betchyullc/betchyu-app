@@ -12,8 +12,10 @@
 #import "BetTypeViewController.h"
 #import "MyBetsVC.h"
 #import "MyGoalsVC.h"
+#import <Braintree/BTEncryption.h>
+#import "BTPaymentViewController.h"
 
-@interface DashboardVC : UIViewController
+@interface DashboardVC : UIViewController //<BTPaymentViewControllerDelegate>
 
 @property NSString * numberOfInvites;
 @property UILabel * numNotif;

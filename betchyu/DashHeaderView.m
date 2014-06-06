@@ -76,7 +76,7 @@
         if (!error) {
             // Success! Include your code to handle the results here
             UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, (f.size.height/4), f.size.width, f.size.height/2)];
-            name.text = [[result valueForKey:@"name"] uppercaseString];
+            name.text = [result valueForKey:@"name"];
             name.textAlignment = NSTextAlignmentCenter;
             name.textColor = [UIColor colorWithRed:243.0/256 green:116.0/256 blue:67.0/256 alpha:1.0];
             name.font = [UIFont fontWithName:@"ProximaNova-Black" size:20];

@@ -33,6 +33,7 @@
 		892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */; };
 		892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F0185688EF0052A7C0 /* MyBetsVC.m */; };
 		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
+		8926AA8B1940E73400AAB74A /* MyBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AA8A1940E73400AAB74A /* MyBetsView.m */; };
 		89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89294AE81934C96200094389 /* Target Gift Card.jpg */; };
 		8957380D189830BB00E693A5 /* Graph.m in Sources */ = {isa = PBXBuildFile; fileRef = 8957380C189830BB00E693A5 /* Graph.m */; };
 		8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818B187C4C9800CCC9DC /* AboutUs.m */; };
@@ -141,6 +142,8 @@
 		892154F0185688EF0052A7C0 /* MyBetsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsVC.m; sourceTree = "<group>"; };
 		892154F5185760240052A7C0 /* MyGoalsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoalsVC.h; sourceTree = "<group>"; };
 		892154F6185760240052A7C0 /* MyGoalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoalsVC.m; sourceTree = "<group>"; };
+		8926AA891940E73400AAB74A /* MyBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBetsView.h; sourceTree = "<group>"; };
+		8926AA8A1940E73400AAB74A /* MyBetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsView.m; sourceTree = "<group>"; };
 		89294AE81934C96200094389 /* Target Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Target Gift Card.jpg"; sourceTree = "<group>"; };
 		8957380B189830BB00E693A5 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
 		8957380C189830BB00E693A5 /* Graph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Graph.m; sourceTree = "<group>"; };
@@ -511,6 +514,8 @@
 				89C65168193D232F004B64B6 /* DashHeaderView.m */,
 				89C6516A193E4BE9004B64B6 /* PendingBetsView.h */,
 				89C6516B193E4BE9004B64B6 /* PendingBetsView.m */,
+				8926AA891940E73400AAB74A /* MyBetsView.h */,
+				8926AA8A1940E73400AAB74A /* MyBetsView.m */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -712,6 +717,7 @@
 				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,
 				89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */,
 				892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */,
+				8926AA8B1940E73400AAB74A /* MyBetsView.m in Sources */,
 				89C6516C193E4BE9004B64B6 /* PendingBetsView.m in Sources */,
 				89B1A74E186674D7006A656F /* MTStackViewController.m in Sources */,
 				8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */,
