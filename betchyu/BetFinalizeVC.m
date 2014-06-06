@@ -51,11 +51,11 @@
     betDescription.lineBreakMode = NSLineBreakByWordWrapping;
     betDescription.shadowColor   = [UIColor blackColor];
     betDescription.shadowOffset  = CGSizeMake(-1, 1);
-    int days = ceilf([bet.endDate timeIntervalSinceNow]/(24*60*60)); // # of days the challenge will last
-    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+    int days = [bet.duration intValue]; // # of days the challenge will last
+    if ([bet.noun isEqualToString:@"Smoking"]) {
         betDescription.text = [NSString stringWithFormat:@"Stop Smoking for %i days", days];
     } else {
-        betDescription.text = [NSString stringWithFormat:@"%@ %@ %@ in %i days", bet.betVerb, bet.betAmount, bet.betNoun, days];
+        betDescription.text = [NSString stringWithFormat:@"%@ %@ %@ in %i days", bet.verb, bet.amount, bet.noun, days];
     }
     
     // The stake summary text
@@ -63,12 +63,12 @@
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
     stakeDescription.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
-        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@", bet.ownStakeAmount, bet.ownStakeType];
-    } else if ([bet.ownStakeAmount integerValue] == 1) {
-        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@", bet.ownStakeAmount, bet.ownStakeType];
+    if ([bet.stakeType isEqualToString:@"Amazon Gift Card"]) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@", bet.stakeAmount, bet.stakeType];
+    } else if ([bet.stakeAmount integerValue] == 1) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@", bet.stakeAmount, bet.stakeType];
     } else {
-        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s", bet.ownStakeAmount, bet.ownStakeType];
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s", bet.stakeAmount, bet.stakeType];
     }
     
     // Add the subviews
@@ -138,16 +138,15 @@
     // MAKE THE NEW BET
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  bet.betAmount,            @"betAmount",
-                                  bet.betNoun,              @"betNoun",
-                                  bet.betVerb,              @"betVerb",
-                                  bet.endDate,              @"endDate",
-                                  bet.opponentStakeAmount,  @"opponentStakeAmount",
-                                  bet.opponentStakeType,    @"opponentStakeType",
-                                  bet.ownStakeAmount,       @"ownStakeAmount",
-                                  bet.ownStakeType,         @"ownStakeType",
-                                  ownerString,              @"owner",
-                                  bet.current,              @"current",
+                                  bet.amount,       @"amount",
+                                  bet.noun,         @"noun",
+                                  bet.verb,         @"verb",
+                                  bet.duration,     @"duration",
+                                  bet.stakeAmount,  @"stakeAmount",
+                                  bet.stakeType,    @"stakeType",
+                                  bet.status,       @"status",
+                                  ownerString,      @"owner",
+                                  bet.initial,      @"initial",
                                   nil];
     
     //make the call to the web API

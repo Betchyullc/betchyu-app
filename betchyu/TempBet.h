@@ -10,17 +10,16 @@
 
 @interface TempBet : NSObject
 
-@property (nonatomic, retain) NSNumber * betAmount;
-@property (nonatomic, retain) NSString * betNoun;
-@property (nonatomic, retain) NSString * betVerb;
+@property (nonatomic, retain) NSNumber * amount;
+@property (nonatomic, retain) NSString * noun;
+@property (nonatomic, retain) NSString * verb;
 @property (nonatomic, retain) NSDate * createdAt;
-@property (nonatomic, retain) NSDate * endDate;
+@property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) NSArray * friends;
-@property (nonatomic, retain) NSNumber * opponentStakeAmount;
-@property (nonatomic, retain) NSString * opponentStakeType;
-@property (nonatomic, retain) NSNumber * ownStakeAmount;
-@property (nonatomic, retain) NSString * ownStakeType;
+@property (nonatomic, retain) NSNumber * stakeAmount;
+@property (nonatomic, retain) NSString * stakeType;
 @property (nonatomic, retain) NSString *owner;
-@property NSNumber *current;
+@property (nonatomic, retain) NSString *status;
+@property (nonatomic, retain) NSNumber *initial;
 
 @end

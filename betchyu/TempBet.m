@@ -10,17 +10,16 @@
 
 @implementation TempBet
 
-@synthesize betAmount;
-@synthesize betNoun;
-@synthesize betVerb;
+@synthesize amount;
+@synthesize noun;
+@synthesize verb;
 @synthesize createdAt;
-@synthesize endDate;
+@synthesize duration;
 @synthesize friends;
-@synthesize opponentStakeAmount;
-@synthesize opponentStakeType;
-@synthesize ownStakeAmount;
-@synthesize ownStakeType;
+@synthesize stakeAmount;
+@synthesize stakeType;
 @synthesize owner;
-@synthesize current;
+@synthesize status;
+@synthesize initial;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
 		8921549C1850F2E70052A7C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154991850F2E70052A7C0 /* ViewController.m */; };
@@ -105,6 +106,8 @@
 
 /* Begin PBXFileReference section */
 		0D09BB26154D41DEBC444CEF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
+		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
 		892154951850F2E70052A7C0 /* BetDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetDetailsVC.m; sourceTree = "<group>"; };
 		892154961850F2E70052A7C0 /* BetStakeConfirmVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetStakeConfirmVC.h; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 				89B1A7511866A01A006A656F /* FlyoutMenuVC.m */,
 				8958818D187C510300CCC9DC /* HowItWorksVC.h */,
 				8958818E187C510300CCC9DC /* HowItWorksVC.m */,
+				890D969A19420C5B00E84039 /* BraintreeDelegateController.h */,
+				890D969B19420C5B00E84039 /* BraintreeDelegateController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -736,6 +741,7 @@
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
+				890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */,
 				89C65163193D1E15004B64B6 /* Dashboard.m in Sources */,
 				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,
 				89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */,

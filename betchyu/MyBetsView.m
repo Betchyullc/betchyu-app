@@ -97,7 +97,7 @@
             int heightB = rowHt / 3.4;
             UIButton *pic = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             pic.frame = CGRectMake(0, rowHt*i, frame.size.width/6, rowHt);
-            [pic setImage:[UIImage imageNamed:@"info_button.png"] forState:UIControlStateNormal];
+            [pic setImage:[self getImageFromBet:obj] forState:UIControlStateNormal];
             pic.tintColor = green;
             
             // Description string
@@ -137,8 +137,36 @@
     return profBorder;
 }
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
-    lab.text = [NSString stringWithFormat:@"%@ %@ %@ in %@ days", [obj valueForKey:@"verb"], [obj valueForKey:@"amount"], [obj valueForKey:@"noun"], [obj valueForKey:@"duration"]];
-    [self.scroller addSubview:lab];
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
+            // Success! Include your code to handle the results here
+            if ([noun isEqualToString:@"smoking"]) {
+                lab.text = [NSString stringWithFormat:@"%@ will %@ %@ for %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], noun, [obj valueForKey:@"duration"]];
+            }
+            else {
+                lab.text = [NSString stringWithFormat:@"%@ will %@ %@ %@ in %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], [obj valueForKey:@"amount"], noun, [obj valueForKey:@"duration"]];
+            }
+            [self.scroller addSubview:lab];
+        } else {
+            // An error occurred, we need to handle the error
+            // See: https://developers.facebook.com/docs/ios/errors
+        }
+    }];
+}
+
+- (UIImage *) getImageFromBet:(NSDictionary *)obj {
+    return [UIImage imageNamed:@"info_button.png"];
+    NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
+    if ([noun isEqualToString:@"pounds"]) {
+        return [UIImage imageNamed:@"weight.png"];
+    }
+    else if ([noun isEqualToString:@"smoking"]){
+        return [UIImage imageNamed:@"cigarette.png"];
+    }
+    else {
+        return [UIImage imageNamed:@"weight.png"];
+    }
 }
 
 // API call stuff

@@ -12,9 +12,11 @@
 
 @implementation PendingBetsView
 
-//@synthesize controller;
+@synthesize bets;
+@synthesize bits;
+@synthesize selectedBet;
 
-- (id)initWithFrame:(CGRect)frame //AndController:(DashboardVC *)cont
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -77,8 +79,14 @@
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
+            NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
             // Success! Include your code to handle the results here
-            lab.text = [NSString stringWithFormat:@"%@ will %@ %@ %@ in %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], [obj valueForKey:@"amount"], [obj valueForKey:@"noun"], [obj valueForKey:@"duration"]];
+            if ([noun isEqualToString:@"smoking"]) {
+                lab.text = [NSString stringWithFormat:@"%@ will %@ %@ for %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], noun, [obj valueForKey:@"duration"]];
+            }
+            else {
+                lab.text = [NSString stringWithFormat:@"%@ will %@ %@ %@ in %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], [obj valueForKey:@"amount"], noun, [obj valueForKey:@"duration"]];
+            }
             [self addSubview:lab];
         } else {
             // An error occurred, we need to handle the error
@@ -89,6 +97,14 @@
 
 // populate the main area with bets stuff
 -(void)addBets:(NSArray *)pending {
+    self.bets = pending;
+    
+    // clear all the bet subviews
+    for (int i=0; i<self.bits.count; i++){
+        [[bits objectAtIndex:i] performSelectorOnMainThread:@selector(removeFromSuperview) withObject:Nil waitUntilDone:NO];
+    }
+    [bits removeAllObjects];
+    
     // convinience variables
     CGRect frame = self.frame;
     int fontSize = 14;
@@ -160,16 +176,22 @@
             
             // Add everything
             [self addSubview:accept];
+            [self.bits addObject:accept];
             [self addSubview:reject];
+            [self.bits addObject:reject];
             [self addSubview:pic];
+            [self.bits addObject:pic];
             [self addSubview:line];
+            [self.bits addObject:line];
             //[self addSubview:desc]; Don't need to do this b/c [self setBetDescription: ForLabel]
         }
     }
+    
 }
 
 // API call stuff
 -(void)acceptBet:(UIButton *)sender {
+    selectedBet = [bets objectAtIndex:sender.tag];
     // this method does the following, in order:
     //  1. asks for Credit Card info via BTLibrary
     //  2. tells the server the info, which makes, but does not submit the transaction
@@ -184,15 +206,53 @@
                       cancelButtonTitle:@"Fair Enough"
                       otherButtonTitles:nil]
      show];
-    /*// showing BrainTree's CreditCard processing page
+    // showing BrainTree's CreditCard processing page
     BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
-    //paymentViewController.delegate = self.controller;
+    // setup it's delegate
+    TempBet * b = [TempBet new];
+    [BraintreeDelegateController sharedInstance].del = self;
+    b.stakeAmount = [selectedBet valueForKey:@"stakeAmount"];
+    [BraintreeDelegateController sharedInstance].bet = b;
+    [BraintreeDelegateController sharedInstance].ident = [selectedBet valueForKey:@"id"];
+    paymentViewController.delegate = [BraintreeDelegateController sharedInstance];
     // Now, display the navigation controller that contains the payment form
-    [self.controller.navigationController pushViewController:paymentViewController animated:YES];*/
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:paymentViewController animated:YES];
     
     /* Do #2-4 */
     // is done within the delegate methods below. line 370 sets this up ^^
 }
 
+-(void)tellServerOfAcceptedBet {
+    /* Do #3 */
+    NSString *path =[NSString stringWithFormat:@"invites/%@", [selectedBet valueForKey:@"invite"]];
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"accepted", @"status",
+                                  nil];
+    //make the call to the web API
+    // PUT /bets/:bet_id => {data}
+    [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
+         /* Do #4 */
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:@"You have accepted your friend's bet. Your card will be charged if you lose the bet."
+                                    delegate:nil
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
+     }];
+}
 
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString:@"Credit Card"]) {
+        if ([alertView.message isEqualToString:@"Card is approved"]) {
+            // Then dismiss the paymentViewController
+            // the loading thing is removed before the alert comes up
+            [self tellServerOfAcceptedBet];
+        } else {
+            // the card was bad, so do nothing
+        }
+    }
+}
 @end

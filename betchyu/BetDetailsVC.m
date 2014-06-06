@@ -27,15 +27,15 @@
     if (self) {
         // Custom initialization
         bet = [TempBet new];
-        bet.betVerb = [[verbName componentsSeparatedByString:@" "] objectAtIndex:0]; //first word passed
-        bet.betNoun = [[verbName componentsSeparatedByString:@" "] objectAtIndex:1]; // second word
-        if ([bet.betNoun isEqualToString:@"Weight"]) {
-            bet.betNoun = @"pounds";
-        } else if ([bet.betNoun isEqualToString:@"More"]){
-            if ([bet.betVerb isEqualToString:@"Workout"]) {
-                bet.betNoun = @"times";
+        bet.verb = [[verbName componentsSeparatedByString:@" "] objectAtIndex:0]; //first word passed
+        bet.noun = [[verbName componentsSeparatedByString:@" "] objectAtIndex:1]; // second word
+        if ([bet.noun isEqualToString:@"Weight"]) {
+            bet.noun = @"pounds";
+        } else if ([bet.noun isEqualToString:@"More"]){
+            if ([bet.verb isEqualToString:@"Workout"]) {
+                bet.noun = @"times";
             } else {
-                bet.betNoun = @"miles";
+                bet.noun = @"miles";
             }
         }
         
@@ -53,9 +53,9 @@
     mainView.contentSize = CGSizeMake(w, h);
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
-    if ([bet.betNoun isEqualToString:@"Smoking"]){
+    if ([bet.noun isEqualToString:@"Smoking"]){
         mainView = [self loadSingleDetailsHandler:mainView];
-    } else if ([bet.betNoun isEqualToString:@"pounds"]) {
+    } else if ([bet.noun isEqualToString:@"pounds"]) {
         mainView.contentSize = CGSizeMake(w, h+(h/9));  // the weight specific view needs more content than just one screen.
         mainView = [self loadWeightDetailsHandler:mainView]; // it's special.
     } else {
@@ -66,9 +66,9 @@
     // Next Button //
     /////////////////
     BigButton *nextBtn;
-    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+    if ([bet.noun isEqualToString:@"Smoking"]) {
         nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, h - (h/4), w-40, h/4.2) primary:0 title:@"Next"];
-    } else if ([bet.betNoun isEqualToString:@"pounds"]){
+    } else if ([bet.noun isEqualToString:@"pounds"]){
         nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, ((h/12)+20)+(7*h/9)-20, w-40, 2*h/9) primary:0 title:@"Next"];
     } else {
         nextBtn = [[BigButton alloc] initWithFrame:CGRectMake(20, (7*h/9)-20, w-40, 2*h/9) primary:0 title:@"Next"];
@@ -89,7 +89,7 @@
     ////////////////////////
     // The label indicating what the user is selecting
     UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, w-40, h/4)];
-    label1.text         = [[@"I WILL " stringByAppendingString:[[[bet.betVerb uppercaseString] stringByAppendingString:@" "] stringByAppendingString:[bet.betNoun uppercaseString]]] stringByAppendingString:@" FOR:"];
+    label1.text         = [[@"I WILL " stringByAppendingString:[[[bet.verb uppercaseString] stringByAppendingString:@" "] stringByAppendingString:[bet.noun uppercaseString]]] stringByAppendingString:@" FOR:"];
     label1.textColor    = [UIColor whiteColor];
     label1.textAlignment= NSTextAlignmentCenter;
     label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:35];
@@ -118,8 +118,8 @@
     ////////
     detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(20, 130, 280, 100)];
     int amount = 0;
-    bet.betAmount = [NSNumber numberWithInt:amount];
-    detailLabel1.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.betNoun]];
+    bet.amount = [NSNumber numberWithInt:amount];
+    detailLabel1.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.noun]];
     
     return mainView;
 }
@@ -132,7 +132,7 @@
     ////////////////////////
     // The label indicating what the user is selecting
     UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, w2, h/9)];
-    label1.text         = [[@"I WILL " stringByAppendingString:[bet.betVerb uppercaseString]] stringByAppendingString:@":"];
+    label1.text         = [[@"I WILL " stringByAppendingString:[bet.verb uppercaseString]] stringByAppendingString:@":"];
     label1.textColor    = [UIColor whiteColor];
     label1.textAlignment= NSTextAlignmentCenter;
     label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:30];
@@ -211,7 +211,7 @@
     ////////////////////////
     // The label indicating what the user is selecting
     UILabel *label1     = [[UILabel alloc] initWithFrame:CGRectMake(20, ((h/12)+20), w2, h/9)];
-    label1.text         = [[@"I WILL " stringByAppendingString:[bet.betVerb uppercaseString]] stringByAppendingString:@":"];
+    label1.text         = [[@"I WILL " stringByAppendingString:[bet.verb uppercaseString]] stringByAppendingString:@":"];
     label1.textColor    = [UIColor whiteColor];
     label1.textAlignment= NSTextAlignmentCenter;
     label1.font = [UIFont fontWithName:@"ProximaNova-Black" size:30];
@@ -273,22 +273,22 @@
 
 - (void) updateSlider1Value:(id)sender {
     int amount;
-    if ([bet.betVerb isEqualToString:@"Run"]) {
+    if ([bet.verb isEqualToString:@"Run"]) {
         amount = (int)((((UISlider *)sender).value)*199)+1;
-    } else if ([bet.betVerb isEqualToString:@"Lose"]) {
+    } else if ([bet.verb isEqualToString:@"Lose"]) {
         amount = (int)((((UISlider *)sender).value)*19)+1;
-    } else if ([bet.betVerb isEqualToString:@"Workout"]) {
+    } else if ([bet.verb isEqualToString:@"Workout"]) {
         amount = (int)((((UISlider *)sender).value)*59)+1;
     } else {
         amount = (int)((((UISlider *)sender).value)*10);
     }
     
-    bet.betAmount = [NSNumber numberWithInt:amount];
-    detailLabel1.text = [NSString stringWithFormat:@"%i %@", amount, bet.betNoun];
+    bet.amount = [NSNumber numberWithInt:amount];
+    detailLabel1.text = [NSString stringWithFormat:@"%i %@", amount, bet.noun];
 }
 - (void) updateSlider2Value:(id)sender {
     int days = (int)((UISlider *)sender).value;
-    bet.endDate = [[NSDate alloc] initWithTimeIntervalSinceNow:(days*24*60*60)];
+    bet.duration = [NSNumber numberWithInt:days];
     detailLabel2.text = [[@(days) stringValue] stringByAppendingString:@" days"];
 }
 
@@ -296,7 +296,7 @@
     // If user has not selected bet Details...
     if ([detailLabel1.text length] == 0
         || [detailLabel2.text length] == 0
-        || ([bet.betNoun isEqualToString:@"pounds"] && [weightInput.text isEqualToString:@""])) {
+        || ([bet.noun isEqualToString:@"pounds"] && [weightInput.text isEqualToString:@""])) {
         // Show warning message
         [[[UIAlertView alloc] initWithTitle: @"Wait!"
                                     message: @"I think you forgot to define your bet..."
@@ -308,8 +308,8 @@
         return;
     }
     
-    if ([bet.betNoun isEqualToString:@"pounds"]) {
-        bet.current = @([weightInput.text integerValue]);
+    if ([bet.noun isEqualToString:@"pounds"]) {
+        bet.initial = @([weightInput.text integerValue]);
     }
     // Make the next view
     BetStakeVC *vc =[[BetStakeVC alloc] initWithBet:bet];

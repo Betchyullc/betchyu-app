@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
-//@class DashboardVC;
+#import "BraintreeDelegateController.h"
 
-@interface PendingBetsView : UIView
+@interface PendingBetsView : UIView <UIAlertViewDelegate>
 
-//@property DashboardVC * controller;
+@property NSArray * bets;
+@property NSMutableArray * bits;
+@property NSDictionary * selectedBet;
 
--(id) initWithFrame:(CGRect)frame;// AndController:(DashboardVC *)cont;
+-(id) initWithFrame:(CGRect)frame;
 -(void) addBets:(NSArray *)pending;
 
 @end

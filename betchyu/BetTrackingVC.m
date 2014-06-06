@@ -39,17 +39,15 @@
         
         self.betJSON = json;
         self.bet = [[TempBet alloc] init];
-        self.bet.endDate = [dateFormatter dateFromString:[betJSON valueForKey:@"endDate"]];
+        self.bet.duration = [betJSON valueForKey:@"endDate"];
         self.bet.createdAt = [dateFormatter dateFromString: [[betJSON valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
-        self.bet.betVerb = [betJSON valueForKey:@"betVerb"];
-        self.bet.betNoun = [betJSON valueForKey:@"betNoun"];
-        self.bet.betAmount = [betJSON valueForKey:@"betAmount"];
-        self.bet.ownStakeAmount = [betJSON valueForKey:@"ownStakeAmount"];
-        self.bet.ownStakeType = [betJSON valueForKey:@"ownStakeType"];
-        self.bet.opponentStakeAmount = [betJSON valueForKey:@"opponentStakeAmount"];
-        self.bet.opponentStakeType = [betJSON valueForKey:@"opponentStakeType"];
+        self.bet.verb = [betJSON valueForKey:@"verb"];
+        self.bet.noun = [betJSON valueForKey:@"noun"];
+        self.bet.amount = [betJSON valueForKey:@"amount"];
+        self.bet.stakeAmount = [betJSON valueForKey:@"stakeAmount"];
+        self.bet.stakeType = [betJSON valueForKey:@"stakeType"];
         self.bet.owner = [betJSON valueForKey:@"owner"];
-        self.bet.current = [betJSON valueForKey:@"current"];
+        self.bet.initial = [betJSON valueForKey:@"initial"];
         
         self.previousUpdates = [NSArray array];
         
@@ -62,9 +60,9 @@
     UIView *mainView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
     
-    if ([bet.betVerb isEqualToString:@"Stop"]) {
+    if ([bet.verb isEqualToString:@"Stop"]) {
         self.view = [self makeBooleanUpdater:mainView];
-    } else if ([bet.betVerb isEqualToString:@"Lose"]){   // the customization for the weight-loss bet-type
+    } else if ([bet.verb isEqualToString:@"Lose"]){   // the customization for the weight-loss bet-type
         self.view = [self makeWeightUpdater:mainView];
     } else {
         self.view = [self makeNormalUpdater:mainView];
@@ -72,16 +70,16 @@
 }
 // Helper Method to create copy from bet type
 -(NSString *)trackingHeading {
-    if ([bet.betVerb isEqualToString:@"Stop"]) {
+    if ([bet.verb isEqualToString:@"Stop"]) {
         return @"I DIDN'T SMOKE:";
-    } else if ([bet.betVerb isEqualToString:@"Run"]){
+    } else if ([bet.verb isEqualToString:@"Run"]){
         return @"TOTAL, I'VE RUN:";
-    } else if ([bet.betVerb isEqualToString:@"Workout"]){
+    } else if ([bet.verb isEqualToString:@"Workout"]){
         return @"I'VE WORKED OUT:";
-    } else if ([bet.betVerb isEqualToString:@"Lose"]){
+    } else if ([bet.verb isEqualToString:@"Lose"]){
         return @"TODAY, I WEIGH:";
     } else {
-        return [NSString stringWithFormat:@"I'VE %@ED:", bet.betVerb];
+        return [NSString stringWithFormat:@"I'VE %@ED:", bet.verb];
     }
 }
 
@@ -138,8 +136,8 @@
     currentView = [self makeNormalUpdater:currentView];
     
     // this valueForKey:@"current" requires the initially created Bet to include a current => WEIGHT_DATA mapping in it, which is a TODO
-    float val = bet.current == 0 ? 200.0 : [bet.current floatValue];
-    self.slider.minimumValue = val - [bet.betAmount floatValue];
+    float val = bet.initial == 0 ? 200.0 : [bet.initial floatValue];
+    self.slider.minimumValue = val - [bet.amount floatValue];
     self.slider.maximumValue = val + 3;
     self.slider.value = val;
     self.slider.transform = CGAffineTransformRotate(self.slider.transform, 180.0/180*M_PI);
@@ -181,7 +179,7 @@
     // tracking slider
     self.slider              = [[UISlider alloc] initWithFrame:CGRectMake(20, 170, w-40, 50)];
     self.slider.minimumValue = 0.0;
-    self.slider.maximumValue = [bet.betAmount floatValue];
+    self.slider.maximumValue = [bet.amount floatValue];
     [self.slider setMinimumTrackTintColor:bOr];
     [self.slider addTarget:self
                 action:@selector(updateSliderValue:)
@@ -212,7 +210,7 @@
 // ===== NORMAL BET-TYPE METHODS ====== //
 -(void)updateSliderValue: (id)sender {
     int amount = (int)(((UISlider *)sender).value);
-    updateText.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.betNoun]];
+    updateText.text = [[@(amount) stringValue] stringByAppendingString:[@" " stringByAppendingString:bet.noun]];
 }
 // sets the UISlider starting value and the text starting description based on the result of an API call
 -(void)currentStateText {
@@ -225,15 +223,15 @@
         self.previousUpdates = (NSArray*)json;
         if (((NSArray*)json).count > 0) {
             int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
-            self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.betNoun];
+            self.updateText.text = [NSString stringWithFormat:@"%i %@", val, bet.noun];
             self.slider.value = [[NSNumber numberWithInt:val] floatValue];
             //bet.current = @(val);
         } else {
             if (self.slider.value == 0.0) {
-                self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.betNoun];
+                self.updateText.text = [NSString stringWithFormat:@"0 %@", bet.noun];
                 self.slider.value = self.slider.value == 0.0 ? 0.0 : self.slider.value;
             } else {
-                self.updateText.text = [NSString stringWithFormat:@"%i %@", (int)self.slider.value, bet.betNoun];
+                self.updateText.text = [NSString stringWithFormat:@"%i %@", (int)self.slider.value, bet.noun];
             }
         }
         //[self initPlot];
@@ -322,14 +320,6 @@
 }
 
 // helper methods
--(long)numberOfDaysTheBetLasts {
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:bet.createdAt
-                                                          toDate:bet.endDate
-                                                         options:0];
-    return (long)[components day];
-}
 -(NSArray *)eachDateStringForTheBet {
     NSMutableArray *dates = [NSMutableArray array];
     NSDate *date;
@@ -347,13 +337,13 @@
 -(void)handleBetFinish {
     if (self.isFinished) { return; }
     // useful vars
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    /*NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
                                                         fromDate:bet.endDate
                                                           toDate:[NSDate date]
-                                                         options:0];
+                                                         options:0];*/
     // handle boolean-type bets
-    if ([bet.betNoun isEqualToString:@"Smoking"]) {
+    if ([bet.noun isEqualToString:@"Smoking"]) {
         for (NSDictionary *obj in self.previousUpdates) {
             if ([[obj valueForKey:@"value"] integerValue] == 0){
                 // handle loss and break execution
@@ -376,14 +366,14 @@
             [self winTheBet];
             return;
         }
-    } else if ([bet.betNoun isEqualToString:@"pounds"]) {
+    } else if ([bet.noun isEqualToString:@"pounds"]) {
         // if the latest update is smaller than the goal weight
         if ((self.previousUpdates.count > 0) &&
-            (([bet.current intValue] - [bet.betAmount intValue]) == [[[previousUpdates lastObject] valueForKey:@"value"] integerValue])) {
+            (([bet.initial intValue] - [bet.amount intValue]) == [[[previousUpdates lastObject] valueForKey:@"value"] integerValue])) {
             
             // they win
             [self winTheBet];
-        } else if (components.day >= 1) {
+        } else { //if (components.day >= 1) {
             [self loseTheBet];
         }
         // else, it's all good.
@@ -393,9 +383,9 @@
     // handle normal-type bets
     int current = (int)slider.value;
     // If user has WON the bet
-    if (current >= [bet.betAmount intValue]) {
+    if (current >= [bet.amount intValue]) {
         [self winTheBet];
-    } else if (components.day >= 1) {  // the user has not won the bet, and the bet time has expired,
+    } else { //if (components.day >= 1) {  // the user has not won the bet, and the bet time has expired,
         // the user LOST the bet
         [self loseTheBet];
     }
@@ -460,7 +450,7 @@
 #pragma mark - UIViewController lifecycle methods
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (![bet.betVerb isEqualToString:@"Stop"]) {
+    if (![bet.verb isEqualToString:@"Stop"]) {
         //[self initPlot];
         int h = self.view.frame.size.height;
         int w = self.view.frame.size.width;
@@ -471,7 +461,7 @@
             self.hostView = [(Graph *) [Graph alloc] initWithFrame:CGRectMake(20, 215, w-40, h/3)];
         }
         self.hostView.delegate = self;
-        if ([bet.betVerb isEqualToString:@"Lose"]) { self.hostView.isWeightLoss = YES; }
+        if ([bet.verb isEqualToString:@"Lose"]) { self.hostView.isWeightLoss = YES; }
         [self.hostView makeVisual];
         [self.view addSubview:self.hostView];
     } else {
@@ -501,10 +491,10 @@
     return self.previousUpdates;
 }
 -(int) xCoordForIndex:(int)index {
-    if ([bet.betVerb isEqualToString:@"Stop"]) {
+    if ([bet.verb isEqualToString:@"Stop"]) {
         //
     } else {
-        
+        /*
         [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
@@ -515,7 +505,7 @@
                                                             fromDate:objDate
                                                               toDate:bet.endDate
                                                              options:0];
-        return [self numberOfDaysTheBetLasts] - [components day];
+        return [bet.duration intValue] - [components day];*/
     }
     return 0;
 }

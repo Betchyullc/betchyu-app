@@ -72,8 +72,7 @@
 - (void) stakeTapped:(UIButton *)sender {
     int i                 = (sender.frame.origin.y - 20)
                                 /(stakeImageHeight+20);
-    bet.opponentStakeType = [stakes objectAtIndex:i];
-    bet.ownStakeType      = [stakes objectAtIndex:i];
+    bet.stakeType      = [stakes objectAtIndex:i];
     BetStakeConfirmVC *vc = [[BetStakeConfirmVC alloc] initWithBet:bet];
     vc.title = @"Confirm Stake";
     

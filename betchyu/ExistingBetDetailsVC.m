@@ -36,21 +36,21 @@
         //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         
-        self.betJSON = json;
-        self.bet = [[TempBet alloc] init];
-        self.bet.endDate = [dateFormatter dateFromString:[betJSON valueForKey:@"endDate"]];
-        self.bet.createdAt = [dateFormatter dateFromString: [[betJSON valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
-        self.bet.betVerb = [betJSON valueForKey:@"betVerb"];
-        self.bet.betNoun = [betJSON valueForKey:@"betNoun"];
-        self.bet.betAmount = [betJSON valueForKey:@"betAmount"];
-        self.bet.ownStakeAmount = [betJSON valueForKey:@"ownStakeAmount"];
-        self.bet.ownStakeType = [betJSON valueForKey:@"ownStakeType"];
-        self.bet.opponentStakeAmount = [betJSON valueForKey:@"opponentStakeAmount"];
-        self.bet.opponentStakeType = [betJSON valueForKey:@"opponentStakeType"];
-        self.bet.owner = [betJSON valueForKey:@"owner"];
+        self.betJSON    = json;
+        self.bet        = [[TempBet alloc] init];
+        self.bet.duration   = [betJSON valueForKey:@"duration"];
+        self.bet.createdAt  = [dateFormatter dateFromString: [[betJSON valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
+        self.bet.verb       = [betJSON valueForKey:@"verb"];
+        self.bet.noun       = [betJSON valueForKey:@"noun"];
+        self.bet.amount     = [betJSON valueForKey:@"amount"];
+        self.bet.stakeAmount= [betJSON valueForKey:@"stakeAmount"];
+        self.bet.stakeType  = [betJSON valueForKey:@"stakeType"];
+        self.bet.initial    = [betJSON valueForKey:@"initial"];
+        self.bet.status     = [betJSON valueForKey:@"status"];
+        self.bet.owner      = [betJSON valueForKey:@"owner"];
         
         self.isOffer = NO;
-        self.isOwn = NO;
+        self.isOwn   = NO;
         
         NSString* path =[NSString stringWithFormat:@"bets/%@/updates", [betJSON valueForKey:@"id"]];
         
@@ -80,13 +80,13 @@
     
     // The bet-type image
     UIImageView *img;
-    /*if ([bet.betVerb isEqualToString:@"Stop"]) {
+    /*if ([bet.verb isEqualToString:@"Stop"]) {
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Stop Smoking.jpg"]];
-    } else if ([bet.betVerb isEqualToString:@"Run"]){
+    } else if ([bet.verb isEqualToString:@"Run"]){
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Run More.jpg"]];
-    } else if ([bet.betVerb isEqualToString:@"Workout"]){
+    } else if ([bet.verb isEqualToString:@"Workout"]){
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Workout More.jpg"]];
-    } else if ([bet.betVerb isEqualToString:@"Lose"]){
+    } else if ([bet.verb isEqualToString:@"Lose"]){
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Lose Weight.jpg"]];
     } else {*/
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"handshake.jpg"]];
@@ -111,12 +111,12 @@
     self.stakeDescription          = [[UILabel alloc] initWithFrame:CGRectMake(10, h/2 +10, w-20, 100)];
     stakeDescription.numberOfLines = 0;
     stakeDescription.textColor     = [UIColor whiteColor];
-    if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {
-        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@.", bet.ownStakeAmount, bet.ownStakeType];
-    } else if ([bet.ownStakeAmount integerValue] == 1) {
-        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@.", bet.ownStakeAmount, bet.ownStakeType];
+    if ([bet.stakeType isEqualToString:@"Amazon Gift Card"]) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me a $%@ %@.", bet.stakeAmount, bet.stakeType];
+    } else if ([bet.stakeAmount integerValue] == 1) {
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@.", bet.stakeAmount, bet.stakeType];
     } else {
-        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s.", bet.ownStakeAmount, bet.ownStakeType];
+        stakeDescription.text = [NSString stringWithFormat:@"If I successfully complete my challenge, you owe me %@ %@s.", bet.stakeAmount, bet.stakeType];
     }
     
     // The current state text
@@ -190,52 +190,42 @@
 }
 
 -(NSString *)readableBetTitle {
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:bet.createdAt
-                                                          toDate:bet.endDate
-                                                         options:0];
-    long days =(long)[components day];
-    if ([bet.betVerb isEqualToString:@"Stop"]) {
+    int days = [bet.duration intValue];
+    if ([bet.verb isEqualToString:@"Stop"]) {
         if (days > 1) {
-            return [NSString stringWithFormat:@"stop smoking for %ld days", days];
+            return [NSString stringWithFormat:@"stop smoking for %i days", days];
         } else {
             return @"stop smoking for 1 day";
         }
     } else {
         if (days > 1) {
-            return [NSString stringWithFormat:@"%@ %@ %@ in %ld days", bet.betVerb, bet.betAmount, bet.betNoun, days];
+            return [NSString stringWithFormat:@"%@ %@ %@ in %i days", bet.verb, bet.amount, bet.noun, days];
         } else {
-            return [NSString stringWithFormat:@"%@ %@ %@ in 1 day", bet.betVerb, bet.betAmount, bet.betNoun];
+            return [NSString stringWithFormat:@"%@ %@ %@ in 1 day", bet.verb, bet.amount, bet.noun];
         }
     }
 }
 
 -(NSString *)currentStateText {
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                        fromDate:[NSDate date]
-                                                          toDate:bet.endDate
-                                                         options:0];
-    long days =(long)[components day];
+    long days =(long)[bet.duration intValue];
     int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] intValue];
-    items = [bet.betAmount integerValue] - items;
+    items = [bet.amount integerValue] - items;
     
     
-    if ([bet.betVerb isEqualToString:@"Stop"]) {
+    if ([bet.verb isEqualToString:@"Stop"]) {
         if (days != 1) {
             return [NSString stringWithFormat:@"Currently, there are %ld days to go.", days];
         } else {
             return @"Currently, there is 1 day to go.";
         }
-    } else if ([bet.betVerb isEqualToString:@"Lose"]) {     // handle the weight-loss bet
+    } else if ([bet.verb isEqualToString:@"Lose"]) {     // handle the weight-loss bet
         items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] intValue];
         if (items == 0) {
-            items = [self.bet.betAmount intValue] - items;
+            items = [self.bet.amount intValue] - items;
             if (days != 1) {
-                return [NSString stringWithFormat:@"Currently, there are %ld days to go, and %d %@ to %@", days, items, self.bet.betNoun, self.bet.betVerb];
+                return [NSString stringWithFormat:@"Currently, there are %ld days to go, and %d %@ to %@", days, items, self.bet.noun, self.bet.verb];
             } else {
-                return [NSString stringWithFormat:@"Currently, there is 1 day to go, and %d %@ to %@", items, self.bet.betNoun, self.bet.betVerb];
+                return [NSString stringWithFormat:@"Currently, there is 1 day to go, and %d %@ to %@", items, self.bet.noun, self.bet.verb];
             }
         } else {
             NSString* path =[NSString stringWithFormat:@"bets/%@/updates", [betJSON valueForKey:@"id"]];
@@ -246,12 +236,12 @@
                 //success
                 if (((NSArray*)json).count > 0) {
                     int val = [[[((NSArray*)json) objectAtIndex:(((NSArray*)json).count-1)] valueForKey:@"value"] intValue];
-                    self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %i pounds to lose.", days, [self.bet.betAmount integerValue] - (items - val)];
+                    self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %i pounds to lose.", days, [self.bet.amount integerValue] - (items - val)];
                 } else {
                     if (days != 1) {
-                        self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %@ pounds to lose.", days, self.bet.betAmount];
+                        self.current.text = [NSString stringWithFormat:@"Currently, there are %ld days to go, and %@ pounds to lose.", days, self.bet.amount];
                     } else {
-                        self.current.text = [NSString stringWithFormat:@"Currently, there is 1 day to go, and %@ pounds to lose.", self.bet.betAmount];
+                        self.current.text = [NSString stringWithFormat:@"Currently, there is 1 day to go, and %@ pounds to lose.", self.bet.amount];
                     }
                 }
             }];
@@ -264,9 +254,9 @@
         
     } else {
         if (days != 1) {
-            return [NSString stringWithFormat:@"Currently, there are %ld days to go, and %d %@ to %@", days, items, self.bet.betNoun, self.bet.betVerb];
+            return [NSString stringWithFormat:@"Currently, there are %ld days to go, and %d %@ to %@", days, items, self.bet.noun, self.bet.verb];
         } else {
-            return [NSString stringWithFormat:@"Currently, there is 1 day to go, and %d %@ to %@", items, self.bet.betNoun, self.bet.betVerb];
+            return [NSString stringWithFormat:@"Currently, there is 1 day to go, and %d %@ to %@", items, self.bet.noun, self.bet.verb];
         }
     }
 }
@@ -280,13 +270,13 @@
         int h = self.view.frame.size.height;
         
         self.navigationItem.title = @"The Offer";
-        if ([bet.ownStakeType isEqualToString:@"Amazon Gift Card"]) {     // handle the weight-loss bet
-            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay a $%@ %@, otherwise, you win one.", bet.ownStakeAmount, bet.ownStakeType];
+        if ([bet.stakeType isEqualToString:@"Amazon Gift Card"]) {     // handle the weight-loss bet
+            self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay a $%@ %@, otherwise, you win one.", bet.stakeAmount, bet.stakeType];
         } else {
-            if ([bet.ownStakeAmount integerValue] == 1) {
-                self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win one.", bet.ownStakeAmount, bet.ownStakeType];
+            if ([bet.stakeAmount integerValue] == 1) {
+                self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@, otherwise, you win one.", bet.stakeAmount, bet.stakeType];
             } else {
-                self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@s, otherwise, you win them.", bet.ownStakeAmount, bet.ownStakeType];
+                self.stakeDescription.text = [NSString stringWithFormat:@"If your friend succeeds, you pay %@ %@s, otherwise, you win them.", bet.stakeAmount, bet.stakeType];
             }
         }
         
@@ -312,14 +302,14 @@
     if (self.isOwn || self.isOffer) { return; } // don't need to run this method when it's our own bet or only an offer
     
     int items = [betJSON valueForKey:@"current"] == [NSNull null] ? 0 : [[betJSON valueForKey:@"current"] integerValue];
-    items = [bet.betAmount integerValue] - items;
+    items = [bet.amount integerValue] - items;
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
                                                         fromDate:[NSDate date]
-                                                          toDate:bet.endDate
+                                                          toDate:bet.createdAt
                                                          options:0];
     
-    if ([bet.betVerb isEqualToString:@"Stop"]) {
+    if ([bet.verb isEqualToString:@"Stop"]) {
         for (NSDictionary *obj in self.updates) {
             if ([[obj valueForKey:@"value"] integerValue] == 0){ // 0 => betowner missed a day
                 // handle win and break execution
@@ -336,10 +326,10 @@
         }
         // else/after, gg from this method.
         return;
-    } else if ([bet.betNoun isEqualToString:@"pounds"]) {
+    } else if ([bet.noun isEqualToString:@"pounds"]) {
         // if the latest update is smaller than the goal weight
         if ((self.updates.count > 0) &&
-            (([bet.current intValue] - [bet.betAmount intValue]) == [[[updates lastObject] valueForKey:@"value"] integerValue])) {
+            (([bet.initial intValue] - [bet.amount intValue]) == [[[updates lastObject] valueForKey:@"value"] integerValue])) {
             
             [self loseAndAsk];
         } else if (components.day <= 0) {
@@ -508,7 +498,7 @@
     
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     [enc setValue:ownerString forKey:@"user"];
-    [enc setValue:bet.opponentStakeAmount forKey:@"amount"];
+    [enc setValue:bet.stakeAmount forKey:@"amount"];
     [enc setValue:[betJSON valueForKey:@"id"] forKey:@"bet_id"];
     
     //make the call to the web API to post the card info and determine valid-ness

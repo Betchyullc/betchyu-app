@@ -35,7 +35,7 @@
         // Custom initialization
         self.stakeImageHeight = 280;
         self.bet = betObj;
-        if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
+        if ([bet.stakeType hasSuffix:@"Gift Card"]) {
             self.currentStake = 10;
         } else {
             self.currentStake = 1;
@@ -57,7 +57,7 @@
     /////////////////////
     UIImageView *stakePic = [[UIImageView alloc] initWithImage:
                              [UIImage imageNamed:
-                              [bet.ownStakeType stringByAppendingString:@".jpg"]]];
+                              [bet.stakeType stringByAppendingString:@".jpg"]]];
     stakePic.frame = CGRectMake(0, 0, w, h/2);
     
     UIButton *up = [[UIButton alloc] initWithFrame:CGRectMake(w/2 - 25, 20, 50, 50)];
@@ -136,7 +136,7 @@
     }];
 }
 -(void)increaseStake:(id)sender {
-    if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
+    if ([bet.stakeType hasSuffix:@"Gift Card"]) {
         if (currentStake == 1){
             currentStake += 4;
         } else {
@@ -151,7 +151,7 @@
     if (currentStake == 1) {
         return;
     }
-    if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
+    if ([bet.stakeType hasSuffix:@"Gift Card"]) {
         if (currentStake == 5){
             currentStake -= 4;
         } else {
@@ -165,18 +165,17 @@
 
 // updates the visual notation of the stake and the TempBet (self.bet) version of the the stake
 - (void) updateLabels {
-    if ([bet.ownStakeType hasSuffix:@"Gift Card"]) {
+    if ([bet.stakeType hasSuffix:@"Gift Card"]) {
         stakeLabel.text = [NSString stringWithFormat:@"$%i", currentStake];
     } else {
         if (currentStake == 1) {
-            stakeLabel.text = [[[@(currentStake) stringValue] stringByAppendingString:@" "] stringByAppendingString:bet.ownStakeType];
+            stakeLabel.text = [[[@(currentStake) stringValue] stringByAppendingString:@" "] stringByAppendingString:bet.stakeType];
         } else {
-            stakeLabel.text = [NSString stringWithFormat:@"%i %@s", currentStake, bet.ownStakeType];
+            stakeLabel.text = [NSString stringWithFormat:@"%i %@s", currentStake, bet.stakeType];
         }
     }
     verboseLabel.text = [@"If I successfully complete my challenge, you owe me " stringByAppendingString:stakeLabel.text];
-    bet.ownStakeAmount = [NSNumber numberWithInt:currentStake];
-    bet.opponentStakeAmount = bet.ownStakeAmount;
+    bet.stakeAmount = [NSNumber numberWithInt:currentStake];
 }
 
 //////////////////////////////////////////
@@ -351,16 +350,14 @@
     // MAKE THE NEW BET
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  bet.betAmount,            @"betAmount",
-                                  bet.betNoun,              @"betNoun",
-                                  bet.betVerb,              @"betVerb",
-                                  bet.endDate,              @"endDate",
-                                  bet.opponentStakeAmount,  @"opponentStakeAmount",
-                                  bet.opponentStakeType,    @"opponentStakeType",
-                                  bet.ownStakeAmount,       @"ownStakeAmount",
-                                  bet.ownStakeType,         @"ownStakeType",
+                                  bet.amount,            @"amount",
+                                  bet.noun,              @"noun",
+                                  bet.verb,              @"verb",
+                                  bet.duration,              @"duration",
+                                  bet.stakeAmount,       @"stakeAmount",
+                                  bet.stakeType,         @"stakeType",
                                   ownerString,              @"owner",
-                                  bet.current,              @"current",
+                                  bet.initial,              @"initial",
                                   nil];
     
     //make the call to the web API
@@ -431,7 +428,7 @@
 
     NSString *ownerString = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     [enc setValue:ownerString forKey:@"user"];
-    [enc setValue:bet.opponentStakeAmount forKey:@"amount"];
+    [enc setValue:bet.stakeAmount forKey:@"amount"];
     
     //make the call to the web API to post the card info and determine valid-ness
     // POST /card => {data}

@@ -60,8 +60,6 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(showMenu:)];
-    [self getAndAddPendingBets:nil];
-    [self getAndAddMyBets:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -69,6 +67,8 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self getAndAddPendingBets:nil];
+    [self getAndAddMyBets:nil];
 }
 
 // API call methods
