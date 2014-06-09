@@ -10,19 +10,21 @@
 #import "DashHeaderView.h"
 #import "PendingBetsView.h"
 #import "MyBetsView.h"
+#import "FriendsBetsSubview.h"
 
 @interface Dashboard : UIScrollView
 
 @property DashHeaderView * head;
 @property PendingBetsView * pending;
 @property MyBetsView * my;
-//@property DashboardVC * controller;
+@property FriendsBetsSubview * friends;
 
 @property int oneH;
 @property int rowH;
 
 -(void) adjustPendingHeight:(int)numItems;
 -(void) adjustMyBetsHeight:(int)numItems;
+-(void) adjustFriendsBetsHeight:(int)numItems;
 
 -(id)initWithFrame:(CGRect)frame;// AndController:(DashboardVC *)cont;
 

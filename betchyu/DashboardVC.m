@@ -69,6 +69,7 @@
     [super viewDidAppear:animated];
     [self getAndAddPendingBets:nil];
     [self getAndAddMyBets:nil];
+    [self getAndAddFriendsBets:nil];
 }
 
 // API call methods
@@ -109,6 +110,26 @@
         // json is our array of Bets, hopefully
         [((Dashboard *)self.view) adjustMyBetsHeight:((NSArray *)json).count];
         [((Dashboard *)self.view).my addBets:(NSArray *)json];
+    }];
+}
+
+- (void) getAndAddFriendsBets:(id)useless {
+    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    
+    // ensuring the app ain't just started
+    if ([ownId isEqualToString:@""]) {
+        // we need to wait a bit before setting up the profile pic
+        [self performSelector:@selector(getAndAddFriendsBets:) withObject:NO afterDelay:1];
+        return;
+    }
+    
+    NSString *path = [NSString stringWithFormat:@"friend-bets/%@",ownId];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        // json is our array of Bets, hopefully
+        [((Dashboard *)self.view) adjustFriendsBetsHeight:((NSArray *)json).count];
+        [((Dashboard *)self.view).friends addBets:(NSArray *)json];
     }];
 }
 

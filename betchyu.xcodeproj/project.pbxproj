@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		890B98351946084C004DE649 /* iTunes Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 890B98341946084C004DE649 /* iTunes Gift Card.jpg */; };
+		890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B983719464123004DE649 /* FriendsBetsSubview.m */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
@@ -108,6 +109,8 @@
 /* Begin PBXFileReference section */
 		0D09BB26154D41DEBC444CEF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		890B98341946084C004DE649 /* iTunes Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunes Gift Card.jpg"; sourceTree = "<group>"; };
+		890B983619464123004DE649 /* FriendsBetsSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsBetsSubview.h; sourceTree = "<group>"; };
+		890B983719464123004DE649 /* FriendsBetsSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsBetsSubview.m; sourceTree = "<group>"; };
 		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
@@ -524,6 +527,8 @@
 				89C6516B193E4BE9004B64B6 /* PendingBetsView.m */,
 				8926AA891940E73400AAB74A /* MyBetsView.h */,
 				8926AA8A1940E73400AAB74A /* MyBetsView.m */,
+				890B983619464123004DE649 /* FriendsBetsSubview.h */,
+				890B983719464123004DE649 /* FriendsBetsSubview.m */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -745,6 +750,7 @@
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
+				890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */,
 				890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */,
 				89C65163193D1E15004B64B6 /* Dashboard.m in Sources */,
 				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,

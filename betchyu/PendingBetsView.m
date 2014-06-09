@@ -23,10 +23,10 @@
         //self.controller = cont;
         // Initialization code
         int fontSize = 14;
-        int rowHt = 100;
+        int rowHt = 70;
         if (frame.size.width > 700) {
             fontSize = 21;
-            rowHt = 120;
+            rowHt = 100;
         }
         UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
         UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
@@ -108,10 +108,10 @@
     // convinience variables
     CGRect frame = self.frame;
     int fontSize = 14;
-    int rowHt = 100;
+    int rowHt = 70;
     if (frame.size.width > 700) {
         fontSize = 21;
-        rowHt = 120;
+        rowHt = 100;
     }
     // colors
     UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
