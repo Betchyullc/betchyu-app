@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		890B98351946084C004DE649 /* iTunes Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 890B98341946084C004DE649 /* iTunes Gift Card.jpg */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
@@ -106,6 +107,7 @@
 
 /* Begin PBXFileReference section */
 		0D09BB26154D41DEBC444CEF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		890B98341946084C004DE649 /* iTunes Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunes Gift Card.jpg"; sourceTree = "<group>"; };
 		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				890B98341946084C004DE649 /* iTunes Gift Card.jpg */,
 				89294AE81934C96200094389 /* Target Gift Card.jpg */,
 				89588191187C67CF00CCC9DC /* 1.jpg */,
 				89588192187C67CF00CCC9DC /* 2.jpg */,
@@ -635,6 +638,7 @@
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
 				89B1A7C7186A13E3006A656F /* Stop Smoking.jpg in Resources */,
 				89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */,
+				890B98351946084C004DE649 /* iTunes Gift Card.jpg in Resources */,
 				89B1A6BB1864ACC7006A656F /* logo.png in Resources */,
 				89B1A7BD186916B4006A656F /* beer.jpg in Resources */,
 				89588196187C67CF00CCC9DC /* 1.jpg in Resources */,

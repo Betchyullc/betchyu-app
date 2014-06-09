@@ -1,8 +1,8 @@
 //
-//  CurrentBetsView.m
+//  MyBetsView.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/5/14.
+//  Created by Daniel Zapata on 6/5/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
 //
 
@@ -11,17 +11,21 @@
 @implementation MyBetsView
 
 @synthesize scroller;
+@synthesize bets;
+
+@synthesize fontSize;
+@synthesize rowHt;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     NSLog(@"%@", NSStringFromCGRect(frame));
     if (self) {
         // Initialization code
-        int fontSize = 14;
-        int rowHt = 100;
+        self.fontSize = 14;
+        self.rowHt = 70;
         if (frame.size.width > 700) {
-            fontSize = 21;
-            rowHt = 120;
+            self.fontSize = 21;
+            self.rowHt = 100;
         }
         UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
         UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
@@ -48,28 +52,19 @@
         title.textAlignment = NSTextAlignmentLeft;
         [heading addSubview:title];
         
-        // Scroller to contain the actual bets summaries
-        self.scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, heading.frame.size.height, frame.size.width, frame.size.height - heading.frame.size.height)];
-        scroller.contentSize   = scroller.frame.size;
-
-        
         // add everything
         [self addSubview:heading];
-        [self addSubview:scroller];
     }
     return self;
 }
 
 // populate the main area with bets stuff
 -(void)addBets:(NSArray *)pending {
+    self.bets = pending;
+    
     // convinience variables
-    CGRect frame = self.scroller.frame;
-    int fontSize = 14;
-    int rowHt = 100;
-    if (frame.size.width > 700) {
-        fontSize = 21;
-        rowHt = 120;
-    }
+    CGRect frame = self.frame;
+    
     // colors
     UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
     UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
@@ -90,32 +85,69 @@
         for (int i = 0; i < c; i++) {
             NSDictionary *obj = [pending objectAtIndex:i];
             
-            // Buttons
-            int yB      = (rowHt * i);
+            // measurment vars
+            int yB      = (rowHt * i) + off;
             int xMargin = frame.size.width/4.4;
-            int widthB  = frame.size.width/5.5;
-            int heightB = rowHt / 3.4;
+            
+            // Tappable, Invisible Button
+            UIButton *tap = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            tap.frame = CGRectMake(0, yB, frame.size.width, rowHt);
+            tap.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+            [tap addTarget:self action:@selector(viewBet:) forControlEvents:UIControlEventTouchUpInside];
+            tap.tag = i;
+            
+            // Type Graphic
+            // use a button to dispaly a pic for tint funcionality
             UIButton *pic = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            pic.frame = CGRectMake(0, rowHt*i, frame.size.width/6, rowHt);
+            pic.frame = CGRectMake(0, yB, frame.size.width/6, rowHt);
             [pic setImage:[self getImageFromBet:obj] forState:UIControlStateNormal];
             pic.tintColor = green;
             
-            // Description string
-            UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB, frame.size.width/2.4, rowHt)];
-            desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
+            // Bet Description String
+            UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB, frame.size.width/1.5, rowHt)];
+            desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+1];
             desc.textColor     = dark;
             desc.textAlignment = NSTextAlignmentLeft;
             desc.lineBreakMode = NSLineBreakByWordWrapping;
             desc.numberOfLines = 0;
             [self setBetDescription:obj ForLabel:desc];
             
+            // End Date String
+            UILabel *date      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB+desc.font.pointSize*1.6, frame.size.width/2, rowHt)];
+            date.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize-2];
+            date.textColor     = light;
+            date.textAlignment = NSTextAlignmentLeft;
+            date.lineBreakMode = NSLineBreakByWordWrapping;
+            date.numberOfLines = 0;
+            // manipulating the date stuff to calculate the actual end-date
+            [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSDate *d1 = [dateFormatter dateFromString: [[obj valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
+            NSDateComponents *dc = [[NSDateComponents alloc] init];
+            [dc setDay:[[obj valueForKey:@"duration"]intValue]]; // actually add the duration
+            NSDate *d2 = [[NSCalendar currentCalendar]
+                          dateByAddingComponents:dc
+                          toDate:d1 options:0];
+            date.text = [NSString stringWithFormat:@"End Date: %@", [dateFormatter stringFromDate:d2]];
+            
+            // arrow to indicate tapability
+            UILabel *arrow      = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - xMargin/2, yB, frame.size.width/2, rowHt)];
+            arrow.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
+            arrow.textColor     = light;
+            arrow.textAlignment = NSTextAlignmentLeft;
+            arrow.text          = [NSString stringWithUTF8String:"❯"];
+            
             // Bottom line divider thingie
-            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/16, rowHt + yB, 14*frame.size.width/16, 2)];
+            UIView *line = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/16, rowHt + yB - 2, 14*frame.size.width/16, 2)];
             line.backgroundColor = light;
             
             // Add everything
-            [self.scroller addSubview:line];
-            [self.scroller addSubview:pic];
+            [self addSubview:line];
+            [self addSubview:pic];
+            [self addSubview:date];
+            [self addSubview:arrow];
+            [self addSubview:tap];
         }
     }
 }
@@ -137,22 +169,15 @@
     return profBorder;
 }
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
-            // Success! Include your code to handle the results here
-            if ([noun isEqualToString:@"smoking"]) {
-                lab.text = [NSString stringWithFormat:@"%@ will %@ %@ for %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], noun, [obj valueForKey:@"duration"]];
-            }
-            else {
-                lab.text = [NSString stringWithFormat:@"%@ will %@ %@ %@ in %@ days", [result valueForKey:@"name"], [[obj valueForKey:@"verb"] lowercaseString], [obj valueForKey:@"amount"], noun, [obj valueForKey:@"duration"]];
-            }
-            [self.scroller addSubview:lab];
-        } else {
-            // An error occurred, we need to handle the error
-            // See: https://developers.facebook.com/docs/ios/errors
-        }
-    }];
+    NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
+    // Success! Include your code to handle the results here
+    if ([noun isEqualToString:@"smoking"]) {
+        lab.text = [NSString stringWithFormat:@"%@ %@ for %@ days", [obj valueForKey:@"verb"], noun, [obj valueForKey:@"duration"]];
+    }
+    else {
+        lab.text = [NSString stringWithFormat:@"%@ %@ %@ in %@ days", [obj valueForKey:@"verb"], [obj valueForKey:@"amount"], noun, [obj valueForKey:@"duration"]];
+    }
+    [self addSubview:lab];
 }
 
 - (UIImage *) getImageFromBet:(NSDictionary *)obj {
@@ -170,5 +195,11 @@
 }
 
 // API call stuff
+-(void)viewBet:(UIButton *)sender {
+    // get the Bet Object
+    ExistingBetDetailsVC *vc = [[ExistingBetDetailsVC alloc] initWithJSON:[bets objectAtIndex:sender.tag]];
+    vc.title = @"Bet Details";
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
+}
 
 @end

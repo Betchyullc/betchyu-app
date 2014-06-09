@@ -23,7 +23,7 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
-        stakes = [[NSArray alloc] initWithObjects:/*@"Drink", @"Meal",*/@"Target Gift Card", @"Amazon Gift Card", nil];
+        stakes = [[NSArray alloc] initWithObjects:/*@"Drink", @"Meal",*/@"Target Gift Card", @"Amazon Gift Card", @"iTunes Gift Card", nil];
         stakeImageHeight = 220;
         
         bet = betObj;

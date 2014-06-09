@@ -11,7 +11,7 @@
 #import "PendingBetsView.h"
 #import "MyBetsView.h"
 
-@interface Dashboard : UIView
+@interface Dashboard : UIScrollView
 
 @property DashHeaderView * head;
 @property PendingBetsView * pending;
@@ -19,7 +19,7 @@
 //@property DashboardVC * controller;
 
 @property int oneH;
-@property int twoH;
+@property int rowH;
 
 -(void) adjustPendingHeight:(int)numItems;
 -(void) adjustMyBetsHeight:(int)numItems;

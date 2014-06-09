@@ -15,29 +15,30 @@
 @synthesize my;
 
 @synthesize oneH;
-@synthesize twoH;
+@synthesize rowH;
 
 //@synthesize controller;
 
-- (id)initWithFrame:(CGRect)frame //AndController:(DashboardVC *)cont
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         //self.controller = cont;
         oneH = 120;
-        twoH = 220;
+        rowH = 100;
         if (frame.size.width > 700) {
             oneH = 140;
-            twoH = 280;
+            rowH = 110;
         }
+        self.backgroundColor = [UIColor whiteColor];
         
         // Sire, we must have the frames made, one for each portion of the page!
         int headHt = MAX((frame.size.height/7), 74);
-        CGRect headRect    = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, headHt); // bad, should be dynamic height
-        CGRect pendingRect = CGRectMake(frame.origin.x, frame.origin.y + headHt, frame.size.width, twoH); // also bad
-        CGRect myRect = CGRectMake(frame.origin.x, pendingRect.origin.y + pendingRect.size.height, frame.size.width, twoH); // bad, should be dynamic height
-        CGRect friendRect  = CGRectMake(frame.origin.x, frame.origin.y + 800, frame.size.width, 400); // also bad
+        CGRect headRect    = CGRectMake(frame.origin.x, 0, frame.size.width, headHt); // bad, should be dynamic height
+        CGRect pendingRect = CGRectMake(frame.origin.x, headHt, frame.size.width, oneH); // also bad
+        CGRect myRect = CGRectMake(frame.origin.x, pendingRect.origin.y + pendingRect.size.height, frame.size.width, oneH); // bad, should be dynamic height
+        CGRect friendRect  = CGRectMake(frame.origin.x, myRect.origin.y + myRect.size.height, frame.size.width, 400); // also bad
         
         // Sir Mallory, I hereby charge you with the instantiation of said view-portions.
         self.head    = [[DashHeaderView alloc] initWithFrame:headRect];
@@ -51,6 +52,7 @@
         [self addSubview:pending];
         [self addSubview:my];
         /*[self addSubview:friend];*/
+        self.contentSize = CGSizeMake(frame.size.width, headHt+pendingRect.size.height+myRect.size.height);
     }
     return self;
 }
@@ -62,10 +64,11 @@
         [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - oneH), my.frame.size.width, my.frame.size.height)];
         //[self.friend setFrame:CGRectMake(pending.frame.origin.x, pending.frame.origin.y, pending.frame.size.width, 100)];
     } else {
-        [self.pending setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, twoH)];
-        [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - twoH), my.frame.size.width, my.frame.size.height)];
+        [self.pending setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, rowH*numItems)];
+        [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - rowH*numItems), my.frame.size.width, my.frame.size.height)];
         //[self.friend setFrame:CGRectMake(pending.frame.origin.x, pending.frame.origin.y, pending.frame.size.width, 100)];
     }
+    self.contentSize = CGSizeMake(f.size.width, head.frame.size.height+pending.frame.size.height+my.frame.size.height + 25);
 }
 -(void)adjustMyBetsHeight:(int)numItems {
     CGRect f = self.my.frame;
@@ -73,10 +76,10 @@
         [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
         //[self.friend setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - 100), my.frame.size.width, my.frame.size.height)];
     } else {
-        [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, twoH)];
-        self.my.scroller.contentSize = CGSizeMake(f.size.width, oneH*numItems);
+        [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, rowH*numItems)];
         //[self.friend setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - 220), my.frame.size.width, my.frame.size.height)];
     }
+    self.contentSize = CGSizeMake(f.size.width, head.frame.size.height+pending.frame.size.height+my.frame.size.height + 25);
 }
 
 @end
