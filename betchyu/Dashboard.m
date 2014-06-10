@@ -17,6 +17,7 @@
 
 @synthesize oneH;
 @synthesize rowH;
+@synthesize pendingRowH;
 
 //@synthesize controller;
 
@@ -28,9 +29,11 @@
         //self.controller = cont;
         oneH = 120;
         rowH = 70;
+        pendingRowH = 90;
         if (frame.size.width > 700) {
             oneH = 140;
             rowH = 110;
+            pendingRowH = 120;
         }
         self.backgroundColor = [UIColor whiteColor];
         
@@ -43,7 +46,7 @@
         
         // Sir Mallory, I hereby charge you with the instantiation of said view-portions.
         self.head    = [[DashHeaderView alloc] initWithFrame:headRect];
-        self.pending = [[PendingBetsView alloc] initWithFrame:pendingRect]; //AndController:cont];
+        self.pending = [[PendingBetsView alloc] initWithFrame:pendingRect];
         self.my = [[MyBetsView alloc] initWithFrame:myRect];
         self.friends  = [[FriendsBetsSubview alloc] initWithFrame:friendRect];
         
@@ -60,17 +63,19 @@
 
 -(void)adjustPendingHeight:(int)numItems {
     CGRect f = self.pending.frame;
+    [self.pending removeFromSuperview];
     if (numItems <= 1) {
-        [self.pending setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
+        self.pending = [[PendingBetsView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
         [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - oneH), my.frame.size.width, my.frame.size.height)];
         [self.friends setFrame:CGRectMake(friends.frame.origin.x, friends.frame.origin.y - (f.size.height - oneH), friends.frame.size.width, friends.frame.size.height)];
     } else {
         int new = rowH*numItems + oneH - rowH;
-        [self.pending setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
+        self.pending = [[PendingBetsView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
         [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - new), my.frame.size.width, my.frame.size.height)];
         [self.friends setFrame:CGRectMake(friends.frame.origin.x, friends.frame.origin.y - (f.size.height - new), friends.frame.size.width, friends.frame.size.height)];
     }
     self.contentSize = CGSizeMake(f.size.width, head.frame.size.height+pending.frame.size.height+my.frame.size.height + friends.frame.size.height);
+    [self addSubview:pending];
 }
 -(void)adjustMyBetsHeight:(int)numItems {
     CGRect f = self.my.frame;

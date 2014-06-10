@@ -23,10 +23,10 @@
         //self.controller = cont;
         // Initialization code
         int fontSize = 14;
-        int rowHt = 70;
+        int rowHt = 90;
         if (frame.size.width > 700) {
             fontSize = 21;
-            rowHt = 100;
+            rowHt = 120;
         }
         UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
         UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
@@ -99,19 +99,13 @@
 -(void)addBets:(NSArray *)pending {
     self.bets = pending;
     
-    // clear all the bet subviews
-    for (int i=0; i<self.bits.count; i++){
-        [[bits objectAtIndex:i] performSelectorOnMainThread:@selector(removeFromSuperview) withObject:Nil waitUntilDone:NO];
-    }
-    [bits removeAllObjects];
-    
     // convinience variables
     CGRect frame = self.frame;
     int fontSize = 14;
-    int rowHt = 70;
+    int rowHt = 90;
     if (frame.size.width > 700) {
         fontSize = 21;
-        rowHt = 100;
+        rowHt = 120;
     }
     // colors
     UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
@@ -141,7 +135,7 @@
             int yB      = (rowHt * i) + rowHt/1.6 + off;
             int xMargin = frame.size.width/4.4;
             int widthB  = frame.size.width/5.5;
-            int heightB = rowHt / 3.4;
+            int heightB = rowHt / 3;
             // Accept Button
             UIButton * accept = [[UIButton alloc] initWithFrame:CGRectMake(xMargin, yB*i + yB, widthB, heightB)];
             accept.tag = i;
@@ -162,13 +156,20 @@
             reject.clipsToBounds = YES;
             
             // Description string
-            UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin + 10, off + off/4 + rowHt*i, frame.size.width/2, rowHt/1.7)];
+            UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, off + off/5 + rowHt*i, frame.size.width/1.65, rowHt/1.7)];
             [self setBetDescription:obj ForLabel:desc];
-            desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
+            desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+1];
             desc.textColor     = dark;
             desc.textAlignment = NSTextAlignmentLeft;
             desc.lineBreakMode = NSLineBreakByWordWrapping;
             desc.numberOfLines = 0;
+            
+            // arrow to indicate tapability
+            UILabel *arrow      = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - xMargin/2, yB, frame.size.width/2, rowHt)];
+            arrow.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
+            arrow.textColor     = light;
+            arrow.textAlignment = NSTextAlignmentLeft;
+            arrow.text          = [NSString stringWithUTF8String:"❯"];
             
             // Bottom line divider thingie
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/16, rowHt + off + rowHt*i, 14*frame.size.width/16, 2)];
@@ -229,7 +230,7 @@
                                   @"accepted", @"status",
                                   nil];
     //make the call to the web API
-    // PUT /bets/:bet_id => {data}
+    // PUT /invites/:id => {status: "accepted"}
     [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
          /* Do #4 */
          // Show the result in an alert

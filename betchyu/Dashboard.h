@@ -21,6 +21,7 @@
 
 @property int oneH;
 @property int rowH;
+@property int pendingRowH;
 
 -(void) adjustPendingHeight:(int)numItems;
 -(void) adjustMyBetsHeight:(int)numItems;

@@ -54,7 +54,12 @@
     mypic.frame = CGRectMake(0, 0, 26, 26);
     mypic.layer.cornerRadius = 13;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];*/
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(createGoal:)];
+    UIButton *bu = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [bu setImage:[UIImage imageNamed:@"plus-18.png"] forState:UIControlStateNormal];
+    bu.frame = CGRectMake(0, 0, 22, 22);
+    bu.tintColor = [UIColor whiteColor];
+    [bu addTarget:self action:@selector(createGoal:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bu];
     self.navigationItem.title = @"Dashboard";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"flyout_menu.png"]
                                                                              style:UIBarButtonItemStylePlain
@@ -112,7 +117,6 @@
         [((Dashboard *)self.view).my addBets:(NSArray *)json];
     }];
 }
-
 - (void) getAndAddFriendsBets:(id)useless {
     NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     

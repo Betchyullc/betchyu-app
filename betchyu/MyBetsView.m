@@ -69,6 +69,7 @@
     UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
     UIColor *green = [UIColor colorWithRed:173.0/256 green:196.0/256 blue:81.0/256 alpha:1.0];
     UIColor *red   = [UIColor colorWithRed:219.0/256 green:70.0/256 blue:38.0/256 alpha:1.0];
+    UIColor *blue   = [UIColor colorWithRed:83.0/256 green:188.0/256 blue:183.0/256 alpha:1.0];
     // Bets loop
     int c = pending.count;
     int off = fontSize*1.8;
@@ -97,10 +98,35 @@
             
             // Type Graphic
             // use a button to dispaly a pic for tint funcionality
-            UIButton *pic = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            pic.frame = CGRectMake(0, yB, frame.size.width/6, rowHt);
+            int dim = rowHt/1.5;
+            CGRect picF = CGRectMake(xMargin/4, yB + off/2, dim, dim);
+            UIColor * tintC;                // var to hold the color we're using to tint this graphic
+            int rand = i % 3;               // random from 0,1,2
+            switch (rand) {                 // set the tintC from the rand
+                case 0:
+                    tintC = green;
+                    break;
+                case 1:
+                    tintC = red;
+                    break;
+                case 2:
+                default:
+                    tintC = blue;
+                    break;
+            }
+            UIButton *pic = [UIButton buttonWithType:UIButtonTypeRoundedRect];      // make the graphic
+            // set the frame for said graphic button
+            if ([[[obj valueForKey:@"noun"] lowercaseString] isEqualToString:@"smoking"]) {
+                pic.frame = CGRectMake(picF.origin.x+2, picF.origin.y+2, picF.size.width-4, picF.size.height-4);
+            } else {
+                pic.frame = CGRectMake(1+picF.origin.x + ((dim+10)/6), 1+picF.origin.y + ((dim+10)/6), 2*(dim-5)/3, 2*(dim-5)/3);
+            }
+            // [obj valueForKey:@"noun"] based UIImage creation
             [pic setImage:[self getImageFromBet:obj] forState:UIControlStateNormal];
-            pic.tintColor = green;
+            pic.tintColor = tintC;          // makes said UIImage teh correct color
+            CompletionBorderView *circle = [[CompletionBorderView alloc] initWithFrame:picF AndColor:tintC AndPercentComplete:[[obj valueForKey:@"progress"] intValue]];
+            circle.layer.cornerRadius = circle.frame.size.width/2;
+            
             
             // Bet Description String
             UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB, frame.size.width/1.5, rowHt)];
@@ -143,6 +169,7 @@
             
             // Add everything
             [self addSubview:line];
+            [self addSubview:circle];
             [self addSubview:pic];
             [self addSubview:date];
             [self addSubview:arrow];
@@ -180,16 +207,19 @@
 }
 
 - (UIImage *) getImageFromBet:(NSDictionary *)obj {
-    return [UIImage imageNamed:@"info_button.png"];
     NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
     if ([noun isEqualToString:@"pounds"]) {
-        return [UIImage imageNamed:@"weight.png"];
+        return [UIImage imageNamed:@"scale-02.png"];
     }
     else if ([noun isEqualToString:@"smoking"]){
-        return [UIImage imageNamed:@"cigarette.png"];
+        return [UIImage imageNamed:@"smoke-04.png"];
     }
-    else {
-        return [UIImage imageNamed:@"weight.png"];
+    else if ([noun isEqualToString:@"times"]){
+        return [UIImage imageNamed:@"workout-05.png"];
+    } else if ([noun isEqualToString:@"miles"]){
+        return [UIImage imageNamed:@"run-03.png"];
+    } else {
+        return [UIImage imageNamed:@"info_button.png"];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ExistingBetDetailsVC.h"
+#import "CompletionBorderView.h"
 
 @interface MyBetsView : UIView
 

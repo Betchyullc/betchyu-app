@@ -9,6 +9,29 @@
 /* Begin PBXBuildFile section */
 		890B98351946084C004DE649 /* iTunes Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 890B98341946084C004DE649 /* iTunes Gift Card.jpg */; };
 		890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B983719464123004DE649 /* FriendsBetsSubview.m */; };
+		890B985019473532004DE649 /* addfriend-15.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B983A19473531004DE649 /* addfriend-15.png */; };
+		890B985119473532004DE649 /* arrow-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B983B19473531004DE649 /* arrow-16.png */; };
+		890B985219473532004DE649 /* arrows-double-21.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B983C19473531004DE649 /* arrows-double-21.png */; };
+		890B985319473532004DE649 /* bet-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B983D19473531004DE649 /* bet-11.png */; };
+		890B985419473532004DE649 /* calendar-06.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B983E19473531004DE649 /* calendar-06.png */; };
+		890B985519473532004DE649 /* card-09.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B983F19473531004DE649 /* card-09.png */; };
+		890B985619473532004DE649 /* chat-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984019473531004DE649 /* chat-20.png */; };
+		890B985719473532004DE649 /* check-22.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984119473531004DE649 /* check-22.png */; };
+		890B985819473532004DE649 /* drink-07.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984219473531004DE649 /* drink-07.png */; };
+		890B985919473532004DE649 /* eat-08.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984319473531004DE649 /* eat-08.png */; };
+		890B985A19473532004DE649 /* friends-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984419473531004DE649 /* friends-12.png */; };
+		890B985B19473532004DE649 /* heart-19.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984519473531004DE649 /* heart-19.png */; };
+		890B985C19473532004DE649 /* home-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984619473531004DE649 /* home-10.png */; };
+		890B985D19473532004DE649 /* location-23.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984719473531004DE649 /* location-23.png */; };
+		890B985E19473532004DE649 /* logout-14.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984819473532004DE649 /* logout-14.png */; };
+		890B985F19473532004DE649 /* menu-17.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984919473532004DE649 /* menu-17.png */; };
+		890B986019473532004DE649 /* plus-18.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984A19473532004DE649 /* plus-18.png */; };
+		890B986119473532004DE649 /* run-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984B19473532004DE649 /* run-03.png */; };
+		890B986219473532004DE649 /* scale-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984C19473532004DE649 /* scale-02.png */; };
+		890B986319473532004DE649 /* settings-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984D19473532004DE649 /* settings-13.png */; };
+		890B986419473532004DE649 /* smoke-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984E19473532004DE649 /* smoke-04.png */; };
+		890B986519473532004DE649 /* workout-05.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984F19473532004DE649 /* workout-05.png */; };
+		890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B9867194740BD004DE649 /* CompletionBorderView.m */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
@@ -111,6 +134,30 @@
 		890B98341946084C004DE649 /* iTunes Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "iTunes Gift Card.jpg"; sourceTree = "<group>"; };
 		890B983619464123004DE649 /* FriendsBetsSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsBetsSubview.h; sourceTree = "<group>"; };
 		890B983719464123004DE649 /* FriendsBetsSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsBetsSubview.m; sourceTree = "<group>"; };
+		890B983A19473531004DE649 /* addfriend-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addfriend-15.png"; sourceTree = "<group>"; };
+		890B983B19473531004DE649 /* arrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-16.png"; sourceTree = "<group>"; };
+		890B983C19473531004DE649 /* arrows-double-21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrows-double-21.png"; sourceTree = "<group>"; };
+		890B983D19473531004DE649 /* bet-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bet-11.png"; sourceTree = "<group>"; };
+		890B983E19473531004DE649 /* calendar-06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar-06.png"; sourceTree = "<group>"; };
+		890B983F19473531004DE649 /* card-09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card-09.png"; sourceTree = "<group>"; };
+		890B984019473531004DE649 /* chat-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat-20.png"; sourceTree = "<group>"; };
+		890B984119473531004DE649 /* check-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-22.png"; sourceTree = "<group>"; };
+		890B984219473531004DE649 /* drink-07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drink-07.png"; sourceTree = "<group>"; };
+		890B984319473531004DE649 /* eat-08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eat-08.png"; sourceTree = "<group>"; };
+		890B984419473531004DE649 /* friends-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "friends-12.png"; sourceTree = "<group>"; };
+		890B984519473531004DE649 /* heart-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-19.png"; sourceTree = "<group>"; };
+		890B984619473531004DE649 /* home-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-10.png"; sourceTree = "<group>"; };
+		890B984719473531004DE649 /* location-23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-23.png"; sourceTree = "<group>"; };
+		890B984819473532004DE649 /* logout-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-14.png"; sourceTree = "<group>"; };
+		890B984919473532004DE649 /* menu-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-17.png"; sourceTree = "<group>"; };
+		890B984A19473532004DE649 /* plus-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-18.png"; sourceTree = "<group>"; };
+		890B984B19473532004DE649 /* run-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "run-03.png"; sourceTree = "<group>"; };
+		890B984C19473532004DE649 /* scale-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-02.png"; sourceTree = "<group>"; };
+		890B984D19473532004DE649 /* settings-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-13.png"; sourceTree = "<group>"; };
+		890B984E19473532004DE649 /* smoke-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smoke-04.png"; sourceTree = "<group>"; };
+		890B984F19473532004DE649 /* workout-05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "workout-05.png"; sourceTree = "<group>"; };
+		890B9866194740BD004DE649 /* CompletionBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletionBorderView.h; sourceTree = "<group>"; };
+		890B9867194740BD004DE649 /* CompletionBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionBorderView.m; sourceTree = "<group>"; };
 		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
@@ -264,6 +311,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		890B983919473531004DE649 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				890B983A19473531004DE649 /* addfriend-15.png */,
+				890B983B19473531004DE649 /* arrow-16.png */,
+				890B983C19473531004DE649 /* arrows-double-21.png */,
+				890B983D19473531004DE649 /* bet-11.png */,
+				890B983E19473531004DE649 /* calendar-06.png */,
+				890B983F19473531004DE649 /* card-09.png */,
+				890B984019473531004DE649 /* chat-20.png */,
+				890B984119473531004DE649 /* check-22.png */,
+				890B984219473531004DE649 /* drink-07.png */,
+				890B984319473531004DE649 /* eat-08.png */,
+				890B984419473531004DE649 /* friends-12.png */,
+				890B984519473531004DE649 /* heart-19.png */,
+				890B984619473531004DE649 /* home-10.png */,
+				890B984719473531004DE649 /* location-23.png */,
+				890B984819473532004DE649 /* logout-14.png */,
+				890B984919473532004DE649 /* menu-17.png */,
+				890B984A19473532004DE649 /* plus-18.png */,
+				890B984B19473532004DE649 /* run-03.png */,
+				890B984C19473532004DE649 /* scale-02.png */,
+				890B984D19473532004DE649 /* settings-13.png */,
+				890B984E19473532004DE649 /* smoke-04.png */,
+				890B984F19473532004DE649 /* workout-05.png */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
 		892154BA1850F3CD0052A7C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +427,7 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				890B983919473531004DE649 /* icons */,
 				890B98341946084C004DE649 /* iTunes Gift Card.jpg */,
 				89294AE81934C96200094389 /* Target Gift Card.jpg */,
 				89588191187C67CF00CCC9DC /* 1.jpg */,
@@ -525,6 +602,8 @@
 				89C65168193D232F004B64B6 /* DashHeaderView.m */,
 				89C6516A193E4BE9004B64B6 /* PendingBetsView.h */,
 				89C6516B193E4BE9004B64B6 /* PendingBetsView.m */,
+				890B9866194740BD004DE649 /* CompletionBorderView.h */,
+				890B9867194740BD004DE649 /* CompletionBorderView.m */,
 				8926AA891940E73400AAB74A /* MyBetsView.h */,
 				8926AA8A1940E73400AAB74A /* MyBetsView.m */,
 				890B983619464123004DE649 /* FriendsBetsSubview.h */,
@@ -638,34 +717,53 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				890B985719473532004DE649 /* check-22.png in Resources */,
 				89588197187C67CF00CCC9DC /* 2.jpg in Resources */,
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
+				890B985819473532004DE649 /* drink-07.png in Resources */,
 				89B1A7C7186A13E3006A656F /* Stop Smoking.jpg in Resources */,
+				890B986519473532004DE649 /* workout-05.png in Resources */,
 				89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */,
 				890B98351946084C004DE649 /* iTunes Gift Card.jpg in Resources */,
+				890B985F19473532004DE649 /* menu-17.png in Resources */,
+				890B985119473532004DE649 /* arrow-16.png in Resources */,
+				890B985619473532004DE649 /* chat-20.png in Resources */,
 				89B1A6BB1864ACC7006A656F /* logo.png in Resources */,
+				890B986419473532004DE649 /* smoke-04.png in Resources */,
 				89B1A7BD186916B4006A656F /* beer.jpg in Resources */,
 				89588196187C67CF00CCC9DC /* 1.jpg in Resources */,
+				890B985D19473532004DE649 /* location-23.png in Resources */,
 				892154DB185261270052A7C0 /* ProximaNova-SemiboldIt.otf in Resources */,
 				89588199187C67CF00CCC9DC /* 4.jpg in Resources */,
 				89B1A7B518689C05006A656F /* flyout_menu.png in Resources */,
+				890B986119473532004DE649 /* run-03.png in Resources */,
 				89B1A7C3186A13A2006A656F /* Run More.jpg in Resources */,
 				89B3F5CB1850EB320055F8DB /* Images.xcassets in Resources */,
 				892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */,
 				892154D2185261270052A7C0 /* ProximaNova-Bold.otf in Resources */,
 				892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */,
+				890B985519473532004DE649 /* card-09.png in Resources */,
 				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
+				890B985319473532004DE649 /* bet-11.png in Resources */,
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
+				890B985019473532004DE649 /* addfriend-15.png in Resources */,
+				890B985A19473532004DE649 /* friends-12.png in Resources */,
 				89B1A7C6186A13E3006A656F /* Workout More.jpg in Resources */,
+				890B985419473532004DE649 /* calendar-06.png in Resources */,
+				890B985919473532004DE649 /* eat-08.png in Resources */,
 				89B1A7B9186916A7006A656F /* Amazon Gift Card.jpg in Resources */,
 				89B1A6BD1864F789006A656F /* star.png in Resources */,
+				890B986219473532004DE649 /* scale-02.png in Resources */,
+				890B985B19473532004DE649 /* heart-19.png in Resources */,
 				89B1A7B71868C2D3006A656F /* info_button.png in Resources */,
 				8958819A187C67CF00CCC9DC /* 5.jpg in Resources */,
 				89B1A75E18679CD2006A656F /* slider.png in Resources */,
 				892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */,
 				89B1A75C186778C1006A656F /* howItWorksLogo.png in Resources */,
 				89588198187C67CF00CCC9DC /* 3.jpg in Resources */,
+				890B985C19473532004DE649 /* home-10.png in Resources */,
+				890B985E19473532004DE649 /* logout-14.png in Resources */,
 				89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */,
 				89B1A7BF186916B4006A656F /* Meal.jpg in Resources */,
 				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
@@ -673,9 +771,12 @@
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
 				89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */,
+				890B986319473532004DE649 /* settings-13.png in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
 				89B1A7BE186916B4006A656F /* Drink.jpg in Resources */,
+				890B985219473532004DE649 /* arrows-double-21.png in Resources */,
 				892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */,
+				890B986019473532004DE649 /* plus-18.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +844,7 @@
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				8921549C1850F2E70052A7C0 /* ViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
+				890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */,
 				8957380D189830BB00E693A5 /* Graph.m in Sources */,
 				89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */,
 				892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */,
