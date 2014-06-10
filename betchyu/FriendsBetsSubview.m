@@ -26,10 +26,10 @@
             self.fontSize = 21;
             self.rowHt = 100;
         }
-        UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
-        UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
-        UIColor *green = [UIColor colorWithRed:173.0/256 green:196.0/256 blue:81.0/256 alpha:1.0];
-        UIColor *red   = [UIColor colorWithRed:219.0/256 green:70.0/256 blue:38.0/256 alpha:1.0];
+        UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
+        UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+        UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
+        UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
         
         // Background
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -59,20 +59,14 @@
 }
 
 // helpers
--(UIView *)getFBPic:(NSString *)userId WithDiameter:(int)dim AndFrame:(CGRect)frame{
-    // The Border
-    UIView *profBorder = [[UIView alloc] initWithFrame:frame];
-    profBorder.backgroundColor = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
-    profBorder.layer.cornerRadius = dim/2;
-    
+-(UIView *)getFBPic:(NSString *)userId WithDiameter:(int)dim AndFrame:(CGRect)frame {
     // The Picture inside it
     FBProfilePictureView *profPic = [[FBProfilePictureView alloc]
                                      initWithProfileID:userId
                                      pictureCropping:FBProfilePictureCroppingSquare];
-    profPic.frame = CGRectMake(2, 2, dim-4, dim-4);
-    profPic.layer.cornerRadius = (dim-4)/2;
-    [profBorder addSubview:profPic];
-    return profBorder;
+    profPic.frame = CGRectMake(frame.origin.x+3, frame.origin.y+3, dim-6, dim-6);
+    profPic.layer.cornerRadius = (dim-6)/2;
+    return profPic;
 }
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -97,19 +91,13 @@
 -(void)addBets:(NSArray *)betList {
     self.bets = betList;
     
-    // clear all the bet subviews
-    /*for (int i=0; i<self.bits.count; i++){
-        [[bits objectAtIndex:i] performSelectorOnMainThread:@selector(removeFromSuperview) withObject:Nil waitUntilDone:NO];
-    }
-    [bits removeAllObjects];
-    */
     // convinience variables
     CGRect frame = self.frame;
     // colors
-    UIColor *dark  = [UIColor colorWithRed:71.0/256 green:71.0/256 blue:82.0/256 alpha:1.0];
-    UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
-    UIColor *green = [UIColor colorWithRed:173.0/256 green:196.0/256 blue:81.0/256 alpha:1.0];
-    UIColor *red   = [UIColor colorWithRed:219.0/256 green:70.0/256 blue:38.0/256 alpha:1.0];
+    UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
+    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+    UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
+    UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
     // Bets loop
     int c = betList.count;
     int off = fontSize*1.8;
@@ -135,6 +123,7 @@
             int diameter = frame.size.width / 6.7 ;
             CGRect picF  = CGRectMake(frame.size.width/17, yB + rowHt/6, diameter, diameter);
             UIView *pic = [self getFBPic:[obj valueForKey:@"owner"] WithDiameter:diameter AndFrame:picF];
+            CompletionBorderView *circle = [[CompletionBorderView alloc] initWithFrame:picF AndColor:red AndPercentComplete:[[obj valueForKey:@"progress"] intValue]];
             
             // Tappable, Invisible Button
             UIButton *tap = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -184,6 +173,7 @@
             
             // Add everything
             [self addSubview:pic];
+            [self addSubview:circle];
             //[self.bits addObject:pic];
             [self addSubview:tap];
             // desc is added by method which sets text

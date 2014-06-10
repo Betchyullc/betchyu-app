@@ -38,7 +38,7 @@
     if (notCalled) {
         // An' da border too!
         self.profBorder = [[UIView alloc] initWithFrame:CGRectMake(dim/4, dim/4, dim, dim)];
-        self.profBorder.backgroundColor = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
+        self.profBorder.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
         self.profBorder.layer.cornerRadius = dim/2;
         [self addSubview:self.profBorder];
     }
@@ -78,7 +78,7 @@
             UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, (f.size.height/4), f.size.width, f.size.height/2)];
             name.text = [result valueForKey:@"name"];
             name.textAlignment = NSTextAlignmentCenter;
-            name.textColor = [UIColor colorWithRed:243.0/256 green:116.0/256 blue:67.0/256 alpha:1.0];
+            name.textColor = [UIColor colorWithRed:243.0/255 green:116.0/255 blue:67.0/255 alpha:1.0];
             name.font = [UIFont fontWithName:@"ProximaNova-Black" size:20];
             [self addSubview:name];
         } else {

@@ -12,6 +12,7 @@
 #import "HowItWorksVC.h"
 #import "AppDelegate.h"
 #import "Feedback.h"
+#import "FlyoutTopView.h"
 
 @interface FlyoutMenuVC ()
 
@@ -32,8 +33,21 @@
 
 -(void)loadView {
     self.view = [[UIView alloc] initWithFrame:self.passedFrame];
-    self.view.backgroundColor = [UIColor colorWithRed:(69/255.0) green:(69/255.0) blue:(69/255.0) alpha:1.0];
-    UIView *lineView;
+    self.view.backgroundColor = [UIColor colorWithRed:(250/255.0) green:(250/255.0) blue:(250/255.0) alpha:1.0];
+    
+    // top section (picture, name, #bets won, #bets comleted)
+    [self tryToAddTopSectionToView:NO];
+    
+    // edit profile button (overlaps top section)
+    // dashboard button
+    // past bets button
+    // friends button
+    // settings button
+    // logout button
+    // betchyu logo view
+    
+    
+    /*UIView *lineView;
     ///////////////////////
     // My Profile Button
     ///////////////////////
@@ -137,9 +151,29 @@
     // add all the subviews
     [self.view addSubview:logout];
     [self.view addSubview:logoutLabel];
-    [self.view addSubview:lineView];
+    [self.view addSubview:lineView];*/
     
 }
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)tryToAddTopSectionToView:(BOOL)useless {
+    if ([((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId isEqualToString:@""]) {
+        // we need to wait a bit before setting up the profile pic
+        [self performSelector:@selector(tryToAddTopSectionToView:) withObject:NO afterDelay:1];
+        return;
+    }
+    
+    FlyoutTopView *top = [[FlyoutTopView alloc]initWithFrame:CGRectMake(0, 0, self.passedFrame.size.width, 5*self.passedFrame.size.height/11)];
+    [self.view addSubview:top];
+}
+
 -(void) logoutButtonWasPressed:(id)sender {
     // switch back to the main menu for when they log back in
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
@@ -180,14 +214,6 @@
     [self.navigationController pushViewController:vc animated:true];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - UIPageViewControllerDataSource methods implementation
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController

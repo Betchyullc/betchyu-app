@@ -32,6 +32,7 @@
 		890B986419473532004DE649 /* smoke-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984E19473532004DE649 /* smoke-04.png */; };
 		890B986519473532004DE649 /* workout-05.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984F19473532004DE649 /* workout-05.png */; };
 		890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B9867194740BD004DE649 /* CompletionBorderView.m */; };
+		890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B986A19478DCE004DE649 /* FlyoutTopView.m */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
@@ -158,6 +159,8 @@
 		890B984F19473532004DE649 /* workout-05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "workout-05.png"; sourceTree = "<group>"; };
 		890B9866194740BD004DE649 /* CompletionBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletionBorderView.h; sourceTree = "<group>"; };
 		890B9867194740BD004DE649 /* CompletionBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionBorderView.m; sourceTree = "<group>"; };
+		890B986919478DCE004DE649 /* FlyoutTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyoutTopView.h; sourceTree = "<group>"; };
+		890B986A19478DCE004DE649 /* FlyoutTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyoutTopView.m; sourceTree = "<group>"; };
 		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
@@ -621,6 +624,8 @@
 				89F9DE7118A9980E00411AFD /* Feedback.m */,
 				89B1A755186767E9006A656F /* ProfileView.h */,
 				89B1A756186767E9006A656F /* ProfileView.m */,
+				890B986919478DCE004DE649 /* FlyoutTopView.h */,
+				890B986A19478DCE004DE649 /* FlyoutTopView.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -861,6 +866,7 @@
 				89B1A7521866A01A006A656F /* FlyoutMenuVC.m in Sources */,
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
 				89B1A757186767E9006A656F /* ProfileView.m in Sources */,
+				890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */,
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
 				89B1A6B01859236C006A656F /* API.m in Sources */,

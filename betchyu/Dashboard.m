@@ -79,26 +79,30 @@
 }
 -(void)adjustMyBetsHeight:(int)numItems {
     CGRect f = self.my.frame;
+    [self.my removeFromSuperview];
     if (numItems <= 1) {
-        [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
+        self.my = [[MyBetsView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
         [self.friends setFrame:CGRectMake(friends.frame.origin.x, friends.frame.origin.y - (f.size.height - oneH), friends.frame.size.width, friends.frame.size.height)];
     } else {
         int new = rowH*numItems + oneH - rowH;
-        [self.my setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
+        self.my = [[MyBetsView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
         [self.friends setFrame:CGRectMake(friends.frame.origin.x, friends.frame.origin.y - (f.size.height - new), friends.frame.size.width, friends.frame.size.height)];
     }
     self.contentSize = CGSizeMake(f.size.width, head.frame.size.height+pending.frame.size.height+my.frame.size.height + friends.frame.size.height);
+    [self addSubview:my];
 }
 
 -(void)adjustFriendsBetsHeight:(int)numItems {
     CGRect f = self.friends.frame;
+    [self.friends removeFromSuperview];
     if (numItems <= 1) {
-        [self.friends setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
+        self.friends = [[FriendsBetsSubview alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
     } else {
         int new = rowH*numItems + oneH - rowH;
-        [self.friends setFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
+        self.friends = [[FriendsBetsSubview alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
     }
     self.contentSize = CGSizeMake(f.size.width, head.frame.size.height+pending.frame.size.height+my.frame.size.height + friends.frame.size.height);
+    [self addSubview:friends];
 }
 
 @end

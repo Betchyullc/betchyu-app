@@ -23,7 +23,7 @@
         self.color = c;
         self.percent = per;
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
     }
     return self;
 }
@@ -32,7 +32,7 @@
  // Draws the colored part of the Circle
  - (void)drawRect:(CGRect)rect {
      int halfH = self.frame.size.height/2;
-     UIColor *light = [UIColor colorWithRed:213.0/256 green:213.0/256 blue:214.0/256 alpha:1.0];
+     UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
      
      // grey under-line
      UIBezierPath *aPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(halfH, halfH)
