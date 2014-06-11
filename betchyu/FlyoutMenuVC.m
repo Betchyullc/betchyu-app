@@ -13,6 +13,9 @@
 #import "AppDelegate.h"
 #import "Feedback.h"
 #import "FlyoutTopView.h"
+#import "SettingsVC.h"
+#import "PastBetsVC.h"
+#import "FriendsVC.h"
 
 @interface FlyoutMenuVC ()
 
@@ -32,126 +35,125 @@
 }
 
 -(void)loadView {
+    UIColor *betchyu = [UIColor colorWithRed:(243/255.0) green:(116.0/255.0) blue:(67/255.0) alpha:1.0];
+    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+    int botY = 5*self.passedFrame.size.height/11;
     self.view = [[UIView alloc] initWithFrame:self.passedFrame];
     self.view.backgroundColor = [UIColor colorWithRed:(250/255.0) green:(250/255.0) blue:(250/255.0) alpha:1.0];
     
     // top section (picture, name, #bets won, #bets comleted)
     [self tryToAddTopSectionToView:NO];
     
-    // edit profile button (overlaps top section)
+    // TODO: edit profile button (overlaps top section)
     // dashboard button
+    int butOff = 10;
+    int butH = 39;
+    UIButton *goToDashboardBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    goToDashboardBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    goToDashboardBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [goToDashboardBtn addTarget:self action:@selector(backToDashboard:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:goToDashboardBtn];
+        // add the label
+    UILabel *dashText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    dashText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    dashText.text = @"Dashboard";
+    dashText.textColor = light;
+    [self.view addSubview:dashText];
+        // add the icon
+    UIImageView *dashImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-10.png"]];
+    dashImg.image = [dashImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    dashImg.tintColor = light;
+    dashImg.frame = CGRectMake(30, botY + butOff, 21, 21);
+    [self.view addSubview:dashImg];
+    
     // past bets button
+    butOff = butOff + butH;
+    UIButton *pastBetsBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    pastBetsBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    pastBetsBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [pastBetsBtn addTarget:self action:@selector(viewPastBets:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:pastBetsBtn];
+        // add the label
+    UILabel *pastText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    pastText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    pastText.textColor = light;
+    pastText.text = @"Past Bets";
+    [self.view addSubview:pastText];
+        // add the icon
+    UIImageView *pastBetsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bet-11.png"]];
+    pastBetsImg.image = [pastBetsImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    pastBetsImg.tintColor = light;
+    pastBetsImg.frame = CGRectMake(30, botY + butOff, 21, 21);
+    [self.view addSubview:pastBetsImg];
+    
     // friends button
+    butOff = butOff + butH;
+    UIButton *friendsBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    friendsBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    friendsBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [friendsBtn addTarget:self action:@selector(viewFriends:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:friendsBtn];
+        // add the label
+    UILabel *friendsText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    friendsText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    friendsText.textColor = light;
+    friendsText.text = @"Friends";
+    [self.view addSubview:friendsText];
+        // add the icon
+    UIImageView *friendsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"friends-12.png"]];
+    friendsImg.image = [friendsImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    friendsImg.tintColor = light;
+    friendsImg.frame = CGRectMake(30, botY + butOff, 21, 21);
+    [self.view addSubview:friendsImg];
+    
     // settings button
+    butOff = butOff + butH;
+    UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    setBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    setBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [setBtn addTarget:self action:@selector(viewSettings:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:setBtn];
+        // add the label
+    UILabel *setText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    setText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    setText.textColor = light;
+    setText.text = @"Settings";
+    [self.view addSubview:setText];
+        // add the icon
+    UIImageView *setImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings-13.png"]];
+    setImg.image = [setImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    setImg.tintColor = light;
+    setImg.frame = CGRectMake(30, botY + butOff, 21, 21);
+    [self.view addSubview:setImg];
+    
     // logout button
+    butOff = butOff + butH + butH;
+    UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    logoutBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    logoutBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [logoutBtn addTarget:self action:@selector(logoutButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:logoutBtn];
+        // add the label
+    UILabel *logoutText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    logoutText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    logoutText.textColor = light;
+    logoutText.text = @"Logout";
+    [self.view addSubview:logoutText];
+        // add the icon
+    UIImageView *logoutImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logout-14.png"]];
+    logoutImg.image = [logoutImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    logoutImg.tintColor = light;
+    logoutImg.frame = CGRectMake(30, botY + butOff, 21, 21);
+    [self.view addSubview:logoutImg];
+    // add outlines
+    UIView *l1 = [[UIView alloc] initWithFrame:CGRectMake(0, botY+butOff - 15, self.passedFrame.size.width, 2)];
+    l1.backgroundColor = light;
+    UIView *l2 = [[UIView alloc] initWithFrame:CGRectMake(0, botY+butOff + butH, self.passedFrame.size.width, 2)];
+    l2.backgroundColor = light;
+    [self.view addSubview:l1];
+    [self.view addSubview:l2];
+    
     // betchyu logo view
-    
-    
-    /*UIView *lineView;
-    ///////////////////////
-    // My Profile Button
-    ///////////////////////
-    // The line above it
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(25, 50, passedFrame.size.width, 2)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    // convenience frame
-    CGRect useRect = CGRectMake(25, 60, 280, 40);
-    // the button
-    UIButton *myProfile = [[UIButton alloc] initWithFrame:useRect];
-    [myProfile addTarget:self action:@selector(profileButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    // The separate Text label for easier control
-    UILabel *myProfileLabel = [[UILabel alloc] initWithFrame:useRect];
-    myProfileLabel.text = @"My Profile";
-    myProfileLabel.textColor = [UIColor whiteColor];
-    myProfileLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-    // add all the subviews
-    [self.view addSubview:myProfile];
-    [self.view addSubview:myProfileLabel];
-    [self.view addSubview:lineView];
-    
-    ///////////////////////
-    // How It Works Button
-    ///////////////////////
-    // The line above it
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(25, 110, passedFrame.size.width, 2)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    // convenience frame
-    useRect = CGRectMake(25, 120, 280, 40);
-    // the button
-    UIButton *howWork = [[UIButton alloc] initWithFrame:useRect];
-    [howWork addTarget:self action:@selector(howItWorksPressed:) forControlEvents:UIControlEventTouchUpInside];
-    // The separate Text label for easier control
-    UILabel *howWorkLabel = [[UILabel alloc] initWithFrame:useRect];
-    howWorkLabel.text = @"How It Works";
-    howWorkLabel.textColor = [UIColor whiteColor];
-    howWorkLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-    // add all the subviews
-    [self.view addSubview:howWork];
-    [self.view addSubview:howWorkLabel];
-    [self.view addSubview:lineView];
-    
-    ///////////////////////
-    // Feedback Button
-    ///////////////////////
-    // The line above it
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(25, 170, passedFrame.size.width, 2)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    // convenience frame
-    useRect = CGRectMake(25, 180, 280, 40);
-    // the button
-    UIButton *feedback = [[UIButton alloc] initWithFrame:useRect];
-    [feedback addTarget:self action:@selector(feedbackPressed:) forControlEvents:UIControlEventTouchUpInside];
-    // The separate Text label for easier control
-    UILabel *feedbackLabel  = [[UILabel alloc] initWithFrame:useRect];
-    feedbackLabel.text      = @"Feedback";
-    feedbackLabel.textColor = [UIColor whiteColor];
-    feedbackLabel.font      = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-    // add all the subviews
-    [self.view addSubview:feedback];
-    [self.view addSubview:feedbackLabel];
-    [self.view addSubview:lineView];
-    
-    ///////////////////////
-    // About Us Button
-    ///////////////////////
-    // The line above it
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(25, 230, passedFrame.size.width, 2)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    // convenience frame
-    useRect = CGRectMake(25, 240, 280, 40);
-    // the button
-    UIButton *about = [[UIButton alloc] initWithFrame:useRect];
-    [about addTarget:self action:@selector(aboutUsPressed:) forControlEvents:UIControlEventTouchUpInside];
-    // The separate Text label for easier control
-    UILabel *aboutLabel = [[UILabel alloc] initWithFrame:useRect];
-    aboutLabel.text = @"About Us";
-    aboutLabel.textColor = [UIColor whiteColor];
-    aboutLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-    // add all the subviews
-    [self.view addSubview:about];
-    [self.view addSubview:aboutLabel];
-    [self.view addSubview:lineView];
-    
-    ///////////////////////
-    // Logout Button
-    ///////////////////////
-    // The line above it
-    lineView = [[UIView alloc] initWithFrame:CGRectMake(25, passedFrame.size.height-50, passedFrame.size.width, 2)];
-    lineView.backgroundColor = [UIColor whiteColor];
-    // convenience frame
-    CGRect logoutRect = CGRectMake(25, passedFrame.size.height-50, 280, 40);
-    // the button
-    UIButton *logout = [[UIButton alloc] initWithFrame:logoutRect];
-    [logout addTarget:self action:@selector(logoutButtonWasPressed:) forControlEvents:UIControlEventTouchUpInside];
-    // The separate Text label for easier control
-    UILabel *logoutLabel = [[UILabel alloc] initWithFrame:logoutRect];
-    logoutLabel.text = @"Logout";
-    logoutLabel.textColor = [UIColor whiteColor];
-    logoutLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
-    // add all the subviews
-    [self.view addSubview:logout];
-    [self.view addSubview:logoutLabel];
-    [self.view addSubview:lineView];*/
     
 }
 - (void)viewDidLoad {
@@ -212,6 +214,43 @@
     vc.view = [[Feedback alloc] initWithFrame:self.passedFrame AndOwner:self];
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
+}
+-(void) backToDashboard:(id)sender {
+    self.stackViewController.leftViewControllerEnabled = YES;
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
+    self.stackViewController.leftViewControllerEnabled = NO;
+    
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:NO];
+}
+-(void) viewPastBets:(id)sender {
+    // get out of the flyout menu
+    self.stackViewController.leftViewControllerEnabled = YES;
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
+    self.stackViewController.leftViewControllerEnabled = NO;
+    
+    PastBetsVC *vc = [[PastBetsVC alloc] init];
+    vc.title = @"Past Bets";
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
+}
+-(void) viewFriends:(id)sender {
+    // get out of the flyout menu
+    self.stackViewController.leftViewControllerEnabled = YES;
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
+    self.stackViewController.leftViewControllerEnabled = NO;
+    
+    FriendsVC *vc = [[FriendsVC alloc] init];
+    vc.title = @"Friends";
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
+}
+-(void) viewSettings:(id)sender {
+    // get out of the flyout menu
+    self.stackViewController.leftViewControllerEnabled = YES;
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
+    self.stackViewController.leftViewControllerEnabled = NO;
+    
+    SettingsVC *vc = [[SettingsVC alloc] init];
+    vc.title = @"Settings";
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 
 

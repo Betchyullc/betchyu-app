@@ -33,6 +33,12 @@
 		890B986519473532004DE649 /* workout-05.png in Resources */ = {isa = PBXBuildFile; fileRef = 890B984F19473532004DE649 /* workout-05.png */; };
 		890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B9867194740BD004DE649 /* CompletionBorderView.m */; };
 		890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B986A19478DCE004DE649 /* FlyoutTopView.m */; };
+		890B986E1948B9D3004DE649 /* SettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B986D1948B9D3004DE649 /* SettingsVC.m */; };
+		890B98721948BA31004DE649 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B98711948BA31004DE649 /* SettingsView.m */; };
+		890B98751948CF01004DE649 /* PastBetsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B98741948CF01004DE649 /* PastBetsVC.m */; };
+		890B98781948CFAA004DE649 /* YourPastBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B98771948CFAA004DE649 /* YourPastBetsView.m */; };
+		890B987B1948CFF3004DE649 /* FriendsPastBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B987A1948CFF3004DE649 /* FriendsPastBetsView.m */; };
+		890B987E1948D165004DE649 /* FriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B987D1948D165004DE649 /* FriendsVC.m */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
@@ -161,6 +167,18 @@
 		890B9867194740BD004DE649 /* CompletionBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionBorderView.m; sourceTree = "<group>"; };
 		890B986919478DCE004DE649 /* FlyoutTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyoutTopView.h; sourceTree = "<group>"; };
 		890B986A19478DCE004DE649 /* FlyoutTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlyoutTopView.m; sourceTree = "<group>"; };
+		890B986C1948B9D3004DE649 /* SettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsVC.h; sourceTree = "<group>"; };
+		890B986D1948B9D3004DE649 /* SettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsVC.m; sourceTree = "<group>"; };
+		890B98701948BA31004DE649 /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
+		890B98711948BA31004DE649 /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
+		890B98731948CF01004DE649 /* PastBetsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastBetsVC.h; sourceTree = "<group>"; };
+		890B98741948CF01004DE649 /* PastBetsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastBetsVC.m; sourceTree = "<group>"; };
+		890B98761948CFAA004DE649 /* YourPastBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YourPastBetsView.h; sourceTree = "<group>"; };
+		890B98771948CFAA004DE649 /* YourPastBetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YourPastBetsView.m; sourceTree = "<group>"; };
+		890B98791948CFF3004DE649 /* FriendsPastBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsPastBetsView.h; sourceTree = "<group>"; };
+		890B987A1948CFF3004DE649 /* FriendsPastBetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsPastBetsView.m; sourceTree = "<group>"; };
+		890B987C1948D165004DE649 /* FriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsVC.h; sourceTree = "<group>"; };
+		890B987D1948D165004DE649 /* FriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsVC.m; sourceTree = "<group>"; };
 		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
@@ -343,6 +361,23 @@
 			path = icons;
 			sourceTree = "<group>";
 		};
+		890B986F1948B9EF004DE649 /* Flyout Menu stuff */ = {
+			isa = PBXGroup;
+			children = (
+				89B1A7501866A01A006A656F /* FlyoutMenuVC.h */,
+				89B1A7511866A01A006A656F /* FlyoutMenuVC.m */,
+				890B986C1948B9D3004DE649 /* SettingsVC.h */,
+				890B986D1948B9D3004DE649 /* SettingsVC.m */,
+				890B987C1948D165004DE649 /* FriendsVC.h */,
+				890B987D1948D165004DE649 /* FriendsVC.m */,
+				8958818D187C510300CCC9DC /* HowItWorksVC.h */,
+				8958818E187C510300CCC9DC /* HowItWorksVC.m */,
+				890B98731948CF01004DE649 /* PastBetsVC.h */,
+				890B98741948CF01004DE649 /* PastBetsVC.m */,
+			);
+			name = "Flyout Menu stuff";
+			sourceTree = "<group>";
+		};
 		892154BA1850F3CD0052A7C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,10 +393,7 @@
 				892154F0185688EF0052A7C0 /* MyBetsVC.m */,
 				892154F5185760240052A7C0 /* MyGoalsVC.h */,
 				892154F6185760240052A7C0 /* MyGoalsVC.m */,
-				89B1A7501866A01A006A656F /* FlyoutMenuVC.h */,
-				89B1A7511866A01A006A656F /* FlyoutMenuVC.m */,
-				8958818D187C510300CCC9DC /* HowItWorksVC.h */,
-				8958818E187C510300CCC9DC /* HowItWorksVC.m */,
+				890B986F1948B9EF004DE649 /* Flyout Menu stuff */,
 				890D969A19420C5B00E84039 /* BraintreeDelegateController.h */,
 				890D969B19420C5B00E84039 /* BraintreeDelegateController.m */,
 			);
@@ -626,6 +658,12 @@
 				89B1A756186767E9006A656F /* ProfileView.m */,
 				890B986919478DCE004DE649 /* FlyoutTopView.h */,
 				890B986A19478DCE004DE649 /* FlyoutTopView.m */,
+				890B98701948BA31004DE649 /* SettingsView.h */,
+				890B98711948BA31004DE649 /* SettingsView.m */,
+				890B98761948CFAA004DE649 /* YourPastBetsView.h */,
+				890B98771948CFAA004DE649 /* YourPastBetsView.m */,
+				890B98791948CFF3004DE649 /* FriendsPastBetsView.h */,
+				890B987A1948CFF3004DE649 /* FriendsPastBetsView.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -834,6 +872,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89B1A749186674D7006A656F /* FacingView.m in Sources */,
+				890B986E1948B9D3004DE649 /* SettingsVC.m in Sources */,
 				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,
 				89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */,
 				892154F1185688EF0052A7C0 /* MyBetsVC.m in Sources */,
@@ -852,9 +891,11 @@
 				890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */,
 				8957380D189830BB00E693A5 /* Graph.m in Sources */,
 				89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */,
+				890B98721948BA31004DE649 /* SettingsView.m in Sources */,
 				892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */,
 				89E2F788191AB95F001BB854 /* BetSummaryVC.m in Sources */,
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
+				890B98751948CF01004DE649 /* PastBetsVC.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
 				890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */,
@@ -869,9 +910,12 @@
 				890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */,
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
+				890B987E1948D165004DE649 /* FriendsVC.m in Sources */,
 				89B1A6B01859236C006A656F /* API.m in Sources */,
+				890B987B1948CFF3004DE649 /* FriendsPastBetsView.m in Sources */,
 				892154B21850F36F0052A7C0 /* BetStakeVC.m in Sources */,
 				8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */,
+				890B98781948CFAA004DE649 /* YourPastBetsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

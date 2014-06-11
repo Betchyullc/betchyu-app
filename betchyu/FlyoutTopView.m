@@ -20,6 +20,13 @@
         UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
         int off = 35;
         NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+        self.backgroundColor = [UIColor whiteColor];
+        // add shadow
+        self.layer.shadowOffset = CGSizeMake(0, 5);
+        self.layer.shadowColor = [dark CGColor];
+        self.layer.shadowRadius = 2.5f;
+        self.layer.shadowOpacity = 0.50f;
+        self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.layer.bounds] CGPath];
         
         // Status bar coloring
         UIView *bar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, off - 9)];
