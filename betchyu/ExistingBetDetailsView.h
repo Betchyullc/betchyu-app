@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "HeadingBarView.h"
+#import <math.h>
+#import "ProgressBarView.h"
 
 @interface ExistingBetDetailsView : UIScrollView
+
+@property BOOL ownerIsMale;
 
 - (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet;
 

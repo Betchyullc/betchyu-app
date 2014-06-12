@@ -12,6 +12,7 @@
 #import "API.h"
 #import "TempBet.h"
 
+
 @interface BraintreeDelegateController : NSObject <BTPaymentViewControllerDelegate>
 
 @property TempBet * bet;

@@ -10,11 +10,14 @@
 
 @implementation ExistingBetDetailsView
 
+@synthesize ownerIsMale;
+
 - (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.ownerIsMale = YES;
         self.backgroundColor = [UIColor whiteColor];
         int fontS = 14;
         // colors
@@ -24,7 +27,7 @@
         UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
         UIColor *blue   = [UIColor colorWithRed:83.0/255 green:188.0/255 blue:183.0/255 alpha:1.0];
         
-        /* TOP SECTION */
+/* -----TOP SECTION----- */
         // graphic
         // use a button to dispaly a pic for tint funcionality
         int dim = frame.size.width/3.5;
@@ -43,27 +46,68 @@
         circle.layer.cornerRadius = circle.frame.size.width/2;
         // text
         UILabel *desc = [[UILabel alloc] initWithFrame:CGRectMake(10, circle.frame.origin.y + circle.frame.size.height + 15, frame.size.width - 20, 60)];
-        desc.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fontS];
-        desc.textColor = light;
+        desc.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontS+4];
+        desc.textColor = dark;
         desc.textAlignment = NSTextAlignmentCenter;
         desc.lineBreakMode = NSLineBreakByWordWrapping;
         desc.numberOfLines = 0;
         [self setBetDescription:bet ForLabel:desc]; // also adds label
         
-        /* PROGRESS SECTION */
+/* -----PROGRESS SECTION------ */
         HeadingBarView * progHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, desc.frame.origin.y + desc.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Progress"];
-        UILabel *dayCount = [[UILabel alloc] initWithFrame:CGRectMake(10, progHeader.frame.origin.y + progHeader.frame.size.height + 10, frame.size.width - 20, 30)];
-        dayCount.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fontS];
+        
+        UILabel *dayCount = [[UILabel alloc] initWithFrame:CGRectMake(15, progHeader.frame.origin.y + progHeader.frame.size.height + 10, frame.size.width - 30, 30)];
         dayCount.textColor = dark;
-        dayCount.text = [NSString stringWithFormat:@"%i days in\t\t\t days to go", [self getDaysInFromBet:bet]];
+        int daysIn = [self getDaysInFromBet:bet];
+        int daysInLen = (daysIn ==0) ? 1 : (int)log10(daysIn) + 1;
+        int daysLeft = [self getDaysToGoFromBet:bet];
+        int daysLeftLen = (daysLeft ==0) ? 1 : (int)log10(daysLeft) + 1;
+        NSString *text = [NSString stringWithFormat:@"%i days in\t\t\t\t\t%i days to go", daysIn, [self getDaysToGoFromBet:bet]];
+        UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Black" size:fontS+2];
+        UIFont *regularFont = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fontS+2];
+        UIColor *foregroundColor = dark;
+        // Create the attributes
+        NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                               regularFont, NSFontAttributeName,
+                               foregroundColor, NSForegroundColorAttributeName, nil];
+        NSDictionary *subAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  boldFont, NSFontAttributeName, nil];
+        const NSRange range = NSMakeRange(0,daysInLen);                // range of first number
+        const NSRange range2 = NSMakeRange(daysInLen+13, daysLeftLen); // range of 2nd number
         
-        /* STAKE SECTION */
-        HeadingBarView * stakeHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, desc.frame.origin.y + desc.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Stake"];
+        // Create the attributed string (text + attributes)
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text attributes:attrs];
+        [attributedText setAttributes:subAttrs range:range];
+        [attributedText setAttributes:subAttrs range:range2];
+        // Set it in our UILabel and we are done!
+        [dayCount setAttributedText:attributedText];
         
-        /* OPPONENTS SECTION */
+        CGRect dCf = dayCount.frame;
+        UIView *line = [UIView new];
+        line.frame = CGRectMake(dCf.origin.x, dCf.origin.y+dCf.size.height, dCf.size.width, 2);
+        line.backgroundColor = light;
+        
+        UILabel *progDesc = [UILabel new];
+        progDesc.frame = CGRectMake(dCf.origin.x, line.frame.origin.y + 12, dCf.size.width, dCf.size.height);
+        progDesc.textColor = dark;
+        progDesc.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontS+1];
+        progDesc.text = [self getProgressTextFromBet:bet];
+        
+        ProgressBarView *progBar = [[ProgressBarView alloc] initWithFrame:CGRectMake(dCf.origin.x, progDesc.frame.origin.y + progDesc.frame.size.height, dCf.size.width, 15) AndColor:circle.color AndPercentComplete:[[bet valueForKey:@"progress"] intValue]];
+        
+        UILabel * percProg = [[UILabel alloc] initWithFrame:CGRectMake(dCf.origin.x, progBar.frame.origin.y + progBar.frame.size.height, dCf.size.width, 20)];
+        percProg.textColor = dark;
+        percProg.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontS-2];
+        percProg.text = [NSString stringWithFormat:@"%@\%% complete", [bet valueForKey:@"progress"]];
+        
+        
+/* -----STAKE SECTION----- */
+        HeadingBarView * stakeHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, percProg.frame.origin.y + percProg.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Stake"];
+        
+/* -----OPPONENTS SECTION----- */
         HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, desc.frame.origin.y + desc.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
         
-        /* COMMENTS SECTION */
+/* -----COMMENTS SECTION----- */
         HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, desc.frame.origin.y + desc.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
         
         // Add everything
@@ -71,12 +115,20 @@
         [self addSubview:circle];
         [self addSubview:progHeader];
         [self addSubview:dayCount];
+        [self addSubview:line];
+        [self addSubview:progDesc];
+        [self addSubview:progBar];
+        [self addSubview:percProg];
+        
+        [self addSubview:stakeHeader];
+        
         // determine contentSize
         self.contentSize = CGSizeMake(frame.size.width, frame.size.height);
     }
     return self;
 }
 
+// Helpers! yay!
 -(UIColor *)getColor {
     UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
     UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
@@ -119,6 +171,9 @@
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
+            if ([[result valueForKey:@"gender"] isEqualToString:@"female"]) {
+                ownerIsMale = NO;
+            }
             NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
             // Success! Include your code to handle the results here
             if ([noun isEqualToString:@"smoking"]) {
@@ -150,5 +205,47 @@
                                                          options:0];
     return components.day;
     
+}
+
+-(int)getDaysToGoFromBet:(NSDictionary *)bet {
+    [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDate *start = [dateFormatter dateFromString: [[bet valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
+    
+    NSDateComponents *components = [NSDateComponents new];
+    components.day = [[bet valueForKey:@"duration"] integerValue];
+    NSDate *end = [[NSCalendar currentCalendar]dateByAddingComponents:components
+                                                                   toDate:start
+                                                                  options:0];
+    
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    components = [gregorianCalendar components:NSDayCalendarUnit fromDate:[NSDate date] toDate:end options:0];
+
+    return components.day;
+}
+-(NSString *)getProgressTextFromBet:(NSDictionary *)bet {
+    NSString *n = [[bet valueForKey:@"noun"] lowercaseString];
+    NSString * two; NSString * three; NSString * four; NSString * five;
+    
+    if ([n isEqualToString:@"smoking"]) {
+        two   = @"not smoked";
+        three = [NSString stringWithFormat:@"%.0f",([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"duration"] integerValue])];
+        four  = [bet valueForKey:@"duration"];
+        five  = @"days";
+    } else if ( [n isEqualToString:@"weight"] ) {
+        two   = @"lost";
+        three = [NSString stringWithFormat:@"%.02f",([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"amount"] integerValue])];
+        four  = [bet valueForKey:@"amount"];
+        five  = @"pounds";
+    } else {
+        two   = @"verbed";
+        three = [NSString stringWithFormat:@"%.02f",([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"amount"] integerValue])];
+        four  = [bet valueForKey:@"amount"];
+        five  = @"nouns";
+    }
+    return [NSString stringWithFormat:@"In total, %@ has %@ %@ / %@ %@.", ownerIsMale ? @"he": @"she", two, three, four, five];
 }
 @end

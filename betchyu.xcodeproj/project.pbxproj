@@ -71,6 +71,7 @@
 		892154F7185760240052A7C0 /* MyGoalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154F6185760240052A7C0 /* MyGoalsVC.m */; };
 		8926AA8B1940E73400AAB74A /* MyBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AA8A1940E73400AAB74A /* MyBetsView.m */; };
 		89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89294AE81934C96200094389 /* Target Gift Card.jpg */; };
+		8948F533194A431100FF1519 /* ProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F532194A431100FF1519 /* ProgressBarView.m */; };
 		8957380D189830BB00E693A5 /* Graph.m in Sources */ = {isa = PBXBuildFile; fileRef = 8957380C189830BB00E693A5 /* Graph.m */; };
 		8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818B187C4C9800CCC9DC /* AboutUs.m */; };
 		8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818E187C510300CCC9DC /* HowItWorksVC.m */; };
@@ -230,6 +231,8 @@
 		8926AA891940E73400AAB74A /* MyBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBetsView.h; sourceTree = "<group>"; };
 		8926AA8A1940E73400AAB74A /* MyBetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsView.m; sourceTree = "<group>"; };
 		89294AE81934C96200094389 /* Target Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Target Gift Card.jpg"; sourceTree = "<group>"; };
+		8948F531194A431100FF1519 /* ProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarView.h; sourceTree = "<group>"; };
+		8948F532194A431100FF1519 /* ProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarView.m; sourceTree = "<group>"; };
 		8957380B189830BB00E693A5 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
 		8957380C189830BB00E693A5 /* Graph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Graph.m; sourceTree = "<group>"; };
 		8958818A187C4C9800CCC9DC /* AboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUs.h; sourceTree = "<group>"; };
@@ -658,8 +661,6 @@
 				89C65168193D232F004B64B6 /* DashHeaderView.m */,
 				89C6516A193E4BE9004B64B6 /* PendingBetsView.h */,
 				89C6516B193E4BE9004B64B6 /* PendingBetsView.m */,
-				890B9866194740BD004DE649 /* CompletionBorderView.h */,
-				890B9867194740BD004DE649 /* CompletionBorderView.m */,
 				8926AA891940E73400AAB74A /* MyBetsView.h */,
 				8926AA8A1940E73400AAB74A /* MyBetsView.m */,
 				890B983619464123004DE649 /* FriendsBetsSubview.h */,
@@ -692,12 +693,16 @@
 		89C6516F193E4C1E004B64B6 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				890B9866194740BD004DE649 /* CompletionBorderView.h */,
+				890B9867194740BD004DE649 /* CompletionBorderView.m */,
 				892154A51850F36F0052A7C0 /* BigButton.h */,
 				892154A61850F36F0052A7C0 /* BigButton.m */,
 				8957380B189830BB00E693A5 /* Graph.h */,
 				8957380C189830BB00E693A5 /* Graph.m */,
 				890B98861949F4E7004DE649 /* HeadingBarView.h */,
 				890B98871949F4E7004DE649 /* HeadingBarView.m */,
+				8948F531194A431100FF1519 /* ProgressBarView.h */,
+				8948F532194A431100FF1519 /* ProgressBarView.m */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
@@ -906,6 +911,7 @@
 				89B1A74C186674D7006A656F /* UIView+Screenshot.m in Sources */,
 				892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */,
 				89C65169193D232F004B64B6 /* DashHeaderView.m in Sources */,
+				8948F533194A431100FF1519 /* ProgressBarView.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
 				89C65166193D1E31004B64B6 /* DashboardVC.m in Sources */,
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,

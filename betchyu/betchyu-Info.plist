@@ -39,6 +39,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ProximaNovaT-Thin.otf</string>
 		<string>ProximaNova-Black.otf</string>
 		<string>ProximaNova-Bold.otf</string>
 		<string>ProximaNova-Regular.otf</string>

@@ -58,6 +58,8 @@
 
 -(void)loadView {
     UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+    UIColor *mid = [UIColor colorWithRed:186.0/255 green:186.0/255 blue:194.0/255 alpha:1.0];
+
     int botY = 5*self.passedFrame.size.height/11;
     self.view = [[UIView alloc] initWithFrame:self.passedFrame];
     self.view.backgroundColor = [UIColor colorWithRed:(250/255.0) green:(250/255.0) blue:(250/255.0) alpha:1.0];
@@ -70,7 +72,7 @@
     [editBtn setTitle:@"Edit Profile" forState:UIControlStateNormal];
     [editBtn sizeToFit];
     [editBtn addTarget:self action:@selector(editProfile:) forControlEvents:UIControlEventTouchUpInside];
-    editBtn.tintColor = light;
+    editBtn.tintColor = mid;
     editBtn.frame = CGRectMake(self.passedFrame.size.width/2 - 50, botY - 60, 100, 18);
     [self.view addSubview:editBtn];
     
@@ -86,14 +88,14 @@
     [self.view addSubview:dashBtn];
         // add the label
     self.dashText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    self.dashText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
+    self.dashText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
     self.dashText.text = @"Dashboard";
-    self.dashText.textColor = light;
+    self.dashText.textColor = mid;
     [self.view addSubview:dashText];
         // add the icon
     self.dashImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-10.png"]];
     dashImg.image = [dashImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    dashImg.tintColor = light;
+    dashImg.tintColor = mid;
     dashImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:dashImg];
     
@@ -106,14 +108,14 @@
     [self.view addSubview:pastBtn];
         // add the label
     self.pastText1 = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    pastText1.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
-    pastText1.textColor = light;
+    pastText1.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
+    pastText1.textColor = mid;
     pastText1.text = @"Past Bets";
     [self.view addSubview:pastText1];
         // add the icon
     self.pastImg1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bet-11.png"]];
     pastImg1.image = [pastImg1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    pastImg1.tintColor = light;
+    pastImg1.tintColor = mid;
     pastImg1.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:pastImg1];
     
@@ -126,14 +128,14 @@
     [self.view addSubview:friendsBtn];
         // add the label
     self.friendsText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    friendsText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
-    friendsText.textColor = light;
+    friendsText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
+    friendsText.textColor = mid;
     friendsText.text = @"Friends";
     [self.view addSubview:friendsText];
         // add the icon
     self.friendsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"friends-12.png"]];
     friendsImg.image = [friendsImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    friendsImg.tintColor = light;
+    friendsImg.tintColor = mid;
     friendsImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:friendsImg];
     
@@ -146,14 +148,14 @@
     [self.view addSubview:setBtn];
         // add the label
     self.setText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    setText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
-    setText.textColor = light;
+    setText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
+    setText.textColor = mid;
     setText.text = @"Settings";
     [self.view addSubview:setText];
         // add the icon
     self.setImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings-13.png"]];
     setImg.image = [setImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    setImg.tintColor = light;
+    setImg.tintColor = mid;
     setImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:setImg];
     
@@ -166,14 +168,14 @@
     [self.view addSubview:logoutBtn];
         // add the label
     UILabel *logoutText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    logoutText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
-    logoutText.textColor = light;
+    logoutText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
+    logoutText.textColor = mid;
     logoutText.text = @"Logout";
     [self.view addSubview:logoutText];
         // add the icon
     UIImageView *logoutImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logout-14.png"]];
     logoutImg.image = [logoutImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    logoutImg.tintColor = light;
+    logoutImg.tintColor = mid;
     logoutImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:logoutImg];
     // add outlines
@@ -393,46 +395,46 @@
     }
 }
 -(void) clearAll {
-    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+    UIColor *mid = [UIColor colorWithRed:186.0/255 green:186.0/255 blue:194.0/255 alpha:1.0];
     
     // clear last = 0, Dashboard
     dashBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
     pastBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     
-    self.dashText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
-    self.dashText.textColor = light;
+    self.dashText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:20];
+    self.dashText.textColor = mid;
     
-    dashImg.tintColor = light;
+    dashImg.tintColor = mid;
     
     // clear Past Bets, last = 1
     pastBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
     dashBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     friendsBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     
-    self.pastText1.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
-    self.pastText1.textColor = light;
+    self.pastText1.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:20];
+    self.pastText1.textColor = mid;
     
-    pastImg1.tintColor = light;
+    pastImg1.tintColor = mid;
     
     // clear Friends, last = 2
     friendsBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
     pastBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     setBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     
-    self.friendsText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
-    self.friendsText.textColor = light;
+    self.friendsText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:20];
+    self.friendsText.textColor = mid;
     
-    friendsImg.tintColor = light;
+    friendsImg.tintColor = mid;
     
     // clear Settings, last = 3
     setBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
     friendsBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     //setBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
     
-    self.setText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
-    self.setText.textColor = light;
+    self.setText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:20];
+    self.setText.textColor = mid;
     
-    setImg.tintColor = light;
+    setImg.tintColor = mid;
 }
 
 
