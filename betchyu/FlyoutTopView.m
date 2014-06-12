@@ -65,7 +65,7 @@
         }];
         
         // The Bets Completed
-        UILabel *bets = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.origin.y + off + dim + dim/2.7, frame.size.width, 20)];
+        UILabel *bets = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.origin.y + frame.size.height - 30, frame.size.width, 20)];
         bets.text = @"Bets Completed\t\tBets Won";
         bets.textAlignment = NSTextAlignmentCenter;
         bets.textColor = dark;

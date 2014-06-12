@@ -39,6 +39,8 @@
     UINavigationController *flyOutNav =[[UINavigationController alloc] initWithRootViewController:menuViewController];
     flyOutNav.navigationBarHidden = YES;
     
+    stackViewController.delegate = menuViewController;
+    
     [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
     [stackViewController setLeftViewController:flyOutNav];
     

@@ -7,6 +7,7 @@
 //
 
 #import "FriendsBetsSubview.h"
+#import "HeadingBarView.h"
 
 @implementation FriendsBetsSubview
 
@@ -26,30 +27,12 @@
             self.fontSize = 21;
             self.rowHt = 100;
         }
-        UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
-        UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
-        UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
-        UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
         
         // Background
         [self setBackgroundColor:[UIColor whiteColor]];
         
         // Title bar
-        UIView *heading = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8)];
-        [heading setBackgroundColor:dark];
-        //Adds a shadow to heading
-        heading.layer.shadowOffset = CGSizeMake(0, 4);
-        heading.layer.shadowColor = [dark CGColor];
-        heading.layer.shadowRadius = 2.5f;
-        heading.layer.shadowOpacity = 0.60f;
-        heading.layer.shadowPath = [[UIBezierPath bezierPathWithRect:heading.layer.bounds] CGPath];
-        // Adds text to the heading
-        UILabel *title  = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, frame.size.width - 20, fontSize*1.5)];
-        title.text = @"Friend's Bets";
-        title.font = [UIFont fontWithName:@"ProximaNova-Bold" size:fontSize];
-        title.textColor = [UIColor whiteColor];
-        title.textAlignment = NSTextAlignmentLeft;
-        [heading addSubview:title];
+        HeadingBarView *heading = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8) AndTitle:@"Friend's Bets"];
         
         // add everything
         [self addSubview:heading];
@@ -116,8 +99,6 @@
             // measurment variables
             int yB      = (rowHt * i) + off;
             int xMargin = frame.size.width/4.4;
-            int widthB  = frame.size.width/5.5;
-            int heightB = rowHt / 3.4;
             
             // Profile Image
             int diameter = frame.size.width / 6.7 ;

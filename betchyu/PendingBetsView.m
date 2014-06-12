@@ -9,6 +9,7 @@
 #import "PendingBetsView.h"
 #import <Braintree/BTEncryption.h>
 #import "BTPaymentViewController.h"
+#import "HeadingBarView.h"
 
 @implementation PendingBetsView
 
@@ -27,29 +28,12 @@
         if (frame.size.width > 700) {
             fontSize = 21;
             rowHt = 120;
-        }
-        UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
-        
+        }        
         // Background
         [self setBackgroundColor:[UIColor whiteColor]];
         
         // Title bar
-        UIView *heading = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8)];
-        [heading setBackgroundColor:dark];
-        //Adds a shadow to heading
-        heading.layer.shadowOffset = CGSizeMake(0, 5);
-        heading.layer.shadowColor = [dark CGColor];
-        heading.layer.shadowRadius = 2.5f;
-        heading.layer.shadowOpacity = 0.60f;
-        heading.layer.shadowPath = [[UIBezierPath bezierPathWithRect:heading.layer.bounds] CGPath];
-        // Adds text to the heading
-        UILabel *title  = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, frame.size.width - 20, fontSize*1.5)];
-        title.text = @"Pending Bets";
-        title.font = [UIFont fontWithName:@"ProximaNova-Bold" size:fontSize];
-        title.textColor = [UIColor whiteColor];
-        title.textAlignment = NSTextAlignmentLeft;
-        [heading addSubview:title];
-        
+        HeadingBarView *heading = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8) AndTitle:@"Friend's Bets"];
         
         // add everything
         [self addSubview:heading];

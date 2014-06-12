@@ -27,6 +27,9 @@
         self.numberOfInvites = numInvs;
         self.hasShownHowItWorks = NO;
         self.canLeavePage = NO;
+        
+        // remove the "Dasboard" from the back button on following pages
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     }
     
     return self;
@@ -48,12 +51,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view
     // make a plus button for new goal/bet
-    /*FBProfilePictureView *mypic = [[FBProfilePictureView alloc]
-                                   initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
-                                   pictureCropping:FBProfilePictureCroppingSquare];
-    mypic.frame = CGRectMake(0, 0, 26, 26);
-    mypic.layer.cornerRadius = 13;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:mypic];*/
     UIButton *bu = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [bu setImage:[UIImage imageNamed:@"plus-18.png"] forState:UIControlStateNormal];
     bu.frame = CGRectMake(0, 0, 22, 22);
@@ -65,10 +62,6 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(showMenu:)];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

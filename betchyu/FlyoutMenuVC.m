@@ -12,10 +12,10 @@
 #import "HowItWorksVC.h"
 #import "AppDelegate.h"
 #import "Feedback.h"
-#import "FlyoutTopView.h"
 #import "SettingsVC.h"
 #import "PastBetsVC.h"
 #import "FriendsVC.h"
+#import "EditProfileVC.h"
 
 @interface FlyoutMenuVC ()
 
@@ -25,17 +25,38 @@
 
 @synthesize passedFrame;
 
+@synthesize top;
+@synthesize editBtn;
+
+@synthesize dashBtn;
+@synthesize dashImg;
+@synthesize dashText;
+
+@synthesize pastBtn;
+@synthesize pastImg1;
+@synthesize pastText1;
+
+@synthesize friendsBtn;
+@synthesize friendsImg;
+@synthesize friendsText;
+
+@synthesize setBtn;
+@synthesize setImg;
+@synthesize setText;
+
+@synthesize last;
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         passedFrame = frame;
+        last = 0; // 0 means dashboard, 1 means Past Bets, 2 Friends, 3 Settings
     }
     return self;
 }
 
 -(void)loadView {
-    UIColor *betchyu = [UIColor colorWithRed:(243/255.0) green:(116.0/255.0) blue:(67/255.0) alpha:1.0];
     UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
     int botY = 5*self.passedFrame.size.height/11;
     self.view = [[UIView alloc] initWithFrame:self.passedFrame];
@@ -45,22 +66,32 @@
     [self tryToAddTopSectionToView:NO];
     
     // TODO: edit profile button (overlaps top section)
+    self.editBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [editBtn setTitle:@"Edit Profile" forState:UIControlStateNormal];
+    [editBtn sizeToFit];
+    [editBtn addTarget:self action:@selector(editProfile:) forControlEvents:UIControlEventTouchUpInside];
+    editBtn.tintColor = light;
+    editBtn.frame = CGRectMake(self.passedFrame.size.width/2 - 50, botY - 60, 100, 18);
+    [self.view addSubview:editBtn];
+    
     // dashboard button
-    int butOff = 10;
+    int butOff = 15;
+    int butPad = butOff/2;
     int butH = 39;
-    UIButton *goToDashboardBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    goToDashboardBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
-    goToDashboardBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-    [goToDashboardBtn addTarget:self action:@selector(backToDashboard:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:goToDashboardBtn];
+    int fS = 20;
+    self.dashBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    dashBtn.frame = CGRectMake(0, botY, self.passedFrame.size.width, butH+butPad);
+    dashBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0]; // transparent
+    [dashBtn addTarget:self action:@selector(backToDashboard:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:dashBtn];
         // add the label
-    UILabel *dashText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    dashText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
-    dashText.text = @"Dashboard";
-    dashText.textColor = light;
+    self.dashText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    self.dashText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
+    self.dashText.text = @"Dashboard";
+    self.dashText.textColor = light;
     [self.view addSubview:dashText];
         // add the icon
-    UIImageView *dashImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-10.png"]];
+    self.dashImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-10.png"]];
     dashImg.image = [dashImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     dashImg.tintColor = light;
     dashImg.frame = CGRectMake(30, botY + butOff, 21, 21);
@@ -68,39 +99,39 @@
     
     // past bets button
     butOff = butOff + butH;
-    UIButton *pastBetsBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    pastBetsBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
-    pastBetsBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-    [pastBetsBtn addTarget:self action:@selector(viewPastBets:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pastBetsBtn];
+    self.pastBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    pastBtn.frame = CGRectMake(0, botY + butOff - butPad, self.passedFrame.size.width, butH);
+    pastBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
+    [pastBtn addTarget:self action:@selector(viewPastBets:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:pastBtn];
         // add the label
-    UILabel *pastText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    pastText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
-    pastText.textColor = light;
-    pastText.text = @"Past Bets";
-    [self.view addSubview:pastText];
+    self.pastText1 = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    pastText1.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
+    pastText1.textColor = light;
+    pastText1.text = @"Past Bets";
+    [self.view addSubview:pastText1];
         // add the icon
-    UIImageView *pastBetsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bet-11.png"]];
-    pastBetsImg.image = [pastBetsImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    pastBetsImg.tintColor = light;
-    pastBetsImg.frame = CGRectMake(30, botY + butOff, 21, 21);
-    [self.view addSubview:pastBetsImg];
+    self.pastImg1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bet-11.png"]];
+    pastImg1.image = [pastImg1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    pastImg1.tintColor = light;
+    pastImg1.frame = CGRectMake(30, botY + butOff, 21, 21);
+    [self.view addSubview:pastImg1];
     
     // friends button
     butOff = butOff + butH;
-    UIButton *friendsBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    friendsBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    self.friendsBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    friendsBtn.frame = CGRectMake(0, botY + butOff -butPad, self.passedFrame.size.width, butH);
     friendsBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
     [friendsBtn addTarget:self action:@selector(viewFriends:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:friendsBtn];
         // add the label
-    UILabel *friendsText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    friendsText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    self.friendsText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    friendsText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
     friendsText.textColor = light;
     friendsText.text = @"Friends";
     [self.view addSubview:friendsText];
         // add the icon
-    UIImageView *friendsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"friends-12.png"]];
+    self.friendsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"friends-12.png"]];
     friendsImg.image = [friendsImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     friendsImg.tintColor = light;
     friendsImg.frame = CGRectMake(30, botY + butOff, 21, 21);
@@ -108,19 +139,19 @@
     
     // settings button
     butOff = butOff + butH;
-    UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    setBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
+    self.setBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    setBtn.frame = CGRectMake(0, botY + butOff - butPad, self.passedFrame.size.width, butH);
     setBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
     [setBtn addTarget:self action:@selector(viewSettings:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:setBtn];
         // add the label
-    UILabel *setText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    setText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    self.setText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
+    setText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
     setText.textColor = light;
     setText.text = @"Settings";
     [self.view addSubview:setText];
         // add the icon
-    UIImageView *setImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings-13.png"]];
+    self.setImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings-13.png"]];
     setImg.image = [setImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     setImg.tintColor = light;
     setImg.frame = CGRectMake(30, botY + butOff, 21, 21);
@@ -135,7 +166,7 @@
     [self.view addSubview:logoutBtn];
         // add the label
     UILabel *logoutText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
-    logoutText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22];
+    logoutText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:fS];
     logoutText.textColor = light;
     logoutText.text = @"Logout";
     [self.view addSubview:logoutText];
@@ -156,14 +187,6 @@
     // betchyu logo view
     
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)tryToAddTopSectionToView:(BOOL)useless {
     if ([((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId isEqualToString:@""]) {
@@ -172,11 +195,12 @@
         return;
     }
     
-    FlyoutTopView *top = [[FlyoutTopView alloc]initWithFrame:CGRectMake(0, 0, self.passedFrame.size.width, 5*self.passedFrame.size.height/11)];
+    self.top = [[FlyoutTopView alloc]initWithFrame:CGRectMake(0, 0, self.passedFrame.size.width, 5*self.passedFrame.size.height/11)];
     [self.view addSubview:top];
 }
 
 -(void) logoutButtonWasPressed:(id)sender {
+    last = 0;// for highlighting dashboard
     // switch back to the main menu for when they log back in
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
     // actual FB API call to log out
@@ -215,7 +239,18 @@
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }
+
+-(void) editProfile:(id)sender {
+    // get out of the flyout menu
+    self.stackViewController.leftViewControllerEnabled = YES;
+    [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
+    self.stackViewController.leftViewControllerEnabled = NO;
+    
+    EditProfileVC *vc = [[EditProfileVC alloc] init];
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
+}
 -(void) backToDashboard:(id)sender {
+    last = 0;
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
     self.stackViewController.leftViewControllerEnabled = NO;
@@ -223,6 +258,7 @@
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:NO];
 }
 -(void) viewPastBets:(id)sender {
+    last = 1;
     // get out of the flyout menu
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
@@ -233,6 +269,7 @@
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 -(void) viewFriends:(id)sender {
+    last = 2;
     // get out of the flyout menu
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
@@ -243,6 +280,7 @@
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 -(void) viewSettings:(id)sender {
+    last = 3;
     // get out of the flyout menu
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:NO];
@@ -251,6 +289,150 @@
     SettingsVC *vc = [[SettingsVC alloc] init];
     vc.title = @"Settings";
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
+}
+
+#pragma mark - MTStackViewControllerDelegate methods
+- (void)stackViewController:(MTStackViewController *)stackViewController didRevealLeftViewController:(UIViewController *)viewController {
+    
+    UIColor *betchyu = [UIColor colorWithRed:(243/255.0) green:(116.0/255.0) blue:(67/255.0) alpha:1.0];
+    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+    UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
+    
+    [self clearAll]; // sets them all to load-blank state
+
+    if (last == 0) {
+        dashBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        [self.view bringSubviewToFront:pastBtn];[self.view bringSubviewToFront:pastImg1];[self.view bringSubviewToFront:pastText1];
+        pastBtn.layer.shadowOffset = CGSizeMake(0, -4);
+        pastBtn.layer.shadowColor = [dark CGColor];
+        pastBtn.layer.shadowRadius = 1.5f;
+        pastBtn.layer.shadowOpacity = 0.40f;
+        pastBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:pastBtn.layer.bounds] CGPath];
+        pastBtn.backgroundColor = self.view.backgroundColor;
+        
+        [self.view bringSubviewToFront:top];[self.view bringSubviewToFront:editBtn];
+        
+        self.dashText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        self.dashText.textColor = betchyu;
+        
+        dashImg.tintColor = betchyu;
+    } else if (last == 1) {
+        //[self.view bringSubviewToFront:dashBtn];
+        pastBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        //top shadow
+        [self.view bringSubviewToFront:dashBtn];[self.view bringSubviewToFront:dashText];[self.view bringSubviewToFront:dashImg];
+        dashBtn.layer.shadowOffset = CGSizeMake(0, 4);
+        dashBtn.layer.shadowColor = [dark CGColor];
+        dashBtn.layer.shadowRadius = 1.5f;
+        dashBtn.layer.shadowOpacity = 0.40f;
+        dashBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:dashBtn.layer.bounds] CGPath];
+        dashBtn.backgroundColor = self.view.backgroundColor;
+        // bottom shadow
+        [self.view bringSubviewToFront:friendsBtn];[self.view bringSubviewToFront:friendsText];[self.view bringSubviewToFront:friendsImg];
+        friendsBtn.layer.shadowOffset = CGSizeMake(0, -4);
+        friendsBtn.layer.shadowColor = [dark CGColor];
+        friendsBtn.layer.shadowRadius = 1.5f;
+        friendsBtn.layer.shadowOpacity = 0.40f;
+        friendsBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:friendsBtn.layer.bounds] CGPath];
+        friendsBtn.backgroundColor = self.view.backgroundColor;
+        
+        self.pastText1.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        self.pastText1.textColor = betchyu;
+        
+        pastImg1.tintColor = betchyu;
+        
+    } else if (last == 2) {
+        //[self.view bringSubviewToFront:dashBtn];
+        friendsBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        //top shadow
+        [self.view bringSubviewToFront:pastBtn];[self.view bringSubviewToFront:pastText1];[self.view bringSubviewToFront:pastImg1];
+        pastBtn.layer.shadowOffset = CGSizeMake(0, 4);
+        pastBtn.layer.shadowColor = [dark CGColor];
+        pastBtn.layer.shadowRadius = 1.5f;
+        pastBtn.layer.shadowOpacity = 0.40f;
+        pastBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:pastBtn.layer.bounds] CGPath];
+        pastBtn.backgroundColor = self.view.backgroundColor;
+        // bottom shadow
+        [self.view bringSubviewToFront:setBtn];[self.view bringSubviewToFront:setText];[self.view bringSubviewToFront:setImg];
+        setBtn.layer.shadowOffset = CGSizeMake(0, -4);
+        setBtn.layer.shadowColor = [dark CGColor];
+        setBtn.layer.shadowRadius = 1.5f;
+        setBtn.layer.shadowOpacity = 0.40f;
+        setBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:setBtn.layer.bounds] CGPath];
+        setBtn.backgroundColor = self.view.backgroundColor;
+        
+        self.friendsText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        self.friendsText.textColor = betchyu;
+        
+        friendsImg.tintColor = betchyu;
+        
+    } else if (last == 3) {
+        //[self.view bringSubviewToFront:dashBtn];
+        setBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        //top shadow
+        [self.view bringSubviewToFront:friendsBtn];[self.view bringSubviewToFront:friendsText];[self.view bringSubviewToFront:friendsImg];
+        friendsBtn.layer.shadowOffset = CGSizeMake(0, 4);
+        friendsBtn.layer.shadowColor = [dark CGColor];
+        friendsBtn.layer.shadowRadius = 1.5f;
+        friendsBtn.layer.shadowOpacity = 0.40f;
+        friendsBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:friendsBtn.layer.bounds] CGPath];
+        friendsBtn.backgroundColor = self.view.backgroundColor;
+        // bottom shadow
+        /*
+        friendsBtn.layer.shadowOffset = CGSizeMake(0, -4);
+        friendsBtn.layer.shadowColor = [dark CGColor];
+        friendsBtn.layer.shadowRadius = 1.5f;
+        friendsBtn.layer.shadowOpacity = 0.40f;
+        friendsBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:friendsBtn.layer.bounds] CGPath];
+        friendsBtn.backgroundColor = self.view.backgroundColor;*/
+        
+        self.setText.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+        self.setText.textColor = betchyu;
+        
+        setImg.tintColor = betchyu;
+    }
+}
+-(void) clearAll {
+    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
+    
+    // clear last = 0, Dashboard
+    dashBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
+    pastBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    
+    self.dashText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
+    self.dashText.textColor = light;
+    
+    dashImg.tintColor = light;
+    
+    // clear Past Bets, last = 1
+    pastBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
+    dashBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    friendsBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    
+    self.pastText1.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
+    self.pastText1.textColor = light;
+    
+    pastImg1.tintColor = light;
+    
+    // clear Friends, last = 2
+    friendsBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
+    pastBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    setBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    
+    self.friendsText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
+    self.friendsText.textColor = light;
+    
+    friendsImg.tintColor = light;
+    
+    // clear Settings, last = 3
+    setBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:0.0];//transparent
+    friendsBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    //setBtn.layer.shadowColor = [dashBtn.backgroundColor CGColor];
+    
+    self.setText.font = [UIFont fontWithName:@"ProximaNova-Thin" size:20];
+    self.setText.textColor = light;
+    
+    setImg.tintColor = light;
 }
 
 

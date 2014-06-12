@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "BigButton.h"
 #import "API.h"
+#import "ExistingBetDetailsView.h"
 
 @interface ExistingBetDetailsVC ()
 
@@ -71,12 +72,12 @@
 }
 
 - (void)loadView {
-    // Create main UIScrollView (the container for home page buttons)
+    /*/ Create main UIScrollView (the container for home page buttons)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     int w = mainView.frame.size.width;
     int h = mainView.frame.size.height;
     mainView.contentSize   = CGSizeMake(w, 2*h/3 +120);
-    [mainView setBackgroundColor:[UIColor colorWithRed:(39/255.0) green:(37/255.0) blue:(37/255.0) alpha:1.0]];
+    mainView.backgroundColor = [UIColor whiteColor];
     
     // The bet-type image
     UIImageView *img;
@@ -88,7 +89,7 @@
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Workout More.jpg"]];
     } else if ([bet.verb isEqualToString:@"Lose"]){
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Lose Weight.jpg"]];
-    } else {*/
+    } else {*//*
         img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"handshake.jpg"]];
     //}
     img.frame = CGRectMake(0, 0, w, h/2);
@@ -184,9 +185,10 @@
     [mainView addSubview:border];
     if (border2) {
         [mainView addSubview:border2];
-    }
+    }*/
     
-    self.view = mainView;
+    // self.view = mainView;
+    self.view = [[ExistingBetDetailsView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame AndBet:betJSON];
 }
 
 -(NSString *)readableBetTitle {

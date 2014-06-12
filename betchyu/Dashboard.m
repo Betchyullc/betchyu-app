@@ -27,7 +27,7 @@
     if (self) {
         // Initialization code
         //self.controller = cont;
-        oneH = 120;
+        oneH = 100;
         rowH = 70;
         pendingRowH = 90;
         if (frame.size.width > 700) {

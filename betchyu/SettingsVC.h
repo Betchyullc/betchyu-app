@@ -10,6 +10,6 @@
 #import "SettingsView.h"
 #import "BetTypeViewController.h"
 
-@interface SettingsVC : UIViewController
+@interface SettingsVC : UIViewController <UIPageViewControllerDataSource>
 
 @end
