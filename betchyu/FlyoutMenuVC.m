@@ -170,7 +170,7 @@
     UILabel *logoutText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
     logoutText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
     logoutText.textColor = mid;
-    logoutText.text = @"Logout";
+    logoutText.text = @"Log Out";
     [self.view addSubview:logoutText];
         // add the icon
     UIImageView *logoutImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logout-14.png"]];
@@ -187,7 +187,9 @@
     [self.view addSubview:l2];
     
     // betchyu logo view
-    
+    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Betchyu_logo_gray.png"]];
+    logo.frame = CGRectMake(passedFrame.size.width/3, passedFrame.size.height - 40, passedFrame.size.width/3, 25);
+    [self.view addSubview:logo];
 }
 
 - (void)tryToAddTopSectionToView:(BOOL)useless {
@@ -303,11 +305,11 @@
     [self clearAll]; // sets them all to load-blank state
 
     if (last == 0) {
-        dashBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        dashBtn.backgroundColor = light;
         [self.view bringSubviewToFront:pastBtn];[self.view bringSubviewToFront:pastImg1];[self.view bringSubviewToFront:pastText1];
         pastBtn.layer.shadowOffset = CGSizeMake(0, -4);
         pastBtn.layer.shadowColor = [dark CGColor];
-        pastBtn.layer.shadowRadius = 1.5f;
+        pastBtn.layer.shadowRadius = 1.0f;
         pastBtn.layer.shadowOpacity = 0.40f;
         pastBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:pastBtn.layer.bounds] CGPath];
         pastBtn.backgroundColor = self.view.backgroundColor;
@@ -320,12 +322,12 @@
         dashImg.tintColor = betchyu;
     } else if (last == 1) {
         //[self.view bringSubviewToFront:dashBtn];
-        pastBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        pastBtn.backgroundColor = light;
         //top shadow
         [self.view bringSubviewToFront:dashBtn];[self.view bringSubviewToFront:dashText];[self.view bringSubviewToFront:dashImg];
         dashBtn.layer.shadowOffset = CGSizeMake(0, 4);
         dashBtn.layer.shadowColor = [dark CGColor];
-        dashBtn.layer.shadowRadius = 1.5f;
+        dashBtn.layer.shadowRadius = 1.0f;
         dashBtn.layer.shadowOpacity = 0.40f;
         dashBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:dashBtn.layer.bounds] CGPath];
         dashBtn.backgroundColor = self.view.backgroundColor;
@@ -333,7 +335,7 @@
         [self.view bringSubviewToFront:friendsBtn];[self.view bringSubviewToFront:friendsText];[self.view bringSubviewToFront:friendsImg];
         friendsBtn.layer.shadowOffset = CGSizeMake(0, -4);
         friendsBtn.layer.shadowColor = [dark CGColor];
-        friendsBtn.layer.shadowRadius = 1.5f;
+        friendsBtn.layer.shadowRadius = 1.0f;
         friendsBtn.layer.shadowOpacity = 0.40f;
         friendsBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:friendsBtn.layer.bounds] CGPath];
         friendsBtn.backgroundColor = self.view.backgroundColor;
@@ -345,12 +347,12 @@
         
     } else if (last == 2) {
         //[self.view bringSubviewToFront:dashBtn];
-        friendsBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        friendsBtn.backgroundColor = light;
         //top shadow
         [self.view bringSubviewToFront:pastBtn];[self.view bringSubviewToFront:pastText1];[self.view bringSubviewToFront:pastImg1];
         pastBtn.layer.shadowOffset = CGSizeMake(0, 4);
         pastBtn.layer.shadowColor = [dark CGColor];
-        pastBtn.layer.shadowRadius = 1.5f;
+        pastBtn.layer.shadowRadius = 1.0f;
         pastBtn.layer.shadowOpacity = 0.40f;
         pastBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:pastBtn.layer.bounds] CGPath];
         pastBtn.backgroundColor = self.view.backgroundColor;
@@ -358,7 +360,7 @@
         [self.view bringSubviewToFront:setBtn];[self.view bringSubviewToFront:setText];[self.view bringSubviewToFront:setImg];
         setBtn.layer.shadowOffset = CGSizeMake(0, -4);
         setBtn.layer.shadowColor = [dark CGColor];
-        setBtn.layer.shadowRadius = 1.5f;
+        setBtn.layer.shadowRadius = 1.0f;
         setBtn.layer.shadowOpacity = 0.40f;
         setBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:setBtn.layer.bounds] CGPath];
         setBtn.backgroundColor = self.view.backgroundColor;
@@ -370,12 +372,12 @@
         
     } else if (last == 3) {
         //[self.view bringSubviewToFront:dashBtn];
-        setBtn.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        setBtn.backgroundColor = light;
         //top shadow
         [self.view bringSubviewToFront:friendsBtn];[self.view bringSubviewToFront:friendsText];[self.view bringSubviewToFront:friendsImg];
         friendsBtn.layer.shadowOffset = CGSizeMake(0, 4);
         friendsBtn.layer.shadowColor = [dark CGColor];
-        friendsBtn.layer.shadowRadius = 1.5f;
+        friendsBtn.layer.shadowRadius = 1.0f;
         friendsBtn.layer.shadowOpacity = 0.40f;
         friendsBtn.layer.shadowPath = [[UIBezierPath bezierPathWithRect:friendsBtn.layer.bounds] CGPath];
         friendsBtn.backgroundColor = self.view.backgroundColor;

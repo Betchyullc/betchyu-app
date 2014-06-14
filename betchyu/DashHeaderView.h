@@ -12,7 +12,6 @@
 @interface DashHeaderView : UIView
 
 @property FBProfilePictureView * profPic;
-@property UIView * profBorder;
 
 - (void) setUpProfilePic:(BOOL)notCalled;
 

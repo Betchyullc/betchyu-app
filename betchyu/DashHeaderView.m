@@ -11,7 +11,6 @@
 @implementation DashHeaderView
 
 @synthesize profPic;
-@synthesize profBorder;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -20,9 +19,6 @@
         // Initialization code
         // You gotta paint the background before you do this shit!
         [self setBackgroundColor:[UIColor whiteColor]];
-        
-        // Hey, bitch, gimme some o' dem covinience variabizzles.
-        NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
         
         [self setUpProfilePic:YES];
         [self setUpName:NO];
@@ -34,14 +30,6 @@
     // Hey, bitch, gimme some o' dem covinience variabizzles.
     NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     int dim = self.frame.size.width / 6; // da width o' da pic
-
-    if (notCalled) {
-        // An' da border too!
-        self.profBorder = [[UIView alloc] initWithFrame:CGRectMake(dim/4, dim/4, dim, dim)];
-        self.profBorder.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
-        self.profBorder.layer.cornerRadius = dim/2;
-        [self addSubview:self.profBorder];
-    }
     
     // And don' forget t' check da ownId
     if ([ownId isEqualToString:@""]) {
@@ -54,9 +42,12 @@
     self.profPic = [[FBProfilePictureView alloc]
                     initWithProfileID:ownId
                     pictureCropping:FBProfilePictureCroppingSquare];
-    self.profPic.frame = CGRectMake(2, 2, dim-4, dim-4);
-    self.profPic.layer.cornerRadius = (dim-4)/2;
-    [self.profBorder addSubview:self.profPic];
+    self.profPic.frame = CGRectMake(dim/4, dim/4, dim, dim);
+    self.profPic.layer.cornerRadius  = dim/2;
+    self.profPic.layer.borderWidth   = 2;
+    self.profPic.layer.borderColor   = [[UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0] CGColor];
+    self.profPic.layer.masksToBounds = YES;
+    [self addSubview:self.profPic];
 }
 
 -(void) setUpName:(BOOL)called {

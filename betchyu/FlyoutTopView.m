@@ -24,7 +24,7 @@
         // add shadow
         self.layer.shadowOffset = CGSizeMake(0, 5);
         self.layer.shadowColor = [dark CGColor];
-        self.layer.shadowRadius = 2.5f;
+        self.layer.shadowRadius = 1.5f;
         self.layer.shadowOpacity = 0.50f;
         self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.layer.bounds] CGPath];
         
@@ -33,20 +33,18 @@
         bar.backgroundColor = betchyu;
         
         // Picture
-        // The Border
+        // The Frame
         int dim = frame.size.width/2;
         CGRect picF = CGRectMake(frame.size.width/4, frame.origin.y + off, dim, dim);
-        UIView *profBorder = [[UIView alloc] initWithFrame:picF];
-        profBorder.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
-        profBorder.layer.cornerRadius = dim/2;
-        
-        // The Picture inside it
+        // The Picture
         FBProfilePictureView *profPic = [[FBProfilePictureView alloc]
                                          initWithProfileID:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId
                                          pictureCropping:FBProfilePictureCroppingSquare];
-        profPic.frame = CGRectMake(2, 2, dim-4, dim-4);
-        profPic.layer.cornerRadius = (dim-4)/2;
-        [profBorder addSubview:profPic];
+        profPic.frame = picF;
+        profPic.layer.cornerRadius  = dim/2;
+        profPic.layer.borderColor   = [[UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0] CGColor];
+        profPic.layer.borderWidth   = 2;
+        profPic.layer.masksToBounds = YES;
         
         // The Name Under It
         [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -99,7 +97,7 @@
         
         // Add Everything
         [self addSubview:bar];
-        [self addSubview:profBorder];
+        [self addSubview:profPic];
         [self addSubview:bets];
         [self addSubview:c1];
         [self addSubview:c2];

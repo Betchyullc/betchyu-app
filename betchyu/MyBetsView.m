@@ -8,6 +8,7 @@
 
 #import "MyBetsView.h"
 #import "HeadingBarView.h"
+#import "MyBetDetailsVC.h"
 
 @implementation MyBetsView
 
@@ -208,8 +209,8 @@
 // API call stuff
 -(void)viewBet:(UIButton *)sender {
     // make the Bet Details View Controller
-    ExistingBetDetailsVC *vc = [[ExistingBetDetailsVC alloc] initWithJSON:[bets objectAtIndex:sender.tag]];
-    vc.title = @"Bet Details";
+    MyBetDetailsVC *vc = [[MyBetDetailsVC alloc] initWithJSONBet:[bets objectAtIndex:sender.tag]];
+    vc.title = @"My Bet";
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 

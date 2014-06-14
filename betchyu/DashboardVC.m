@@ -53,15 +53,19 @@
     // make a plus button for new goal/bet
     UIButton *bu = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [bu setImage:[UIImage imageNamed:@"plus-18.png"] forState:UIControlStateNormal];
-    bu.frame = CGRectMake(0, 0, 22, 22);
+    bu.frame = CGRectMake(0, 0, 20, 20);
     bu.tintColor = [UIColor whiteColor];
     [bu addTarget:self action:@selector(createGoal:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bu];
+    
     self.navigationItem.title = @"Dashboard";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"flyout_menu.png"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu:)];
+    
+    UIButton *bu2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [bu2 setImage:[UIImage imageNamed:@"menu-17.png"] forState:UIControlStateNormal];
+    bu2.frame = CGRectMake(0, 0, 20, 18);
+    bu2.tintColor = [UIColor whiteColor];
+    [bu2 addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bu2];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

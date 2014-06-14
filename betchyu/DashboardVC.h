@@ -10,8 +10,6 @@
 #import "Dashboard.h"
 #import "API.h"
 #import "BetTypeViewController.h"
-#import "MyBetsVC.h"
-#import "MyGoalsVC.h"
 #import <Braintree/BTEncryption.h>
 #import "BTPaymentViewController.h"
 

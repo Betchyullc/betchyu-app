@@ -1,6 +1,5 @@
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "ViewController.h"
 #import "LoginViewController.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "API.h"
@@ -59,7 +58,7 @@
     
     
     // Setup the navigation bar appearance
-    UIColor *betchyu = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
+    UIColor *betchyu = [UIColor colorWithRed:243.0/255 green:(116.0/255.0) blue:(67/255.0) alpha:1.0];
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIColor whiteColor],

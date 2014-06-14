@@ -11,16 +11,11 @@
 #import <Braintree/BTEncryption.h>
 #import "BTPaymentViewController.h"
 
-@interface ExistingBetDetailsVC : UIViewController <UIAlertViewDelegate, BTPaymentViewControllerDelegate>
+@interface ExistingBetDetailsVC : UIViewController
 
 @property NSDictionary * betJSON;
-@property TempBet * bet;
 @property BOOL isOffer;
 @property BOOL isOwn;
-@property UILabel *stakeDescription;
-@property UILabel *current;
-@property NSDictionary *invite;
-@property NSArray *updates;
 
 -(id) initWithJSON:(NSDictionary *)json;
 -(id) initWithJSON:(NSDictionary *)json AndOfferBool:(BOOL)passedOffer;
