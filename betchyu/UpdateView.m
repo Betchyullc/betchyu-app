@@ -40,15 +40,16 @@
         UILabel *prompt = [UILabel new];
         prompt.font     = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
         prompt.text     = [self getPromptText];
-        prompt.frame    = CGRectMake(margin, margin, w/1.5 - margin*2, h/2);
+        prompt.frame    = CGRectMake(margin, margin, w, h/3);//w/1.5 - margin*2
         prompt.textColor= Bdark;
         
         // text field box
-        self.box                   = [[UITextField alloc] initWithFrame:CGRectMake(w/2, margin, w/3 - margin, h/3)];
+        self.box                   = [[UITextField alloc] initWithFrame:CGRectMake(w/2, margin, w/3 - margin*1.3, h/3)];
         self.box.keyboardType      = UIKeyboardTypeNumbersAndPunctuation;
         self.box.backgroundColor   = [UIColor clearColor];
         self.box.borderStyle       = UITextBorderStyleLine;
-        self.box.font              = [UIFont fontWithName:@"ProximaNova-Regular" size:(h/3 - 5)];
+        self.box.textAlignment     = NSTextAlignmentCenter;
+        self.box.font              = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
         self.box.tintColor         = Borange;
         self.box.textColor         = Borange;
         self.box.layer.borderColor = [Bmid CGColor];
@@ -57,11 +58,11 @@
         self.box.adjustsFontSizeToFitWidth = YES;
         
         UIButton *updateBtn          = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        updateBtn.frame              = CGRectMake(w/3, h/2 + 9, w/3, h/2 - 18);
+        updateBtn.frame              = CGRectMake(w/4, h/2 + 9, w/2, h/2 - 18);
         updateBtn.backgroundColor    = Bgreen;
-        updateBtn.layer.cornerRadius = 4;
+        updateBtn.layer.cornerRadius = 7;
         updateBtn.tintColor          = [UIColor whiteColor];
-        updateBtn.titleLabel.font    = [UIFont fontWithName:@"ProximaNova-Regular" size:(h/3 - 5)];
+        updateBtn.titleLabel.font    = [UIFont fontWithName:@"ProximaNova-Bold" size:fontSize];
         [updateBtn setTitle:@"Update" forState:UIControlStateNormal];
         [updateBtn addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -90,11 +91,11 @@
     if ([n isEqualToString:@"smoking"]) {
         ret   = @"Did you smoke today?";
     } else if ( [n isEqualToString:@"pounds"] ) {
-        ret   = @"Today's Weight:";
+        ret   = @"Today's Weight:\t\t\t\t\tlbs";
     } else if ( [n isEqualToString:@"miles"] ) {
-        ret   = @"Today I ran:";
+        ret   = @"Today I ran:\t\t\t\t\t   miles";
     } else if ( [n isEqualToString:@"times"] ) {
-        ret   = @"Today I worked out:";
+        ret   = @"Today I worked out:\t\t\t   times";
     }
     return ret;
 }
@@ -117,6 +118,8 @@
         return;
     }
     if ( self.box.text.length == 0 ) {
+        [self errorBox:YES];
+        [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
         return; // should show error
     }
     
@@ -135,6 +138,14 @@
         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
     }];
     
+}
+
+-(void)errorBox:(BOOL)error {
+    if (error) {
+        self.box.layer.borderColor = [Bred CGColor];
+    } else {
+        self.box.layer.borderColor = [Bmid CGColor];
+    }
 }
 
 #pragma mark UITextFieldDelegate shit

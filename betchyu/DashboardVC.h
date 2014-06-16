@@ -12,6 +12,7 @@
 #import "BetTypeViewController.h"
 #import <Braintree/BTEncryption.h>
 #import "BTPaymentViewController.h"
+#import "CreateBetVC.h"
 
 @interface DashboardVC : UIViewController //<BTPaymentViewControllerDelegate>
 
@@ -19,7 +20,7 @@
 @property UILabel * numNotif;
 @property BOOL hasShownHowItWorks;
 @property BOOL canLeavePage;
-@property BetTypeViewController *createGoalController;
+@property CreateBetVC *createGoalController;
 
 
 - (id)initWithInviteNumber:(NSString *)numInvs;

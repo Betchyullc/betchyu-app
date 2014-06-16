@@ -54,9 +54,9 @@
         UILabel *dayCount = [[UILabel alloc] initWithFrame:CGRectMake(15, progHeader.frame.origin.y + progHeader.frame.size.height + 10, frame.size.width - 30, 30)];
         dayCount.textColor = Bdark;
         int daysIn = [self getDaysInFromBet:bet];
-        int daysInLen = (daysIn ==0) ? 1 : (int)log10(daysIn) + 1;
+        int daysInLen = [self charCountForNumber:daysIn];
         int daysLeft = [self getDaysToGoFromBet:bet];
-        int daysLeftLen = (daysLeft ==0) ? 1 : (int)log10(daysLeft) + 1;
+        int daysLeftLen = [self charCountForNumber:daysLeft];
         NSString *text = [NSString stringWithFormat:@"%i days in\t\t\t\t\t%i days to go", daysIn, [self getDaysToGoFromBet:bet]];
         UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Black" size:fontS+2];
         UIFont *regularFont = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fontS+2];
@@ -307,5 +307,14 @@
         five  = @"nouns";
     }
     return [NSString stringWithFormat:@"In total, %@ has %@ %@ / %@ %@.", ownerIsMale ? @"he": @"she", two, three, four, five];
+}
+
+-(int) charCountForNumber:(int)num {
+    int base = (abs(num) == 0) ? 1 : (int)log10(abs(num)) + 1;
+    if (num < 0) {
+        return base + 1;
+    } else {
+        return base;
+    }
 }
 @end

@@ -66,6 +66,10 @@
 		892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CE185261270052A7C0 /* ProximaNova-ThinIt.otf */; };
 		892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */; };
 		8926AA8B1940E73400AAB74A /* MyBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AA8A1940E73400AAB74A /* MyBetsView.m */; };
+		8926AADC194F636A006FDF11 /* smoke-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADA194F636A006FDF11 /* smoke-circle.png */; };
+		8926AADD194F636A006FDF11 /* workout-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADB194F636A006FDF11 /* workout-circle.png */; };
+		8926AAE0194F63E2006FDF11 /* run-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADE194F63E2006FDF11 /* run-circle.png */; };
+		8926AAE1194F63E2006FDF11 /* scale-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADF194F63E2006FDF11 /* scale-circle.png */; };
 		89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89294AE81934C96200094389 /* Target Gift Card.jpg */; };
 		8948F533194A431100FF1519 /* ProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F532194A431100FF1519 /* ProgressBarView.m */; };
 		8948F535194B2E3300FF1519 /* Amazon Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8948F534194B2E3300FF1519 /* Amazon Gift Card.jpg */; };
@@ -74,6 +78,7 @@
 		8948F540194B55FE00FF1519 /* BetDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F53F194B55FE00FF1519 /* BetDetailsView.m */; };
 		8948F543194B5B5500FF1519 /* UpdateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F542194B5B5500FF1519 /* UpdateView.m */; };
 		8948F546194B8AF500FF1519 /* ProgressTrackingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F545194B8AF500FF1519 /* ProgressTrackingVC.m */; };
+		8948F54C194F258C00FF1519 /* CreateBetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F54B194F258C00FF1519 /* CreateBetVC.m */; };
 		8957380D189830BB00E693A5 /* Graph.m in Sources */ = {isa = PBXBuildFile; fileRef = 8957380C189830BB00E693A5 /* Graph.m */; };
 		8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818B187C4C9800CCC9DC /* AboutUs.m */; };
 		8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958818E187C510300CCC9DC /* HowItWorksVC.m */; };
@@ -223,6 +228,10 @@
 		892154CF185261270052A7C0 /* ProximaNovaT-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaT-Thin.otf"; sourceTree = "<group>"; };
 		8926AA891940E73400AAB74A /* MyBetsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBetsView.h; sourceTree = "<group>"; };
 		8926AA8A1940E73400AAB74A /* MyBetsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBetsView.m; sourceTree = "<group>"; };
+		8926AADA194F636A006FDF11 /* smoke-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smoke-circle.png"; sourceTree = "<group>"; };
+		8926AADB194F636A006FDF11 /* workout-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "workout-circle.png"; sourceTree = "<group>"; };
+		8926AADE194F63E2006FDF11 /* run-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "run-circle.png"; sourceTree = "<group>"; };
+		8926AADF194F63E2006FDF11 /* scale-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-circle.png"; sourceTree = "<group>"; };
 		89294AE81934C96200094389 /* Target Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Target Gift Card.jpg"; sourceTree = "<group>"; };
 		8948F531194A431100FF1519 /* ProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarView.h; sourceTree = "<group>"; };
 		8948F532194A431100FF1519 /* ProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarView.m; sourceTree = "<group>"; };
@@ -236,6 +245,8 @@
 		8948F542194B5B5500FF1519 /* UpdateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateView.m; sourceTree = "<group>"; };
 		8948F544194B8AF500FF1519 /* ProgressTrackingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressTrackingVC.h; sourceTree = "<group>"; };
 		8948F545194B8AF500FF1519 /* ProgressTrackingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressTrackingVC.m; sourceTree = "<group>"; };
+		8948F54A194F258C00FF1519 /* CreateBetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBetVC.h; sourceTree = "<group>"; };
+		8948F54B194F258C00FF1519 /* CreateBetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBetVC.m; sourceTree = "<group>"; };
 		8957380B189830BB00E693A5 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
 		8957380C189830BB00E693A5 /* Graph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Graph.m; sourceTree = "<group>"; };
 		8958818A187C4C9800CCC9DC /* AboutUs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUs.h; sourceTree = "<group>"; };
@@ -454,6 +465,8 @@
 				892154951850F2E70052A7C0 /* BetDetailsVC.m */,
 				892154A31850F36F0052A7C0 /* BetTypeViewController.h */,
 				892154A41850F36F0052A7C0 /* BetTypeViewController.m */,
+				8948F54A194F258C00FF1519 /* CreateBetVC.h */,
+				8948F54B194F258C00FF1519 /* CreateBetVC.m */,
 			);
 			name = "Create Bet Flow";
 			sourceTree = "<group>";
@@ -482,6 +495,10 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				8926AADE194F63E2006FDF11 /* run-circle.png */,
+				8926AADF194F63E2006FDF11 /* scale-circle.png */,
+				8926AADA194F636A006FDF11 /* smoke-circle.png */,
+				8926AADB194F636A006FDF11 /* workout-circle.png */,
 				8948F53C194B518600FF1519 /* Betchyu_logo_gray.png */,
 				8948F534194B2E3300FF1519 /* Amazon Gift Card.jpg */,
 				890B983919473531004DE649 /* icons */,
@@ -792,6 +809,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				890B985719473532004DE649 /* check-22.png in Resources */,
+				8926AADC194F636A006FDF11 /* smoke-circle.png in Resources */,
 				89588197187C67CF00CCC9DC /* 2.jpg in Resources */,
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
@@ -838,17 +856,20 @@
 				89B1A75C186778C1006A656F /* howItWorksLogo.png in Resources */,
 				89588198187C67CF00CCC9DC /* 3.jpg in Resources */,
 				890B985C19473532004DE649 /* home-10.png in Resources */,
+				8926AAE1194F63E2006FDF11 /* scale-circle.png in Resources */,
 				890B985E19473532004DE649 /* logout-14.png in Resources */,
 				89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */,
 				89B1A7BF186916B4006A656F /* Meal.jpg in Resources */,
 				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
 				892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */,
+				8926AAE0194F63E2006FDF11 /* run-circle.png in Resources */,
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
 				89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */,
 				890B986319473532004DE649 /* settings-13.png in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
 				89B1A7BE186916B4006A656F /* Drink.jpg in Resources */,
+				8926AADD194F636A006FDF11 /* workout-circle.png in Resources */,
 				890B985219473532004DE649 /* arrows-double-21.png in Resources */,
 				892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */,
 				890B986019473532004DE649 /* plus-18.png in Resources */,
@@ -903,6 +924,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8948F54C194F258C00FF1519 /* CreateBetVC.m in Sources */,
 				89B1A749186674D7006A656F /* FacingView.m in Sources */,
 				890B986E1948B9D3004DE649 /* SettingsVC.m in Sources */,
 				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,

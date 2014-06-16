@@ -144,9 +144,8 @@
     //if (!self.canLeavePage) { return; }
     // change to the correct view
     if (!self.createGoalController) {
-        self.createGoalController = [[BetTypeViewController alloc]
-                                     initWithNibName:nil bundle:nil];
-        self.createGoalController.title = @"I want to:";
+        self.createGoalController = [[CreateBetVC alloc] initWithStyle:UITableViewStylePlain];
+        self.createGoalController.title = @"Create Bet";
     }
     
     [self.navigationController pushViewController:self.createGoalController

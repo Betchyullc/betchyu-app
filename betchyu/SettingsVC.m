@@ -77,10 +77,13 @@
     bu.tintColor = [UIColor whiteColor];
     [bu addTarget:self action:@selector(createGoal:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bu];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"flyout_menu.png"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(showMenu:)];
+    
+    UIButton *bu2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [bu2 setImage:[UIImage imageNamed:@"menu-17.png"] forState:UIControlStateNormal];
+    bu2.frame = CGRectMake(0, 0, 20, 18);
+    bu2.tintColor = [UIColor whiteColor];
+    [bu2 addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bu2];
 }
 
 // actions
@@ -92,8 +95,8 @@
 -(void)createGoal:(id)sender {
     //if (!self.canLeavePage) { return; }
     // change to the correct view
-    BetTypeViewController *createGoalController = [[BetTypeViewController alloc] initWithNibName:nil bundle:nil];
-    createGoalController.title = @"I want to:";
+    CreateBetVC *createGoalController = [[CreateBetVC alloc] initWithStyle:UITableViewStylePlain];
+    createGoalController.title = @"Create Bet";
     [self.navigationController pushViewController:createGoalController animated:true];
 }
 
