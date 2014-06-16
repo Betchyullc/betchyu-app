@@ -46,7 +46,6 @@
 		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
 		892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A01850F36F0052A7C0 /* BetFinalizeVC.m */; };
 		892154B21850F36F0052A7C0 /* BetStakeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A21850F36F0052A7C0 /* BetStakeVC.m */; };
-		892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A41850F36F0052A7C0 /* BetTypeViewController.m */; };
 		892154B41850F36F0052A7C0 /* BigButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A61850F36F0052A7C0 /* BigButton.m */; };
 		892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AC1850F36F0052A7C0 /* LoginViewController.m */; };
 		892154B91850F36F0052A7C0 /* TempBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AF1850F36F0052A7C0 /* TempBet.m */; };
@@ -70,6 +69,10 @@
 		8926AADD194F636A006FDF11 /* workout-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADB194F636A006FDF11 /* workout-circle.png */; };
 		8926AAE0194F63E2006FDF11 /* run-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADE194F63E2006FDF11 /* run-circle.png */; };
 		8926AAE1194F63E2006FDF11 /* scale-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADF194F63E2006FDF11 /* scale-circle.png */; };
+		8926AAE4194F70F0006FDF11 /* BetOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAE3194F70F0006FDF11 /* BetOptionsVC.m */; };
+		8926AAE7194F73F4006FDF11 /* BetOptionsTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */; };
+		8926AAEC194F98EB006FDF11 /* DayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAE9194F98EB006FDF11 /* DayButton.m */; };
+		8926AAED194F98EB006FDF11 /* DDCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAEB194F98EB006FDF11 /* DDCalendarView.m */; };
 		89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89294AE81934C96200094389 /* Target Gift Card.jpg */; };
 		8948F533194A431100FF1519 /* ProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F532194A431100FF1519 /* ProgressBarView.m */; };
 		8948F535194B2E3300FF1519 /* Amazon Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8948F534194B2E3300FF1519 /* Amazon Gift Card.jpg */; };
@@ -87,6 +90,10 @@
 		89588198187C67CF00CCC9DC /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588193187C67CF00CCC9DC /* 3.jpg */; };
 		89588199187C67CF00CCC9DC /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588194187C67CF00CCC9DC /* 4.jpg */; };
 		8958819A187C67CF00CCC9DC /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588195187C67CF00CCC9DC /* 5.jpg */; };
+		89826372194FA070006A95E2 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636E194FA070006A95E2 /* left-arrow.png */; };
+		89826373194FA070006A95E2 /* left-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636F194FA070006A95E2 /* left-arrow@2x.png */; };
+		89826374194FA070006A95E2 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826370194FA070006A95E2 /* right-arrow.png */; };
+		89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826371194FA070006A95E2 /* right-arrow@2x.png */; };
 		89B1A6B01859236C006A656F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6AF1859236C006A656F /* API.m */; };
 		89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */; };
 		89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B8186355A3006A656F /* BetTrackingVC.m */; };
@@ -203,8 +210,6 @@
 		892154A01850F36F0052A7C0 /* BetFinalizeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetFinalizeVC.m; sourceTree = "<group>"; };
 		892154A11850F36F0052A7C0 /* BetStakeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetStakeVC.h; sourceTree = "<group>"; };
 		892154A21850F36F0052A7C0 /* BetStakeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetStakeVC.m; sourceTree = "<group>"; };
-		892154A31850F36F0052A7C0 /* BetTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetTypeViewController.h; sourceTree = "<group>"; };
-		892154A41850F36F0052A7C0 /* BetTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetTypeViewController.m; sourceTree = "<group>"; };
 		892154A51850F36F0052A7C0 /* BigButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigButton.h; sourceTree = "<group>"; };
 		892154A61850F36F0052A7C0 /* BigButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigButton.m; sourceTree = "<group>"; };
 		892154AB1850F36F0052A7C0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -232,6 +237,14 @@
 		8926AADB194F636A006FDF11 /* workout-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "workout-circle.png"; sourceTree = "<group>"; };
 		8926AADE194F63E2006FDF11 /* run-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "run-circle.png"; sourceTree = "<group>"; };
 		8926AADF194F63E2006FDF11 /* scale-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scale-circle.png"; sourceTree = "<group>"; };
+		8926AAE2194F70F0006FDF11 /* BetOptionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetOptionsVC.h; sourceTree = "<group>"; };
+		8926AAE3194F70F0006FDF11 /* BetOptionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetOptionsVC.m; sourceTree = "<group>"; };
+		8926AAE5194F73F4006FDF11 /* BetOptionsTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetOptionsTopView.h; sourceTree = "<group>"; };
+		8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetOptionsTopView.m; sourceTree = "<group>"; };
+		8926AAE8194F98EB006FDF11 /* DayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayButton.h; sourceTree = "<group>"; };
+		8926AAE9194F98EB006FDF11 /* DayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayButton.m; sourceTree = "<group>"; };
+		8926AAEA194F98EB006FDF11 /* DDCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarView.h; sourceTree = "<group>"; };
+		8926AAEB194F98EB006FDF11 /* DDCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarView.m; sourceTree = "<group>"; };
 		89294AE81934C96200094389 /* Target Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Target Gift Card.jpg"; sourceTree = "<group>"; };
 		8948F531194A431100FF1519 /* ProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarView.h; sourceTree = "<group>"; };
 		8948F532194A431100FF1519 /* ProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarView.m; sourceTree = "<group>"; };
@@ -258,6 +271,10 @@
 		89588193187C67CF00CCC9DC /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		89588194187C67CF00CCC9DC /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 		89588195187C67CF00CCC9DC /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
+		8982636E194FA070006A95E2 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
+		8982636F194FA070006A95E2 /* left-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow@2x.png"; sourceTree = "<group>"; };
+		89826370194FA070006A95E2 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
+		89826371194FA070006A95E2 /* right-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow@2x.png"; sourceTree = "<group>"; };
 		89B1A6AE1859236C006A656F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = API.h; path = ../API.h; sourceTree = "<group>"; };
 		89B1A6AF1859236C006A656F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = API.m; path = ../API.m; sourceTree = "<group>"; };
 		89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExistingBetDetailsVC.h; sourceTree = "<group>"; };
@@ -446,6 +463,8 @@
 				89C6516F193E4C1E004B64B6 /* Widgets */,
 				8948F53E194B55FE00FF1519 /* BetDetailsView.h */,
 				8948F53F194B55FE00FF1519 /* BetDetailsView.m */,
+				8926AAE5194F73F4006FDF11 /* BetOptionsTopView.h */,
+				8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -463,10 +482,10 @@
 				892154A21850F36F0052A7C0 /* BetStakeVC.m */,
 				892154941850F2E70052A7C0 /* BetDetailsVC.h */,
 				892154951850F2E70052A7C0 /* BetDetailsVC.m */,
-				892154A31850F36F0052A7C0 /* BetTypeViewController.h */,
-				892154A41850F36F0052A7C0 /* BetTypeViewController.m */,
 				8948F54A194F258C00FF1519 /* CreateBetVC.h */,
 				8948F54B194F258C00FF1519 /* CreateBetVC.m */,
+				8926AAE2194F70F0006FDF11 /* BetOptionsVC.h */,
+				8926AAE3194F70F0006FDF11 /* BetOptionsVC.m */,
 			);
 			name = "Create Bet Flow";
 			sourceTree = "<group>";
@@ -495,27 +514,23 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				8982636E194FA070006A95E2 /* left-arrow.png */,
+				8982636F194FA070006A95E2 /* left-arrow@2x.png */,
+				89826370194FA070006A95E2 /* right-arrow.png */,
+				89826371194FA070006A95E2 /* right-arrow@2x.png */,
 				8926AADE194F63E2006FDF11 /* run-circle.png */,
 				8926AADF194F63E2006FDF11 /* scale-circle.png */,
 				8926AADA194F636A006FDF11 /* smoke-circle.png */,
 				8926AADB194F636A006FDF11 /* workout-circle.png */,
 				8948F53C194B518600FF1519 /* Betchyu_logo_gray.png */,
-				8948F534194B2E3300FF1519 /* Amazon Gift Card.jpg */,
 				890B983919473531004DE649 /* icons */,
-				890B98341946084C004DE649 /* iTunes Gift Card.jpg */,
-				89294AE81934C96200094389 /* Target Gift Card.jpg */,
 				89588191187C67CF00CCC9DC /* 1.jpg */,
 				89588192187C67CF00CCC9DC /* 2.jpg */,
 				89588193187C67CF00CCC9DC /* 3.jpg */,
 				89588194187C67CF00CCC9DC /* 4.jpg */,
 				89588195187C67CF00CCC9DC /* 5.jpg */,
-				89B1A7C4186A13E3006A656F /* Workout More.jpg */,
-				89B1A7C5186A13E3006A656F /* Stop Smoking.jpg */,
-				89B1A7C2186A13A2006A656F /* Run More.jpg */,
-				89B1A7C0186A1341006A656F /* Lose Weight.jpg */,
-				89B1A7BA186916B4006A656F /* beer.jpg */,
-				89B1A7BB186916B4006A656F /* Drink.jpg */,
-				89B1A7BC186916B4006A656F /* Meal.jpg */,
+				8982636D194FA04A006A95E2 /* Bet Background Images */,
+				8982636C194FA01C006A95E2 /* Stakes */,
 				89B1A7B61868C2D3006A656F /* info_button.png */,
 				89B1A7B418689C05006A656F /* flyout_menu.png */,
 				89B1A75D18679CD2006A656F /* slider.png */,
@@ -525,6 +540,17 @@
 				89B1A6BA1864ACC7006A656F /* logo.png */,
 			);
 			name = Photos;
+			sourceTree = "<group>";
+		};
+		8926AAEE194F98F5006FDF11 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				8926AAE8194F98EB006FDF11 /* DayButton.h */,
+				8926AAE9194F98EB006FDF11 /* DayButton.m */,
+				8926AAEA194F98EB006FDF11 /* DDCalendarView.h */,
+				8926AAEB194F98EB006FDF11 /* DDCalendarView.m */,
+			);
+			name = Calendar;
 			sourceTree = "<group>";
 		};
 		89588190187C515400CCC9DC /* Bet Details/Update */ = {
@@ -540,6 +566,30 @@
 				8948F545194B8AF500FF1519 /* ProgressTrackingVC.m */,
 			);
 			name = "Bet Details/Update";
+			sourceTree = "<group>";
+		};
+		8982636C194FA01C006A95E2 /* Stakes */ = {
+			isa = PBXGroup;
+			children = (
+				8948F534194B2E3300FF1519 /* Amazon Gift Card.jpg */,
+				890B98341946084C004DE649 /* iTunes Gift Card.jpg */,
+				89294AE81934C96200094389 /* Target Gift Card.jpg */,
+				89B1A7BA186916B4006A656F /* beer.jpg */,
+				89B1A7BB186916B4006A656F /* Drink.jpg */,
+				89B1A7BC186916B4006A656F /* Meal.jpg */,
+			);
+			name = Stakes;
+			sourceTree = "<group>";
+		};
+		8982636D194FA04A006A95E2 /* Bet Background Images */ = {
+			isa = PBXGroup;
+			children = (
+				89B1A7C4186A13E3006A656F /* Workout More.jpg */,
+				89B1A7C5186A13E3006A656F /* Stop Smoking.jpg */,
+				89B1A7C2186A13A2006A656F /* Run More.jpg */,
+				89B1A7C0186A1341006A656F /* Lose Weight.jpg */,
+			);
+			name = "Bet Background Images";
 			sourceTree = "<group>";
 		};
 		89B1A6B1185927DD006A656F /* Networking */ = {
@@ -711,6 +761,7 @@
 		89C6516F193E4C1E004B64B6 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				8926AAEE194F98F5006FDF11 /* Calendar */,
 				8948F541194B5B5500FF1519 /* UpdateView.h */,
 				8948F542194B5B5500FF1519 /* UpdateView.m */,
 				890B9866194740BD004DE649 /* CompletionBorderView.h */,
@@ -810,6 +861,7 @@
 			files = (
 				890B985719473532004DE649 /* check-22.png in Resources */,
 				8926AADC194F636A006FDF11 /* smoke-circle.png in Resources */,
+				89826372194FA070006A95E2 /* left-arrow.png in Resources */,
 				89588197187C67CF00CCC9DC /* 2.jpg in Resources */,
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
@@ -840,6 +892,7 @@
 				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
 				890B985319473532004DE649 /* bet-11.png in Resources */,
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
+				89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */,
 				890B985019473532004DE649 /* addfriend-15.png in Resources */,
 				8948F53D194B518600FF1519 /* Betchyu_logo_gray.png in Resources */,
 				890B985A19473532004DE649 /* friends-12.png in Resources */,
@@ -849,6 +902,7 @@
 				89B1A6BD1864F789006A656F /* star.png in Resources */,
 				890B986219473532004DE649 /* scale-02.png in Resources */,
 				890B985B19473532004DE649 /* heart-19.png in Resources */,
+				89826373194FA070006A95E2 /* left-arrow@2x.png in Resources */,
 				89B1A7B71868C2D3006A656F /* info_button.png in Resources */,
 				8958819A187C67CF00CCC9DC /* 5.jpg in Resources */,
 				89B1A75E18679CD2006A656F /* slider.png in Resources */,
@@ -866,6 +920,7 @@
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
 				89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */,
+				89826374194FA070006A95E2 /* right-arrow.png in Resources */,
 				890B986319473532004DE649 /* settings-13.png in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
 				89B1A7BE186916B4006A656F /* Drink.jpg in Resources */,
@@ -936,7 +991,6 @@
 				8958818F187C510300CCC9DC /* HowItWorksVC.m in Sources */,
 				8948F538194B48F500FF1519 /* MyBetDetailsVC.m in Sources */,
 				89B1A74C186674D7006A656F /* UIView+Screenshot.m in Sources */,
-				892154B31850F36F0052A7C0 /* BetTypeViewController.m in Sources */,
 				89C65169193D232F004B64B6 /* DashHeaderView.m in Sources */,
 				8948F533194A431100FF1519 /* ProgressBarView.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
@@ -944,6 +998,7 @@
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
 				8948F546194B8AF500FF1519 /* ProgressTrackingVC.m in Sources */,
+				8926AAE7194F73F4006FDF11 /* BetOptionsTopView.m in Sources */,
 				890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */,
 				8957380D189830BB00E693A5 /* Graph.m in Sources */,
 				89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */,
@@ -956,6 +1011,7 @@
 				890B98881949F4E7004DE649 /* HeadingBarView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
+				8926AAED194F98EB006FDF11 /* DDCalendarView.m in Sources */,
 				890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */,
 				890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */,
 				89C65163193D1E15004B64B6 /* Dashboard.m in Sources */,
@@ -968,12 +1024,14 @@
 				890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */,
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
+				8926AAEC194F98EB006FDF11 /* DayButton.m in Sources */,
 				890B987E1948D165004DE649 /* FriendsVC.m in Sources */,
 				89B1A6B01859236C006A656F /* API.m in Sources */,
 				890B987B1948CFF3004DE649 /* FriendsPastBetsView.m in Sources */,
 				892154B21850F36F0052A7C0 /* BetStakeVC.m in Sources */,
 				8958818C187C4C9800CCC9DC /* AboutUs.m in Sources */,
 				890B98781948CFAA004DE649 /* YourPastBetsView.m in Sources */,
+				8926AAE4194F70F0006FDF11 /* BetOptionsVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

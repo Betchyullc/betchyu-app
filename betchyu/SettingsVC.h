@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingsView.h"
-#import "BetTypeViewController.h"
 
 @interface SettingsVC : UIViewController <UIPageViewControllerDataSource>
 

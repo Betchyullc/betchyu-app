@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Dashboard.h"
 #import "API.h"
-#import "BetTypeViewController.h"
 #import <Braintree/BTEncryption.h>
 #import "BTPaymentViewController.h"
 #import "CreateBetVC.h"

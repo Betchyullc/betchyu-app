@@ -12,6 +12,7 @@
 
 @property UIColor * color;
 @property int percent;
+@property int lineWidth;
 
 - (id)initWithFrame:(CGRect)frame AndColor:(UIColor *)c AndPercentComplete:(int)per;
 

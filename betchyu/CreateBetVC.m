@@ -128,7 +128,7 @@
 // moves to next step in flow
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *verb = [self.betTypes objectAtIndex:indexPath.row];
-    BetDetailsVC *vc =[[BetDetailsVC alloc] initWithBetVerb:verb];
+    BetOptionsVC *vc =[[BetOptionsVC alloc] initWithBetVerb:verb];
     vc.title = @"Bet Options";
     [self.navigationController pushViewController:vc animated:true];
     return NO;

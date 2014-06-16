@@ -1,5 +1,5 @@
 //
-//  CreateBetVC.h
+//  BetOptionsTopView.h
 //  betchyu
 //
 //  Created by Adam Baratz on 6/16/14.
@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BetOptionsVC.h"
 
-@interface CreateBetVC : UITableViewController
+@interface BetOptionsTopView : UIView
 
-@property NSMutableArray * betTypes;
+- (id)initWithFrame:(CGRect)frame AndBetName:(NSString *)name;
 
 @end

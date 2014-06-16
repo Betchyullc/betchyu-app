@@ -14,6 +14,7 @@
 
 @synthesize color;
 @synthesize percent;
+@synthesize lineWidth;
 
 - (id)initWithFrame:(CGRect)frame AndColor:(UIColor *)c AndPercentComplete:(int)per
 {
@@ -22,6 +23,7 @@
         // Initialization code
         self.color = c;
         self.percent = per;
+        self.lineWidth = 2;
         
         self.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
     }
@@ -40,7 +42,7 @@
                                                       startAngle:DEGREES_TO_RADIANS(0)
                                                         endAngle:DEGREES_TO_RADIANS(360)
                                                        clockwise:YES];
-     aPath.lineWidth = 2;
+     aPath.lineWidth = self.lineWidth;
      [light setStroke];
      [aPath stroke];
      
@@ -50,7 +52,7 @@
                                                       startAngle:DEGREES_TO_RADIANS(-135)
                                                         endAngle:DEGREES_TO_RADIANS((PERCENT_2_DEGREES(self.percent)-135))
                                                        clockwise:YES];
-     bPath.lineWidth = 2;
+     bPath.lineWidth = self.lineWidth;
      [self.color setStroke];
      [bPath stroke];
  }
