@@ -325,18 +325,18 @@
     // update what they can see
     detailLabel1.text = [NSString stringWithFormat:@"%.0f %@", sender.value+1, bet.noun];
     // update the data we pass on
-    bet.amount = [NSNumber numberWithFloat:sender.value+1];
+    bet.amount = [NSNumber numberWithInt:(int)(sender.value+1)];
 }
 
 -(void)openCalendar:(id)sender {
     UIViewController *vc = [UIViewController new];
-    CGRect f = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64);
+    CGRect f = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height );
     DDCalendarView *cal = [[DDCalendarView alloc] initWithFrame:f fontName:@"ProximaNova-Regular" delegate:self];
     vc.view = [[UIView alloc] initWithFrame:self.view.frame];
     [vc.view addSubview:cal];
     vc.view.backgroundColor = [UIColor whiteColor];
     vc.title = @"Choose End Date";
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)dayButtonPressed:(DayButton *)button {
@@ -365,7 +365,7 @@
         // update what they can see
         detailLabel2.text = theDate;
         // go back to BetOptionsVC
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else if ([maxDate compare:button.buttonDate] != NSOrderedDescending){
         // handle picking to futuristic of a date
         [[[UIAlertView alloc] initWithTitle:@"Error"

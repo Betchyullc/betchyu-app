@@ -90,6 +90,8 @@
 		89588198187C67CF00CCC9DC /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588193187C67CF00CCC9DC /* 3.jpg */; };
 		89588199187C67CF00CCC9DC /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588194187C67CF00CCC9DC /* 4.jpg */; };
 		8958819A187C67CF00CCC9DC /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89588195187C67CF00CCC9DC /* 5.jpg */; };
+		89772F731950D018008A06EB /* StakeDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89772F721950D018008A06EB /* StakeDetailsVC.m */; };
+		89772F761950D081008A06EB /* StakeDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89772F751950D081008A06EB /* StakeDetailsView.m */; };
 		89826372194FA070006A95E2 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636E194FA070006A95E2 /* left-arrow.png */; };
 		89826373194FA070006A95E2 /* left-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636F194FA070006A95E2 /* left-arrow@2x.png */; };
 		89826374194FA070006A95E2 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826370194FA070006A95E2 /* right-arrow.png */; };
@@ -271,6 +273,10 @@
 		89588193187C67CF00CCC9DC /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		89588194187C67CF00CCC9DC /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 		89588195187C67CF00CCC9DC /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
+		89772F711950D018008A06EB /* StakeDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeDetailsVC.h; sourceTree = "<group>"; };
+		89772F721950D018008A06EB /* StakeDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeDetailsVC.m; sourceTree = "<group>"; };
+		89772F741950D081008A06EB /* StakeDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StakeDetailsView.h; sourceTree = "<group>"; };
+		89772F751950D081008A06EB /* StakeDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StakeDetailsView.m; sourceTree = "<group>"; };
 		8982636E194FA070006A95E2 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		8982636F194FA070006A95E2 /* left-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow@2x.png"; sourceTree = "<group>"; };
 		89826370194FA070006A95E2 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
@@ -465,6 +471,8 @@
 				8948F53F194B55FE00FF1519 /* BetDetailsView.m */,
 				8926AAE5194F73F4006FDF11 /* BetOptionsTopView.h */,
 				8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */,
+				89772F741950D081008A06EB /* StakeDetailsView.h */,
+				89772F751950D081008A06EB /* StakeDetailsView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -480,6 +488,8 @@
 				89E2F787191AB95F001BB854 /* BetSummaryVC.m */,
 				892154A11850F36F0052A7C0 /* BetStakeVC.h */,
 				892154A21850F36F0052A7C0 /* BetStakeVC.m */,
+				89772F711950D018008A06EB /* StakeDetailsVC.h */,
+				89772F721950D018008A06EB /* StakeDetailsVC.m */,
 				892154941850F2E70052A7C0 /* BetDetailsVC.h */,
 				892154951850F2E70052A7C0 /* BetDetailsVC.m */,
 				8948F54A194F258C00FF1519 /* CreateBetVC.h */,
@@ -1009,6 +1019,7 @@
 				890B98751948CF01004DE649 /* PastBetsVC.m in Sources */,
 				8948F543194B5B5500FF1519 /* UpdateView.m in Sources */,
 				890B98881949F4E7004DE649 /* HeadingBarView.m in Sources */,
+				89772F761950D081008A06EB /* StakeDetailsView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
 				8926AAED194F98EB006FDF11 /* DDCalendarView.m in Sources */,
@@ -1025,6 +1036,7 @@
 				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
 				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
 				8926AAEC194F98EB006FDF11 /* DayButton.m in Sources */,
+				89772F731950D018008A06EB /* StakeDetailsVC.m in Sources */,
 				890B987E1948D165004DE649 /* FriendsVC.m in Sources */,
 				89B1A6B01859236C006A656F /* API.m in Sources */,
 				890B987B1948CFF3004DE649 /* FriendsPastBetsView.m in Sources */,

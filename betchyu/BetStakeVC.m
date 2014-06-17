@@ -7,7 +7,7 @@
 //
 
 #import "BetStakeVC.h"
-#import "BetStakeConfirmVC.h"
+#import "StakeDetailsVC.h"
 
 @interface BetStakeVC ()
 
@@ -39,16 +39,17 @@
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     int h = mainView.frame.size.height;
     int w = mainView.frame.size.width;
+    int topHeight = 180;
     
     //self.stakeImageHeight = 0.78 * w;
-    mainView.contentSize   = CGSizeMake(w, 20 + ((stakeImageHeight+20)*stakes.count));
+    mainView.contentSize   = CGSizeMake(w, topHeight + 36 + ((stakeImageHeight)*stakes.count));
     [mainView setBackgroundColor:Blight];
     
-    BetOptionsTopView *top = [[BetOptionsTopView alloc] initWithFrame:CGRectMake(0, -64, w, 220) AndBetName:[NSString stringWithFormat:@"%@ %@",bet.verb, bet.noun]];
+    BetOptionsTopView *top = [[BetOptionsTopView alloc] initWithFrame:CGRectMake(0, -64, w, topHeight) AndBetName:[NSString stringWithFormat:@"%@ %@",bet.verb, bet.noun]];
     top.textLabel.text = [self getBetDescription];
     [mainView addSubview:top];
     
-    UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, w, 36)];
+    UILabel *msg = [[UILabel alloc] initWithFrame:CGRectMake(0, topHeight, w, 36)];
     msg.backgroundColor = [UIColor whiteColor];
     msg.textColor = Borange;
     msg.text = @"\tThe stake is a:";
@@ -59,7 +60,7 @@
     [mainView addSubview:msg];
     
     for (int i = 0; i < stakes.count; i++) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, (i*(stakeImageHeight)) +(220 + 36) - i, w, stakeImageHeight)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, (i*(stakeImageHeight)) +(topHeight + 36) - i, w, stakeImageHeight)];
         btn.backgroundColor = [UIColor whiteColor];
         
         // add giftcard img
@@ -73,7 +74,7 @@
         
         // add arrow to btn
         UIImageView * arrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"arrow-16.png"]];
-        arrow.frame = CGRectMake(w - 22, 18, 10, 28);
+        arrow.frame = CGRectMake(w - 22, 18, 10, 24);
         arrow.image = [arrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         arrow.tintColor = Bmid;
         [btn addSubview:arrow];
@@ -106,7 +107,7 @@
 
 - (void) stakeTapped:(UIButton *)sender {
     bet.stakeType      = [stakes objectAtIndex:sender.tag];
-    BetStakeConfirmVC *vc = [[BetStakeConfirmVC alloc] initWithBet:bet];
+    StakeDetailsVC *vc = [[StakeDetailsVC alloc] initWithBet:bet];
     vc.title = @"Stake Details";
     
     [self.navigationController pushViewController:vc animated:true];
