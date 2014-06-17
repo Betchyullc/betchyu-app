@@ -42,6 +42,12 @@
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.scrollEnabled = NO;
     
+    // set shadow on tableView
+    self.tableView.layer.masksToBounds = NO;
+    self.tableView.clipsToBounds      = NO;
+    
+    self.view.backgroundColor = Blight;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -91,6 +97,15 @@
         img = [UIImage imageNamed:@"run-circle.png"];
     } else if ([[self.betTypes objectAtIndex:indexPath.row] isEqualToString:@"Workout More"]) {
         img = [UIImage imageNamed:@"workout-circle.png"];
+        
+#warning this shit doesn't work
+        cell.layer.masksToBounds = NO;
+        cell.clipsToBounds      = NO;
+        cell.layer.shadowColor  = [Bdark CGColor];
+        cell.layer.shadowRadius = 3.0f;
+        cell.layer.shadowOffset = CGSizeMake(0, 15);
+        cell.layer.shadowOpacity= 0.7f;
+        cell.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:cell.layer.bounds] CGPath];
     }
     cell.imageView.image = img;
     
@@ -112,6 +127,7 @@
     title.text = @"\tI want to:";
     title.font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
     title.textColor = Borange;
+    title.backgroundColor = [UIColor whiteColor];
     
     UIView *line = [UIView new];
     line.frame = CGRectMake(0, title.frame.size.height - 2, title.frame.size.width, 2);

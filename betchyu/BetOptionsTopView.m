@@ -2,7 +2,7 @@
 //  BetOptionsTopView.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/16/14.
+//  Created by Daniel Zapata on 6/16/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
 //
 
@@ -10,12 +10,15 @@
 
 @implementation BetOptionsTopView
 
+@synthesize textLabel;
+
 - (id)initWithFrame:(CGRect)frame AndBetName:(NSString *)name
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         int off = 64;
+        name = [self getBetName:name];
         
         // add the Background image
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.jpg", name]]];
@@ -23,12 +26,12 @@
         [self addSubview:img];
         
         // The text
-        UILabel *bName  = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height-40 + off, frame.size.width, 30)];
-        bName.textColor = [UIColor whiteColor];
-        bName.text      = name;
-        bName.font      = [UIFont fontWithName:@"ProximaNova-Bold" size:22.0];
-        bName.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:bName];
+        self.textLabel  = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height-40 + off, frame.size.width, 30)];
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.textLabel.text      = name;
+        self.textLabel.font      = [UIFont fontWithName:@"ProximaNova-Bold" size:22.0];
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:self.textLabel];
         
         // Type Graphic
         // use a button to dispaly a pic for tint funcionality
@@ -56,19 +59,40 @@
 }
 
 - (UIImage *) getGraphicFromName:(NSString*)name {
-    if ([name isEqualToString:@"Lose Weight"]) {
+    name = [name lowercaseString];
+    if ([name hasPrefix:@"lose"]) {
         return [UIImage imageNamed:@"scale-02.png"];
     }
-    else if ([name isEqualToString:@"Stop Smoking"]){
+    else if ([name hasPrefix:@"stop"]){
         return [UIImage imageNamed:@"smoke-04.png"];
     }
-    else if ([name isEqualToString:@"Workout More"]){
+    else if ([name hasPrefix:@"workout"]){
         return [UIImage imageNamed:@"workout-05.png"];
     }
-    else if ([name isEqualToString:@"Run More"]){
+    else if ([name hasPrefix:@"run"]){
         return [UIImage imageNamed:@"run-03.png"];
     } else {
+        NSLog(@"uh oh");
         return [UIImage imageNamed:@"info_button.png"];
+    }
+}
+
+- (NSString *) getBetName:(NSString*)name {
+    name = [name lowercaseString];
+    if ([name hasPrefix:@"lose"]) {
+        return @"Lose Weight";
+    }
+    else if ([name hasPrefix:@"stop"]){
+        return @"Stop Smoking";
+    }
+    else if ([name hasPrefix:@"workout"]){
+        return @"Workout More";
+    }
+    else if ([name hasPrefix:@"run"]){
+        return @"Run More";
+    } else {
+        NSLog(@"uh oh");
+        return @"Uh Oh";
     }
 }
 

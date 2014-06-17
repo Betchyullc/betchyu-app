@@ -105,22 +105,9 @@
     // add the UIScrollView we've been compiling to the actual screen.
     self.view = mainView;
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 // Move on to selecting their friend
 -(void)setBetStake:(id)sender {
-    [[[UIAlertView alloc] initWithTitle: @"Reminder"
-                                message: @"It is up to you and your friend to pay this stake after the bet. Betchyu just helps you track things."
-                               delegate: nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
     
     if (!fbFriendVC) {
         fbFriendVC = [[FBFriendPickerViewController alloc] initWithNibName:nil bundle:nil];
