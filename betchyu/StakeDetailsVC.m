@@ -183,7 +183,7 @@
         }
     }];
     [[[UIAlertView alloc] initWithTitle: @"Congratulations!"
-                                message: @"An invitation has been sent to your friends' Betchyu app. The first person to accept becomes your opponent."
+                                message: @"An invitation has been sent to your friends' Betchyu app."
                                delegate: nil
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];

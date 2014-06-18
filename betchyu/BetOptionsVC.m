@@ -45,6 +45,18 @@
         
         // remove the "Bet Options" from the back button on following pages
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+        
+        
+        // pre-load the facebook shit
+        if (!fbFriendVC) {
+            fbFriendVC = [[FBFriendPickerViewController alloc] initWithNibName:nil bundle:nil];
+            // Set the friend picker delegate
+            fbFriendVC.delegate = self;
+            
+            fbFriendVC.title = @"Choose Opponents";
+        }
+        
+        [fbFriendVC loadData];
 
     }
     return self;
@@ -401,15 +413,6 @@
         bet.initial = @([initialInput.text integerValue]);
     }
     
-    if (!fbFriendVC) {
-        fbFriendVC = [[FBFriendPickerViewController alloc] initWithNibName:nil bundle:nil];
-        // Set the friend picker delegate
-        fbFriendVC.delegate = self;
-        
-        fbFriendVC.title = @"Choose Opponents";
-    }
-    
-    [fbFriendVC loadData];
     [self presentViewController:self.fbFriendVC animated:YES completion:^(void){
         [self addSearchBarToFriendPickerView];
     }];
