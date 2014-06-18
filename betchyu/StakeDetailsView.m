@@ -11,6 +11,8 @@
 @implementation StakeDetailsView
 
 @synthesize stakeType;
+@synthesize amountLabel;
+@synthesize totalAmountLabel;
 
 - (id)initWithFrame:(CGRect)frame AndStakeType:(NSString *)type
 {
@@ -58,7 +60,7 @@
         UIView *mainImgContainer = [[UIView alloc] initWithFrame:CGRectMake(w/3, mainImgYoff, w/3, w/3)];
         mainImgContainer.layer.cornerRadius = mainImgContainer.frame.size.width/2;
         mainImgContainer.layer.borderColor = Borange.CGColor;
-        mainImgContainer.layer.borderWidth = 2;
+        mainImgContainer.layer.borderWidth = 3;
         mainImgContainer.clipsToBounds = YES;
         mainImgContainer.layer.masksToBounds = YES;
         UIImageView * mainImgImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.jpg",stakeType]]];
@@ -66,17 +68,50 @@
         [mainImgContainer addSubview:mainImgImg];
         
         // @"For the Amount of" Label
-        // amountLabel
+        int forTheAmountOfYoff = mainImgYoff + w/3 + 10; // 10 for padding
+        int forTheAmountOfHeight = 30;
+        int forTheAmountOfFontSize = 18;
+        UILabel *forTheAmountOf = [[UILabel alloc] initWithFrame:CGRectMake(0, forTheAmountOfYoff, w, forTheAmountOfHeight)];
+        forTheAmountOf.text = @"For the amount of:";
+        forTheAmountOf.font = [UIFont fontWithName:@"ProximaNova-Bold" size:forTheAmountOfFontSize];
+        forTheAmountOf.textAlignment = NSTextAlignmentCenter;
+        forTheAmountOf.textColor = Borange;
+        
+        // amountLabel is a property so that it can be updated by VC
+        int amountLabelYoff     = forTheAmountOfYoff + forTheAmountOfHeight + 10; // 10 for padding
+        int amountLabelFontSize = 42;
+        self.amountLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, amountLabelYoff, w, amountLabelFontSize + 8)];
+        amountLabel.text        = @"$10";
+        amountLabel.font        = [UIFont fontWithName:@"ProximaNova-Bold" size:amountLabelFontSize];
+        amountLabel.textAlignment = NSTextAlignmentCenter;
+        amountLabel.textColor   = Borange;
+        
         // - button
-        // + button
-        // Intotal stake Label
-        // Review Bet button
+        // + button are both taken care of by the VC
+        
+        // Intotal stake Label  is a property so that it can be updated by VC
+        int totalAmountLabelYoff     = amountLabelYoff + amountLabelFontSize + 20; // 10 for padding
+        self.totalAmountLabel        = [[UILabel alloc] initWithFrame:CGRectMake(0, totalAmountLabelYoff, w, forTheAmountOfHeight)];
+        totalAmountLabel.text        = @"In total there is $30 at stake.";
+        totalAmountLabel.font        = [UIFont fontWithName:@"ProximaNova-Bold" size:forTheAmountOfFontSize];
+        totalAmountLabel.textAlignment = NSTextAlignmentCenter;
+        totalAmountLabel.textColor   = Borange;
+        totalAmountLabel.clipsToBounds = NO;
+        totalAmountLabel.layer.masksToBounds = NO;
+        UIView *l = [[UIView alloc]initWithFrame:CGRectMake(15, -5, w-30, 2)];
+        l.backgroundColor = Blight;
+        [totalAmountLabel addSubview:l];
+        
+        // Review Bet button is taken care of by the VC
         
         
         // set up the self stuff
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:header];
         [self addSubview:mainImgContainer];
+        [self addSubview:forTheAmountOf];
+        [self addSubview:amountLabel];
+        [self addSubview:totalAmountLabel];
     }
     return self;
 }

@@ -16,6 +16,10 @@
 #define Blight  [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0]
 #define Bmid    [UIColor colorWithRed:186.0/255 green:186.0/255 blue:194.0/255 alpha:1.0]
 
+#define FregfS [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize]
+#define FblackfS [UIFont fontWithName:@"ProximaNova-Black" size:fontSize]
+#define FboldfS [UIFont fontWithName:@"ProximaNova-Bold" size:fontSize]
+
 @interface TempBet : NSObject
 
 @property (nonatomic, retain) NSNumber * amount;

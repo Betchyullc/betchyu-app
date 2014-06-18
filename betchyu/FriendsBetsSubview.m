@@ -51,8 +51,8 @@
     profPic.layer.cornerRadius = (dim-6)/2;
     return profPic;
 }
-- (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+- (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab UserId:(NSString*)usr {
+    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@",usr]completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
             // Success! Include your code to handle the results here
@@ -120,7 +120,7 @@
             desc.textAlignment = NSTextAlignmentLeft;
             desc.lineBreakMode = NSLineBreakByWordWrapping;
             desc.numberOfLines = 0;
-            [self setBetDescription:obj ForLabel:desc];
+            [self setBetDescription:obj ForLabel:desc UserId:[obj valueForKey:@"owner"]];
             
             // End Date String
             UILabel *date      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB+desc.font.pointSize*1.6, frame.size.width/2, rowHt)];

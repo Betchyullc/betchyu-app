@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "StakeDetailsView.h"
+#import "BetSummaryVC.h"
+#import "BTPaymentViewController.h"
 
-@interface StakeDetailsVC : UIViewController
+@interface StakeDetailsVC : UIViewController <UIAlertViewDelegate>
 
 @property (strong) TempBet *bet;
+@property int currentStake;
+@property StakeDetailsView * staticStuff;
 
 - (id)initWithBet:(TempBet *)betObj;
 

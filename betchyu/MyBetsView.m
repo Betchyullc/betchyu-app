@@ -100,10 +100,9 @@
             }
             UIButton *pic = [UIButton buttonWithType:UIButtonTypeRoundedRect];      // make the graphic
             // set the frame for said graphic button
+            pic.frame = CGRectMake(1+picF.origin.x + ((dim+10)/6), 1+picF.origin.y + ((dim+10)/6), 2*(dim-5)/3, 2*(dim-5)/3);
             if ([[[obj valueForKey:@"noun"] lowercaseString] isEqualToString:@"smoking"]) {
                 pic.frame = CGRectMake(picF.origin.x+2, picF.origin.y+2, picF.size.width-4, picF.size.height-4);
-            } else {
-                pic.frame = CGRectMake(1+picF.origin.x + ((dim+10)/6), 1+picF.origin.y + ((dim+10)/6), 2*(dim-5)/3, 2*(dim-5)/3);
             }
             [pic setImage:[self getImageFromBet:obj] forState:UIControlStateNormal];
             pic.tintColor = tintC;          // makes said UIImage teh correct color
@@ -179,7 +178,7 @@
 }
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
     NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
-    // Success! Include your code to handle the results here
+    
     if ([noun isEqualToString:@"smoking"]) {
         lab.text = [NSString stringWithFormat:@"%@ %@ for %@ days", [obj valueForKey:@"verb"], noun, [obj valueForKey:@"duration"]];
     }

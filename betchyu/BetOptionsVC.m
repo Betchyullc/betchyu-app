@@ -85,7 +85,7 @@
     // The Label stating your intention @"I will not smoke:"
     UILabel *goalAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
     goalAmountLabel.text = [NSString stringWithFormat:@"I will %@ %@ until:", bet.verb, bet.noun];
-    goalAmountLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    goalAmountLabel.font = FregfS;
     goalAmountLabel.textColor = Borange; // orange b/c more important
     [main addSubview:goalAmountLabel];
     CGRect gf = goalAmountLabel.frame;
@@ -100,32 +100,22 @@
     UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, gf.origin.y + gf.size.height, w-15, fontSize+2)];
     endDateLabel.text       = @"End Date:";
     endDateLabel.textColor  = Bmid;
-    endDateLabel.font       = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    endDateLabel.font       = FregfS;
     [main addSubview:endDateLabel];
     
     detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, gf.origin.y + gf.size.height, w, fontSize+2)];
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.text       = @"";
     detailLabel2.textColor  = Borange;
-    detailLabel2.font       = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    detailLabel2.font       = FregfS;
     [main addSubview:detailLabel2];
     
     // little button that opens the datepicker
-    UIButton *openCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    openCalendar.frame = CGRectMake(w - 50, endDateLabel.frame.origin.y - 10, 35, 35);
-    [openCalendar setImage:[UIImage imageNamed:@"calendar-06.png"] forState:UIControlStateNormal];
-    [openCalendar addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    openCalendar.tintColor = Bmid;
+    UIButton *openCalendar = [self getOpenCalendarBtn:endDateLabel.frame WithWidth:w];
     [main addSubview:openCalendar];
     
     // The green "Choose Opponent" button at the bottom
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    nextBtn.backgroundColor = Bgreen;
-    nextBtn.frame = CGRectMake(0, openCalendar.frame.size.height + openCalendar.frame.origin.y + 10, w, 45);
-    [nextBtn setTitle:@"Choose Opponents" forState:UIControlStateNormal];
-    nextBtn.titleLabel.font =[UIFont fontWithName:@"ProximaNova-Black" size:fontSize];
-    [nextBtn addTarget:self action:@selector(chooseOpponents:) forControlEvents:UIControlEventTouchUpInside];
-    nextBtn.tintColor = [UIColor whiteColor];
+    UIButton *nextBtn = [self getChooseOpponentsButton:openCalendar.frame WithWidth:w AndFontSize:fontSize];
     [main addSubview:nextBtn];
     
     // messing with framing and apperance
@@ -140,7 +130,6 @@
     main.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:main.layer.bounds] CGPath];
     
     return main;
-
 }
 -(UIView *)getDecreasingSubview {
     // convinience variables
@@ -152,7 +141,7 @@
     
     UILabel *startingFromLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
     startingFromLab.text = @"Starting From:\t\t\t\t\t  lbs";
-    startingFromLab.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    startingFromLab.font = FregfS;
     startingFromLab.textColor = Bmid;
     [main addSubview:startingFromLab];
     
@@ -171,14 +160,14 @@
     // The Label stating your tintention @"I will lose:"
     UILabel *goalAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, initialInput.frame.size.height + initialInput.frame.origin.y + 15, w-15, fontSize+2)];
     goalAmountLabel.text = [NSString stringWithFormat:@"I will %@:", bet.verb];
-    goalAmountLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    goalAmountLabel.font = FregfS;
     goalAmountLabel.textColor = Bmid;
     [main addSubview:goalAmountLabel];
     
     // the uilabel that changes with the position of the slider
     self.detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, goalAmountLabel.frame.origin.y, w, fontSize+2)];
     detailLabel1.text = @"";
-    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    detailLabel1.font = FregfS;
     detailLabel1.textColor = Borange;
     detailLabel1.textAlignment = NSTextAlignmentCenter;
     [main addSubview:self.detailLabel1];
@@ -199,32 +188,22 @@
     UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, slider.frame.origin.y + slider.frame.size.height, w-15, fontSize+2)];
     endDateLabel.text       = @"End Date:";
     endDateLabel.textColor  = Bmid;
-    endDateLabel.font       = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    endDateLabel.font       = FregfS;
     [main addSubview:endDateLabel];
     
     detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, slider.frame.origin.y + slider.frame.size.height, w, fontSize+2)];
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.text       = @"";
     detailLabel2.textColor  = Borange;
-    detailLabel2.font       = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    detailLabel2.font       = FregfS;
     [main addSubview:detailLabel2];
     
     // little button that opens the datepicker
-    UIButton *openCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    openCalendar.frame = CGRectMake(w - 50, endDateLabel.frame.origin.y - 10, 35, 35);
-    [openCalendar setImage:[UIImage imageNamed:@"calendar-06.png"] forState:UIControlStateNormal];
-    [openCalendar addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    openCalendar.tintColor = Bmid;
+    UIButton *openCalendar = [self getOpenCalendarBtn:endDateLabel.frame WithWidth:w];
     [main addSubview:openCalendar];
     
     // The green "Choose Opponent" button at the bottom
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    nextBtn.backgroundColor = Bgreen;
-    nextBtn.frame = CGRectMake(0, openCalendar.frame.size.height + openCalendar.frame.origin.y + 10, w, 45);
-    [nextBtn setTitle:@"Choose Opponents" forState:UIControlStateNormal];
-    [nextBtn addTarget:self action:@selector(chooseOpponents:) forControlEvents:UIControlEventTouchUpInside];
-    nextBtn.tintColor = [UIColor whiteColor];
-    nextBtn.titleLabel.font =[UIFont fontWithName:@"ProximaNova-Black" size:fontSize];
+    UIButton *nextBtn = [self getChooseOpponentsButton:openCalendar.frame WithWidth:w AndFontSize:fontSize];
     [main addSubview:nextBtn];
     
     // messing with framing and apperance
@@ -251,14 +230,14 @@
     // The Label stating your tintention @"I will run:"
     UILabel *goalAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
     goalAmountLabel.text = [NSString stringWithFormat:@"I will %@:", bet.verb];
-    goalAmountLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    goalAmountLabel.font = FregfS;
     goalAmountLabel.textColor = Bmid;
     [main addSubview:goalAmountLabel];
     
     // the uilabel that changes with the position of the slider
     self.detailLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 9, w, fontSize+2)];
     detailLabel1.text = @"";
-    detailLabel1.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    detailLabel1.font = FregfS;
     detailLabel1.textColor = Borange;
     detailLabel1.textAlignment = NSTextAlignmentCenter;
     [main addSubview:self.detailLabel1];
@@ -279,32 +258,22 @@
     UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, slider.frame.origin.y + slider.frame.size.height, w-15, fontSize+2)];
     endDateLabel.text       = @"End Date:";
     endDateLabel.textColor  = Bmid;
-    endDateLabel.font       = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    endDateLabel.font       = FregfS;
     [main addSubview:endDateLabel];
     
     detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, slider.frame.origin.y + slider.frame.size.height, w, fontSize+2)];
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.text       = @"";
     detailLabel2.textColor  = Borange;
-    detailLabel2.font       = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+    detailLabel2.font       = FregfS;
     [main addSubview:detailLabel2];
     
     // little button that opens the datepicker
-    UIButton *openCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    openCalendar.frame = CGRectMake(w - 50, endDateLabel.frame.origin.y - 10, 35, 35);
-    [openCalendar setImage:[UIImage imageNamed:@"calendar-06.png"] forState:UIControlStateNormal];
-    [openCalendar addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    openCalendar.tintColor = Bmid;
+    UIButton *openCalendar = [self getOpenCalendarBtn:endDateLabel.frame WithWidth:w];
     [main addSubview:openCalendar];
 
     // The green "Choose Opponent" button at the bottom
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    nextBtn.backgroundColor = Bgreen;
-    nextBtn.frame = CGRectMake(0, openCalendar.frame.size.height + openCalendar.frame.origin.y + 10, w, 45);
-    [nextBtn setTitle:@"Choose Opponents" forState:UIControlStateNormal];
-    [nextBtn addTarget:self action:@selector(chooseOpponents:) forControlEvents:UIControlEventTouchUpInside];
-    nextBtn.tintColor = [UIColor whiteColor];
-    nextBtn.titleLabel.font =[UIFont fontWithName:@"ProximaNova-Black" size:fontSize];
+    UIButton *nextBtn = [self getChooseOpponentsButton:openCalendar.frame WithWidth:w AndFontSize:fontSize];
     [main addSubview:nextBtn];
     
     // messing with framing and apperance
@@ -319,6 +288,33 @@
     main.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:main.layer.bounds] CGPath];
     
     return main;
+}
+
+-(UIButton *)getOpenCalendarBtn:(CGRect)endDateLabelFrame WithWidth:(int)w {
+    
+    UIButton *openCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    openCalendar.frame = CGRectMake(w - 50, endDateLabelFrame.origin.y - 10, 35, 35);
+    [openCalendar setImage:[UIImage imageNamed:@"calendar-06.png"] forState:UIControlStateNormal];
+    [openCalendar addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
+    openCalendar.tintColor = Bmid;
+    
+    return openCalendar;
+}
+-(UIButton *)getChooseOpponentsButton:(CGRect)openCalendarFrame WithWidth:(int)w AndFontSize:(int)fontSize {
+
+    UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, openCalendarFrame.size.height + openCalendarFrame.origin.y + 10, w, 60)];
+    nextBtn.backgroundColor = Bgreen;
+    [nextBtn setTitle:@"Choose Opponents" forState:UIControlStateNormal];
+    [nextBtn addTarget:self action:@selector(chooseOpponents:) forControlEvents:UIControlEventTouchUpInside];
+    nextBtn.tintColor = [UIColor whiteColor];
+    nextBtn.titleLabel.font =[UIFont fontWithName:@"ProximaNova-Black" size:fontSize];
+    UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow-16.png"]];
+    arrow.image     = [arrow.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    arrow.tintColor = [UIColor whiteColor];
+    arrow.frame     = CGRectMake(w-30, 22, 8, 15);
+    [nextBtn addSubview:arrow];
+    
+    return nextBtn;
 }
 
 -(void)updateSliderValue:(UISlider *)sender {
@@ -489,7 +485,7 @@
     } else {
         [self makePost:[NSNumber numberWithInt:0]];
     }
-    [self dismissViewControllerAnimated:YES completion:^(void){}];
+    //[self dismissViewControllerAnimated:YES completion:^(void){}];
 }
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerCancelWasPressed:(id)sender {
@@ -555,9 +551,11 @@
          } else {
              // move on to the next VC when we're done with last friend modal post
              if ([index integerValue] == bet.friends.count-1) {
-                 BetStakeVC *vc = [[BetStakeVC alloc] initWithBet:self.bet];
-                 vc.title = @"Set Stake";
-                 [self.navigationController pushViewController:vc animated:YES];
+                 [self dismissViewControllerAnimated:YES completion:^(void){ // gets rid of the fbVC
+                     BetStakeVC *vc = [[BetStakeVC alloc] initWithBet:self.bet];
+                     vc.title = @"Set Stake";
+                     [self.navigationController pushViewController:vc animated:YES];
+                 }];
              }
              
              // handling differently based on what the user actually did with the modal
@@ -584,7 +582,6 @@
          }
      }];
 }
-
 
 #pragma mark UITextFieldDelegate shit
 

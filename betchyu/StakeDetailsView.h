@@ -12,6 +12,8 @@
 @interface StakeDetailsView : UIScrollView
 
 @property NSString * stakeType;
+@property UILabel * amountLabel;
+@property UILabel * totalAmountLabel;
 
 - (id)initWithFrame:(CGRect)frame AndStakeType:(NSString *)type;
 

@@ -10,6 +10,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "TempBet.h"
 #import "BigButton.h"
+#import "SummaryHeaderView.h"
+#import "SummaryOpponentsView.h"
+#import "SummaryStakeView.h"
 
 @interface BetSummaryVC : UIViewController
 
