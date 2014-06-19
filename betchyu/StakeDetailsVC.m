@@ -25,6 +25,7 @@
         // Custom initialization
         bet = betObj;
         currentStake = 10;
+        bet.stakeAmount = [NSNumber numberWithInt:currentStake];
         
         // remove the "Stake Details" from the back button on following pages
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
@@ -34,11 +35,10 @@
 
 - (void)loadView {
     CGRect f = [UIScreen mainScreen].applicationFrame;
-    int h = f.size.height - 40;
     int w = f.size.width;
     // load static stuff via the StakeDetailsView
       // does not contain the buttons +/-/reviewBet
-    self.staticStuff   = [[StakeDetailsView alloc] initWithFrame:CGRectMake(0, 0, w, h) AndStakeType:bet.stakeType];
+    self.staticStuff   = [[StakeDetailsView alloc] initWithFrame:CGRectMake(0, 0, w, 600) AndStakeType:bet.stakeType];
     staticStuff.totalAmountLabel.text = [NSString stringWithFormat:@"In total there is $%i at stake.", currentStake*bet.friends.count];
     staticStuff.clipsToBounds       = NO;
     staticStuff.layer.masksToBounds = NO;
@@ -52,7 +52,7 @@
     
     // The button prompting them to move on
     int btnH = 60;
-    UIButton * reviewBet = [[UIButton alloc] initWithFrame:CGRectMake(0, h-btnH - 64, w, btnH)];
+    UIButton * reviewBet = [[UIButton alloc] initWithFrame:CGRectMake(0, staticStuff.frame.size.height-btnH-64, w, btnH)];
     reviewBet.backgroundColor   = Bgreen;
     reviewBet.tintColor         = [UIColor whiteColor];
     [reviewBet setTitle:@"Review Bet" forState:UIControlStateNormal];

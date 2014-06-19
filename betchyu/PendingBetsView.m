@@ -33,7 +33,7 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         
         // Title bar
-        HeadingBarView *heading = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8) AndTitle:@"Friend's Bets"];
+        HeadingBarView *heading = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8) AndTitle:@"Pending Bets"];
         
         // add everything
         [self addSubview:heading];
@@ -57,8 +57,8 @@
     [profBorder addSubview:profPic];
     return profBorder;
 }
-- (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+- (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab UserId:(NSString*)usr {
+    [FBRequestConnection  startWithGraphPath:[NSString stringWithFormat:@"%@",usr] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
             // Success! Include your code to handle the results here
@@ -88,11 +88,6 @@
         fontSize = 21;
         rowHt = 120;
     }
-    // colors
-    UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
-    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
-    UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
-    UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
     // Bets loop
     int c = pending.count;
     int off = fontSize*1.8;
@@ -101,7 +96,7 @@
         UILabel *none = [[UILabel alloc]initWithFrame:CGRectMake(0, off, frame.size.width, frame.size.height-off)];
         none.text = @"None";
         none.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize*1.4];
-        none.textColor = dark;
+        none.textColor = Bdark;
         none.textAlignment = NSTextAlignmentCenter;
         [self addSubview:none];
     } else {
@@ -118,29 +113,31 @@
             int widthB  = frame.size.width/5.5;
             int heightB = rowHt / 3;
             // Accept Button
-            UIButton * accept = [[UIButton alloc] initWithFrame:CGRectMake(xMargin, yB*i + yB, widthB, heightB)];
+            UIButton * accept = [[UIButton alloc] initWithFrame:CGRectMake(xMargin, yB, widthB, heightB)];
             accept.tag = i;
             [accept addTarget:self action:@selector(acceptBet:) forControlEvents:UIControlEventTouchUpInside];
-            accept.backgroundColor = green;
+            accept.backgroundColor = Bgreen;
             [accept setTitle:@"Accept" forState:UIControlStateNormal];
             [accept setTintColor:[UIColor whiteColor]];
-            accept.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
+            accept.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize];
             accept.layer.cornerRadius = 9;
             accept.clipsToBounds = YES;
             // Reject Button
-            UIButton * reject = [[UIButton alloc] initWithFrame:CGRectMake(xMargin + widthB + widthB/6, yB*i + yB, widthB, heightB)];
-            reject.backgroundColor = red;
+            UIButton * reject = [[UIButton alloc] initWithFrame:CGRectMake(xMargin + widthB + widthB/6, yB, widthB, heightB)];
+            [reject addTarget:self action:@selector(rejectBet:) forControlEvents:UIControlEventTouchUpInside];
             [reject setTitle:@"Reject" forState:UIControlStateNormal];
-            [reject setTintColor:[UIColor whiteColor]];
-            reject.font = [UIFont fontWithName:@"ProximaNova-Regular" size:(fontSize-1)];
+            reject.backgroundColor  = Bred;
+            reject.tintColor        = [UIColor whiteColor];
+            reject.titleLabel.font  = [UIFont fontWithName:@"ProximaNova-Regular" size:(fontSize-1)];
             reject.layer.cornerRadius = 9;
-            reject.clipsToBounds = YES;
+            reject.clipsToBounds    = YES;
+            reject.tag = i;
             
             // Description string
             UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, off + off/5 + rowHt*i, frame.size.width/1.65, rowHt/1.7)];
-            [self setBetDescription:obj ForLabel:desc];
+            [self setBetDescription:obj ForLabel:desc UserId:[obj valueForKey:@"owner"]];
             desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+1];
-            desc.textColor     = dark;
+            desc.textColor     = Bdark;
             desc.textAlignment = NSTextAlignmentLeft;
             desc.lineBreakMode = NSLineBreakByWordWrapping;
             desc.numberOfLines = 0;
@@ -148,23 +145,19 @@
             // arrow to indicate tapability
             UILabel *arrow      = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - xMargin/2, yB, frame.size.width/2, rowHt)];
             arrow.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
-            arrow.textColor     = light;
+            arrow.textColor     = Blight;
             arrow.textAlignment = NSTextAlignmentLeft;
             arrow.text          = [NSString stringWithUTF8String:"❯"];
             
             // Bottom line divider thingie
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/16, rowHt + off + rowHt*i, 14*frame.size.width/16, 2)];
-            line.backgroundColor = light;
+            line.backgroundColor = Blight;
             
             // Add everything
             [self addSubview:accept];
-            [self.bits addObject:accept];
             [self addSubview:reject];
-            [self.bits addObject:reject];
             [self addSubview:pic];
-            [self.bits addObject:pic];
             [self addSubview:line];
-            [self.bits addObject:line];
             //[self addSubview:desc]; Don't need to do this b/c [self setBetDescription: ForLabel]
         }
     }
@@ -225,6 +218,29 @@
      }];
 }
 
+-(void)rejectBet:(UIButton *)sender {
+    selectedBet = [bets objectAtIndex:sender.tag];
+    // this method does the following, in order:
+    //  1. tells the server that the invite has been rejected
+    NSString *path =[NSString stringWithFormat:@"invites/%@", [selectedBet valueForKey:@"invite"]];
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"rejected", @"status",
+                                  nil];
+    //make the call to the web API
+    // PUT /invites/:id => {status: "rejected"}
+    [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
+        /* Do #4 */
+        // Show the result in an alert
+        [[[UIAlertView alloc] initWithTitle:@"Lame..."
+                                    message:@"You have rejected your friend's bet. That's not very sportsman-like."
+                                   delegate:nil
+                          cancelButtonTitle:@"ok"
+                          otherButtonTitles:nil]
+         show];
+        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).mainViewController getAndAddPendingBets:NO];
+    }];
+}
+
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:@"Credit Card"]) {
@@ -237,4 +253,5 @@
         }
     }
 }
+
 @end

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BinaryProgressView.h"
 
-@interface ProgressTrackingVC : UIViewController
+@interface ProgressTrackingVC : UIViewController <BinaryProgressViewDelegate>
+
+@property NSDictionary * bet;
+@property BinaryProgressView *prog;
+
+- (id)initWithBet:(NSDictionary *)betObj;
+- (void)updated:(NSDictionary *)params;
 
 @end

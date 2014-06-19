@@ -109,7 +109,6 @@
 /* -----STAKE SECTION----- */
         HeadingBarView * stakeHeader;
         if (self.isMyBet) {
-            // WRONG NEEDS TO connect to bottom of update section
             stakeHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, update.frame.origin.y + update.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Stake"];
         } else {
             stakeHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, percProg.frame.origin.y + percProg.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Stake"];

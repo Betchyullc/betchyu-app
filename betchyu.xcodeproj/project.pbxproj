@@ -42,9 +42,6 @@
 		890B98811949DB9B004DE649 /* EditProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B98801949DB9B004DE649 /* EditProfileVC.m */; };
 		890B98881949F4E7004DE649 /* HeadingBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B98871949F4E7004DE649 /* HeadingBarView.m */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
-		8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154951850F2E70052A7C0 /* BetDetailsVC.m */; };
-		8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */; };
-		892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A01850F36F0052A7C0 /* BetFinalizeVC.m */; };
 		892154B21850F36F0052A7C0 /* BetStakeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A21850F36F0052A7C0 /* BetStakeVC.m */; };
 		892154B41850F36F0052A7C0 /* BigButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A61850F36F0052A7C0 /* BigButton.m */; };
 		892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AC1850F36F0052A7C0 /* LoginViewController.m */; };
@@ -95,6 +92,11 @@
 		89772F791951FC48008A06EB /* SummaryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89772F781951FC48008A06EB /* SummaryHeaderView.m */; };
 		89772F7C1951FC59008A06EB /* SummaryOpponentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89772F7B1951FC59008A06EB /* SummaryOpponentsView.m */; };
 		89772F7F1951FC69008A06EB /* SummaryStakeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89772F7E1951FC69008A06EB /* SummaryStakeView.m */; };
+		89772F83195323F0008A06EB /* BinaryProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89772F82195323F0008A06EB /* BinaryProgressView.m */; };
+		89772F88195351D7008A06EB /* Stop Smoking.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89772F84195351D7008A06EB /* Stop Smoking.jpg */; };
+		89772F89195351D7008A06EB /* Lose Weight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89772F85195351D7008A06EB /* Lose Weight.jpg */; };
+		89772F8A195351D7008A06EB /* Run More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89772F86195351D7008A06EB /* Run More.jpg */; };
+		89772F8B195351D7008A06EB /* Workout More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89772F87195351D7008A06EB /* Workout More.jpg */; };
 		89826372194FA070006A95E2 /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636E194FA070006A95E2 /* left-arrow.png */; };
 		89826373194FA070006A95E2 /* left-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636F194FA070006A95E2 /* left-arrow@2x.png */; };
 		89826374194FA070006A95E2 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826370194FA070006A95E2 /* right-arrow.png */; };
@@ -121,10 +123,6 @@
 		89B1A7BD186916B4006A656F /* beer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BA186916B4006A656F /* beer.jpg */; };
 		89B1A7BE186916B4006A656F /* Drink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BB186916B4006A656F /* Drink.jpg */; };
 		89B1A7BF186916B4006A656F /* Meal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7BC186916B4006A656F /* Meal.jpg */; };
-		89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C0186A1341006A656F /* Lose Weight.jpg */; };
-		89B1A7C3186A13A2006A656F /* Run More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C2186A13A2006A656F /* Run More.jpg */; };
-		89B1A7C6186A13E3006A656F /* Workout More.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C4186A13E3006A656F /* Workout More.jpg */; };
-		89B1A7C7186A13E3006A656F /* Stop Smoking.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A7C5186A13E3006A656F /* Stop Smoking.jpg */; };
 		89B3F5B41850EB320055F8DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B31850EB320055F8DB /* Foundation.framework */; };
 		89B3F5B61850EB320055F8DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B51850EB320055F8DB /* CoreGraphics.framework */; };
 		89B3F5B81850EB320055F8DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B3F5B71850EB320055F8DB /* UIKit.framework */; };
@@ -207,12 +205,6 @@
 		890B98871949F4E7004DE649 /* HeadingBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadingBarView.m; sourceTree = "<group>"; };
 		890D969A19420C5B00E84039 /* BraintreeDelegateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BraintreeDelegateController.h; sourceTree = "<group>"; };
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
-		892154941850F2E70052A7C0 /* BetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetDetailsVC.h; sourceTree = "<group>"; };
-		892154951850F2E70052A7C0 /* BetDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetDetailsVC.m; sourceTree = "<group>"; };
-		892154961850F2E70052A7C0 /* BetStakeConfirmVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetStakeConfirmVC.h; sourceTree = "<group>"; };
-		892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetStakeConfirmVC.m; sourceTree = "<group>"; };
-		8921549F1850F36F0052A7C0 /* BetFinalizeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetFinalizeVC.h; sourceTree = "<group>"; };
-		892154A01850F36F0052A7C0 /* BetFinalizeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetFinalizeVC.m; sourceTree = "<group>"; };
 		892154A11850F36F0052A7C0 /* BetStakeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetStakeVC.h; sourceTree = "<group>"; };
 		892154A21850F36F0052A7C0 /* BetStakeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetStakeVC.m; sourceTree = "<group>"; };
 		892154A51850F36F0052A7C0 /* BigButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigButton.h; sourceTree = "<group>"; };
@@ -286,6 +278,12 @@
 		89772F7B1951FC59008A06EB /* SummaryOpponentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryOpponentsView.m; sourceTree = "<group>"; };
 		89772F7D1951FC69008A06EB /* SummaryStakeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryStakeView.h; sourceTree = "<group>"; };
 		89772F7E1951FC69008A06EB /* SummaryStakeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryStakeView.m; sourceTree = "<group>"; };
+		89772F81195323F0008A06EB /* BinaryProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryProgressView.h; sourceTree = "<group>"; };
+		89772F82195323F0008A06EB /* BinaryProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BinaryProgressView.m; sourceTree = "<group>"; };
+		89772F84195351D7008A06EB /* Stop Smoking.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Stop Smoking.jpg"; sourceTree = "<group>"; };
+		89772F85195351D7008A06EB /* Lose Weight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lose Weight.jpg"; sourceTree = "<group>"; };
+		89772F86195351D7008A06EB /* Run More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Run More.jpg"; sourceTree = "<group>"; };
+		89772F87195351D7008A06EB /* Workout More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Workout More.jpg"; sourceTree = "<group>"; };
 		8982636E194FA070006A95E2 /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		8982636F194FA070006A95E2 /* left-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow@2x.png"; sourceTree = "<group>"; };
 		89826370194FA070006A95E2 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
@@ -325,10 +323,6 @@
 		89B1A7BA186916B4006A656F /* beer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beer.jpg; sourceTree = "<group>"; };
 		89B1A7BB186916B4006A656F /* Drink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Drink.jpg; sourceTree = "<group>"; };
 		89B1A7BC186916B4006A656F /* Meal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Meal.jpg; sourceTree = "<group>"; };
-		89B1A7C0186A1341006A656F /* Lose Weight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lose Weight.jpg"; sourceTree = "<group>"; };
-		89B1A7C2186A13A2006A656F /* Run More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Run More.jpg"; sourceTree = "<group>"; };
-		89B1A7C4186A13E3006A656F /* Workout More.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Workout More.jpg"; sourceTree = "<group>"; };
-		89B1A7C5186A13E3006A656F /* Stop Smoking.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Stop Smoking.jpg"; sourceTree = "<group>"; };
 		89B3F5B01850EB320055F8DB /* Betchyu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Betchyu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B3F5B31850EB320055F8DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B3F5B51850EB320055F8DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -448,7 +442,7 @@
 		892154BA1850F3CD0052A7C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				89588190187C515400CCC9DC /* Bet Details/Update */,
+				89588190187C515400CCC9DC /* Bet Details and Update */,
 				89C65164193D1E31004B64B6 /* DashboardVC.h */,
 				89C65165193D1E31004B64B6 /* DashboardVC.m */,
 				892154C018524E290052A7C0 /* Create Bet Flow */,
@@ -483,6 +477,8 @@
 				89772F741950D081008A06EB /* StakeDetailsView.h */,
 				89772F751950D081008A06EB /* StakeDetailsView.m */,
 				89772F801951FC74008A06EB /* BetSummary */,
+				89772F81195323F0008A06EB /* BinaryProgressView.h */,
+				89772F82195323F0008A06EB /* BinaryProgressView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -490,12 +486,6 @@
 		892154C018524E290052A7C0 /* Create Bet Flow */ = {
 			isa = PBXGroup;
 			children = (
-				892154941850F2E70052A7C0 /* BetDetailsVC.h */,
-				892154951850F2E70052A7C0 /* BetDetailsVC.m */,
-				8921549F1850F36F0052A7C0 /* BetFinalizeVC.h */,
-				892154A01850F36F0052A7C0 /* BetFinalizeVC.m */,
-				892154961850F2E70052A7C0 /* BetStakeConfirmVC.h */,
-				892154971850F2E70052A7C0 /* BetStakeConfirmVC.m */,
 				89E2F786191AB95F001BB854 /* BetSummaryVC.h */,
 				89E2F787191AB95F001BB854 /* BetSummaryVC.m */,
 				89772F711950D018008A06EB /* StakeDetailsVC.h */,
@@ -573,7 +563,7 @@
 			name = Calendar;
 			sourceTree = "<group>";
 		};
-		89588190187C515400CCC9DC /* Bet Details/Update */ = {
+		89588190187C515400CCC9DC /* Bet Details and Update */ = {
 			isa = PBXGroup;
 			children = (
 				89B1A6B7186355A3006A656F /* BetTrackingVC.h */,
@@ -585,7 +575,7 @@
 				8948F544194B8AF500FF1519 /* ProgressTrackingVC.h */,
 				8948F545194B8AF500FF1519 /* ProgressTrackingVC.m */,
 			);
-			name = "Bet Details/Update";
+			name = "Bet Details and Update";
 			sourceTree = "<group>";
 		};
 		89772F801951FC74008A06EB /* BetSummary */ = {
@@ -617,10 +607,10 @@
 		8982636D194FA04A006A95E2 /* Bet Background Images */ = {
 			isa = PBXGroup;
 			children = (
-				89B1A7C4186A13E3006A656F /* Workout More.jpg */,
-				89B1A7C5186A13E3006A656F /* Stop Smoking.jpg */,
-				89B1A7C2186A13A2006A656F /* Run More.jpg */,
-				89B1A7C0186A1341006A656F /* Lose Weight.jpg */,
+				89772F84195351D7008A06EB /* Stop Smoking.jpg */,
+				89772F85195351D7008A06EB /* Lose Weight.jpg */,
+				89772F86195351D7008A06EB /* Run More.jpg */,
+				89772F87195351D7008A06EB /* Workout More.jpg */,
 			);
 			name = "Bet Background Images";
 			sourceTree = "<group>";
@@ -895,11 +885,11 @@
 				890B985719473532004DE649 /* check-22.png in Resources */,
 				8926AADC194F636A006FDF11 /* smoke-circle.png in Resources */,
 				89826372194FA070006A95E2 /* left-arrow.png in Resources */,
+				89772F8A195351D7008A06EB /* Run More.jpg in Resources */,
 				89588197187C67CF00CCC9DC /* 2.jpg in Resources */,
 				89B3F5C01850EB320055F8DB /* InfoPlist.strings in Resources */,
 				892154D5185261270052A7C0 /* ProximaNova-ExtrabldIt.otf in Resources */,
 				890B985819473532004DE649 /* drink-07.png in Resources */,
-				89B1A7C7186A13E3006A656F /* Stop Smoking.jpg in Resources */,
 				890B986519473532004DE649 /* workout-05.png in Resources */,
 				89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */,
 				890B98351946084C004DE649 /* iTunes Gift Card.jpg in Resources */,
@@ -916,7 +906,6 @@
 				89588199187C67CF00CCC9DC /* 4.jpg in Resources */,
 				89B1A7B518689C05006A656F /* flyout_menu.png in Resources */,
 				890B986119473532004DE649 /* run-03.png in Resources */,
-				89B1A7C3186A13A2006A656F /* Run More.jpg in Resources */,
 				89B3F5CB1850EB320055F8DB /* Images.xcassets in Resources */,
 				892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */,
 				892154D2185261270052A7C0 /* ProximaNova-Bold.otf in Resources */,
@@ -927,11 +916,13 @@
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
 				89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */,
 				890B985019473532004DE649 /* addfriend-15.png in Resources */,
+				89772F8B195351D7008A06EB /* Workout More.jpg in Resources */,
+				89772F89195351D7008A06EB /* Lose Weight.jpg in Resources */,
 				8948F53D194B518600FF1519 /* Betchyu_logo_gray.png in Resources */,
 				890B985A19473532004DE649 /* friends-12.png in Resources */,
-				89B1A7C6186A13E3006A656F /* Workout More.jpg in Resources */,
 				890B985419473532004DE649 /* calendar-06.png in Resources */,
 				890B985919473532004DE649 /* eat-08.png in Resources */,
+				89772F88195351D7008A06EB /* Stop Smoking.jpg in Resources */,
 				89B1A6BD1864F789006A656F /* star.png in Resources */,
 				890B986219473532004DE649 /* scale-02.png in Resources */,
 				890B985B19473532004DE649 /* heart-19.png in Resources */,
@@ -952,7 +943,6 @@
 				8926AAE0194F63E2006FDF11 /* run-circle.png in Resources */,
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
-				89B1A7C1186A1341006A656F /* Lose Weight.jpg in Resources */,
 				89826374194FA070006A95E2 /* right-arrow.png in Resources */,
 				890B986319473532004DE649 /* settings-13.png in Resources */,
 				892154DC185261270052A7C0 /* ProximaNova-ThinIt.otf in Resources */,
@@ -1015,7 +1005,6 @@
 				8948F54C194F258C00FF1519 /* CreateBetVC.m in Sources */,
 				89B1A749186674D7006A656F /* FacingView.m in Sources */,
 				890B986E1948B9D3004DE649 /* SettingsVC.m in Sources */,
-				892154B11850F36F0052A7C0 /* BetFinalizeVC.m in Sources */,
 				89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */,
 				8926AA8B1940E73400AAB74A /* MyBetsView.m in Sources */,
 				89C6516C193E4BE9004B64B6 /* PendingBetsView.m in Sources */,
@@ -1037,6 +1026,7 @@
 				8957380D189830BB00E693A5 /* Graph.m in Sources */,
 				89B1A74A186674D7006A656F /* MTStackFoldView.m in Sources */,
 				890B98721948BA31004DE649 /* SettingsView.m in Sources */,
+				89772F83195323F0008A06EB /* BinaryProgressView.m in Sources */,
 				89E2F788191AB95F001BB854 /* BetSummaryVC.m in Sources */,
 				89B1A74F186674D7006A656F /* MTZoomContainerView.m in Sources */,
 				890B98811949DB9B004DE649 /* EditProfileVC.m in Sources */,
@@ -1059,8 +1049,6 @@
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
 				89B1A757186767E9006A656F /* ProfileView.m in Sources */,
 				890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */,
-				8921549A1850F2E70052A7C0 /* BetDetailsVC.m in Sources */,
-				8921549B1850F2E70052A7C0 /* BetStakeConfirmVC.m in Sources */,
 				8926AAEC194F98EB006FDF11 /* DayButton.m in Sources */,
 				89772F731950D018008A06EB /* StakeDetailsVC.m in Sources */,
 				890B987E1948D165004DE649 /* FriendsVC.m in Sources */,

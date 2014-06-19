@@ -22,6 +22,10 @@
         
         [self setUpProfilePic:YES];
         [self setUpName:NO];
+        
+        UIButton *goToProfileBtn = [[UIButton alloc] initWithFrame:frame];
+        [goToProfileBtn addTarget:self action:@selector(goToProfile) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:goToProfileBtn];
     }
     return self;
 }
@@ -45,7 +49,7 @@
     self.profPic.frame = CGRectMake(dim/4, dim/4, dim, dim);
     self.profPic.layer.cornerRadius  = dim/2;
     self.profPic.layer.borderWidth   = 2;
-    self.profPic.layer.borderColor   = [[UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0] CGColor];
+    self.profPic.layer.borderColor   = [Blight CGColor];
     self.profPic.layer.masksToBounds = YES;
     [self addSubview:self.profPic];
 }
@@ -69,7 +73,7 @@
             UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, (f.size.height/4), f.size.width, f.size.height/2)];
             name.text = [result valueForKey:@"name"];
             name.textAlignment = NSTextAlignmentCenter;
-            name.textColor = [UIColor colorWithRed:243.0/255 green:116.0/255 blue:67.0/255 alpha:1.0];
+            name.textColor = Borange;
             name.font = [UIFont fontWithName:@"ProximaNova-Black" size:20];
             [self addSubview:name];
         } else {
@@ -79,13 +83,8 @@
     }];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+-(void) goToProfile {
+    EditProfileVC *vc = [[EditProfileVC alloc] init];
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
-*/
-
 @end

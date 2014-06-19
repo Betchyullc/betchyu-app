@@ -20,7 +20,6 @@
     if (self) {
         // Initialization code
         stakeType = type;
-        int h = frame.size.height;
         int w = frame.size.width;
         
         int headerHeight = 70;
@@ -103,7 +102,7 @@
         [totalAmountLabel addSubview:l];
         
         // Review Bet button is taken care of by the VC
-        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, totalAmountLabelYoff + forTheAmountOfHeight + 140);
         
         // set up the self stuff
         self.backgroundColor = [UIColor whiteColor];

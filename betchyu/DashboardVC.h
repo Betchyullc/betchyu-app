@@ -23,5 +23,6 @@
 
 
 - (id)initWithInviteNumber:(NSString *)numInvs;
+- (void)getAndAddPendingBets:(id)useless;
 
 @end

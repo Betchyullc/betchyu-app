@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "EditProfileVC.h"
 
 @interface DashHeaderView : UIView
 

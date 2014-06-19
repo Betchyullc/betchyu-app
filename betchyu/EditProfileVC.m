@@ -32,8 +32,9 @@
     
     CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
     
-    self.view = [[ProfileView alloc] initWithFrame:f2 AndOwner:self];
-    //self.view.backgroundColor = [UIColor whiteColor];
+    self.view = [UIView new];
+    self.view.backgroundColor = Blight;
+    [self.view addSubview:[[ProfileView alloc] initWithFrame:f2 AndOwner:self]];
 }
 
 - (void)viewDidLoad {

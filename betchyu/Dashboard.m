@@ -27,7 +27,7 @@
     if (self) {
         // Initialization code
         //self.controller = cont;
-        oneH = 100;
+        oneH = 95;
         rowH = 70;
         pendingRowH = 90;
         if (frame.size.width > 700) {
@@ -64,12 +64,12 @@
 -(void)adjustPendingHeight:(int)numItems {
     CGRect f = self.pending.frame;
     [self.pending removeFromSuperview];
-    if (numItems <= 1) {
+    if (numItems <= 0) {
         self.pending = [[PendingBetsView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, oneH)];
         [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - oneH), my.frame.size.width, my.frame.size.height)];
         [self.friends setFrame:CGRectMake(friends.frame.origin.x, friends.frame.origin.y - (f.size.height - oneH), friends.frame.size.width, friends.frame.size.height)];
     } else {
-        int new = rowH*numItems + oneH - rowH;
+        int new = pendingRowH*numItems + oneH - rowH;
         self.pending = [[PendingBetsView alloc] initWithFrame:CGRectMake(f.origin.x, f.origin.y, f.size.width, new)];
         [self.my setFrame:CGRectMake(my.frame.origin.x, my.frame.origin.y - (f.size.height - new), my.frame.size.width, my.frame.size.height)];
         [self.friends setFrame:CGRectMake(friends.frame.origin.x, friends.frame.origin.y - (f.size.height - new), friends.frame.size.width, friends.frame.size.height)];

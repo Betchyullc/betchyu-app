@@ -8,4 +8,6 @@
 
 @interface SummaryStakeView : UIView
 
+- (id)initWithFrame:(CGRect)frame AndBet:(TempBet *)bet;
+
 @end

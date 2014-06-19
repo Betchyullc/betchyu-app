@@ -112,7 +112,7 @@
 
 -(void)update:(id)sender {
     if ([self betIsBinary]) {
-        ProgressTrackingVC *vc = [[ProgressTrackingVC alloc] init];
+        ProgressTrackingVC *vc = [[ProgressTrackingVC alloc] initWithBet:bet];
         vc.title = @"Track Your Progress";
         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
         return;
@@ -123,6 +123,9 @@
         return; // should show error
     }
     
+    float amount = [[bet valueForKey:@"amount"] floatValue];
+    float progress = ([[bet valueForKey:@"progress"] floatValue] / 100.0 * amount);
+    
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   [NSNumber numberWithFloat:[self.box.text floatValue]],    @"value",
                                   [bet valueForKey:@"id"],                                  @"bet_id",
@@ -130,7 +133,18 @@
     
     if ([[[bet valueForKey:@"verb"] lowercaseString] isEqualToString:@"lose"]) {
         float change = [[bet valueForKey:@"initial"] floatValue]- [self.box.text floatValue];
+        if (change >= amount) { // win condition for weight loss bets
+            [self putWin];
+            return; // prevents the POST below from happening
+        }
         [params setObject:[NSNumber numberWithFloat:change] forKey:@"value"];
+    } else {
+        // win condition for standard bets
+        if ([self.box.text floatValue] + progress >= amount)  {
+            // if they won, don't bother posting the update, just make the bet be won
+            [self putWin];
+            return; // prevents the POST below from happening
+        }
     }
     //make the call to the web API
     // POST /updates => {data}
@@ -138,6 +152,22 @@
         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
     }];
     
+}
+-(void)putWin {
+    NSMutableDictionary * params2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                     ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId, @"user",
+                                     [bet valueForKey:@"id"], @"bet_id",
+                                     @"true", @"win",
+                                     nil];
+    [[API sharedInstance] put:@"/pay" withParams:params2 onCompletion:^(NSDictionary *json) {
+        [[[UIAlertView alloc] initWithTitle:@"YOU WIN"
+                                    message:@"Congratulations, you've just won this bet, and it will now be visible on your 'Past Bets' screen. Expect a gift card in your email in a few days."
+                                delegate:nil
+                          cancelButtonTitle:@"Sweet"
+                          otherButtonTitles: nil]
+         show];
+        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
+    }];
 }
 
 -(void)errorBox:(BOOL)error {
@@ -159,15 +189,5 @@
     CGPoint bottomOffset = CGPointMake(0, sup.contentSize.height - sup.bounds.size.height);
     [sup setContentOffset:bottomOffset animated:YES];
 }
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
