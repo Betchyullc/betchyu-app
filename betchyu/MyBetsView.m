@@ -28,7 +28,6 @@
             self.fontSize = 21;
             self.rowHt = 100;
         }
-        UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
         
         // Background
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -48,12 +47,6 @@
     // convinience variables
     CGRect frame = self.frame;
     
-    // colors
-    UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
-    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
-    UIColor *green = [UIColor colorWithRed:173.0/255 green:196.0/255 blue:81.0/255 alpha:1.0];
-    UIColor *red   = [UIColor colorWithRed:219.0/255 green:70.0/255 blue:38.0/255 alpha:1.0];
-    UIColor *blue   = [UIColor colorWithRed:83.0/255 green:188.0/255 blue:183.0/255 alpha:1.0];
     // Bets loop
     int c = pending.count;
     int off = fontSize*1.8;
@@ -62,7 +55,7 @@
         UILabel *none = [[UILabel alloc]initWithFrame:CGRectMake(0, off, frame.size.width, frame.size.height-off)];
         none.text = @"None";
         none.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize*1.4];
-        none.textColor = dark;
+        none.textColor = Bdark;
         none.textAlignment = NSTextAlignmentCenter;
         [self addSubview:none];
     } else {
@@ -88,14 +81,14 @@
             int rand = i % 3;               // random from 0,1,2
             switch (rand) {                 // set the tintC from the rand
                 case 0:
-                    tintC = green;
+                    tintC = Bgreen;
                     break;
                 case 1:
-                    tintC = red;
+                    tintC = Bred;
                     break;
                 case 2:
                 default:
-                    tintC = blue;
+                    tintC = Bblue;
                     break;
             }
             UIButton *pic = [UIButton buttonWithType:UIButtonTypeRoundedRect];      // make the graphic
@@ -113,7 +106,7 @@
             // Bet Description String
             UILabel *desc      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB, frame.size.width/1.5, rowHt)];
             desc.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+1];
-            desc.textColor     = dark;
+            desc.textColor     = Bdark;
             desc.textAlignment = NSTextAlignmentLeft;
             desc.lineBreakMode = NSLineBreakByWordWrapping;
             desc.numberOfLines = 0;
@@ -122,7 +115,7 @@
             // End Date String
             UILabel *date      = [[UILabel alloc]initWithFrame:CGRectMake(xMargin, yB+desc.font.pointSize*1.6, frame.size.width/2, rowHt)];
             date.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize-2];
-            date.textColor     = light;
+            date.textColor     = Blight;
             date.textAlignment = NSTextAlignmentLeft;
             date.lineBreakMode = NSLineBreakByWordWrapping;
             date.numberOfLines = 0;
@@ -141,13 +134,13 @@
             // arrow to indicate tapability
             UILabel *arrow      = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - xMargin/2, yB, frame.size.width/2, rowHt)];
             arrow.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
-            arrow.textColor     = light;
+            arrow.textColor     = Blight;
             arrow.textAlignment = NSTextAlignmentLeft;
             arrow.text          = [NSString stringWithUTF8String:"❯"];
             
             // Bottom line divider thingie
             UIView *line = [[UIView alloc]initWithFrame:CGRectMake(frame.size.width/16, rowHt + yB - 2, 14*frame.size.width/16, 2)];
-            line.backgroundColor = light;
+            line.backgroundColor = Blight;
             
             // Add everything
             [self addSubview:line];

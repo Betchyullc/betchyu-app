@@ -57,12 +57,11 @@
 }
 
 -(void)loadView {
-    UIColor *light = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0];
-    UIColor *mid = [UIColor colorWithRed:186.0/255 green:186.0/255 blue:194.0/255 alpha:1.0];
-
+    NSLog(@"%f",self.passedFrame.size.height);
     int botY = 5*self.passedFrame.size.height/11;
-    self.view = [[UIView alloc] initWithFrame:self.passedFrame];
-    self.view.backgroundColor = [UIColor colorWithRed:(250/255.0) green:(250/255.0) blue:(250/255.0) alpha:1.0];
+    UIView *v = [[UIView alloc] initWithFrame:self.passedFrame];
+    v.backgroundColor = [UIColor colorWithRed:(250/255.0) green:(250/255.0) blue:(250/255.0) alpha:1.0];
+    self.view = v;
     
     // top section (picture, name, #bets won, #bets comleted)
     [self tryToAddTopSectionToView:NO];
@@ -72,7 +71,7 @@
     [editBtn setTitle:@"Edit Profile" forState:UIControlStateNormal];
     [editBtn sizeToFit];
     [editBtn addTarget:self action:@selector(editProfile:) forControlEvents:UIControlEventTouchUpInside];
-    editBtn.tintColor = mid;
+    editBtn.tintColor = Bmid;
     editBtn.frame = CGRectMake(self.passedFrame.size.width/2 - 50, botY - 60, 100, 18);
     [self.view addSubview:editBtn];
     
@@ -90,12 +89,12 @@
     self.dashText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
     self.dashText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
     self.dashText.text = @"Dashboard";
-    self.dashText.textColor = mid;
+    self.dashText.textColor = Bmid;
     [self.view addSubview:dashText];
         // add the icon
     self.dashImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"home-10.png"]];
     dashImg.image = [dashImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    dashImg.tintColor = mid;
+    dashImg.tintColor = Bmid;
     dashImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:dashImg];
     
@@ -109,13 +108,13 @@
         // add the label
     self.pastText1 = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
     pastText1.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
-    pastText1.textColor = mid;
+    pastText1.textColor = Bmid;
     pastText1.text = @"Past Bets";
     [self.view addSubview:pastText1];
         // add the icon
     self.pastImg1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bet-11.png"]];
     pastImg1.image = [pastImg1.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    pastImg1.tintColor = mid;
+    pastImg1.tintColor = Bmid;
     pastImg1.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:pastImg1];
     
@@ -129,13 +128,13 @@
         // add the label
     self.friendsText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
     friendsText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
-    friendsText.textColor = mid;
+    friendsText.textColor = Bmid;
     friendsText.text = @"Friends";
     [self.view addSubview:friendsText];
         // add the icon
     self.friendsImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"friends-12.png"]];
     friendsImg.image = [friendsImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    friendsImg.tintColor = mid;
+    friendsImg.tintColor = Bmid;
     friendsImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:friendsImg];
     
@@ -149,18 +148,21 @@
         // add the label
     self.setText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
     setText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
-    setText.textColor = mid;
+    setText.textColor = Bmid;
     setText.text = @"Settings";
     [self.view addSubview:setText];
         // add the icon
     self.setImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings-13.png"]];
     setImg.image = [setImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    setImg.tintColor = mid;
+    setImg.tintColor = Bmid;
     setImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:setImg];
     
     // logout button
-    butOff = butOff + butH + butH;
+    butOff = butOff + butH + 5;
+    if (passedFrame.size.height > 500) {
+        butOff = butOff + butH;
+    }
     UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     logoutBtn.frame = CGRectMake(0, botY + butOff, self.passedFrame.size.width, butH);
     logoutBtn.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
@@ -169,26 +171,26 @@
         // add the label
     UILabel *logoutText = [[UILabel alloc] initWithFrame:CGRectMake(70, botY + butOff, self.passedFrame.size.width, 24)];
     logoutText.font = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fS];
-    logoutText.textColor = mid;
+    logoutText.textColor = Bmid;
     logoutText.text = @"Log Out";
     [self.view addSubview:logoutText];
         // add the icon
     UIImageView *logoutImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logout-14.png"]];
     logoutImg.image = [logoutImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    logoutImg.tintColor = mid;
+    logoutImg.tintColor = Bmid;
     logoutImg.frame = CGRectMake(30, botY + butOff, 21, 21);
     [self.view addSubview:logoutImg];
     // add outlines
     UIView *l1 = [[UIView alloc] initWithFrame:CGRectMake(0, botY+butOff - 15, self.passedFrame.size.width, 2)];
-    l1.backgroundColor = light;
+    l1.backgroundColor = Blight;
     UIView *l2 = [[UIView alloc] initWithFrame:CGRectMake(0, botY+butOff + butH, self.passedFrame.size.width, 2)];
-    l2.backgroundColor = light;
+    l2.backgroundColor = Blight;
     [self.view addSubview:l1];
     [self.view addSubview:l2];
     
     // betchyu logo view
     UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Betchyu_logo_gray.png"]];
-    logo.frame = CGRectMake(passedFrame.size.width/3, passedFrame.size.height - 40, passedFrame.size.width/3, 25);
+    logo.frame = CGRectMake(passedFrame.size.width/3, l2.frame.origin.y + 22, passedFrame.size.width/3, 25);
     [self.view addSubview:logo];
 }
 

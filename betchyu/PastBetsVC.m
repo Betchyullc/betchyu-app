@@ -30,16 +30,16 @@
     CGRect f = [UIScreen mainScreen].applicationFrame;
     
     int y = self.navigationController.navigationBar.frame.size.height + f.origin.y; // navBar + statusBar
-    int h = f.size.height - y;
+    int h = f.size.height ;//- y;
     
     CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
-    self.view = [[UIView alloc] initWithFrame:f2];
+    self.view = [[UIView alloc] init];
     
-    self.yourView = [[YourPastBetsView alloc]initWithFrame:CGRectMake(0, 0, f.size.width, h/2)];
-    self.friendsView = [[FriendsPastBetsView alloc]initWithFrame:CGRectMake(0, h/2, f.size.width, h/2)];
+    self.yourView = [[YourPastBetsView alloc]initWithFrame:f2];
+    //self.friendsView = [[FriendsPastBetsView alloc]initWithFrame:CGRectMake(0, y+h/2, f.size.width, h/2)];
     
     [self.view addSubview:self.yourView];
-    [self.view addSubview:self.friendsView];
+    //[self.view addSubview:self.friendsView];
 }
 
 - (void)viewDidLoad
@@ -61,10 +61,14 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:bu2];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated {
+    NSString *path = [NSString stringWithFormat:@"past-bets/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        NSLog(@"response: %@", json);
+        [self.yourView drawBets:json];
+        CGRect fr = self.yourView.frame;
+        self.yourView.frame = CGRectMake(0, fr.origin.y, fr.size.width, yourView.rowHt * ((NSArray *)json).count + yourView.fontSize*1.8);
+    }];
 }
 
 // actions

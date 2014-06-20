@@ -131,17 +131,21 @@
         // json is our array of Bets, hopefully
         [((Dashboard *)self.view) adjustFriendsBetsHeight:((NSArray *)json).count];
         [((Dashboard *)self.view).friends addBets:(NSArray *)json];
+        self.canLeavePage = YES; // this is usually the last thing to get updated, so we allow them to leave the page after this loads.
     }];
 }
 
 // actions
 -(void)showMenu:(id)sender {
+    if (!self.canLeavePage) { return; }
+    
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
     self.stackViewController.leftViewControllerEnabled = NO;
 }
 -(IBAction)createGoal:(id)sender {
-    //if (!self.canLeavePage) { return; }
+    if (!self.canLeavePage) { return; }
+    
     // change to the correct view
     if (!self.createGoalController) {
         self.createGoalController = [[CreateBetVC alloc] initWithStyle:UITableViewStylePlain];
