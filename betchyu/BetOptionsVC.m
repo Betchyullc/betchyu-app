@@ -18,6 +18,7 @@
 @synthesize passedBetName;
 @synthesize detailLabel1;
 @synthesize detailLabel2;
+@synthesize durationLabel;
 
 @synthesize fbFriendVC;
 @synthesize searchBar;
@@ -96,9 +97,9 @@
     
     // The Label stating your intention @"I will not smoke:"
     UILabel *goalAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
-    goalAmountLabel.text = [NSString stringWithFormat:@"I will %@ %@ until:", bet.verb, bet.noun];
+    goalAmountLabel.text = [NSString stringWithFormat:@"I will %@ %@ for:", bet.verb, bet.noun];
     goalAmountLabel.font = FregfS;
-    goalAmountLabel.textColor = Borange; // orange b/c more important
+    goalAmountLabel.textColor = Bmid;
     [main addSubview:goalAmountLabel];
     CGRect gf = goalAmountLabel.frame;
     gf.size.height = gf.size.height + 20; // add some padding
@@ -108,26 +109,30 @@
     detailLabel1 = [UILabel new];
     detailLabel1.text = @"this is just to not trigger the error for not setting this";
     
+    // UILabel "x days"
+    [self setupDurationLabelFromFrame:CGRectMake(15, gf.size.height + 9, w-30, fontSize+2) AndFontSize:fontSize];
+    [main addSubview:self.durationLabel];
+    
+    // UISlider that choses Date
+    UISlider * s2 = [self makeDateScrollerFromFrame:CGRectMake(20, 40, w-40, h/5)];
+    [main addSubview:s2];
+    
     // the uilabel saying @"EndDate:"
-    UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, gf.origin.y + gf.size.height, w-15, fontSize+2)];
+    UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, s2.frame.origin.y + s2.frame.size.height, w-30, fontSize+2)];
     endDateLabel.text       = @"End Date:";
     endDateLabel.textColor  = Bmid;
     endDateLabel.font       = FregfS;
     [main addSubview:endDateLabel];
     
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, gf.origin.y + gf.size.height, w, fontSize+2)];
+    detailLabel2 = [[UILabel alloc] initWithFrame:endDateLabel.frame];
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.text       = @"";
     detailLabel2.textColor  = Borange;
     detailLabel2.font       = FregfS;
     [main addSubview:detailLabel2];
     
-    // little button that opens the datepicker
-    UIButton *openCalendar = [self getOpenCalendarBtn:endDateLabel.frame WithWidth:w];
-    [main addSubview:openCalendar];
-    
     // The green "Choose Opponent" button at the bottom
-    UIButton *nextBtn = [self getChooseOpponentsButton:openCalendar.frame WithWidth:w AndFontSize:fontSize];
+    UIButton *nextBtn = [self getChooseOpponentsButton:detailLabel2.frame WithWidth:w AndFontSize:fontSize];
     [main addSubview:nextBtn];
     
     // messing with framing and apperance
@@ -195,27 +200,34 @@
      forControlEvents:UIControlEventValueChanged];
     [main addSubview:slider];
     
+    // UILabel "In:"
+    UILabel *inL = [self getInLabelFromFrame:CGRectMake(15, slider.frame.origin.y + slider.frame.size.height - fontSize/2, w-30, fontSize+2) AndFontSize:fontSize];
+    [main addSubview:inL];
+    
+    // UILabel "x days"
+    [self setupDurationLabelFromFrame:inL.frame AndFontSize:fontSize];
+    [main addSubview:self.durationLabel];
+    
+    // UISlider that choses Date
+    UISlider * s2 = [self makeDateScrollerFromFrame:CGRectMake(20, inL.frame.origin.y, w-40, h/5)];
+    [main addSubview:s2];
     
     // the uilabel saying @"EndDate:"
-    UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, slider.frame.origin.y + slider.frame.size.height, w-15, fontSize+2)];
+    UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, s2.frame.origin.y + s2.frame.size.height, w-30, fontSize+2)];
     endDateLabel.text       = @"End Date:";
     endDateLabel.textColor  = Bmid;
     endDateLabel.font       = FregfS;
     [main addSubview:endDateLabel];
     
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, slider.frame.origin.y + slider.frame.size.height, w, fontSize+2)];
+    detailLabel2 = [[UILabel alloc] initWithFrame:endDateLabel.frame];
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.text       = @"";
     detailLabel2.textColor  = Borange;
     detailLabel2.font       = FregfS;
     [main addSubview:detailLabel2];
     
-    // little button that opens the datepicker
-    UIButton *openCalendar = [self getOpenCalendarBtn:endDateLabel.frame WithWidth:w];
-    [main addSubview:openCalendar];
-    
     // The green "Choose Opponent" button at the bottom
-    UIButton *nextBtn = [self getChooseOpponentsButton:openCalendar.frame WithWidth:w AndFontSize:fontSize];
+    UIButton *nextBtn = [self getChooseOpponentsButton:detailLabel2.frame WithWidth:w AndFontSize:fontSize];
     [main addSubview:nextBtn];
     
     // messing with framing and apperance
@@ -265,27 +277,34 @@
       forControlEvents:UIControlEventValueChanged];
     [main addSubview:slider];
     
+    // UILabel "In:"
+    UILabel *inL = [self getInLabelFromFrame:CGRectMake(15, h/5, w-30, fontSize+2) AndFontSize:fontSize];
+    [main addSubview:inL];
+    
+    // UILabel "x days"
+    [self setupDurationLabelFromFrame:inL.frame AndFontSize:fontSize];
+    [main addSubview:self.durationLabel];
+    
+    // UISlider that choses Date
+    UISlider * s2 = [self makeDateScrollerFromFrame:CGRectMake(20, 20 + h/6, w-40, h/5)];
+    [main addSubview:s2];
     
     // the uilabel saying @"EndDate:"
-    UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, slider.frame.origin.y + slider.frame.size.height, w-15, fontSize+2)];
+    UILabel * endDateLabel  = [[UILabel alloc] initWithFrame:CGRectMake(15, s2.frame.origin.y + s2.frame.size.height, w-30, fontSize+2)];
     endDateLabel.text       = @"End Date:";
     endDateLabel.textColor  = Bmid;
     endDateLabel.font       = FregfS;
     [main addSubview:endDateLabel];
     
-    detailLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, slider.frame.origin.y + slider.frame.size.height, w, fontSize+2)];
+    detailLabel2 = [[UILabel alloc] initWithFrame:endDateLabel.frame];
     detailLabel2.textAlignment = NSTextAlignmentCenter;
     detailLabel2.text       = @"";
     detailLabel2.textColor  = Borange;
     detailLabel2.font       = FregfS;
     [main addSubview:detailLabel2];
-    
-    // little button that opens the datepicker
-    UIButton *openCalendar = [self getOpenCalendarBtn:endDateLabel.frame WithWidth:w];
-    [main addSubview:openCalendar];
 
     // The green "Choose Opponent" button at the bottom
-    UIButton *nextBtn = [self getChooseOpponentsButton:openCalendar.frame WithWidth:w AndFontSize:fontSize];
+    UIButton *nextBtn = [self getChooseOpponentsButton:detailLabel2.frame WithWidth:w AndFontSize:fontSize];
     [main addSubview:nextBtn];
     
     // messing with framing and apperance
@@ -301,16 +320,31 @@
     
     return main;
 }
-
--(UIButton *)getOpenCalendarBtn:(CGRect)endDateLabelFrame WithWidth:(int)w {
+-(void) setupDurationLabelFromFrame:(CGRect)frame AndFontSize:(int)fontSize {
+    durationLabel = [[UILabel alloc] initWithFrame:frame];
+    durationLabel.text = @"";
+    durationLabel.font = FregfS;
+    durationLabel.textColor = Borange;
+    durationLabel.textAlignment = NSTextAlignmentCenter;
+}
+-(UILabel *) getInLabelFromFrame:(CGRect)frame AndFontSize:(int)fontSize {
+    UILabel *lbl = [[UILabel alloc]initWithFrame:frame];
+    lbl.text = @"In:";
+    lbl.font = FregfS;
+    lbl.textColor = Bmid;
     
-    UIButton *openCalendar = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    openCalendar.frame = CGRectMake(w - 50, endDateLabelFrame.origin.y - 10, 35, 35);
-    [openCalendar setImage:[UIImage imageNamed:@"calendar-06.png"] forState:UIControlStateNormal];
-    [openCalendar addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    openCalendar.tintColor = Bmid;
-    
-    return openCalendar;
+    return lbl;
+}
+-(UISlider *) makeDateScrollerFromFrame:(CGRect)frame {
+    UISlider *slider   = [[UISlider alloc] initWithFrame:frame];
+    [slider setMinimumTrackTintColor:Borange];
+    [slider setThumbImage:[UIImage imageNamed:@"1.jpg"] forState:UIControlStateNormal];
+    slider.thumbTintColor = Borange;
+    slider.maximumValue = 30;
+    [slider addTarget:self
+               action:@selector(updateDateValue:)
+     forControlEvents:UIControlEventValueChanged];
+    return slider;
 }
 -(UIButton *)getChooseOpponentsButton:(CGRect)openCalendarFrame WithWidth:(int)w AndFontSize:(int)fontSize {
 
@@ -329,6 +363,7 @@
     return nextBtn;
 }
 
+/// handles the amount of the bet
 -(void)updateSliderValue:(UISlider *)sender {
     // update what they can see
     detailLabel1.text = [NSString stringWithFormat:@"%.0f %@", sender.value+1, bet.noun];
@@ -336,61 +371,26 @@
     bet.amount = [NSNumber numberWithInt:(int)(sender.value+1)];
 }
 
--(void)openCalendar:(id)sender {
-    UIViewController *vc = [UIViewController new];
-    CGRect f = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height );
-    DDCalendarView *cal = [[DDCalendarView alloc] initWithFrame:f fontName:@"ProximaNova-Regular" delegate:self];
-    vc.view = [[UIView alloc] initWithFrame:self.view.frame];
-    [vc.view addSubview:cal];
-    vc.view.backgroundColor = [UIColor whiteColor];
-    vc.title = @"Choose End Date";
-    [self.navigationController presentViewController:vc animated:YES completion:nil];
-}
-
-- (void)dayButtonPressed:(DayButton *)button {
+/// handles the duration of the bet
+-(void)updateDateValue:(UISlider *)sender {
+    // update what they can see
+    int amount = (int)(roundf(sender.value)+1);
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *theDate = [dateFormatter stringFromDate:button.buttonDate];
-    
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [NSDateComponents new];
-    components.day = 30;
+    components.day = amount;
     NSDate* maxDate = [[NSCalendar currentCalendar]dateByAddingComponents:components
                                                                    toDate:[NSDate date]
                                                                   options:0];
     
-    if ( [button.buttonDate compare:[NSDate date]] == NSOrderedDescending &&
-         [maxDate compare:button.buttonDate] == NSOrderedDescending) {
-        components = [gregorianCalendar components:NSDayCalendarUnit
-                                                            fromDate:[NSDate date]
-                                                              toDate:button.buttonDate
-                                                             options:0];
-        // update the data we pass on
-        self.bet.duration = [NSNumber numberWithInteger:components.day];
-        
-        // update what they can see
-        detailLabel2.text = theDate;
-        // go back to BetOptionsVC
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else if ([maxDate compare:button.buttonDate] != NSOrderedDescending){
-        // handle picking to futuristic of a date
-        [[[UIAlertView alloc] initWithTitle:@"Error"
-                                    message:[NSString stringWithFormat:@"Date must be closer than %@", [dateFormatter stringFromDate:maxDate]]
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil]
-         show];
-    } else {
-        // handle picking too historical of a date
-        [[[UIAlertView alloc] initWithTitle:@"Error"
-                                    message:[NSString stringWithFormat:@"Date must be past %@", [dateFormatter stringFromDate:[NSDate date]]]
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil]
-         show];
-    }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    NSString *theDate = [dateFormatter stringFromDate:maxDate];
+    
+    self.detailLabel2.text = theDate; // written-out date
+    self.durationLabel.text = [NSString stringWithFormat:@"%i days", amount]; // number of days
+    // update the data we pass on
+    self.bet.duration = [NSNumber numberWithInt:amount];
 }
 
 -(void) chooseOpponents:(id)sender {
@@ -434,8 +434,6 @@
         UIViewAutoresizingFlexibleWidth;
         self.searchBar.delegate = self;
         self.searchBar.showsCancelButton = YES;
-        /*self.searchBar.barTintColor = [UIColor colorWithRed:1.0 green:(117.0/255.0) blue:(63/255.0) alpha:1.0];
-         self.searchBar.translucent = NO;*/
         
         [self.fbFriendVC.canvasView addSubview:self.searchBar];
         CGRect newFrame = self.fbFriendVC.view.bounds;
@@ -474,7 +472,6 @@
     // this re-updates the list of friends we're gonna use to make invitations.
     bet.friends = friendPicker.selection;
 }
-
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerDoneWasPressed:(id)sender {
     // handle the user NOT selecting a friend... bad users.
@@ -497,9 +494,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 // allows us to limit which friends get shown on the friend picker (based on the search)
-- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
-                 shouldIncludeUser:(id<FBGraphUser>)user
-{
+- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker shouldIncludeUser:(id<FBGraphUser>)user {
     if (self.searchText && ![self.searchText isEqualToString:@""]) {
         NSRange result = [user.name
                           rangeOfString:self.searchText
@@ -534,7 +529,6 @@
 // recursivley calls itself to go through all the friend shtye selected
 // on last friend, moves to next VC
 - (void)makePost:(NSNumber *)index {
-    
     // get facebook friend's ID from selection
     NSString* fid = ((id<FBGraphUser>)[bet.friends objectAtIndex:[index integerValue]]).id;
     

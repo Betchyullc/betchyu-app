@@ -68,8 +68,6 @@
 		8926AAE1194F63E2006FDF11 /* scale-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8926AADF194F63E2006FDF11 /* scale-circle.png */; };
 		8926AAE4194F70F0006FDF11 /* BetOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAE3194F70F0006FDF11 /* BetOptionsVC.m */; };
 		8926AAE7194F73F4006FDF11 /* BetOptionsTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */; };
-		8926AAEC194F98EB006FDF11 /* DayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAE9194F98EB006FDF11 /* DayButton.m */; };
-		8926AAED194F98EB006FDF11 /* DDCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8926AAEB194F98EB006FDF11 /* DDCalendarView.m */; };
 		89294AE91934C96200094389 /* Target Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89294AE81934C96200094389 /* Target Gift Card.jpg */; };
 		8948F533194A431100FF1519 /* ProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8948F532194A431100FF1519 /* ProgressBarView.m */; };
 		8948F535194B2E3300FF1519 /* Amazon Gift Card.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8948F534194B2E3300FF1519 /* Amazon Gift Card.jpg */; };
@@ -238,10 +236,6 @@
 		8926AAE3194F70F0006FDF11 /* BetOptionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetOptionsVC.m; sourceTree = "<group>"; };
 		8926AAE5194F73F4006FDF11 /* BetOptionsTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetOptionsTopView.h; sourceTree = "<group>"; };
 		8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetOptionsTopView.m; sourceTree = "<group>"; };
-		8926AAE8194F98EB006FDF11 /* DayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayButton.h; sourceTree = "<group>"; };
-		8926AAE9194F98EB006FDF11 /* DayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayButton.m; sourceTree = "<group>"; };
-		8926AAEA194F98EB006FDF11 /* DDCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCalendarView.h; sourceTree = "<group>"; };
-		8926AAEB194F98EB006FDF11 /* DDCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCalendarView.m; sourceTree = "<group>"; };
 		89294AE81934C96200094389 /* Target Gift Card.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Target Gift Card.jpg"; sourceTree = "<group>"; };
 		8948F531194A431100FF1519 /* ProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBarView.h; sourceTree = "<group>"; };
 		8948F532194A431100FF1519 /* ProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBarView.m; sourceTree = "<group>"; };
@@ -552,17 +546,6 @@
 			name = Photos;
 			sourceTree = "<group>";
 		};
-		8926AAEE194F98F5006FDF11 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				8926AAE8194F98EB006FDF11 /* DayButton.h */,
-				8926AAE9194F98EB006FDF11 /* DayButton.m */,
-				8926AAEA194F98EB006FDF11 /* DDCalendarView.h */,
-				8926AAEB194F98EB006FDF11 /* DDCalendarView.m */,
-			);
-			name = Calendar;
-			sourceTree = "<group>";
-		};
 		89588190187C515400CCC9DC /* Bet Details and Update */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,7 +767,6 @@
 		89C6516F193E4C1E004B64B6 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				8926AAEE194F98F5006FDF11 /* Calendar */,
 				8948F541194B5B5500FF1519 /* UpdateView.h */,
 				8948F542194B5B5500FF1519 /* UpdateView.m */,
 				890B9866194740BD004DE649 /* CompletionBorderView.h */,
@@ -1037,7 +1019,6 @@
 				89772F761950D081008A06EB /* StakeDetailsView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
-				8926AAED194F98EB006FDF11 /* DDCalendarView.m in Sources */,
 				890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */,
 				890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */,
 				89C65163193D1E15004B64B6 /* Dashboard.m in Sources */,
@@ -1049,7 +1030,6 @@
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
 				89B1A757186767E9006A656F /* ProfileView.m in Sources */,
 				890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */,
-				8926AAEC194F98EB006FDF11 /* DayButton.m in Sources */,
 				89772F731950D018008A06EB /* StakeDetailsVC.m in Sources */,
 				890B987E1948D165004DE649 /* FriendsVC.m in Sources */,
 				89B1A6B01859236C006A656F /* API.m in Sources */,
