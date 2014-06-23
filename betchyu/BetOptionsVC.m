@@ -486,6 +486,8 @@
                           otherButtonTitles:nil] show];
         return;
     } else {
+        [[[UIAlertView alloc] initWithTitle:@"Friends" message:@"Post to your friend's wall to let them know about your goal!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        
         [self makePost:[NSNumber numberWithInt:0]];
     }
     //[self dismissViewControllerAnimated:YES completion:^(void){}];

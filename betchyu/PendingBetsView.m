@@ -210,15 +210,16 @@
     // PUT /invites/:id => {status: "accepted"}
     [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
          /* Do #4 */
-         // Show the result in an alert
-         [[[UIAlertView alloc] initWithTitle:@"Result"
-                                     message:@"You have accepted your friend's bet. Your card will be charged if you lose the bet."
-                                    delegate:nil
-                           cancelButtonTitle:@"OK!"
-                           otherButtonTitles:nil]
-          show];
          [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
      }];
+    
+    // tell them what's going on
+    [[[UIAlertView alloc] initWithTitle:@"Result"
+                                message:@"You have accepted your friend's bet. Your card will be charged if you lose the bet."
+                               delegate:nil
+                      cancelButtonTitle:@"OK!"
+                      otherButtonTitles:nil]
+     show];
 }
 
 -(void)rejectBet:(UIButton *)sender {
