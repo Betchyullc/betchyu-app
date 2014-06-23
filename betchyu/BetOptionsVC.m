@@ -444,21 +444,21 @@
         self.fbFriendVC.tableView.frame = newFrame;
     }
 }
-- (void) handleSearch:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
+- (void) handleSearch:(UISearchBar *)search {
+    [search resignFirstResponder];
     self.searchText = searchBar.text;
     [self.fbFriendVC updateView];
 }
-- (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
-    [self handleSearch:searchBar];
+- (void)searchBarSearchButtonClicked:(UISearchBar*)search {
+    [self handleSearch:search];
 }
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+- (void)searchBarCancelButtonClicked:(UISearchBar *) search {
     self.searchText = nil;
-    [searchBar resignFirstResponder];
+    [search resignFirstResponder];
     [self.fbFriendVC updateView];
 }
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    self.searchText = searchText;
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)search {
+    self.searchText = search;
     [self.fbFriendVC updateView];
 }
 

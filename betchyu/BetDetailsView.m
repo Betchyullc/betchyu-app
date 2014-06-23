@@ -46,7 +46,7 @@
         desc.textAlignment = NSTextAlignmentCenter;
         desc.lineBreakMode = NSLineBreakByWordWrapping;
         desc.numberOfLines = 0;
-        [self setBetDescription:bet ForLabel:desc]; // also adds label
+        [self setBetDescription:bet ForLabel:desc AndUser:[bet valueForKey:@"owner"]]; // also adds label
         
 /* -----PROGRESS SECTION------ */
         HeadingBarView * progHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, desc.frame.origin.y + desc.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Progress"];
@@ -223,8 +223,8 @@
     }
 }
 
-- (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab {
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+- (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab AndUser:(NSString*)usr {
+    [FBRequestConnection startWithGraphPath:usr completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             if ([[result valueForKey:@"gender"] isEqualToString:@"female"]) {
                 ownerIsMale = NO;

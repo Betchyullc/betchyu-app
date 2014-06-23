@@ -35,7 +35,7 @@
             rowH = 110;
             pendingRowH = 120;
         }
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = Blight;
         
         // Sire, we must have the frames made, one for each portion of the page!
         int headHt = MAX((frame.size.height/7), 74);

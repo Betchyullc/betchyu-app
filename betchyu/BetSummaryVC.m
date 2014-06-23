@@ -73,4 +73,10 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.navigationItem setHidesBackButton:YES];
+}
+
 @end

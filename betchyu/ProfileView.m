@@ -24,6 +24,13 @@
         NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
         
         self.backgroundColor = [UIColor whiteColor];
+        self.layer.masksToBounds = NO;
+        self.clipsToBounds      = NO;
+        self.layer.shadowColor  = [Bdark CGColor];
+        self.layer.shadowRadius = 3.0f;
+        self.layer.shadowOffset = CGSizeMake(0, 5);
+        self.layer.shadowOpacity= 0.7f;
+        self.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:self.layer.bounds] CGPath];
         
         int fontSize = 17;
         

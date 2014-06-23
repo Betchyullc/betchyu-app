@@ -32,6 +32,14 @@
     CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
     self.view = [[UIView alloc]initWithFrame:f2];
     self.view.backgroundColor = [UIColor grayColor];
+    
+    UILabel *comingSoon = [[UILabel alloc] initWithFrame:CGRectMake(0, h/2 - 40, f.size.width, 60)];
+    comingSoon.text = @"Coming Soon";
+    comingSoon.textAlignment = NSTextAlignmentCenter;
+    comingSoon.font = [UIFont fontWithName:@"ProximaNova-Regular" size:30];
+    comingSoon.textColor = Borange;
+    
+    [self.view addSubview:comingSoon];
 }
 
 - (void)viewDidLoad {

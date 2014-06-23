@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HeadingBarView.h"
 
 @interface FriendsPastBetsView : UIView
+
+@property int rowHt;
+@property int fontSize;
+@property NSArray * bets;
+
+-(void) drawBets:(NSArray *)betList;
 
 @end

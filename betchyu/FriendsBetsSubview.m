@@ -29,7 +29,14 @@
         }
         
         // Background
-        [self setBackgroundColor:[UIColor whiteColor]];
+        self.backgroundColor = [UIColor whiteColor];
+        self.layer.masksToBounds = NO;
+        self.clipsToBounds      = NO;
+        self.layer.shadowColor  = [Bdark CGColor];
+        self.layer.shadowRadius = 3.0f;
+        self.layer.shadowOffset = CGSizeMake(0, 5);
+        self.layer.shadowOpacity= 0.7f;
+        self.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:self.layer.bounds] CGPath];
         
         // Title bar
         HeadingBarView *heading = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, fontSize*1.8) AndTitle:@"Friend's Bets"];
@@ -52,7 +59,7 @@
     return profPic;
 }
 - (void) setBetDescription:(NSDictionary *)obj ForLabel:(UILabel *)lab UserId:(NSString*)usr {
-    [FBRequestConnection startWithGraphPath:[NSString stringWithFormat:@"%@",usr] completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+    [FBRequestConnection startWithGraphPath:usr completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             NSString *noun = [[obj valueForKey:@"noun"] lowercaseString];
             // Success! Include your code to handle the results here

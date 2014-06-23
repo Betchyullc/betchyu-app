@@ -32,14 +32,16 @@
     int y = self.navigationController.navigationBar.frame.size.height + f.origin.y; // navBar + statusBar
     int h = f.size.height ;//- y;
     
-    CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
-    self.view = [[UIView alloc] init];
+    CGRect f2 = CGRectMake(f.origin.x, 0, f.size.width, h);
+    self.view = [[UIScrollView alloc] init];
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(f.size.width, h);
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.yourView = [[YourPastBetsView alloc]initWithFrame:f2];
-    //self.friendsView = [[FriendsPastBetsView alloc]initWithFrame:CGRectMake(0, y+h/2, f.size.width, h/2)];
+    self.friendsView = [[FriendsPastBetsView alloc]initWithFrame:CGRectMake(0, y+h/2, f.size.width, h/2)];
     
     [self.view addSubview:self.yourView];
-    //[self.view addSubview:self.friendsView];
+    [self.view addSubview:self.friendsView];
 }
 
 - (void)viewDidLoad
@@ -64,11 +66,22 @@
 -(void)viewWillAppear:(BOOL)animated {
     NSString *path = [NSString stringWithFormat:@"past-bets/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
-        NSLog(@"response: %@", json);
-        [self.yourView drawBets:json];
+        NSArray *myPast = [json valueForKey:@"myPast"];
+        NSArray *friendsPast = [json valueForKey:@"friendsPast"];
+        
+        [self.yourView drawBets:myPast];
         CGRect fr = self.yourView.frame;
-        self.yourView.frame = CGRectMake(0, fr.origin.y, fr.size.width, yourView.rowHt * ((NSArray *)json).count + yourView.fontSize*1.8);
+        int ht = MAX((yourView.rowHt * myPast.count), yourView.rowHt);
+        self.yourView.frame = CGRectMake(0, fr.origin.y, fr.size.width, ht + yourView.fontSize*1.8);
+        
+        [self.friendsView drawBets:friendsPast];
+        fr = self.friendsView.frame;
+        int ht2 = MAX((friendsView.rowHt * friendsPast.count), friendsView.rowHt);
+        self.friendsView.frame = CGRectMake(0, self.yourView.frame.origin.y + self.yourView.frame.size.height, fr.size.width, ht2 + friendsView.fontSize*1.8);
+        
+        ((UIScrollView *)self.view).contentSize = CGSizeMake(fr.size.width, ht + ht2 + 100);
     }];
+    
 }
 
 // actions
