@@ -17,17 +17,22 @@
 @synthesize bits;
 @synthesize selectedBet;
 
+@synthesize fontSize;
+@synthesize rowHt;
+
+@synthesize isWide;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        //self.controller = cont;
-        // Initialization code
-        int fontSize = 14;
-        int rowHt = 90;
+        self.isWide = NO;
+        self.fontSize = 14;
+        self.rowHt = 90;
         if (frame.size.width > 700) {
-            fontSize = 21;
-            rowHt = 120;
+            self.isWide = YES;
+            self.fontSize = 21;
+            self.rowHt = 115;
         }        
         // Background
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -82,12 +87,11 @@
     
     // convinience variables
     CGRect frame = self.frame;
-    int fontSize = 14;
-    int rowHt = 90;
-    if (frame.size.width > 700) {
-        fontSize = 21;
-        rowHt = 120;
+    int diameter = frame.size.width / 6.7;
+    if (isWide) {
+        diameter = frame.size.width / 8;
     }
+    
     // Bets loop
     int c = pending.count;
     int off = fontSize*1.8;
@@ -103,7 +107,6 @@
         for (int i = 0; i < c; i++) {
             NSDictionary *obj = [pending objectAtIndex:i];
             // Profile imag
-            int diameter = frame.size.width / 6.7 ;
             CGRect picF  = CGRectMake(frame.size.width/16, rowHt * i + off + rowHt/6, diameter, diameter);
             UIView *pic = [self getFBPic:[obj valueForKey:@"owner"] WithDiameter:diameter AndFrame:picF];
             

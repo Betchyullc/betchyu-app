@@ -16,6 +16,11 @@
 @property NSMutableArray * bits;
 @property NSDictionary * selectedBet;
 
+@property int fontSize;
+@property int rowHt;
+
+@property BOOL isWide;
+
 -(id) initWithFrame:(CGRect)frame;
 -(void) addBets:(NSArray *)pending;
 

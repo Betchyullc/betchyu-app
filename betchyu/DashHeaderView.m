@@ -32,6 +32,11 @@
     // Hey, bitch, gimme some o' dem covinience variabizzles.
     NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     int dim = self.frame.size.width / 6; // da width o' da pic
+    int xMargin = dim/4;
+    if (self.frame.size.width > 700) {
+        dim = self.frame.size.width / 8;
+        xMargin = dim/2;
+    }
     
     // And don' forget t' check da ownId
     if ([ownId isEqualToString:@""]) {
@@ -44,7 +49,7 @@
     self.profPic = [[FBProfilePictureView alloc]
                     initWithProfileID:ownId
                     pictureCropping:FBProfilePictureCroppingSquare];
-    self.profPic.frame = CGRectMake(dim/4, dim/4, dim, dim);
+    self.profPic.frame = CGRectMake(xMargin, dim/4, dim, dim);
     self.profPic.layer.cornerRadius  = dim/2;
     self.profPic.layer.borderWidth   = 2;
     self.profPic.layer.borderColor   = [Blight CGColor];
@@ -64,6 +69,11 @@
         return;
     }
     
+    int fontSize = 20;
+    if (f.size.width > 700) {
+        fontSize = 35;
+    }
+    
     // ownId was good
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
@@ -72,7 +82,7 @@
             name.text = [result valueForKey:@"name"];
             name.textAlignment = NSTextAlignmentCenter;
             name.textColor = Borange;
-            name.font = [UIFont fontWithName:@"ProximaNova-Black" size:20];
+            name.font = FblackfS;
             [self addSubview:name];
         } else {
             // An error occurred, we need to handle the error
