@@ -143,8 +143,8 @@
 -(void)reviewBet:(id)sender {
     //make and display the VC
     [[[UIAlertView alloc] initWithTitle: @"Last Step!"
-                                message: @"To make this real, we need your payment info. Once your friend confirms with his info, the bet is on! Only the loser will be charged at the end."
-                               delegate: self   //
+                                message: @"To make this real, we need your payment info. Once your friend confirms, the bet is on! Only the loser will be charged at the end."
+                               delegate: self
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
 }

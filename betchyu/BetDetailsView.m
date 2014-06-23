@@ -119,10 +119,11 @@
         int sH = stakeHeader.frame.size.height;
         dim = 2.5*sH;
         CGRect imgF = CGRectMake(15, stakeHeader.frame.origin.y + sH + 15, dim, dim);
-        stakeImg.frame = CGRectMake(1+imgF.origin.x + ((dim+10)/6), 1+imgF.origin.y + ((dim+10)/6), 2*(dim-5)/3, 2*(dim-5)/3);
-        // set the frame for said graphic button
-        CompletionBorderView *stCir = [[CompletionBorderView alloc] initWithFrame:imgF AndColor:Blight AndPercentComplete:0];
-        stCir.layer.cornerRadius = stCir.frame.size.width/2;
+        stakeImg.frame = imgF;
+        stakeImg.layer.borderColor = Blight.CGColor;
+        stakeImg.layer.borderWidth = 2;
+        stakeImg.layer.cornerRadius = dim/2;
+        stakeImg.layer.masksToBounds = YES;
         
         UILabel *stakeLbl = [[UILabel alloc] initWithFrame:CGRectMake(stakeImg.frame.origin.x + stakeImg.frame.size.width + 25, stakeImg.frame.origin.y, stakeHeader.frame.size.width, 30)];
         stakeLbl.text = [NSString stringWithFormat:@"$%i %@",[[bet valueForKey:@"stakeAmount"] intValue], stakeType];
@@ -130,7 +131,7 @@
         stakeLbl.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontS+2];
         
 /* -----OPPONENTS SECTION----- */
-        HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, stCir.frame.origin.y + stCir.frame.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
+        HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, imgF.origin.y + imgF.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
         NSArray * opponents = [bet valueForKey:@"opponents"];
         int diameter = frame.size.width/4.3;
         yOff = opponentsHeader.frame.origin.y + opponentsHeader.frame.size.height + 10;
@@ -141,9 +142,7 @@
                 profPic.layer.borderColor = [Blight CGColor];
                 profPic.layer.borderWidth = 2;
                 profPic.layer.masksToBounds = YES;
-                //CompletionBorderView *picCir = [[CompletionBorderView alloc] initWithFrame:picF AndColor:light AndPercentComplete:0];
                 [self addSubview:profPic];
-                //[self addSubview:picCir];
             }
         }
         
@@ -163,7 +162,6 @@
         
         [self addSubview:stakeHeader];
         [self addSubview:stakeImg];
-        [self addSubview:stCir];
         [self addSubview:stakeLbl];
         
         [self addSubview:opponentsHeader];

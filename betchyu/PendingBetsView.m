@@ -106,6 +106,11 @@
     } else {
         for (int i = 0; i < c; i++) {
             NSDictionary *obj = [pending objectAtIndex:i];
+            UIButton *but = [[UIButton alloc]initWithFrame:CGRectMake(0, rowHt * i + off, frame.size.width, rowHt)];
+            [but addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
+            but.tag = i;
+            [self addSubview:but];
+            
             // Profile imag
             CGRect picF  = CGRectMake(frame.size.width/16, rowHt * i + off + rowHt/6, diameter, diameter);
             UIView *pic = [self getFBPic:[obj valueForKey:@"owner"] WithDiameter:diameter AndFrame:picF];
@@ -146,7 +151,7 @@
             desc.numberOfLines = 0;
             
             // arrow to indicate tapability
-            UILabel *arrow      = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - xMargin/2, yB, frame.size.width/2, rowHt)];
+            UILabel *arrow      = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - xMargin/2, rowHt*i + off, frame.size.width/2, rowHt)];
             arrow.font          = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize+3];
             arrow.textColor     = Blight;
             arrow.textAlignment = NSTextAlignmentLeft;
@@ -161,10 +166,18 @@
             [self addSubview:reject];
             [self addSubview:pic];
             [self addSubview:line];
+            [self addSubview:arrow];
             //[self addSubview:desc]; Don't need to do this b/c [self setBetDescription: ForLabel]
         }
     }
     
+}
+
+- (void) showDetails:(UIButton *)sender {
+    // make the Bet Details View Controller
+    ExistingBetDetailsVC *vc = [[ExistingBetDetailsVC alloc] initWithJSON:[bets objectAtIndex:sender.tag]];
+    vc.title = @"The Bet";
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 
 // API call stuff
@@ -214,7 +227,7 @@
      }];
     
     // tell them what's going on
-    [[[UIAlertView alloc] initWithTitle:@"Result"
+    [[[UIAlertView alloc] initWithTitle:@""
                                 message:@"You have accepted your friend's bet. Your card will be charged if you lose the bet."
                                delegate:nil
                       cancelButtonTitle:@"OK!"
