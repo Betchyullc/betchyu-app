@@ -31,7 +31,7 @@
         // visual size/spacing parameters dependant upon frame.width
         int margin = 15;
         int fontSize = 17;
-        if (frame.size.width > 700) {
+        if (frame.size.width > 500) {
             fontSize = 20;
             margin = 17;
         }

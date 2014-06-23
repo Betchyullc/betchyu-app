@@ -32,7 +32,7 @@
     int y = self.navigationController.navigationBar.frame.size.height + f.origin.y; // navBar + statusBar
     int h = f.size.height ;//- y;
     
-    CGRect f2 = CGRectMake(f.origin.x, 0, f.size.width, h);
+    CGRect f2 = CGRectMake(f.origin.x, 0, f.size.width, h/2);
     self.view = [[UIScrollView alloc] init];
     ((UIScrollView *)self.view).contentSize = CGSizeMake(f.size.width, h);
     self.view.backgroundColor = [UIColor whiteColor];
@@ -69,15 +69,19 @@
         NSArray *myPast = [json valueForKey:@"myPast"];
         NSArray *friendsPast = [json valueForKey:@"friendsPast"];
         
-        [self.yourView drawBets:myPast];
+        [self.yourView removeFromSuperview];
         CGRect fr = self.yourView.frame;
         int ht = MAX((yourView.rowHt * myPast.count), yourView.rowHt);
-        self.yourView.frame = CGRectMake(0, fr.origin.y, fr.size.width, ht + yourView.fontSize*1.8);
+        self.yourView = [[YourPastBetsView alloc] initWithFrame:CGRectMake(0, fr.origin.y, fr.size.width, ht + yourView.fontSize*1.8)];
+        [self.yourView drawBets:myPast];
+        [self.view addSubview:self.yourView];
         
-        [self.friendsView drawBets:friendsPast];
+        [self.friendsView removeFromSuperview];
         fr = self.friendsView.frame;
         int ht2 = MAX((friendsView.rowHt * friendsPast.count), friendsView.rowHt);
-        self.friendsView.frame = CGRectMake(0, self.yourView.frame.origin.y + self.yourView.frame.size.height, fr.size.width, ht2 + friendsView.fontSize*1.8);
+        self.friendsView = [[FriendsPastBetsView alloc]initWithFrame:CGRectMake(0, self.yourView.frame.origin.y + self.yourView.frame.size.height, fr.size.width, ht2 + friendsView.fontSize*1.8)];
+        [self.friendsView drawBets:friendsPast];
+        [self.view addSubview:self.friendsView];
         
         ((UIScrollView *)self.view).contentSize = CGSizeMake(fr.size.width, ht + ht2 + 100);
     }];

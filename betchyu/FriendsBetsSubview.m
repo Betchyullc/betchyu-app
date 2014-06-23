@@ -23,7 +23,7 @@
         
         self.fontSize = 14;
         self.rowHt = 70;
-        if (frame.size.width > 700) {
+        if (frame.size.width > 500) {
             self.fontSize = 21;
             self.rowHt = 100;
         }

@@ -1,10 +1,8 @@
-//
 //  HeadingBarView.m
 //  betchyu
 //
 //  Created by Daniel Zapata on 6/12/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import "HeadingBarView.h"
 
@@ -16,7 +14,7 @@
     if (self) {
         // Initialization code
         UIColor *dark  = [UIColor colorWithRed:71.0/255 green:71.0/255 blue:82.0/255 alpha:1.0];
-        int fontSize = 14;
+        int fontSize = frame.size.width > 500 ? 20 : 14;
         
         // Title bar
         [self setBackgroundColor:dark];

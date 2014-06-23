@@ -157,11 +157,11 @@
                                   bet.amount,            @"amount",
                                   bet.noun,              @"noun",
                                   bet.verb,              @"verb",
-                                  bet.duration,              @"duration",
+                                  bet.duration,          @"duration",
                                   bet.stakeAmount,       @"stakeAmount",
                                   bet.stakeType,         @"stakeType",
-                                  ownerString,              @"owner",
-                                  bet.initial,              @"initial",
+                                  ownerString,           @"owner",
+                                  bet.initial,           @"initial",
                                   nil];
     
     //make the call to the web API

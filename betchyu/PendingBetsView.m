@@ -29,7 +29,7 @@
         self.isWide = NO;
         self.fontSize = 14;
         self.rowHt = 90;
-        if (frame.size.width > 700) {
+        if (frame.size.width > 500) {
             self.isWide = YES;
             self.fontSize = 21;
             self.rowHt = 115;

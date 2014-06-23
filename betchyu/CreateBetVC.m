@@ -42,7 +42,7 @@
     
     // set shadow on tableView
     self.tableView.layer.masksToBounds = NO;
-    self.tableView.clipsToBounds      = NO;
+    self.tableView.clipsToBounds       = NO;
     
     self.view.backgroundColor = Blight;
     

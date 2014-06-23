@@ -30,7 +30,7 @@
         oneH = 95;
         rowH = 70;
         pendingRowH = 90;
-        if (frame.size.width > 700) {
+        if (frame.size.width > 500) {
             oneH = 140;
             rowH = 110;
             pendingRowH = 120;

@@ -33,7 +33,7 @@
     NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
     int dim = self.frame.size.width / 6; // da width o' da pic
     int xMargin = dim/4;
-    if (self.frame.size.width > 700) {
+    if (self.frame.size.width > 500) {
         dim = self.frame.size.width / 8;
         xMargin = dim/2;
     }
@@ -70,7 +70,7 @@
     }
     
     int fontSize = 20;
-    if (f.size.width > 700) {
+    if (f.size.width > 500) {
         fontSize = 35;
     }
     

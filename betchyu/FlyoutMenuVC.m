@@ -72,7 +72,8 @@
     [editBtn sizeToFit];
     [editBtn addTarget:self action:@selector(editProfile:) forControlEvents:UIControlEventTouchUpInside];
     editBtn.tintColor = Bmid;
-    editBtn.frame = CGRectMake(self.passedFrame.size.width/2 - 50, botY - 60, 100, 18);
+    int editBtnYoff = passedFrame.size.height > 500 ? botY - 60 : botY - 70;
+    editBtn.frame = CGRectMake(self.passedFrame.size.width/2 - 50, editBtnYoff, 100, 18);
     [self.view addSubview:editBtn];
     
     // dashboard button

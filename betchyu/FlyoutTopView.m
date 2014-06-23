@@ -34,7 +34,7 @@
         
         // Picture
         // The Frame
-        int dim = frame.size.width/2;
+        int dim = frame.size.height > 500 ? frame.size.width/2 : frame.size.width/2 - 14;
         CGRect picF = CGRectMake(frame.size.width/4, frame.origin.y + off, dim, dim);
         // The Picture
         FBProfilePictureView *profPic = [[FBProfilePictureView alloc]
@@ -50,7 +50,8 @@
         [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
             if (!error) {
                 // Success! Include your code to handle the results here
-                UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.origin.y + off + dim + 5, frame.size.width, 20)];
+                int yOff = frame.size.height > 500 ? frame.origin.y + off + dim + 5 : frame.origin.y + off + dim + 20;
+                UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, yOff, frame.size.width, 20)];
                 name.text = [result valueForKey:@"name"];
                 name.textAlignment = NSTextAlignmentCenter;
                 name.textColor = betchyu;
@@ -69,7 +70,8 @@
         bets.textColor = dark;
         bets.font = [UIFont fontWithName:@"ProximaNova-Black" size:13];
         // first circle for completed bets
-        UIView *c1 = [[UIView alloc]initWithFrame:CGRectMake(10, bets.frame.origin.y +2, 16, 16)];
+        int c1Xoff = frame.size.width > 500 ? frame.size.width/3 - 20 : 10;
+        UIView *c1 = [[UIView alloc]initWithFrame:CGRectMake(c1Xoff, bets.frame.origin.y +2, 16, 16)];
         c1.backgroundColor = green;
         c1.layer.cornerRadius = 8;
         // second circle, for won bets
