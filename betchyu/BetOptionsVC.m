@@ -196,7 +196,7 @@
     [slider setMinimumTrackTintColor:Borange];
     [slider setThumbImage:[UIImage imageNamed:@"1.jpg"] forState:UIControlStateNormal];
     slider.thumbTintColor = Borange;
-    slider.maximumValue = 30;
+    slider.maximumValue = 10;
     [slider addTarget:self
                action:@selector(updateSliderValue:)
      forControlEvents:UIControlEventValueChanged];
@@ -250,6 +250,7 @@
     int fontSize = 18;
     int h = self.view.frame.size.height;
     int w = self.view.frame.size.width;
+    BOOL isWorkout = [[[bet valueForKey:@"verb"] lowercaseString] isEqualToString:@"workout"];
     // The thing we return. it has a shadow at the bottom of it
     UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5, w, 250)];
 
@@ -273,7 +274,7 @@
     [slider setMinimumTrackTintColor:Borange];
     [slider setThumbImage:[UIImage imageNamed:@"1.jpg"] forState:UIControlStateNormal];
     slider.thumbTintColor = Borange;
-    slider.maximumValue = 30;
+    slider.maximumValue = isWorkout ? 30 : 300;
     [slider addTarget:self
                 action:@selector(updateSliderValue:)
       forControlEvents:UIControlEventValueChanged];
@@ -343,6 +344,7 @@
     [slider setThumbImage:[UIImage imageNamed:@"1.jpg"] forState:UIControlStateNormal];
     slider.thumbTintColor = Borange;
     slider.maximumValue = 30;
+    slider.minimumValue = 3;
     [slider addTarget:self
                action:@selector(updateDateValue:)
      forControlEvents:UIControlEventValueChanged];
@@ -376,7 +378,7 @@
 /// handles the duration of the bet
 -(void)updateDateValue:(UISlider *)sender {
     // update what they can see
-    int amount = (int)(roundf(sender.value)+1);
+    int amount = (int)roundf(sender.value);
     
     NSDateComponents *components = [NSDateComponents new];
     components.day = amount;

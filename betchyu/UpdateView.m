@@ -120,7 +120,7 @@
         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
         return;
     }
-    if ( self.box.text.length == 0 ) {
+    if ( self.box.text.length == 0 ||  [self.box.text floatValue] > 550) {
         [self errorBox:YES];
         [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
         return; // should show error
