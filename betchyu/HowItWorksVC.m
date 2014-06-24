@@ -31,8 +31,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    self.tutorialImage =[UIImage imageNamed:[NSString stringWithFormat:@"%i.jpg",self.index+1]];
+    self.tutorialImage =[UIImage imageNamed:[NSString stringWithFormat:@"B%i.png",self.index+1]];
+    if ([UIScreen mainScreen].applicationFrame.size.height < 500) {
+        self.tutorialImage =[UIImage imageNamed:[NSString stringWithFormat:@"A%i.png",self.index+1]];
+    }
     UIImageView *imgView = [[UIImageView alloc] initWithImage:self.tutorialImage];
     imgView.frame = self.parentViewController.view.frame;
     
@@ -40,18 +42,12 @@
 }
 -(void)viewDidAppear:(BOOL)animated {
     
-    if (self.index == 5) {
+    if (self.index == 7) {
         AppDelegate *app =(AppDelegate *)([[UIApplication sharedApplication] delegate]);
         
         [app.window setRootViewController:app.stackViewController];
         [app.window makeKeyAndVisible];
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

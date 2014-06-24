@@ -142,6 +142,20 @@
 		89FE6A371959AA5A0040C33C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A361959AA5A0040C33C /* Reachability.m */; };
 		89FE6A3B1959F8950040C33C /* UISwipeWithTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A3A1959F8950040C33C /* UISwipeWithTag.m */; };
 		89FE6A3E1959FD810040C33C /* AlertMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A3D1959FD810040C33C /* AlertMaker.m */; };
+		89FE6A4F195A1A300040C33C /* A1.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A40195A1A300040C33C /* A1.png */; };
+		89FE6A50195A1A300040C33C /* A2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A41195A1A300040C33C /* A2.png */; };
+		89FE6A51195A1A300040C33C /* A3.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A42195A1A300040C33C /* A3.png */; };
+		89FE6A52195A1A300040C33C /* A4.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A43195A1A300040C33C /* A4.png */; };
+		89FE6A53195A1A300040C33C /* A5.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A44195A1A300040C33C /* A5.png */; };
+		89FE6A54195A1A300040C33C /* A6.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A45195A1A300040C33C /* A6.png */; };
+		89FE6A55195A1A300040C33C /* A7.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A46195A1A300040C33C /* A7.png */; };
+		89FE6A56195A1A300040C33C /* B1.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A48195A1A300040C33C /* B1.png */; };
+		89FE6A57195A1A300040C33C /* B2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A49195A1A300040C33C /* B2.png */; };
+		89FE6A58195A1A300040C33C /* B3.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A4A195A1A300040C33C /* B3.png */; };
+		89FE6A59195A1A300040C33C /* B4.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A4B195A1A300040C33C /* B4.png */; };
+		89FE6A5A195A1A300040C33C /* B5.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A4C195A1A300040C33C /* B5.png */; };
+		89FE6A5B195A1A300040C33C /* B6.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A4D195A1A300040C33C /* B6.png */; };
+		89FE6A5C195A1A300040C33C /* B7.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A4E195A1A300040C33C /* B7.png */; };
 		C97E2F24B94F4D9FB61A267C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A85FBA56BA43B5932AE364 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -349,6 +363,20 @@
 		89FE6A3A1959F8950040C33C /* UISwipeWithTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISwipeWithTag.m; sourceTree = "<group>"; };
 		89FE6A3C1959FD810040C33C /* AlertMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertMaker.h; sourceTree = "<group>"; };
 		89FE6A3D1959FD810040C33C /* AlertMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertMaker.m; sourceTree = "<group>"; };
+		89FE6A40195A1A300040C33C /* A1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A1.png; sourceTree = "<group>"; };
+		89FE6A41195A1A300040C33C /* A2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A2.png; sourceTree = "<group>"; };
+		89FE6A42195A1A300040C33C /* A3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A3.png; sourceTree = "<group>"; };
+		89FE6A43195A1A300040C33C /* A4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A4.png; sourceTree = "<group>"; };
+		89FE6A44195A1A300040C33C /* A5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A5.png; sourceTree = "<group>"; };
+		89FE6A45195A1A300040C33C /* A6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A6.png; sourceTree = "<group>"; };
+		89FE6A46195A1A300040C33C /* A7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = A7.png; sourceTree = "<group>"; };
+		89FE6A48195A1A300040C33C /* B1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B1.png; sourceTree = "<group>"; };
+		89FE6A49195A1A300040C33C /* B2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B2.png; sourceTree = "<group>"; };
+		89FE6A4A195A1A300040C33C /* B3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B3.png; sourceTree = "<group>"; };
+		89FE6A4B195A1A300040C33C /* B4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B4.png; sourceTree = "<group>"; };
+		89FE6A4C195A1A300040C33C /* B5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B5.png; sourceTree = "<group>"; };
+		89FE6A4D195A1A300040C33C /* B6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B6.png; sourceTree = "<group>"; };
+		89FE6A4E195A1A300040C33C /* B7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B7.png; sourceTree = "<group>"; };
 		F7A85FBA56BA43B5932AE364 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -518,6 +546,8 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				89FE6A3F195A1A300040C33C /* how-it-works-iphone4 */,
+				89FE6A47195A1A300040C33C /* how-it-works-iphone5 */,
 				8982636E194FA070006A95E2 /* left-arrow.png */,
 				8982636F194FA070006A95E2 /* left-arrow@2x.png */,
 				89826370194FA070006A95E2 /* right-arrow.png */,
@@ -796,6 +826,34 @@
 			name = "View Bet";
 			sourceTree = "<group>";
 		};
+		89FE6A3F195A1A300040C33C /* how-it-works-iphone4 */ = {
+			isa = PBXGroup;
+			children = (
+				89FE6A40195A1A300040C33C /* A1.png */,
+				89FE6A41195A1A300040C33C /* A2.png */,
+				89FE6A42195A1A300040C33C /* A3.png */,
+				89FE6A43195A1A300040C33C /* A4.png */,
+				89FE6A44195A1A300040C33C /* A5.png */,
+				89FE6A45195A1A300040C33C /* A6.png */,
+				89FE6A46195A1A300040C33C /* A7.png */,
+			);
+			path = "how-it-works-iphone4";
+			sourceTree = "<group>";
+		};
+		89FE6A47195A1A300040C33C /* how-it-works-iphone5 */ = {
+			isa = PBXGroup;
+			children = (
+				89FE6A48195A1A300040C33C /* B1.png */,
+				89FE6A49195A1A300040C33C /* B2.png */,
+				89FE6A4A195A1A300040C33C /* B3.png */,
+				89FE6A4B195A1A300040C33C /* B4.png */,
+				89FE6A4C195A1A300040C33C /* B5.png */,
+				89FE6A4D195A1A300040C33C /* B6.png */,
+				89FE6A4E195A1A300040C33C /* B7.png */,
+			);
+			path = "how-it-works-iphone5";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -879,6 +937,7 @@
 			files = (
 				890B985719473532004DE649 /* check-22.png in Resources */,
 				8926AADC194F636A006FDF11 /* smoke-circle.png in Resources */,
+				89FE6A59195A1A300040C33C /* B4.png in Resources */,
 				89826372194FA070006A95E2 /* left-arrow.png in Resources */,
 				89772F8A195351D7008A06EB /* Run More.jpg in Resources */,
 				89588197187C67CF00CCC9DC /* 2.jpg in Resources */,
@@ -895,9 +954,12 @@
 				890B986419473532004DE649 /* smoke-04.png in Resources */,
 				89B1A7BD186916B4006A656F /* beer.jpg in Resources */,
 				89588196187C67CF00CCC9DC /* 1.jpg in Resources */,
+				89FE6A5A195A1A300040C33C /* B5.png in Resources */,
 				890B985D19473532004DE649 /* location-23.png in Resources */,
+				89FE6A4F195A1A300040C33C /* A1.png in Resources */,
 				8948F535194B2E3300FF1519 /* Amazon Gift Card.jpg in Resources */,
 				892154DB185261270052A7C0 /* ProximaNova-SemiboldIt.otf in Resources */,
+				89FE6A53195A1A300040C33C /* A5.png in Resources */,
 				89588199187C67CF00CCC9DC /* 4.jpg in Resources */,
 				89B1A7B518689C05006A656F /* flyout_menu.png in Resources */,
 				890B986119473532004DE649 /* run-03.png in Resources */,
@@ -911,6 +973,7 @@
 				892154D9185261270052A7C0 /* ProximaNova-RegularIt.otf in Resources */,
 				89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */,
 				890B985019473532004DE649 /* addfriend-15.png in Resources */,
+				89FE6A51195A1A300040C33C /* A3.png in Resources */,
 				89772F8B195351D7008A06EB /* Workout More.jpg in Resources */,
 				89772F89195351D7008A06EB /* Lose Weight.jpg in Resources */,
 				8948F53D194B518600FF1519 /* Betchyu_logo_gray.png in Resources */,
@@ -920,11 +983,16 @@
 				89772F88195351D7008A06EB /* Stop Smoking.jpg in Resources */,
 				89B1A6BD1864F789006A656F /* star.png in Resources */,
 				890B986219473532004DE649 /* scale-02.png in Resources */,
+				89FE6A54195A1A300040C33C /* A6.png in Resources */,
+				89FE6A57195A1A300040C33C /* B2.png in Resources */,
 				890B985B19473532004DE649 /* heart-19.png in Resources */,
 				89826373194FA070006A95E2 /* left-arrow@2x.png in Resources */,
+				89FE6A50195A1A300040C33C /* A2.png in Resources */,
 				89B1A7B71868C2D3006A656F /* info_button.png in Resources */,
 				8958819A187C67CF00CCC9DC /* 5.jpg in Resources */,
+				89FE6A58195A1A300040C33C /* B3.png in Resources */,
 				89B1A75E18679CD2006A656F /* slider.png in Resources */,
+				89FE6A5C195A1A300040C33C /* B7.png in Resources */,
 				892154D7185261270052A7C0 /* ProximaNova-LightIt.otf in Resources */,
 				89B1A75C186778C1006A656F /* howItWorksLogo.png in Resources */,
 				89588198187C67CF00CCC9DC /* 3.jpg in Resources */,
@@ -932,11 +1000,14 @@
 				8926AAE1194F63E2006FDF11 /* scale-circle.png in Resources */,
 				890B985E19473532004DE649 /* logout-14.png in Resources */,
 				89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */,
+				89FE6A55195A1A300040C33C /* A7.png in Resources */,
 				89B1A7BF186916B4006A656F /* Meal.jpg in Resources */,
 				892154D6185261270052A7C0 /* ProximaNova-Light.otf in Resources */,
 				892154D3185261270052A7C0 /* ProximaNova-BoldIt.otf in Resources */,
 				8926AAE0194F63E2006FDF11 /* run-circle.png in Resources */,
 				892154D1185261270052A7C0 /* ProximaNova-BlackIt.otf in Resources */,
+				89FE6A52195A1A300040C33C /* A4.png in Resources */,
+				89FE6A56195A1A300040C33C /* B1.png in Resources */,
 				892154D4185261270052A7C0 /* ProximaNova-Extrabld.otf in Resources */,
 				89826374194FA070006A95E2 /* right-arrow.png in Resources */,
 				890B986319473532004DE649 /* settings-13.png in Resources */,
@@ -946,6 +1017,7 @@
 				890B985219473532004DE649 /* arrows-double-21.png in Resources */,
 				892154DA185261270052A7C0 /* ProximaNova-Semibold.otf in Resources */,
 				890B986019473532004DE649 /* plus-18.png in Resources */,
+				89FE6A5B195A1A300040C33C /* B6.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
