@@ -152,7 +152,12 @@
     //make the call to the web API
     // POST /updates => {data}
     [[API sharedInstance] post:@"updates" withParams:params onCompletion:^(NSDictionary *json) {
-        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
+        [[AlertMaker sharedInstance] showGoalUpdatedAlert];
+        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:NO];
+        
+        MyBetDetailsVC *vc = [[MyBetDetailsVC alloc] initWithJSONBet:json];
+        vc.title = @"My Bet";
+        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:NO];
     }];
     
 }

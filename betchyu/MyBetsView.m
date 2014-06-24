@@ -9,6 +9,7 @@
 #import "MyBetsView.h"
 #import "HeadingBarView.h"
 #import "MyBetDetailsVC.h"
+#import "UISwipeWithTag.h"
 
 @implementation MyBetsView
 
@@ -46,6 +47,7 @@
     
     // convinience variables
     CGRect frame = self.frame;
+    UISwipeWithTag *recognizer;
     
     // Bets loop
     int c = pending.count;
@@ -67,11 +69,15 @@
             int xMargin = frame.size.width/4.4;
             
             // Tappable, Invisible Button
+            recognizer = [[UISwipeWithTag alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+            [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+            recognizer.tag = i;
             UIButton *tap = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             tap.frame = CGRectMake(0, yB, frame.size.width, rowHt);
             tap.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
             [tap addTarget:self action:@selector(viewBet:) forControlEvents:UIControlEventTouchUpInside];
             tap.tag = i;
+            [tap addGestureRecognizer:recognizer];
             
             // Type Graphic
             // use a button to dispaly a pic for tint funcionality
@@ -204,6 +210,14 @@
     MyBetDetailsVC *vc = [[MyBetDetailsVC alloc] initWithJSONBet:[bets objectAtIndex:sender.tag]];
     vc.title = @"My Bet";
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
+}
+
+-(void) handleSwipeFrom:(UISwipeWithTag *)sender {
+    NSDictionary * bet = [bets objectAtIndex:sender.tag];
+    if (((NSArray*)[bet valueForKey:@"opponents"]).count == 0
+        /*&& the time isnt past*/) {
+        [[[UIAlertView alloc] initWithTitle:@"DELETE" message:@"You want to delete" delegate:nil cancelButtonTitle:@"Yes, Delete" otherButtonTitles:nil] show];
+    }
 }
 
 @end

@@ -140,6 +140,8 @@
 		89E2F788191AB95F001BB854 /* BetSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E2F787191AB95F001BB854 /* BetSummaryVC.m */; };
 		89F9DE7218A9980E00411AFD /* Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F9DE7118A9980E00411AFD /* Feedback.m */; };
 		89FE6A371959AA5A0040C33C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A361959AA5A0040C33C /* Reachability.m */; };
+		89FE6A3B1959F8950040C33C /* UISwipeWithTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A3A1959F8950040C33C /* UISwipeWithTag.m */; };
+		89FE6A3E1959FD810040C33C /* AlertMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A3D1959FD810040C33C /* AlertMaker.m */; };
 		C97E2F24B94F4D9FB61A267C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A85FBA56BA43B5932AE364 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -343,6 +345,10 @@
 		89F9DE7118A9980E00411AFD /* Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feedback.m; sourceTree = "<group>"; };
 		89FE6A351959AA5A0040C33C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		89FE6A361959AA5A0040C33C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		89FE6A391959F8950040C33C /* UISwipeWithTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISwipeWithTag.h; sourceTree = "<group>"; };
+		89FE6A3A1959F8950040C33C /* UISwipeWithTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UISwipeWithTag.m; sourceTree = "<group>"; };
+		89FE6A3C1959FD810040C33C /* AlertMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertMaker.h; sourceTree = "<group>"; };
+		89FE6A3D1959FD810040C33C /* AlertMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertMaker.m; sourceTree = "<group>"; };
 		F7A85FBA56BA43B5932AE364 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -682,6 +688,10 @@
 				892154C1185261270052A7C0 /* Proxima Nova */,
 				89B3F5C41850EB320055F8DB /* AppDelegate.h */,
 				89B3F5C51850EB320055F8DB /* AppDelegate.m */,
+				89FE6A3C1959FD810040C33C /* AlertMaker.h */,
+				89FE6A3D1959FD810040C33C /* AlertMaker.m */,
+				89FE6A391959F8950040C33C /* UISwipeWithTag.h */,
+				89FE6A3A1959F8950040C33C /* UISwipeWithTag.m */,
 				892154BA1850F3CD0052A7C0 /* Controllers */,
 				892154BB1850F3E20052A7C0 /* Models */,
 				892154BD1850F42A0052A7C0 /* Views */,
@@ -1019,6 +1029,7 @@
 				890B98751948CF01004DE649 /* PastBetsVC.m in Sources */,
 				8948F543194B5B5500FF1519 /* UpdateView.m in Sources */,
 				890B98881949F4E7004DE649 /* HeadingBarView.m in Sources */,
+				89FE6A3E1959FD810040C33C /* AlertMaker.m in Sources */,
 				89772F761950D081008A06EB /* StakeDetailsView.m in Sources */,
 				89B1A74D186674D7006A656F /* MTStackDefaultContainerView.m in Sources */,
 				89F9DE7218A9980E00411AFD /* Feedback.m in Sources */,
@@ -1030,6 +1041,7 @@
 				89772F791951FC48008A06EB /* SummaryHeaderView.m in Sources */,
 				89B1A7521866A01A006A656F /* FlyoutMenuVC.m in Sources */,
 				89B3F5C21850EB320055F8DB /* main.m in Sources */,
+				89FE6A3B1959F8950040C33C /* UISwipeWithTag.m in Sources */,
 				89B1A757186767E9006A656F /* ProfileView.m in Sources */,
 				890B986B19478DCE004DE649 /* FlyoutTopView.m in Sources */,
 				89772F731950D018008A06EB /* StakeDetailsVC.m in Sources */,
