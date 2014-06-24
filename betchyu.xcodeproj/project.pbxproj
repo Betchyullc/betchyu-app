@@ -43,7 +43,6 @@
 		890B98881949F4E7004DE649 /* HeadingBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B98871949F4E7004DE649 /* HeadingBarView.m */; };
 		890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 890D969B19420C5B00E84039 /* BraintreeDelegateController.m */; };
 		892154B21850F36F0052A7C0 /* BetStakeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A21850F36F0052A7C0 /* BetStakeVC.m */; };
-		892154B41850F36F0052A7C0 /* BigButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154A61850F36F0052A7C0 /* BigButton.m */; };
 		892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AC1850F36F0052A7C0 /* LoginViewController.m */; };
 		892154B91850F36F0052A7C0 /* TempBet.m in Sources */ = {isa = PBXBuildFile; fileRef = 892154AF1850F36F0052A7C0 /* TempBet.m */; };
 		892154BF1850F4900052A7C0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892154BE1850F4900052A7C0 /* FacebookSDK.framework */; };
@@ -101,7 +100,6 @@
 		89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826371194FA070006A95E2 /* right-arrow@2x.png */; };
 		89B1A6B01859236C006A656F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6AF1859236C006A656F /* API.m */; };
 		89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */; };
-		89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B8186355A3006A656F /* BetTrackingVC.m */; };
 		89B1A6BB1864ACC7006A656F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BA1864ACC7006A656F /* logo.png */; };
 		89B1A6BD1864F789006A656F /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BC1864F789006A656F /* star.png */; };
 		89B1A6BF1864FD83006A656F /* handshake.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BE1864FD83006A656F /* handshake.jpg */; };
@@ -206,8 +204,6 @@
 		890D969B19420C5B00E84039 /* BraintreeDelegateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeDelegateController.m; sourceTree = "<group>"; };
 		892154A11850F36F0052A7C0 /* BetStakeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetStakeVC.h; sourceTree = "<group>"; };
 		892154A21850F36F0052A7C0 /* BetStakeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetStakeVC.m; sourceTree = "<group>"; };
-		892154A51850F36F0052A7C0 /* BigButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigButton.h; sourceTree = "<group>"; };
-		892154A61850F36F0052A7C0 /* BigButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigButton.m; sourceTree = "<group>"; };
 		892154AB1850F36F0052A7C0 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		892154AC1850F36F0052A7C0 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		892154AE1850F36F0052A7C0 /* TempBet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TempBet.h; sourceTree = "<group>"; };
@@ -287,8 +283,6 @@
 		89B1A6AF1859236C006A656F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = API.m; path = ../API.m; sourceTree = "<group>"; };
 		89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExistingBetDetailsVC.h; sourceTree = "<group>"; };
 		89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExistingBetDetailsVC.m; sourceTree = "<group>"; };
-		89B1A6B7186355A3006A656F /* BetTrackingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetTrackingVC.h; sourceTree = "<group>"; };
-		89B1A6B8186355A3006A656F /* BetTrackingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetTrackingVC.m; sourceTree = "<group>"; };
 		89B1A6BA1864ACC7006A656F /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		89B1A6BC1864F789006A656F /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		89B1A6BE1864FD83006A656F /* handshake.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = handshake.jpg; sourceTree = "<group>"; };
@@ -467,8 +461,7 @@
 				89C6516E193E4C0F004B64B6 /* Menu */,
 				89C6516D193E4C03004B64B6 /* Dashboard */,
 				89C6516F193E4C1E004B64B6 /* Widgets */,
-				8948F53E194B55FE00FF1519 /* BetDetailsView.h */,
-				8948F53F194B55FE00FF1519 /* BetDetailsView.m */,
+				89FE6A381959B25D0040C33C /* View Bet */,
 				8926AAE5194F73F4006FDF11 /* BetOptionsTopView.h */,
 				8926AAE6194F73F4006FDF11 /* BetOptionsTopView.m */,
 				89772F741950D081008A06EB /* StakeDetailsView.h */,
@@ -552,8 +545,6 @@
 		89588190187C515400CCC9DC /* Bet Details and Update */ = {
 			isa = PBXGroup;
 			children = (
-				89B1A6B7186355A3006A656F /* BetTrackingVC.h */,
-				89B1A6B8186355A3006A656F /* BetTrackingVC.m */,
 				89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */,
 				89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */,
 				8948F536194B48F500FF1519 /* MyBetDetailsVC.h */,
@@ -772,12 +763,8 @@
 		89C6516F193E4C1E004B64B6 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				8948F541194B5B5500FF1519 /* UpdateView.h */,
-				8948F542194B5B5500FF1519 /* UpdateView.m */,
 				890B9866194740BD004DE649 /* CompletionBorderView.h */,
 				890B9867194740BD004DE649 /* CompletionBorderView.m */,
-				892154A51850F36F0052A7C0 /* BigButton.h */,
-				892154A61850F36F0052A7C0 /* BigButton.m */,
 				8957380B189830BB00E693A5 /* Graph.h */,
 				8957380C189830BB00E693A5 /* Graph.m */,
 				890B98861949F4E7004DE649 /* HeadingBarView.h */,
@@ -786,6 +773,17 @@
 				8948F532194A431100FF1519 /* ProgressBarView.m */,
 			);
 			name = Widgets;
+			sourceTree = "<group>";
+		};
+		89FE6A381959B25D0040C33C /* View Bet */ = {
+			isa = PBXGroup;
+			children = (
+				8948F53E194B55FE00FF1519 /* BetDetailsView.h */,
+				8948F53F194B55FE00FF1519 /* BetDetailsView.m */,
+				8948F541194B5B5500FF1519 /* UpdateView.h */,
+				8948F542194B5B5500FF1519 /* UpdateView.m */,
+			);
+			name = "View Bet";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -992,7 +990,6 @@
 				8948F54C194F258C00FF1519 /* CreateBetVC.m in Sources */,
 				89B1A749186674D7006A656F /* FacingView.m in Sources */,
 				890B986E1948B9D3004DE649 /* SettingsVC.m in Sources */,
-				89B1A6B9186355A3006A656F /* BetTrackingVC.m in Sources */,
 				8926AA8B1940E73400AAB74A /* MyBetsView.m in Sources */,
 				89C6516C193E4BE9004B64B6 /* PendingBetsView.m in Sources */,
 				89B1A74E186674D7006A656F /* MTStackViewController.m in Sources */,
@@ -1028,7 +1025,6 @@
 				890B983819464123004DE649 /* FriendsBetsSubview.m in Sources */,
 				890D969C19420C5B00E84039 /* BraintreeDelegateController.m in Sources */,
 				89C65163193D1E15004B64B6 /* Dashboard.m in Sources */,
-				892154B41850F36F0052A7C0 /* BigButton.m in Sources */,
 				89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */,
 				89B1A74B186674D7006A656F /* ShadowView.m in Sources */,
 				89772F791951FC48008A06EB /* SummaryHeaderView.m in Sources */,

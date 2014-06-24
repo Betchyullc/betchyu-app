@@ -22,6 +22,9 @@
         self.isMyBet = mine;
         self.backgroundColor = [UIColor whiteColor];
         int fontS = 14;
+        if (frame.size.width > 500) {
+            fontS = 20;
+        }
         
 /* -----TOP SECTION----- */
         // graphic

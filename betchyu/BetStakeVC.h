@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "TempBet.h"
-#import "BigButton.h"
 #import "BetOptionsTopView.h"
 
 @interface BetStakeVC : UIViewController

@@ -86,6 +86,11 @@
     // Bets loop
     int c = betList.count;
     int off = fontSize*1.8;
+    int xMargin = frame.size.width/4.4;
+    int diameter = frame.size.width / 6.7 ;
+    if (frame.size.width > 500) {
+        diameter = frame.size.width / 9;
+    }
     if (c == 0) {
         // show --None-- message
         UILabel *none = [[UILabel alloc]initWithFrame:CGRectMake(0, off, frame.size.width, frame.size.height-off)];
@@ -100,10 +105,8 @@
             
             // measurment variables
             int yB      = (rowHt * i) + off;
-            int xMargin = frame.size.width/4.4;
             
             // Profile Image
-            int diameter = frame.size.width / 6.7 ;
             CGRect picF  = CGRectMake(frame.size.width/17, yB + rowHt/6, diameter, diameter);
             UIView *pic = [self getFBPic:[obj valueForKey:@"owner"] WithDiameter:diameter AndFrame:picF];
             CompletionBorderView *circle = [[CompletionBorderView alloc] initWithFrame:picF AndColor:Bred AndPercentComplete:[[obj valueForKey:@"progress"] intValue]];

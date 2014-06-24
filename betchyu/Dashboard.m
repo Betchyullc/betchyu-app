@@ -31,9 +31,9 @@
         rowH = 70;
         pendingRowH = 90;
         if (frame.size.width > 500) {
-            oneH = 140;
-            rowH = 110;
-            pendingRowH = 120;
+            oneH = 100+(21*1.81);
+            rowH = 100;
+            pendingRowH = 115;
         }
         self.backgroundColor = Blight;
         

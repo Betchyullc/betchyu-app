@@ -87,15 +87,16 @@
     
     //default
     ret = @"Today's Amount:";
+    int w = self.frame.size.width;
     
     if ([n isEqualToString:@"smoking"]) {
         ret   = @"Did you smoke today?";
     } else if ( [n isEqualToString:@"pounds"] ) {
-        ret   = @"Today's Weight:\t\t\t\t\tlbs";
+        ret   = w > 500 ? @"Today's Weight:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tlbs" : @"Today's Weight:\t\t\t\t\tlbs";
     } else if ( [n isEqualToString:@"miles"] ) {
-        ret   = @"Today I ran:\t\t\t\t\t   miles";
+        ret   = w > 500 ? @"Today I ran:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tmiles" :@"Today I ran:\t\t\t\t\t   miles";
     } else if ( [n isEqualToString:@"times"] ) {
-        ret   = @"Today I worked out:\t\t\t   times";
+        ret   = w > 500 ? @"Today I worked out:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\ttimes" : @"Today I worked out:\t\t\t   times";
     }
     return ret;
 }
@@ -160,12 +161,21 @@
                                      @"true", @"win",
                                      nil];
     [[API sharedInstance] put:@"/pay" withParams:params2 onCompletion:^(NSDictionary *json) {
-        [[[UIAlertView alloc] initWithTitle:@"YOU WIN"
-                                    message:@"Congratulations, you've just won this bet, and it will now be visible on your 'Past Bets' screen. Expect a gift card in your email in a few days."
-                                delegate:nil
-                          cancelButtonTitle:@"Sweet"
-                          otherButtonTitles: nil]
-         show];
+        if (((NSArray *)[bet valueForKey:@"opponents"]).count == 0) {
+            [[[UIAlertView alloc] initWithTitle:@"YOU WIN"
+                                        message:@"Congratulations, you've just won this bet, and it will now be visible on your 'Past Bets' screen. There's no prize, though, because no friend accepted your bet..."
+                                       delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles: nil]
+             show];
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"YOU WIN"
+                                        message:@"Congratulations, you've just won this bet, and it will now be visible on your 'Past Bets' screen. Expect a gift card in your email in a few days."
+                                       delegate:nil
+                              cancelButtonTitle:@"Sweet"
+                              otherButtonTitles: nil]
+             show];
+        }
         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
     }];
 }

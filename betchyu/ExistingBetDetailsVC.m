@@ -1,15 +1,12 @@
-//
 //  ExistingBetDetailsVC.m
 //  betchyu
 //
 //  Created by Daniel Zapata on 12/16/13.
 //  Copyright (c) 2013 BetchyuLLC. All rights reserved.
-//
 
 #import "ExistingBetDetailsVC.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "AppDelegate.h"
-#import "BigButton.h"
 #import "API.h"
 #import "BetDetailsView.h"
 
