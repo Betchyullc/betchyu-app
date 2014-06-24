@@ -160,7 +160,7 @@
                      NSLog(@"inner: %@", user.id);
                  } else {
                      self.ownId = @"";
-                     [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding, try logging out and logging back in" delegate:Nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+                     [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding. You might not be connected to the internet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
                  }
              }];
             

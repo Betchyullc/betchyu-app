@@ -47,6 +47,9 @@
 
 -(void)post:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
 {
+    if ([self checkConnectionError]) {
+        return;
+    }
     NSMutableURLRequest *apiRequest =
     [self multipartFormRequestWithMethod:@"POST"
                                     path:path
@@ -68,6 +71,9 @@
 }
 -(void)get:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
 {
+    if ([self checkConnectionError]) {
+        return;
+    }
     NSMutableURLRequest *apiRequest = [self requestWithMethod:@"GET" path:path parameters:params];
     
     AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
@@ -83,6 +89,9 @@
 }
 -(void)put:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
 {
+    if ([self checkConnectionError]) {
+        return;
+    }
     NSMutableURLRequest *apiRequest =[self requestWithMethod:@"PUT" path:path parameters:params];
     
     AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
@@ -95,6 +104,17 @@
     }];
     
     [operation start];
+}
+
+/// returns YES if there is a problem
+-(BOOL)checkConnectionError {
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        [[[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"You don't appear to be connected to the internet. Sorry." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        return YES;
+    }
+    return NO;
 }
 
 @end

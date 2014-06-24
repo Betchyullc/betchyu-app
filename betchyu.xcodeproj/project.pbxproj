@@ -141,6 +141,7 @@
 		89C6516C193E4BE9004B64B6 /* PendingBetsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C6516B193E4BE9004B64B6 /* PendingBetsView.m */; };
 		89E2F788191AB95F001BB854 /* BetSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E2F787191AB95F001BB854 /* BetSummaryVC.m */; };
 		89F9DE7218A9980E00411AFD /* Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F9DE7118A9980E00411AFD /* Feedback.m */; };
+		89FE6A371959AA5A0040C33C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 89FE6A361959AA5A0040C33C /* Reachability.m */; };
 		C97E2F24B94F4D9FB61A267C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A85FBA56BA43B5932AE364 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -346,6 +347,8 @@
 		89E2F787191AB95F001BB854 /* BetSummaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetSummaryVC.m; sourceTree = "<group>"; };
 		89F9DE7018A9980E00411AFD /* Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feedback.h; sourceTree = "<group>"; };
 		89F9DE7118A9980E00411AFD /* Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feedback.m; sourceTree = "<group>"; };
+		89FE6A351959AA5A0040C33C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		89FE6A361959AA5A0040C33C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		F7A85FBA56BA43B5932AE364 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -601,6 +604,8 @@
 		89B1A6B1185927DD006A656F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				89FE6A351959AA5A0040C33C /* Reachability.h */,
+				89FE6A361959AA5A0040C33C /* Reachability.m */,
 				89B1A6AE1859236C006A656F /* API.h */,
 				89B1A6AF1859236C006A656F /* API.m */,
 			);
@@ -998,6 +1003,7 @@
 				89B1A74C186674D7006A656F /* UIView+Screenshot.m in Sources */,
 				89C65169193D232F004B64B6 /* DashHeaderView.m in Sources */,
 				8948F533194A431100FF1519 /* ProgressBarView.m in Sources */,
+				89FE6A371959AA5A0040C33C /* Reachability.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
 				89C65166193D1E31004B64B6 /* DashboardVC.m in Sources */,
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,

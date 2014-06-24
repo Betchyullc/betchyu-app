@@ -8,6 +8,7 @@
 
 #import "AFHTTPClient.h"
 #import "AFNetworking.h"
+#import "Reachability.h"
 
 //API call completion block with result as json
 typedef void (^JSONResponseBlock)(NSDictionary* json);
