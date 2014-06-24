@@ -190,8 +190,9 @@
     [self.view addSubview:l2];
     
     // betchyu logo view
-    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Betchyu_logo_gray.png"]];
-    logo.frame = CGRectMake(passedFrame.size.width/3, l2.frame.origin.y + 22, passedFrame.size.width/3, 25);
+    UIImageView *logo   = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Betchyu_logo_gray.png"]];
+    int lHt             = passedFrame.size.width > 500 ? 50 : 25;
+    logo.frame          = CGRectMake(passedFrame.size.width/3, passedFrame.size.height - 14 - lHt, passedFrame.size.width/3, lHt);
     [self.view addSubview:logo];
 }
 
