@@ -128,7 +128,7 @@
         stakeImg.layer.cornerRadius = dim/2;
         stakeImg.layer.masksToBounds = YES;
         
-        UILabel *stakeLbl = [[UILabel alloc] initWithFrame:CGRectMake(stakeImg.frame.origin.x + stakeImg.frame.size.width + 25, stakeImg.frame.origin.y, stakeHeader.frame.size.width, 30)];
+        UILabel *stakeLbl = [[UILabel alloc] initWithFrame:CGRectMake(stakeImg.frame.origin.x + stakeImg.frame.size.width + 25, stakeImg.frame.origin.y, stakeHeader.frame.size.width, dim)];
         stakeLbl.text = [NSString stringWithFormat:@"$%i %@",[[bet valueForKey:@"stakeAmount"] intValue], stakeType];
         stakeLbl.textColor = Bdark;
         stakeLbl.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontS+2];
