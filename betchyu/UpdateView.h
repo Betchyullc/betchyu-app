@@ -17,7 +17,7 @@
 #define Blight  [UIColor colorWithRed:213.0/255 green:213.0/255 blue:214.0/255 alpha:1.0]
 #define Bmid    [UIColor colorWithRed:186.0/255 green:186.0/255 blue:194.0/255 alpha:1.0]
 
-@interface UpdateView : UIView <UITextFieldDelegate>
+@interface UpdateView : UIView <UITextFieldDelegate, BinaryProgressViewDelegate>
 
 @property NSDictionary * bet;
 @property UITextField * box;

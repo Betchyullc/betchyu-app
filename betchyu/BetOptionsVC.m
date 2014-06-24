@@ -72,7 +72,7 @@
     
     CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
     
-    self.view = [UIView new];
+    self.view = [UIScrollView new];
     self.view.backgroundColor = Blight;
     self.view.frame = f2;
     [self.view addSubview:[[BetOptionsTopView alloc] initWithFrame:CGRectMake(0, 0, f2.size.width, 2*f2.size.height/5) AndBetName:self.passedBetName]];
@@ -84,6 +84,8 @@
     } else {
         [self.view addSubview:[self getIncreasingSubview]];
     }
+    CGRect lFr = ((UIView *)[[self.view subviews] lastObject]).frame;
+    ((UIScrollView *)self.view).contentSize = CGSizeMake(f2.size.width, lFr.size.height + lFr.origin.y);
 }
 
 
@@ -93,7 +95,7 @@
     int h = self.view.frame.size.height;
     int w = self.view.frame.size.width;
     // The thing we return. it has a shadow at the bottom of it
-    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5 +64, w, 250)];
+    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5, w, 250)];
     
     // The Label stating your intention @"I will not smoke:"
     UILabel *goalAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
@@ -154,7 +156,7 @@
     int h = self.view.frame.size.height;
     int w = self.view.frame.size.width;
     // The thing we return. it has a shadow at the bottom of it
-    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5 +64, w, 250)];
+    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5 , w, 250)];
     
     UILabel *startingFromLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
     startingFromLab.text = @"Starting From:\t\t\t\t\t  lbs";
@@ -249,7 +251,7 @@
     int h = self.view.frame.size.height;
     int w = self.view.frame.size.width;
     // The thing we return. it has a shadow at the bottom of it
-    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5 +64, w, 250)];
+    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5, w, 250)];
 
     // The Label stating your tintention @"I will run:"
     UILabel *goalAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];

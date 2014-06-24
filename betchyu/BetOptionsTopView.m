@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        int off = 64;
+        int off = 0;//64;
         name = [self getBetName:name];
         
         // add the Background image

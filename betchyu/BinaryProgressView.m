@@ -21,8 +21,8 @@
         int h = frame.size.height;
         
         int sectH = h/3;
-        int fontSize = sectH / 2.6f;
-        int btnDim = w/10;
+        int fontSize = sectH / 2.2f;
+        int btnDim = w > 500 ? w/19 : w/11;
         
         self.backgroundColor = [UIColor whiteColor];
         self.layer.masksToBounds = NO;
@@ -44,7 +44,7 @@
         
         // Yes No Label
         UILabel *yn = [[UILabel alloc] initWithFrame:CGRectMake(25, sectH, w, sectH)];
-        yn.text     = @"Yes\t\t\t No";
+        yn.text     = w > 500 ? @"Yes\t\t\t\t\t\t\t\t\t\tNo" : @"Yes\t\t\t\tNo";
         yn.font     = FregfS;
         yn.textColor= Bmid;
         yn.textAlignment = NSTextAlignmentCenter;
@@ -70,7 +70,8 @@
         no.tag = 0;
         
         // Update button
-        UIButton *update = [[UIButton alloc] initWithFrame:CGRectMake(w/4, 2*sectH, w/2, sectH*0.7f)];
+        CGRect uFr = w > 500 ? CGRectMake(w/3, 2*sectH +7, w/3, sectH*0.7f) : CGRectMake(w/4, 2*sectH +5, w/2, sectH*0.7f);
+        UIButton *update = [[UIButton alloc] initWithFrame:uFr];
         update.backgroundColor = Bgreen;
         update.layer.cornerRadius = 9;
         [update setTitle:@"Update" forState:UIControlStateNormal];

@@ -68,15 +68,17 @@
         
         
         if ( [self betIsBinary] ) {
-            prompt.frame = CGRectMake(margin, margin, frame.size.width - margin*2, frame.size.height/2);
-            prompt.textAlignment = NSTextAlignmentCenter;
+            /*prompt.frame = CGRectMake(margin, margin, frame.size.width - margin*2, frame.size.height/2);
+            prompt.textAlignment = NSTextAlignmentCenter;*/
+            BinaryProgressView * bpv = [[BinaryProgressView alloc] initWithFrame:self.bounds AndBetId:[[bet valueForKey:@"id"] integerValue]];
+            bpv.delegate = self;
+            [self addSubview:bpv];
         } else {
+            // Add everything
             [self addSubview:box];
+            [self addSubview:prompt];
+            [self addSubview:updateBtn];
         }
-        
-        // Add everything
-        [self addSubview:prompt];
-        [self addSubview:updateBtn];
     }
     return self;
 }
@@ -198,6 +200,20 @@
     UIScrollView *sup = ((UIScrollView *)self.superview);
     CGPoint bottomOffset = CGPointMake(0, sup.contentSize.height - sup.bounds.size.height);
     [sup setContentOffset:bottomOffset animated:YES];
+}
+
+#pragma mark BinaryProgressViewDelegate shit
+// when this is called, it means they lost the bet
+- (void)updated:(NSDictionary *)params {
+    NSMutableDictionary * params2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                     ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId, @"user",
+                                     [params valueForKey:@"bet_id"], @"bet_id",
+                                     @"f", @"win",
+                                     nil];
+    [[API sharedInstance] put:@"/pay" withParams:params2 onCompletion:^(NSDictionary *json) {
+        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
+    }];
+    
 }
 
 @end

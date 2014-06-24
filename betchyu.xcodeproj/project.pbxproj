@@ -467,8 +467,6 @@
 				89772F741950D081008A06EB /* StakeDetailsView.h */,
 				89772F751950D081008A06EB /* StakeDetailsView.m */,
 				89772F801951FC74008A06EB /* BetSummary */,
-				89772F81195323F0008A06EB /* BinaryProgressView.h */,
-				89772F82195323F0008A06EB /* BinaryProgressView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -782,6 +780,8 @@
 				8948F53F194B55FE00FF1519 /* BetDetailsView.m */,
 				8948F541194B5B5500FF1519 /* UpdateView.h */,
 				8948F542194B5B5500FF1519 /* UpdateView.m */,
+				89772F81195323F0008A06EB /* BinaryProgressView.h */,
+				89772F82195323F0008A06EB /* BinaryProgressView.m */,
 			);
 			name = "View Bet";
 			sourceTree = "<group>";
