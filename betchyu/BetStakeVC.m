@@ -39,13 +39,13 @@
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     int h = mainView.frame.size.height;
     int w = mainView.frame.size.width;
-    int topHeight = 180;
+    int topHeight = w>500 ? 320 : 180;
     
     //self.stakeImageHeight = 0.78 * w;
     mainView.contentSize   = CGSizeMake(w, topHeight + 36 + ((stakeImageHeight)*stakes.count));
     [mainView setBackgroundColor:Blight];
     
-    BetOptionsTopView *top = [[BetOptionsTopView alloc] initWithFrame:CGRectMake(0, -64, w, topHeight) AndBetName:[NSString stringWithFormat:@"%@ %@",bet.verb, bet.noun]];
+    BetOptionsTopView *top = [[BetOptionsTopView alloc] initWithFrame:CGRectMake(0, 0, w, topHeight) AndBetName:[NSString stringWithFormat:@"%@ %@",bet.verb, bet.noun]];
     top.textLabel.text = [self getBetDescription];
     [mainView addSubview:top];
     

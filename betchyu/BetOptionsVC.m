@@ -152,14 +152,14 @@
 }
 -(UIView *)getDecreasingSubview {
     // convinience variables
-    int fontSize = 18;
     int h = self.view.frame.size.height;
     int w = self.view.frame.size.width;
+    int fontSize = w>500 ? 22 : 18;
     // The thing we return. it has a shadow at the bottom of it
     UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5 , w, 250)];
     
     UILabel *startingFromLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
-    startingFromLab.text = @"Starting From:\t\t\t\t\t  lbs";
+    startingFromLab.text = w > 500 ? @"Starting From:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tlbs" : @"Starting From:\t\t\t\t\t  lbs";
     startingFromLab.font = FregfS;
     startingFromLab.textColor = Bmid;
     [main addSubview:startingFromLab];

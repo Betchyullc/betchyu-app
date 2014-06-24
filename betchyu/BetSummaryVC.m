@@ -36,6 +36,10 @@
     int oppsH   = 135;
     int stakeH  = 175;
     int buttonH = 60;
+    if (w > 500) {
+        headerH = 300;
+        stakeH = 300;
+    }
     
     mainView.contentSize   = CGSizeMake(w, headerH + oppsH + stakeH + buttonH);
     mainView.backgroundColor = Blight;
