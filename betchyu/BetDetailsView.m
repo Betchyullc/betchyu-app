@@ -55,9 +55,9 @@
         dayCount.textColor = Bdark;
         int daysIn = [self getDaysInFromBet:bet];
         int daysInLen = [self charCountForNumber:daysIn];
-        int daysLeft = [self getDaysToGoFromBet:bet];
+        int daysLeft = [self getDaysToGoFromBet:bet] + 1;
         int daysLeftLen = [self charCountForNumber:daysLeft];
-        NSString *text = [NSString stringWithFormat:@"%i days in\t\t\t\t\t%i days to go", daysIn, [self getDaysToGoFromBet:bet]];
+        NSString *text = [NSString stringWithFormat:@"%i days in\t\t\t\t\t%i days to go", daysIn, daysLeft];
         UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Black" size:fontS+2];
         UIFont *regularFont = [UIFont fontWithName:@"ProximaNovaT-Thin" size:fontS+2];
         UIColor *foregroundColor = Bdark;
@@ -132,22 +132,23 @@
         
 /* -----OPPONENTS SECTION----- */
         HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, imgF.origin.y + imgF.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
-        NSArray * opponents = [bet valueForKey:@"opponents"];
-        int diameter = frame.size.width/4.3;
         yOff = opponentsHeader.frame.origin.y + opponentsHeader.frame.size.height + 10;
-        for (int i = 0; i < opponents.count/4.0; i++) { // rows
-            for (int j = 0; j < 4 && j+i < opponents.count; j++) { // columns
-                CGRect profF  = CGRectMake(10 + diameter*j, yOff + (diameter+10)*i, diameter, diameter);
-                UIView *profPic = [self getFBPic:[opponents objectAtIndex:j+i] WithDiameter:diameter AndFrame:profF];
-                profPic.layer.borderColor = [Blight CGColor];
-                profPic.layer.borderWidth = 2;
-                profPic.layer.masksToBounds = YES;
-                [self addSubview:profPic];
-            }
+        int diameter = frame.size.width/4.3;
+        NSArray * opponents = [bet valueForKey:@"opponents"];
+        UIScrollView *oppScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(15, yOff , frame.size.width -30, diameter + 5)];
+        oppScroll.contentSize = CGSizeMake(opponents.count * (diameter + 4), oppScroll.frame.size.height);
+        for (int i = 0; i < opponents.count; i++) {
+            CGRect profF  = CGRectMake((diameter+2)*i, 1, diameter, diameter);
+            UIView *profPic = [self getFBPic:[opponents objectAtIndex:i] WithDiameter:diameter AndFrame:profF];
+            profPic.layer.borderColor = [Blight CGColor];
+            profPic.layer.borderWidth = 2;
+            profPic.layer.masksToBounds = YES;
+            [oppScroll addSubview:profPic];
         }
+        [self addSubview:oppScroll];
         
 /* -----COMMENTS SECTION----- */
-        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, yOff + MAX(roundf(opponents.count/4.0), 1)*diameter + 10, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
+        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, oppScroll.frame.size.height + oppScroll.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
         
         // Add everything
         [self addSubview:pic];
