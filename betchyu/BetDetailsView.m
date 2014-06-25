@@ -7,11 +7,13 @@
 //
 
 #import "BetDetailsView.h"
+#import "UpdateView.h"
 
 @implementation BetDetailsView
 
 @synthesize ownerIsMale;
 @synthesize isMyBet;
+@synthesize update;
 
 - (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet AndIsMyBet:(BOOL)mine
 {
@@ -99,7 +101,7 @@
         percProg.text = [NSString stringWithFormat:@"%@\%% complete", [bet valueForKey:@"progress"]];
         
 /* -----POSSIBLE UPDATE SECTION, depending on mine flag-----*/
-        UpdateView *update;
+        update = nil;
         if (self.isMyBet) {
             HeadingBarView *updHead = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, percProg.frame.origin.y + percProg.frame.size.height, frame.size.width, fontS*1.8) AndTitle:@"Track Your Progress"];
             update = [[UpdateView alloc] initWithFrame:CGRectMake(0, updHead.frame.origin.y + updHead.frame.size.height, frame.size.width, 100) AndBet:bet];
@@ -288,7 +290,7 @@
     NSString * two; NSString * three; NSString * four; NSString * five;
     
     //default
-    three = [NSString stringWithFormat:@"%.02f",([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"amount"] intValue])];
+    three = [NSString stringWithFormat:@"%i",(int)roundf([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"amount"] intValue])];
     four  = [bet valueForKey:@"amount"];
     five  = n;
     
@@ -317,5 +319,10 @@
     } else {
         return base;
     }
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.update.box resignFirstResponder];
 }
 @end

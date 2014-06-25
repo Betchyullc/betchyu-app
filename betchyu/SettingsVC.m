@@ -10,13 +10,14 @@
 #import "EditProfileVC.h"
 #import "Feedback.h"
 #import "AboutUs.h"
-#import "HowItWorksVC.h"
 
 @interface SettingsVC ()
 
 @end
 
 @implementation SettingsVC
+
+@synthesize pagesForHowItWorks;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -113,8 +114,16 @@
     pvc.dataSource = self;
     pvc.view.frame = self.view.frame;
     
-    HowItWorksVC *firstPage = [self viewControllerAtIndex:0];
-    NSArray *viewControllers = [NSArray arrayWithObject:firstPage];
+    self.pagesForHowItWorks = @[[HowItWorksVC new],[HowItWorksVC new],[HowItWorksVC new],[HowItWorksVC new],[HowItWorksVC new],[HowItWorksVC new],[HowItWorksVC new],[HowItWorksVC new]];
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:0]).index = 0;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:1]).index = 1;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:2]).index = 2;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:3]).index = 3;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:4]).index = 4;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:5]).index = 5;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:6]).index = 6;
+    ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:7]).index = 7;
+    NSArray *viewControllers = [NSArray arrayWithObject:[self.pagesForHowItWorks objectAtIndex:0]];
     
     [pvc setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
@@ -172,13 +181,9 @@
 
 - (HowItWorksVC *)viewControllerAtIndex:(NSUInteger)index {
     
-    HowItWorksVC *childViewController = [[HowItWorksVC alloc] initWithNibName:nil bundle:nil];
-    childViewController.index = index;
-    
-    return childViewController;
+    return [self.pagesForHowItWorks objectAtIndex:index];
     
 }
-
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     // The number of items reflected in the page indicator.
     return 8;

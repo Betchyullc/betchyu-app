@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingsView.h"
+#import "HowItWorksVC.h"
 
 @interface SettingsVC : UIViewController <UIPageViewControllerDataSource>
 
+@property NSArray * pagesForHowItWorks;
+
+- (HowItWorksVC *)viewControllerAtIndex:(NSUInteger)index;
+-(void) howItWorksPressed:(id)sender;
 @end

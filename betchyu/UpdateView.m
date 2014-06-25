@@ -12,6 +12,7 @@
 
 @synthesize bet;
 @synthesize box;
+@synthesize btnLocked;
 
 // the init method assumes that the bet is updated normally, until the end, where it modifies if it's binary/reverse
 // view has 3 (or less) components:
@@ -24,6 +25,7 @@
     if (self) {
         // Initialize the property
         self.bet = b;
+        self.btnLocked = NO;
         
         int w = frame.size.width;
         int h = frame.size.height;
@@ -45,7 +47,7 @@
         
         // text field box
         self.box                   = [[UITextField alloc] initWithFrame:CGRectMake(w/2, margin, w/3 - margin*1.3, h/3)];
-        self.box.keyboardType      = UIKeyboardTypeNumbersAndPunctuation;
+        self.box.keyboardType      = UIKeyboardTypeNumberPad;
         self.box.backgroundColor   = [UIColor clearColor];
         self.box.borderStyle       = UITextBorderStyleLine;
         self.box.textAlignment     = NSTextAlignmentCenter;
@@ -70,7 +72,7 @@
         if ( [self betIsBinary] ) {
             /*prompt.frame = CGRectMake(margin, margin, frame.size.width - margin*2, frame.size.height/2);
             prompt.textAlignment = NSTextAlignmentCenter;*/
-            BinaryProgressView * bpv = [[BinaryProgressView alloc] initWithFrame:self.bounds AndBetId:[[bet valueForKey:@"id"] integerValue]];
+            BinaryProgressView * bpv = [[BinaryProgressView alloc] initWithFrame:self.bounds AndBet:bet];
             bpv.delegate = self;
             [self addSubview:bpv];
         } else {
@@ -114,18 +116,14 @@
 
 
 -(void)update:(id)sender {
-    if ([self betIsBinary]) {
-        ProgressTrackingVC *vc = [[ProgressTrackingVC alloc] initWithBet:bet];
-        vc.title = @"Track Your Progress";
-        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
-        return;
-    }
-    if ( self.box.text.length == 0 ||  [self.box.text floatValue] > 550) {
+    if (self.btnLocked) { return; }
+    if ( self.box.text.length == 0 ||  [self.box.text floatValue] > 550 || [self.box.text floatValue] < 0) {
         [self errorBox:YES];
         [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
         return; // should show error
     }
     
+    self.btnLocked = YES;
     [[AlertMaker sharedInstance] cancelOldAndScheduleNewNotification];
     
     float amount = [[bet valueForKey:@"amount"] floatValue];
@@ -210,9 +208,12 @@
     [sup setContentOffset:bottomOffset animated:YES];
 }
 
+
 #pragma mark BinaryProgressViewDelegate shit
 // when this is called, it means they lost the bet
 - (void)updated:(NSDictionary *)params {
+    if (self.btnLocked) { return; }
+    self.btnLocked = YES;
     NSMutableDictionary * params2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                      ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId, @"user",
                                      [params valueForKey:@"bet_id"], @"bet_id",

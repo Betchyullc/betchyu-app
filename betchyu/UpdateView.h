@@ -15,6 +15,7 @@
 
 @property NSDictionary * bet;
 @property UITextField * box;
+@property BOOL btnLocked;
 
 - (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)b;
 

@@ -10,13 +10,13 @@
 
 @synthesize yes;
 @synthesize no;
-@synthesize betID;
+@synthesize bet;
 @synthesize delegate;
 
-- (id)initWithFrame:(CGRect)frame AndBetId:(int)betId {
+- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)b {
     self = [super initWithFrame:frame];
     if (self) {
-        self.betID = betId;
+        self.bet = b;
         int w = frame.size.width;
         int h = frame.size.height;
         
@@ -91,19 +91,21 @@
 -(void) updatePressed:(UIButton *)sender {
     int val = self.no.selected ? 1 : 0 ;
     if (val == 1) {
-        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popViewControllerAnimated:YES];
+        [[AlertMaker sharedInstance] pickAndShowCorrectUpdatedAlertFrom:bet];
         return;
     } // don't bother updating in the successful case
     
+    [[[UIAlertView alloc] initWithTitle:@"You Lose" message:@"Since you smoked, you lose the bet. You'll get a charge on your card." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:val],     @"value",
-                                  [NSNumber numberWithInt:betID],   @"bet_id",
+                                  [NSNumber numberWithInt:val], @"value",
+                                  [bet valueForKey:@"id"],      @"bet_id",
                                   nil];
     
     //make the call to the web API
     // POST /updates => {data}
     [[API sharedInstance] post:@"updates" withParams:params onCompletion:^(NSDictionary *json) {
-        [self.delegate updated:params];
+        [self.delegate updated:params]; // lets the delegate know that we sent something to the server
     }];
 }
 

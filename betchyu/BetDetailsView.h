@@ -10,10 +10,11 @@
 #import "HeadingBarView.h"
 #import <math.h>
 #import "ProgressBarView.h"
-#import "UpdateView.h"
+@class UpdateView;
 
 @interface BetDetailsView : UIScrollView
 
+@property UpdateView * update;
 @property BOOL ownerIsMale;
 @property BOOL isMyBet;
 

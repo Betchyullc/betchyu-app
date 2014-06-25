@@ -1,10 +1,8 @@
-//
 //  ProgressTrackingVC.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/13/14.
+//  Created by Daniel Zapata on 6/13/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import "ProgressTrackingVC.h"
 #import "AppDelegate.h"
@@ -35,7 +33,7 @@
     int w = v.frame.size.width;
     int yOff = v.frame.origin.y + 44;
     
-    self.prog = [[BinaryProgressView alloc] initWithFrame:CGRectMake(0, yOff, w, 200) AndBetId:[[bet valueForKey:@"id"] intValue]];
+    self.prog = [[BinaryProgressView alloc] initWithFrame:CGRectMake(0, yOff, w, 200) AndBet:bet];
     prog.delegate = self;
     [v addSubview:prog];
     

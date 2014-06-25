@@ -17,6 +17,7 @@
 @synthesize hasShownHowItWorks;
 @synthesize canLeavePage;
 @synthesize createGoalController;
+@synthesize howItWorksContainerVC;
 
 - (id)initWithInviteNumber:(NSString *)numInvs {
     self = [super initWithNibName:nil bundle:nil];
@@ -71,6 +72,7 @@
     [self getAndAddMyBets:nil];
     [self getAndAddFriendsBets:nil];
     [self getNewNotifications:nil];
+    [self checkAndShowHowItWorks:nil];
 }
 
 // API call methods
@@ -169,7 +171,30 @@
         }
     }];
 }
-
+- (void) checkAndShowHowItWorks:(id)useless {
+    if (self.hasShownHowItWorks) { return; }
+    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    // ensuring the app ain't just started
+    if ([ownId isEqualToString:@""]) {
+        // we need to wait a bit before setting up the profile pic
+        [self performSelector:@selector(checkAndShowHowItWorks:) withObject:NO afterDelay:1];
+        return;
+    }
+    
+    /// the path to retrieve notificaitons from
+    NSString *path =[NSString stringWithFormat:@"user/%@", ownId];
+    
+    //make the call to the web API
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        self.hasShownHowItWorks = YES;//dont want to bother with this request again, regardless of whether it worked or not.
+        BOOL has_acted = [[json valueForKey:@"has_acted"] boolValue];
+        if (!has_acted) {
+            self.howItWorksContainerVC = [[SettingsVC alloc] init];
+            [self.howItWorksContainerVC performSelector:@selector(howItWorksPressed:) withObject:nil afterDelay:1];
+            [[[UIAlertView alloc]initWithTitle:@"New?" message:@"This looks like your first time here! Here's how it all works." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+        }
+    }];
+}
 // actions
 -(void)showMenu:(id)sender {
     if (!self.canLeavePage) { return; }
