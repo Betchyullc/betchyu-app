@@ -126,6 +126,8 @@
         return; // should show error
     }
     
+    [[AlertMaker sharedInstance] cancelOldAndScheduleNewNotification];
+    
     float amount = [[bet valueForKey:@"amount"] floatValue];
     float progress = ([[bet valueForKey:@"progress"] floatValue] / 100.0 * amount);
     
@@ -151,8 +153,9 @@
     }
     //make the call to the web API
     // POST /updates => {data}
+    // the post come back with the new bet data
     [[API sharedInstance] post:@"updates" withParams:params onCompletion:^(NSDictionary *json) {
-        [[AlertMaker sharedInstance] showGoalUpdatedAlert];
+        [[AlertMaker sharedInstance] pickAndShowCorrectUpdatedAlertFrom:json];
         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:NO];
         
         MyBetDetailsVC *vc = [[MyBetDetailsVC alloc] initWithJSONBet:json];

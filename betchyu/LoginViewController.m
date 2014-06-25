@@ -1,10 +1,8 @@
-//
 //  LoginViewController.m
 //  iBetchyu
 //
-//  Created by Betchyu Computer on 11/16/13.
+//  Created by Daniel Zapata on 11/16/13.
 //  Copyright (c) 2013 Betchyu Computer. All rights reserved.
-//
 
 #import "LoginViewController.h"
 #import "AppDelegate.h"

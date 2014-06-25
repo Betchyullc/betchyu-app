@@ -126,12 +126,14 @@
 -(void) aboutUsPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
     vc.view = [[AboutUs alloc] initWithFrame:self.view.frame AndOwner:self];
+    vc.title = @"About Us";
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }
 -(void) feedbackPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
     vc.view = [[Feedback alloc] initWithFrame:self.view.frame AndOwner:self];
+    vc.title = @"Feedback";
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }

@@ -10,7 +10,10 @@
 
 +(AlertMaker *)sharedInstance;
 
-
+-(void) pickAndShowCorrectUpdatedAlertFrom:(NSDictionary *)bet;
 -(void) showGoalUpdatedAlert;
+
+-(void) cancelOldAndScheduleNewNotification;
+-(void) scheduleNewNotification;
 
 @end

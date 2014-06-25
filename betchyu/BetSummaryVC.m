@@ -21,6 +21,8 @@
     if (self) {
         // Custom initialization
         self.bet = betObj;
+        
+        [[AlertMaker sharedInstance] scheduleNewNotification];
     }
     return self;
 }

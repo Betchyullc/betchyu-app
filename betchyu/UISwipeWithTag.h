@@ -1,10 +1,8 @@
-//
 //  UISwipeWithTag.h
 //  betchyu
 //
-//  Created by Adam Baratz on 6/24/14.
+//  Created by Daniel Zapata on 6/24/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 

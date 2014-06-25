@@ -10,6 +10,7 @@
 #import "SummaryHeaderView.h"
 #import "SummaryOpponentsView.h"
 #import "SummaryStakeView.h"
+#import "AlertMaker.h"
 
 @interface BetSummaryVC : UIViewController
 
