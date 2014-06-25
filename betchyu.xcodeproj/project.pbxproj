@@ -150,6 +150,7 @@
 		89FE6A5C195A1A300040C33C /* B7.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A4E195A1A300040C33C /* B7.png */; };
 		89FE6A60195B1C370040C33C /* fb-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A5E195B1C370040C33C /* fb-logo.png */; };
 		89FE6A61195B1C370040C33C /* tw-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A5F195B1C370040C33C /* tw-logo.png */; };
+		89FE6A63195B5A620040C33C /* full-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89FE6A62195B5A620040C33C /* full-logo.png */; };
 		C97E2F24B94F4D9FB61A267C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A85FBA56BA43B5932AE364 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -365,6 +366,7 @@
 		89FE6A4E195A1A300040C33C /* B7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = B7.png; sourceTree = "<group>"; };
 		89FE6A5E195B1C370040C33C /* fb-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fb-logo.png"; sourceTree = "<group>"; };
 		89FE6A5F195B1C370040C33C /* tw-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tw-logo.png"; sourceTree = "<group>"; };
+		89FE6A62195B5A620040C33C /* full-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "full-logo.png"; sourceTree = "<group>"; };
 		F7A85FBA56BA43B5932AE364 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -534,6 +536,7 @@
 		892154E618552DB20052A7C0 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
+				89FE6A62195B5A620040C33C /* full-logo.png */,
 				89FE6A5E195B1C370040C33C /* fb-logo.png */,
 				89FE6A5F195B1C370040C33C /* tw-logo.png */,
 				89FE6A3F195A1A300040C33C /* how-it-works-iphone4 */,
@@ -953,6 +956,7 @@
 				89B3F5CB1850EB320055F8DB /* Images.xcassets in Resources */,
 				892154D0185261270052A7C0 /* ProximaNova-Black.otf in Resources */,
 				892154D2185261270052A7C0 /* ProximaNova-Bold.otf in Resources */,
+				89FE6A63195B5A620040C33C /* full-logo.png in Resources */,
 				892154D8185261270052A7C0 /* ProximaNova-Regular.otf in Resources */,
 				890B985519473532004DE649 /* card-09.png in Resources */,
 				892154DD185261270052A7C0 /* ProximaNovaT-Thin.otf in Resources */,
