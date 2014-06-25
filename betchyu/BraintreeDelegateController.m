@@ -56,6 +56,8 @@
     [enc setValue:self.bet.stakeAmount forKey:@"amount"];
     if (self.ident) {
         [enc setValue:self.ident forKey:@"bet_id"];
+    } else {
+        [enc setValue:@(self.bet.friends.count) forKey:@"opponent_count"];
     }
     
     //make the call to the web API to post the card info and determine valid-ness

@@ -18,6 +18,7 @@
 @synthesize canLeavePage;
 @synthesize createGoalController;
 @synthesize howItWorksContainerVC;
+@synthesize spinner;
 
 - (id)initWithInviteNumber:(NSString *)numInvs {
     self = [super initWithNibName:nil bundle:nil];
@@ -44,6 +45,10 @@
     
     CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
     self.view = [[Dashboard alloc] initWithFrame:f2];
+    
+    self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.spinner.center = CGPointMake(f.size.width/2, h/2);
+    [self.view addSubview:self.spinner];
 }
 
 - (void)viewDidLoad {
@@ -68,10 +73,13 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self.spinner startAnimating];
+    [self.view bringSubviewToFront:spinner];
+    
     [self getAndAddPendingBets:nil];
     [self getAndAddMyBets:nil];
     [self getAndAddFriendsBets:nil];
-    [self getNewNotifications:nil];
+    [self getNewNotifications:nil]; // also stops the spinner from animating
     [self checkAndShowHowItWorks:nil];
 }
 
@@ -149,6 +157,7 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:ownId, @"user", nil];
     //make the call to the web API
     [[API sharedInstance] get:path withParams:params onCompletion:^(NSDictionary *json) {
+        [self.spinner stopAnimating];
         for (int i = 0; i < ((NSArray *)json).count; i++) {
             NSDictionary *obj = [(NSArray *)json objectAtIndex:i];
             int kind = [[obj valueForKey:@"kind"] intValue];

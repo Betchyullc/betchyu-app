@@ -20,6 +20,8 @@
 @property BOOL canLeavePage;
 @property CreateBetVC *createGoalController;
 @property SettingsVC * howItWorksContainerVC;
+@property UIActivityIndicatorView *spinner;
+
 
 
 - (id)initWithInviteNumber:(NSString *)numInvs;
