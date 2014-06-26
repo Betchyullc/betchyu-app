@@ -19,14 +19,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Let the device know we want to receive push notifications
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge
+                                                                           | UIRemoteNotificationTypeSound
+                                                                           | UIRemoteNotificationTypeAlert)];
+    
+    // clear some stuff
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     self.ownId = @"";
     
+    // setup url cache
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:8 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
+    // setup view controller stuff
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
@@ -93,6 +101,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface..
+    [self.navController popToRootViewControllerAnimated:NO];
+    [self.mainViewController viewDidAppear:YES];
     
     // We need to properly handle activation of the application with regards to Facebook Login
     // (e.g., returning from iOS 6.0 Login Dialog or from fast app switching).
@@ -118,6 +128,42 @@
         }
     }
 }
+
+#pragma mark - Push Notification stuff
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    // format that dirty, dirty token
+    NSString *newToken = [deviceToken description];
+	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    // log it for pleasureable release
+	NSLog(@"My token is: %@", newToken);
+    
+    // post it in there. right up in there.
+    [self sendDeviceTokenToServer:newToken];
+}
+
+-(void)sendDeviceTokenToServer:(NSString*)token {
+    // make sure the ownId is properly applied to our own member
+    if ([self.ownId isEqualToString:@""]) {
+        // the ownId was broken, so we'll try again later, baby.
+        [self performSelector:@selector(sendDeviceTokenToServer:) withObject:token afterDelay:1];
+        return;
+    }
+    // sensually massage the parameters
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.ownId, @"fb_id", token, @"device", nil];
+    // ejaculate our data to the server's port-hole
+    [[API sharedInstance] post:@"user" withParams:params onCompletion:^(NSDictionary *json) {
+        // throw the used response in the trash can
+    }];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
+}
+
+#pragma mark - FB stuff
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
