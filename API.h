@@ -23,5 +23,6 @@ typedef void (^JSONResponseBlock)(NSDictionary* json);
 -(void)get:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock;
 // send and API PUT to the server
 -(void)put:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock;
+-(void)deletePath:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock;
 
 @end

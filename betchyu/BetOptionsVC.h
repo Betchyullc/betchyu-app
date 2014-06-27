@@ -13,7 +13,7 @@
 #import "BetStakeVC.h"
 
 
-@interface BetOptionsVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+@interface BetOptionsVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate, UITextFieldDelegate>
 
 @property TempBet * bet;
 @property NSString * passedBetName;

@@ -8,6 +8,7 @@
 @implementation AppDelegate
 
 @synthesize ownId;
+@synthesize token;
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -96,13 +97,13 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self.navController popToRootViewControllerAnimated:NO];
+    [self.mainViewController viewDidAppear:YES];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface..
-    [self.navController popToRootViewControllerAnimated:NO];
-    [self.mainViewController viewDidAppear:YES];
     
     // We need to properly handle activation of the application with regards to Facebook Login
     // (e.g., returning from iOS 6.0 Login Dialog or from fast app switching).
@@ -139,19 +140,22 @@
     // log it for pleasureable release
 	NSLog(@"My token is: %@", newToken);
     
+    // save it up for later, baby
+    self.token = newToken;
+    
     // post it in there. right up in there.
     [self sendDeviceTokenToServer:newToken];
 }
 
--(void)sendDeviceTokenToServer:(NSString*)token {
+-(void)sendDeviceTokenToServer:(NSString*)theToken {
     // make sure the ownId is properly applied to our own member
     if ([self.ownId isEqualToString:@""]) {
         // the ownId was broken, so we'll try again later, baby.
-        [self performSelector:@selector(sendDeviceTokenToServer:) withObject:token afterDelay:1];
+        [self performSelector:@selector(sendDeviceTokenToServer:) withObject:theToken afterDelay:1];
         return;
     }
     // sensually massage the parameters
-    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.ownId, @"fb_id", token, @"device", nil];
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.ownId, @"fb_id", theToken, @"device", nil];
     // ejaculate our data to the server's port-hole
     [[API sharedInstance] post:@"user" withParams:params onCompletion:^(NSDictionary *json) {
         // throw the used response in the trash can
@@ -161,6 +165,9 @@
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	NSLog(@"Failed to get token, error: %@", error);
+    [self sendDeviceTokenToServer:@"derp"];
+    // save it up for later, baby
+    self.token = @"derp";
 }
 
 #pragma mark - FB stuff

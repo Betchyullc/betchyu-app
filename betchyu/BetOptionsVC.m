@@ -369,10 +369,11 @@
 
 /// handles the amount of the bet
 -(void)updateSliderValue:(UISlider *)sender {
+    int val = (int)(sender.value+1);
     // update what they can see
-    detailLabel1.text = [NSString stringWithFormat:@"%.0f %@", sender.value+1, bet.noun];
+    detailLabel1.text = [NSString stringWithFormat:@"%i %@", val, bet.noun];
     // update the data we pass on
-    bet.amount = [NSNumber numberWithInt:(int)(sender.value+1)];
+    bet.amount = [NSNumber numberWithInt:val];
 }
 
 /// handles the duration of the bet

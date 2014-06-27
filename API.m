@@ -50,13 +50,13 @@
     if ([self checkConnectionError]) {
         return;
     }
+    // add credential info
+    NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    
     NSMutableURLRequest *apiRequest =
-    [self multipartFormRequestWithMethod:@"POST"
-                                    path:path
-                              parameters:params
-               constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                   //TODO: attach file if needed
-               }];
+    [self requestWithMethod:@"POST" path:path parameters:p2];
     
     AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -74,7 +74,12 @@
     if ([self checkConnectionError]) {
         return;
     }
-    NSMutableURLRequest *apiRequest = [self requestWithMethod:@"GET" path:path parameters:params];
+    // add credential info
+    NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    
+    NSMutableURLRequest *apiRequest = [self requestWithMethod:@"GET" path:path parameters:p2];
     
     AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -92,7 +97,36 @@
     if ([self checkConnectionError]) {
         return;
     }
-    NSMutableURLRequest *apiRequest =[self requestWithMethod:@"PUT" path:path parameters:params];
+    // add credential info
+    NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    
+    NSMutableURLRequest *apiRequest =[self requestWithMethod:@"PUT" path:path parameters:p2];
+    
+    AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //success!
+        completionBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //failure :(
+        completionBlock([NSDictionary dictionaryWithObject:[error localizedDescription] forKey:@"error"]);
+    }];
+    
+    [operation start];
+}
+-(void)deletePath:(NSString *)path withParams:(NSMutableDictionary*)params onCompletion:(JSONResponseBlock)completionBlock
+{
+    if ([self checkConnectionError]) {
+        return;
+    }
+    // add credential info
+    NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
+    [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    
+    // make the request
+    NSMutableURLRequest *apiRequest =[self requestWithMethod:@"DELETE" path:path parameters:p2];
     
     AFJSONRequestOperation* operation = [[AFJSONRequestOperation alloc] initWithRequest: apiRequest];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

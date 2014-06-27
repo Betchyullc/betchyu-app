@@ -214,9 +214,34 @@
 
 -(void) handleSwipeFrom:(UISwipeWithTag *)sender {
     NSDictionary * bet = [bets objectAtIndex:sender.tag];
-    if (((NSArray*)[bet valueForKey:@"opponents"]).count == 0
-        /*&& the time isnt past*/) {
-        [[[UIAlertView alloc] initWithTitle:@"DELETE" message:@"You want to delete" delegate:nil cancelButtonTitle:@"Yes, Delete" otherButtonTitles:nil] show];
+    if (((NSArray*)[bet valueForKey:@"opponents"]).count == 0) {
+        UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"DELETE"
+                                                        message:@"You sure you want to delete this bet?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Not really"
+                                              otherButtonTitles:@"Yes",nil];
+        alter.tag = [[bet valueForKey:@"id"] intValue];
+        [alter show];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"DELETE"
+                                    message:@"Sorry, you can't delete this bet because a friend has already accepted it."
+                                   delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+}
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString:@"DELETE"]) {
+        if (buttonIndex == 1) {
+            // send a DELETE request to the server about our bet.
+            NSString *path = [NSString stringWithFormat:@"bets/%i", alertView.tag];
+            [[API sharedInstance] deletePath:path withParams:nil onCompletion:^(NSDictionary *json) {
+                [((AppDelegate *)([[UIApplication sharedApplication] delegate])).mainViewController viewDidAppear:YES];
+            }];
+        } else {
+            // they don't want to delete the bet
+        }
     }
 }
 
