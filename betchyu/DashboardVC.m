@@ -27,6 +27,7 @@
         self.numberOfInvites = numInvs;
         self.hasShownHowItWorks = NO;
         self.canLeavePage = NO;
+        self.screenName = @"Dashboard";
         
         // remove the "Dasboard" from the back button on following pages
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
@@ -189,6 +190,13 @@
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
     self.stackViewController.leftViewControllerEnabled = NO;
+    
+    // TRACK THIS SHIT AND ANALYZE IT
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"Flyout Menu"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+
 }
 -(IBAction)createGoal:(id)sender {
     if (!self.canLeavePage) { return; }
@@ -201,6 +209,12 @@
     
     [self.navigationController pushViewController:self.createGoalController
                                          animated:true];
+    
+    // TRACK THIS SHIT AND ANALYZE IT
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"Create Goal (step 1)"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 @end

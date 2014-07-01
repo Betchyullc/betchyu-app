@@ -3,7 +3,7 @@
 #import "MTStackViewController.h"
 #import "DashboardVC.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
 @property NSString * ownId;
 @property NSString * ownName;

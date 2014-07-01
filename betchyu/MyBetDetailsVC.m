@@ -1,16 +1,10 @@
-//
 //  MyBetDetailsVC.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/13/14.
+//  Created by Daniel Zapata on 6/13/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import "MyBetDetailsVC.h"
-
-@interface MyBetDetailsVC ()
-
-@end
 
 @implementation MyBetDetailsVC
 
@@ -22,6 +16,7 @@
     if (self) {
         // Custom initialization
         self.betJSON = bet;
+        self.screenName = @"My Bet Details (Update)";
     }
     return self;
 }

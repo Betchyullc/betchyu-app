@@ -12,9 +12,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "BetStakeVC.h"
 #import "TouchesBeganHelper.h"
+#import "GAITrackedViewController.h"
 
-
-@interface BetOptionsVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate, UITextFieldDelegate>
+@interface BetOptionsVC : GAITrackedViewController <FBFriendPickerDelegate, UISearchBarDelegate, UITextFieldDelegate>
 
 @property TempBet * bet;
 @property NSString * passedBetName;

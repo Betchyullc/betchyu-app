@@ -22,7 +22,7 @@
 
 // ===== Initializers ===== //
 - (id)initWithJSON:(NSDictionary *)json {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super init];
     if (self) {
         // Custom initialization
         
@@ -30,6 +30,7 @@
         
         self.isOffer = NO;
         self.isOwn   = NO;
+        self.screenName = @"Bet Details (Friend's Bet)";
     }
     return self;
 }

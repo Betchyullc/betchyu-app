@@ -20,8 +20,9 @@
 @synthesize bet;
 
 - (id)initWithBet:(TempBet *)betObj {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super init];
     if (self) {
+        self.screenName = @"Bet Stake (step 3)";
         // Custom initialization
         stakes = [[NSArray alloc] initWithObjects:/*@"Drink", @"Meal",*/@"Target Gift Card", @"Amazon Gift Card", @"iTunes Gift Card", nil];
         stakeImageHeight = 70;

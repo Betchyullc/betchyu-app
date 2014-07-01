@@ -10,8 +10,9 @@
 #import "TempBet.h"
 #import <Braintree/BTEncryption.h>
 #import "BTPaymentViewController.h"
+#import "GAITrackedViewController.h"
 
-@interface ExistingBetDetailsVC : UIViewController
+@interface ExistingBetDetailsVC : GAITrackedViewController
 
 @property NSDictionary * betJSON;
 @property BOOL isOffer;

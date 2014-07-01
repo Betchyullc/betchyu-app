@@ -1,10 +1,8 @@
-//
 //  PastBetsVC.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/11/14.
+//  Created by Daniel Zapata on 6/11/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import "PastBetsVC.h"
 
@@ -17,10 +15,10 @@
 @synthesize yourView;
 @synthesize friendsView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+    self = [super init];
     if (self) {
+        self.screenName = @"Past Bets";
         // Custom initialization
     }
     return self;

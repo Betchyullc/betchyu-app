@@ -11,19 +11,15 @@
 #import "Feedback.h"
 #import "AboutUs.h"
 
-@interface SettingsVC ()
-
-@end
-
 @implementation SettingsVC
 
 @synthesize pagesForHowItWorks;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+    self = [super init];
     if (self) {
         // Custom initialization
+        self.screenName = @"Settings";
     }
     return self;
 }
@@ -73,6 +69,14 @@
     UIButton *faq = [[UIButton alloc] initWithFrame:CGRectMake(0, yOff, f2.size.width, rH)];
     [faq addTarget:self action:@selector(faqPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:faq];
+    
+    // Analytics optout
+    yOff = yOff + rH;
+    UISwitch *analytics = [[UISwitch alloc] initWithFrame:CGRectMake(f2.size.width - 60, yOff+5, 40, rH-10)];
+    analytics.on = ![GAI sharedInstance].optOut;
+    analytics.tintColor = [UIColor whiteColor];
+    [analytics addTarget:self action:@selector(setAnalytics:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:analytics];
 }
 
 - (void)viewDidLoad {
@@ -98,6 +102,12 @@
     self.stackViewController.leftViewControllerEnabled = YES;
     [(MTStackViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).window.rootViewController toggleLeftViewControllerAnimated:YES];
     self.stackViewController.leftViewControllerEnabled = NO;
+    
+    // TRACK THIS SHIT AND ANALYZE IT
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"Flyout Menu"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 -(void)createGoal:(id)sender {
     //if (!self.canLeavePage) { return; }
@@ -105,6 +115,12 @@
     CreateBetVC *createGoalController = [[CreateBetVC alloc] initWithStyle:UITableViewStylePlain];
     createGoalController.title = @"Create Bet";
     [self.navigationController pushViewController:createGoalController animated:true];
+    
+    // TRACK THIS SHIT AND ANALYZE IT
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"Create Bet"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 -(void)editProfile:(id)sender {
@@ -116,6 +132,13 @@
 }
 
 -(void) howItWorksPressed:(id)sender {
+    // TRACK THIS SHIT AND ANALYZE IT MANUALLY, b/c it'd do one for each page otherwise, and that's overkill
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker set:kGAIScreenName value:@"How It Works"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
+    // actually show the thing
     UIPageViewController *pvc = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     pvc.dataSource = self;
     pvc.view.frame = self.view.frame;
@@ -139,28 +162,35 @@
     [app.window makeKeyAndVisible];
 }
 -(void) aboutUsPressed:(id)sender {
-    UIViewController *vc =[[UIViewController alloc] init];
-    vc.view = [[AboutUs alloc] initWithFrame:self.view.frame AndOwner:self];
-    vc.title = @"About Us";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    [self setupAndShow:[[AboutUs alloc] initWithFrame:self.view.frame AndOwner:self] WithTitle:@"About Us"];
 }
 -(void) feedbackPressed:(id)sender {
-    UIViewController *vc =[[UIViewController alloc] init];
-    vc.view = [[Feedback alloc] initWithFrame:self.view.frame AndOwner:self];
-    vc.title = @"Feedback";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    [self setupAndShow:[[Feedback alloc] initWithFrame:self.view.frame AndOwner:self] WithTitle:@"Feedback"];
 }
 -(void) faqPressed:(id)sender {
+    [self setupAndShow:[[FrequentlyAskedQuestionsView alloc] initWithFrame:self.view.frame] WithTitle:@"FAQ"];
+}
+-(void) setAnalytics:(UISwitch *)sender {
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
     
-    UIViewController *vc =[[UIViewController alloc] init];
-    vc.view = [[FrequentlyAskedQuestionsView alloc] initWithFrame:self.view.frame];
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                    app.ownId,                      @"fb_id",
+                                    app.token,                      @"device",
+                                    sender.on ? @"true" : @"false", @"allow_analytics", nil];
+    [[API sharedInstance] post:@"user" withParams:params onCompletion:^(NSDictionary *json) {
+        // do nothing
+    }];
+}
+
+// helper method
+-(void) setupAndShow:(UIView *)v WithTitle:(NSString *)text{
+    GAITrackedViewController *vc =[[GAITrackedViewController alloc] init];
+    vc.view = v;
     vc.view.backgroundColor = [UIColor whiteColor];
-    vc.title = @"FAQ";
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
+    vc.title = text;
+    vc.screenName = text;
     
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 #pragma mark - UIPageViewControllerDataSource methods implementation

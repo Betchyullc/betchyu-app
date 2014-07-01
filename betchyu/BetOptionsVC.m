@@ -26,9 +26,10 @@
 @synthesize initialInput;
 
 - (id)initWithBetVerb:(NSString *)verbName {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super init];
     if (self) {
         // Custom initialization
+        self.screenName = @"Bet Options (step 2)";
         self.passedBetName = verbName;
         
         bet = [TempBet new];

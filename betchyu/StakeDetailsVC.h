@@ -11,7 +11,7 @@
 #import "BetSummaryVC.h"
 #import "BTPaymentViewController.h"
 
-@interface StakeDetailsVC : UIViewController <UIAlertViewDelegate>
+@interface StakeDetailsVC : GAITrackedViewController <UIAlertViewDelegate>
 
 @property (strong) TempBet *bet;
 @property int currentStake;

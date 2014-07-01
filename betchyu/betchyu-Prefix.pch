@@ -15,5 +15,9 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "AppDelegate.h"
+    #import "GAI.h"
+    #import "GAIFields.h"
+    #import "GAIDictionaryBuilder.h"
+    #import "GAITrackedViewController.h"
 #endif
 

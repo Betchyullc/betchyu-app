@@ -6,6 +6,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : GAITrackedViewController
 - (void)loginFailed;
 @end

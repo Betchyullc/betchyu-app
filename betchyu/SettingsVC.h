@@ -10,8 +10,9 @@
 #import "SettingsView.h"
 #import "HowItWorksVC.h"
 #import "FrequentlyAskedQuestionsView.h"
+#import "GAITrackedViewController.h"
 
-@interface SettingsVC : UIViewController <UIPageViewControllerDataSource>
+@interface SettingsVC : GAITrackedViewController <UIPageViewControllerDataSource>
 
 @property NSArray * pagesForHowItWorks;
 

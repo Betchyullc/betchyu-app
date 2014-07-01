@@ -80,6 +80,26 @@
     [[UINavigationBar appearance] setBarTintColor:betchyu];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
+    // SETUP GOOGLE ANALYTICS!!!!11!1!
+    // default to tracking is on
+    [[GAI sharedInstance] setOptOut:NO];
+    
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 25;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker. Replace with your tracking ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-44517037-1"];
+    
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    [tracker set:kGAIAppVersion value:version];
+    //[tracker set:kGAISampleRate value:@"100.0"]; // change this?
+    
     return YES;
 }
 
@@ -229,7 +249,8 @@
                  if (!error) {
                      self.ownId = user.id;
                      self.ownName = user.name;
-                     NSLog(@"inner: %@", user.id);
+                     NSLog(@"FBuserId: %@", user.id);
+                     [self askAboutGAI];
                  } else {
                      self.ownId = @"";
                      self.ownName = @"";
@@ -293,4 +314,36 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+#pragma mark - GAI stuff
+-(void) askAboutGAI {
+    [[API sharedInstance] get:[NSString stringWithFormat:@"user/%@", self.ownId] withParams:nil onCompletion:^(NSDictionary *json) {
+        if ([[json valueForKey:@"allow_analytics"] boolValue]) {
+            //just set the opt in
+            [[GAI sharedInstance] setOptOut:NO];
+        } else {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Google Analytics" message:@"Help us make Betchyu better. Do we have your permission to collect anonymous data?" delegate:self cancelButtonTitle:@"Opt Out" otherButtonTitles:@"Opt In", nil];
+            [av show];
+        }
+    }];
+}
+
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0: {
+            [[GAI sharedInstance] setOptOut:YES];
+            break;
+        }
+        case 1: {
+            [[GAI sharedInstance] setOptOut:NO];
+            NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.ownId, @"fb_id", self.token, @"device", @"true", @"allow_analytics", nil];
+            [[API sharedInstance] post:@"user" withParams:params onCompletion:^(NSDictionary *json) {
+                // do nothing
+            }];
+            break;
+        }
+        default:
+            break;
+    }
+}
 @end

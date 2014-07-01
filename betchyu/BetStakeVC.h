@@ -9,8 +9,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "TempBet.h"
 #import "BetOptionsTopView.h"
+#import "GAITrackedViewController.h"
 
-@interface BetStakeVC : UIViewController
+@interface BetStakeVC : GAITrackedViewController
 
 @property (strong) NSArray *stakes;
 @property int stakeImageHeight;

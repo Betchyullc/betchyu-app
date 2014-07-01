@@ -20,8 +20,9 @@
 
 - (id)initWithBet:(TempBet *)betObj
 {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super init];
     if (self) {
+        self.screenName = @"Stake Details (step 4)";
         // Custom initialization
         bet = betObj;
         currentStake = 10;

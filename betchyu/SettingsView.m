@@ -111,6 +111,14 @@
         a6.textColor = Bdark;
         a6.font      = FregfS;
         [self addSubview:a6];
+        
+        // analytics opt out
+        yOff = yOff + rH;
+        UILabel *optout = [[UILabel alloc] initWithFrame:CGRectMake(0, yOff, frame.size.width, rH)];
+        optout.text = @"\tAllow Google Analytics";
+        optout.font = FregfS;
+        optout.textColor = Bdark;
+        [self addSubview:optout];
 
     }
     return self;

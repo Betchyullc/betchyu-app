@@ -15,10 +15,6 @@
 #import "FriendsVC.h"
 #import "EditProfileVC.h"
 
-@interface FlyoutMenuVC ()
-
-@end
-
 @implementation FlyoutMenuVC
 
 @synthesize passedFrame;
@@ -215,33 +211,6 @@
 -(void) profileButtonWasPressed:(id)sender {
     UIViewController *vc =[[UIViewController alloc] init];
     vc.view = [[ProfileView alloc] initWithFrame:self.passedFrame AndOwner:self];
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
-}
--(void) howItWorksPressed:(id)sender {
-    UIPageViewController *pvc = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-    pvc.dataSource = self;
-    pvc.view.frame = self.view.frame;
-    
-    HowItWorksVC *firstPage = [self viewControllerAtIndex:0];
-    NSArray *viewControllers = [NSArray arrayWithObject:firstPage];
-    
-    [pvc setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
-    AppDelegate *app =(AppDelegate *)([[UIApplication sharedApplication] delegate]);
-    
-    [app.window setRootViewController:pvc];
-    [app.window makeKeyAndVisible];
-}
--(void) aboutUsPressed:(id)sender {
-    UIViewController *vc =[[UIViewController alloc] init];
-    vc.view = [[AboutUs alloc] initWithFrame:self.passedFrame AndOwner:self];
-    // Show it.
-    [self.navigationController pushViewController:vc animated:true];
-}
--(void) feedbackPressed:(id)sender {
-    UIViewController *vc =[[UIViewController alloc] init];
-    vc.view = [[Feedback alloc] initWithFrame:self.passedFrame AndOwner:self];
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
 }

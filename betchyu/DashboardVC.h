@@ -11,8 +11,9 @@
 #import "BTPaymentViewController.h"
 #import "CreateBetVC.h"
 #import "SettingsVC.h"
+#import "GAITrackedViewController.h"
 
-@interface DashboardVC : UIViewController //<BTPaymentViewControllerDelegate>
+@interface DashboardVC : GAITrackedViewController
 
 @property NSString * numberOfInvites;
 @property UILabel * numNotif;
