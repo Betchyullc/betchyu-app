@@ -24,7 +24,7 @@
         self.backgroundColor = [UIColor whiteColor];
         
         /// ui label containing said text
-        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 35, frame.size.width-60, frame.size.height/2)];
+        UILabel *copy = [[UILabel alloc] initWithFrame:CGRectMake(30, 55, frame.size.width-60, frame.size.height/2)];
         copy.font = FregfS;
         copy.text = @"Betchyu is a startup based in Cleveland, Ohio. We’re a team of guys who started working together in August 2013. We love building awesome products that can change people’s lives. We aspire to make it easier than ever for people to attain personal goals. Still have questions? Learn more at betchyu.com.";
         copy.numberOfLines = 0;

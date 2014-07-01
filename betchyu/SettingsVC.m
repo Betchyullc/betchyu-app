@@ -67,6 +67,12 @@
     UIButton *about = [[UIButton alloc] initWithFrame:CGRectMake(0, yOff, f2.size.width, rH)];
     [about addTarget:self action:@selector(aboutUsPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:about];
+    
+    // FAQ
+    yOff = yOff + rH;
+    UIButton *faq = [[UIButton alloc] initWithFrame:CGRectMake(0, yOff, f2.size.width, rH)];
+    [faq addTarget:self action:@selector(faqPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:faq];
 }
 
 - (void)viewDidLoad {
@@ -145,6 +151,16 @@
     vc.title = @"Feedback";
     // Show it.
     [self.navigationController pushViewController:vc animated:true];
+}
+-(void) faqPressed:(id)sender {
+    
+    UIViewController *vc =[[UIViewController alloc] init];
+    vc.view = [[FrequentlyAskedQuestionsView alloc] initWithFrame:self.view.frame];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.title = @"FAQ";
+    // Show it.
+    [self.navigationController pushViewController:vc animated:true];
+    
 }
 
 #pragma mark - UIPageViewControllerDataSource methods implementation

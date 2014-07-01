@@ -11,6 +11,7 @@
 #import "BetOptionsTopView.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "BetStakeVC.h"
+#import "TouchesBeganHelper.h"
 
 
 @interface BetOptionsVC : UIViewController <FBFriendPickerDelegate, UISearchBarDelegate, UITextFieldDelegate>

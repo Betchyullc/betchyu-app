@@ -6,6 +6,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property NSString * ownId;
+@property NSString * ownName;
 @property NSString * token;
 
 @property (strong, nonatomic) UIWindow *window;

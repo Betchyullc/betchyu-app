@@ -207,7 +207,13 @@
     CGPoint bottomOffset = CGPointMake(0, sup.contentSize.height - sup.bounds.size.height);
     [sup setContentOffset:bottomOffset animated:YES];
 }
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]].location == NSNotFound) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 #pragma mark BinaryProgressViewDelegate shit
 // when this is called, it means they lost the bet

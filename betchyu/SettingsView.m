@@ -98,6 +98,19 @@
         a5.textColor = Bdark;
         a5.font      = FregfS;
         [self addSubview:a5];
+        // FAQ button
+        yOff = yOff + rH;
+        UILabel *faq = [[UILabel alloc]initWithFrame:CGRectMake(0, yOff, frame.size.width, rH)];
+        faq.text = @"\tFAQ";
+        faq.font = FregfS;
+        faq.textColor = Bdark;
+        [self addSubview:faq];
+        // the arrow
+        UILabel * a6 = [[UILabel alloc]initWithFrame:CGRectMake(frame.size.width - 40, yOff, frame.size.width, rH)];
+        a6.text      = [NSString stringWithUTF8String:"❯"];
+        a6.textColor = Bdark;
+        a6.font      = FregfS;
+        [self addSubview:a6];
 
     }
     return self;

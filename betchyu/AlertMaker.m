@@ -101,10 +101,10 @@
     UILocalNotification *localNotif = [[UILocalNotification alloc] init];
     if (localNotif == nil)
         return;
-    localNotif.fireDate = [[NSDate date] dateByAddingTimeInterval:(3*24*60*60)];
+    localNotif.fireDate = [[NSDate date] dateByAddingTimeInterval:(24*60*60)];
     localNotif.timeZone = [NSTimeZone defaultTimeZone];
     
-    localNotif.alertBody = [self pickRandomStringFromList:@[@"We miss you at Betchyu! Update your goal let your friends know what’s up.",
+    localNotif.alertBody = [self pickRandomStringFromList:@[@"Be sure to update your goal and let your friends know what’s up.",
                                                             @"Let your friends know how things are coming along. Make sure to update your progress.",
                                                             @"Hope you are making good progress on your goal. Keep your friends in the loop by updating."]];
     localNotif.alertAction = NSLocalizedString(@"View Details", nil);

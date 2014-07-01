@@ -8,6 +8,7 @@
 @implementation AppDelegate
 
 @synthesize ownId;
+@synthesize ownName;
 @synthesize token;
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -170,6 +171,22 @@
     self.token = @"derp";
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        NSString *cancelTitle = @"Close";
+        NSString *message = [[userInfo valueForKey:@"aps"] valueForKey:@"alert"];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Notification"
+                                                            message:message
+                                                           delegate:self
+                                                  cancelButtonTitle:cancelTitle
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    } else {
+        //Do stuff that you would do if the application was not active
+    }
+}
+
 #pragma mark - FB stuff
 
 - (BOOL)application:(UIApplication *)application
@@ -211,9 +228,11 @@
                                                NSError *error) {
                  if (!error) {
                      self.ownId = user.id;
+                     self.ownName = user.name;
                      NSLog(@"inner: %@", user.id);
                  } else {
                      self.ownId = @"";
+                     self.ownName = @"";
                      [[[UIAlertView alloc] initWithTitle:@"UH OH" message:@"Facebook isn't responding. You might not be connected to the internet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
                  }
              }];

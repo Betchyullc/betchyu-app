@@ -72,7 +72,8 @@
     
     CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, h);
     
-    self.view = [UIScrollView new];
+    self.view = [TouchesBeganHelper new];
+    ((TouchesBeganHelper *)self.view).vc = self;
     self.view.backgroundColor = Blight;
     self.view.frame = f2;
     [self.view addSubview:[[BetOptionsTopView alloc] initWithFrame:CGRectMake(0, 0, f2.size.width, 2*f2.size.height/5) AndBetName:self.passedBetName]];
@@ -156,7 +157,8 @@
     int w = self.view.frame.size.width;
     int fontSize = w>500 ? 22 : 18;
     // The thing we return. it has a shadow at the bottom of it
-    UIView *main = [[UIView alloc] initWithFrame:CGRectMake(0, 2*h/5 , w, 250)];
+    TouchesBeganHelper *main = [[TouchesBeganHelper alloc] initWithFrame:CGRectMake(0, 2*h/5 , w, 250)];
+    main.vc = self;
     
     UILabel *startingFromLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 9, w-15, fontSize+2)];
     startingFromLab.text = w > 500 ? @"Starting From:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tlbs" : @"Starting From:\t\t\t\t\t  lbs";
@@ -165,7 +167,7 @@
     [main addSubview:startingFromLab];
     
     self.initialInput                   = [[UITextField alloc] initWithFrame:CGRectMake(w/2, 9, w/4, fontSize+4)];
-    self.initialInput.keyboardType      = UIKeyboardTypeNumbersAndPunctuation;
+    self.initialInput.keyboardType      = UIKeyboardTypeNumberPad;
     self.initialInput.backgroundColor   = [UIColor clearColor];
     self.initialInput.borderStyle       = UITextBorderStyleLine;
     self.initialInput.font              = [UIFont fontWithName:@"ProximaNova-Regular" size:fontSize-1];
@@ -592,6 +594,13 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]].location == NSNotFound) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end

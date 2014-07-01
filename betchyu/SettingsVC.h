@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SettingsView.h"
 #import "HowItWorksVC.h"
+#import "FrequentlyAskedQuestionsView.h"
 
 @interface SettingsVC : UIViewController <UIPageViewControllerDataSource>
 

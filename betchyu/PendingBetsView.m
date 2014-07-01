@@ -215,15 +215,17 @@
 
 -(void)tellServerOfAcceptedBet {
     /* Do #3 */
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
     NSString *path =[NSString stringWithFormat:@"invites/%@", [selectedBet valueForKey:@"invite"]];
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   @"accepted", @"status",
+                                  app.ownName, @"name",
                                   nil];
     //make the call to the web API
     // PUT /invites/:id => {status: "accepted"}
     [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
          /* Do #4 */
-         [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController popToRootViewControllerAnimated:YES];
+         [app.navController popToRootViewControllerAnimated:YES];
      }];
     
     // tell them what's going on
@@ -237,11 +239,14 @@
 
 -(void)rejectBet:(UIButton *)sender {
     selectedBet = [bets objectAtIndex:sender.tag];
+    
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
     // this method does the following, in order:
     //  1. tells the server that the invite has been rejected
     NSString *path =[NSString stringWithFormat:@"invites/%@", [selectedBet valueForKey:@"invite"]];
     NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                   @"rejected", @"status",
+                                  app.ownName, @"name",
                                   nil];
     //make the call to the web API
     // PUT /invites/:id => {status: "rejected"}
@@ -254,7 +259,7 @@
                           cancelButtonTitle:@"ok"
                           otherButtonTitles:nil]
          show];
-        [((AppDelegate *)([[UIApplication sharedApplication] delegate])).mainViewController getAndAddPendingBets:NO];
+        [app.mainViewController getAndAddPendingBets:NO];
     }];
 }
 

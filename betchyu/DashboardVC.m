@@ -78,8 +78,7 @@
     
     [self getAndAddPendingBets:nil];
     [self getAndAddMyBets:nil];
-    [self getAndAddFriendsBets:nil];
-    [self getNewNotifications:nil]; // also stops the spinner from animating
+    [self getAndAddFriendsBets:nil];  // also stops the spinner from animating
     [self checkAndShowHowItWorks:nil];
 }
 
@@ -98,9 +97,13 @@
     
     //make the call to the web API
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
-        // json is our array of Bets, hopefully
-        [((Dashboard *)self.view) adjustPendingHeight:((NSArray *)json).count];
-        [((Dashboard *)self.view).pending addBets:(NSArray *)json];
+        if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
+            // json is our array of Bets, hopefully
+            [((Dashboard *)self.view) adjustPendingHeight:((NSArray *)json).count];
+            [((Dashboard *)self.view).pending addBets:(NSArray *)json];
+        } else {
+            NSLog(@"something went wrong: %@", json);
+        }
     }];
 
 }
@@ -118,9 +121,14 @@
     
     //make the call to the web API
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
-        // json is our array of Bets, hopefully
-        [((Dashboard *)self.view) adjustMyBetsHeight:((NSArray *)json).count];
-        [((Dashboard *)self.view).my addBets:(NSArray *)json];
+        
+        if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
+            // json is our array of Bets, hopefully
+            [((Dashboard *)self.view) adjustMyBetsHeight:((NSArray *)json).count];
+            [((Dashboard *)self.view).my addBets:(NSArray *)json];
+        } else {
+            NSLog(@"something went wrong: %@", json);
+        }
     }];
 }
 - (void) getAndAddFriendsBets:(id)useless {
@@ -137,47 +145,17 @@
     
     //make the call to the web API
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
-        // json is our array of Bets, hopefully
-        [((Dashboard *)self.view) adjustFriendsBetsHeight:((NSArray *)json).count];
-        [((Dashboard *)self.view).friends addBets:(NSArray *)json];
-        self.canLeavePage = YES; // this is usually the last thing to get updated, so we allow them to leave the page after this loads.
-    }];
-}
-- (void) getNewNotifications:(id)useless {
-    NSString *ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
-    // ensuring the app ain't just started
-    if ([ownId isEqualToString:@""]) {
-        // we need to wait a bit before setting up the profile pic
-        [self performSelector:@selector(getNewNotifications:) withObject:NO afterDelay:1];
-        return;
-    }
-    
-    /// the path to retrieve notificaitons from
-    NSString *path = @"notifications";
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:ownId, @"user", nil];
-    //make the call to the web API
-    [[API sharedInstance] get:path withParams:params onCompletion:^(NSDictionary *json) {
-        [self.spinner stopAnimating];
-        for (int i = 0; i < ((NSArray *)json).count; i++) {
-            NSDictionary *obj = [(NSArray *)json objectAtIndex:i];
-            int kind = [[obj valueForKey:@"kind"] intValue];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notification"
-                                                            message:@""
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"ok"
-                                                  otherButtonTitles: nil];
-            if (kind == 1) {
-                alert.message = @"Your friend rejected your bet. :(";
-            } else if (kind == 2) {
-                alert.message = @"Your friend accpeted your bet!";
-            } else if (kind == 3) {
-                alert.message = @"You won a bet!";
-            } else if (kind == 4) {
-                alert.message = @"You lost a bet. :(";
-            }
-            [alert show];
-            [[API sharedInstance] deletePath:[NSString stringWithFormat:@"notifications/%@", [obj valueForKey:@"id"]] parameters:nil success:nil failure:nil];
+        [self.spinner stopAnimating]; // we done with getting stuff from the server, so we stop the spinner
+        
+        if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
+            // json is our array of Bets, hopefully
+            [((Dashboard *)self.view) adjustFriendsBetsHeight:((NSArray *)json).count];
+            [((Dashboard *)self.view).friends addBets:(NSArray *)json];
+        } else {
+            NSLog(@"something went wrong: %@", json);
         }
+        
+        self.canLeavePage = YES; // this is usually the last thing to get updated, so we allow them to leave the page after this loads.
     }];
 }
 - (void) checkAndShowHowItWorks:(id)useless {
