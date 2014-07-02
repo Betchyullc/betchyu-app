@@ -12,7 +12,7 @@
 #import "SummaryStakeView.h"
 #import "AlertMaker.h"
 
-@interface BetSummaryVC : UIViewController
+@interface BetSummaryVC : GAITrackedViewController
 
 @property (strong) TempBet * bet;
 

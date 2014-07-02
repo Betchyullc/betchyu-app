@@ -83,20 +83,30 @@
 
 -(void)showAnswer:(UIButton *)sender {
     int fontSize = 16;
+    CGRect f = self.frame;
     AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
     
     UIViewController *vc = [UIViewController new];
+    vc.view = [[UIView alloc] initWithFrame:f];
+    vc.view.backgroundColor = [UIColor whiteColor];
+    vc.title = @"FAQ Answer";
     
-    UILabel *answer = [[UILabel alloc] initWithFrame:CGRectMake(15, self.frame.origin.y, self.frame.size.width - 30, self.frame.size.height)];
-    answer.backgroundColor = [UIColor whiteColor];
+    UILabel *question = [[UILabel alloc] initWithFrame:CGRectMake(15, f.origin.y, f.size.width - 30, f.size.height/3)];
+    question.text = [questions objectAtIndex:sender.tag];
+    question.font = FboldfS;
+    question.textColor = Bdark;
+    question.numberOfLines = 0;
+    question.lineBreakMode = NSLineBreakByWordWrapping;
+    question.textAlignment = NSTextAlignmentCenter;
+    [vc.view addSubview:question];
+    
+    UILabel *answer = [[UILabel alloc] initWithFrame:CGRectMake(15, f.origin.y + f.size.height/3, f.size.width - 30, f.size.height/3)];
     answer.text = [answers objectAtIndex:sender.tag];
     answer.font = FregfS;
     answer.textColor = Bdark;
     answer.numberOfLines = 0;
     answer.lineBreakMode = NSLineBreakByWordWrapping;
-    vc.view = [[UIView alloc] initWithFrame:self.frame];
-    vc.view.backgroundColor = [UIColor whiteColor];
-    vc.title = [questions objectAtIndex:sender.tag];
+    question.textAlignment = NSTextAlignmentCenter;
     [vc.view addSubview:answer];
     
     [app.navController pushViewController:vc animated:YES];

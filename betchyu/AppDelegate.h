@@ -8,6 +8,7 @@
 @property NSString * ownId;
 @property NSString * ownName;
 @property NSString * token;
+@property NSDictionary * fbUser;
 
 @property (strong, nonatomic) UIWindow *window;
 

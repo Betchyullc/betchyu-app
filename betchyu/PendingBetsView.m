@@ -182,6 +182,14 @@
 
 // API call stuff
 -(void)acceptBet:(UIButton *)sender {
+    // May return nil if a tracker has not already been initialized with a property
+    // ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"       // Event category (required)
+                                                          action:@"button_press"    // Event action (required)
+                                                           label:@"Accept Bet"      // Event label
+                                                           value:nil] build]];      // Event value
+    
     selectedBet = [bets objectAtIndex:sender.tag];
     // this method does the following, in order:
     //  1. asks for Credit Card info via BTLibrary
@@ -238,6 +246,14 @@
 }
 
 -(void)rejectBet:(UIButton *)sender {
+    // May return nil if a tracker has not already been initialized with a property
+    // ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"       // Event category (required)
+                                                          action:@"button_press"    // Event action (required)
+                                                           label:@"Reject Bet"      // Event label
+                                                           value:nil] build]];      // Event value
+    
     selectedBet = [bets objectAtIndex:sender.tag];
     
     AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));

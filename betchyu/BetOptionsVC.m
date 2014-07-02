@@ -537,6 +537,14 @@
 // recursivley calls itself to go through all the friend shtye selected
 // on last friend, moves to next VC
 - (void)makePost:(NSNumber *)index {
+    // May return nil if a tracker has not already been initialized with a property
+    // ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    id canceledEvent = [[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                            action:@"button_press"  // Event action (required)
+                                             label:@"Cancel Facebook Post"        // Event label
+                                             value:nil] build];    // Event value
+    
     // get facebook friend's ID from selection
     NSString* fid = ((id<FBGraphUser>)[bet.friends objectAtIndex:[index integerValue]]).id;
     
@@ -568,19 +576,20 @@
              // handling differently based on what the user actually did with the modal
              if (result == FBWebDialogResultDialogNotCompleted) {
                  // User clicked the "x" icon
-                 NSLog(@"User canceled story publishing.");
+                 [tracker send:canceledEvent];
              } else {
                  // Handle the publish feed callback
                  NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
                  if (![urlParams valueForKey:@"post_id"]) {
                      // User clicked the Cancel button
-                     NSLog(@"User canceled story publishing.");
+                     [tracker send:canceledEvent];
                  } else {
                      // User clicked the Share button
-                     NSString *msg = [NSString stringWithFormat:
-                                      @"Posted story, id: %@",
-                                      [urlParams valueForKey:@"post_id"]];
-                     NSLog(@"%@", msg);
+                     id postEvent = [[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                                                                action:@"button_press"  // Event action (required)
+                                                                                 label:@"Post to Facebook"        // Event label
+                                                                                 value:[urlParams valueForKey:@"post_id"]] build];    // Event value
+                     [tracker send:postEvent];
                  }
              }
          }

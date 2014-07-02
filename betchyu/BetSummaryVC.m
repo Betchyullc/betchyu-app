@@ -21,6 +21,7 @@
     if (self) {
         // Custom initialization
         self.bet = betObj;
+        self.screenName = @"Bet Summary (final step)";
         
         [[AlertMaker sharedInstance] scheduleNewNotification];
     }

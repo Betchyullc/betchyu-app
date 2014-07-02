@@ -209,6 +209,12 @@
             // the card was bad, so do nothing
         }
     } else {
+        // TRACK THIS SHIT AND ANALYZE IT
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker set:kGAIScreenName value:@"Card Info (step 5)"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+        
         // showing BrainTree's CrediCard processing page, after the user clicks the OK button on the alert we gave them
         BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
         // setup it's delegate

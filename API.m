@@ -54,6 +54,7 @@
     NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    NSLog(@"token:%@",((AppDelegate *)([[UIApplication sharedApplication] delegate])).token);
     
     NSMutableURLRequest *apiRequest =
     [self requestWithMethod:@"POST" path:path parameters:p2];
@@ -78,6 +79,7 @@
     NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    NSLog(@"token:%@",((AppDelegate *)([[UIApplication sharedApplication] delegate])).token);
     
     NSMutableURLRequest *apiRequest = [self requestWithMethod:@"GET" path:path parameters:p2];
     
@@ -101,6 +103,7 @@
     NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    NSLog(@"token:%@",((AppDelegate *)([[UIApplication sharedApplication] delegate])).token);
     
     NSMutableURLRequest *apiRequest =[self requestWithMethod:@"PUT" path:path parameters:p2];
     
@@ -124,6 +127,7 @@
     NSMutableDictionary * p2 = [NSMutableDictionary dictionaryWithDictionary:params];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId forKey:@"uid"];
     [p2 setValue:((AppDelegate *)([[UIApplication sharedApplication] delegate])).token forKey:@"pw"];
+    NSLog(@"token:%@",((AppDelegate *)([[UIApplication sharedApplication] delegate])).token);
     
     // make the request
     NSMutableURLRequest *apiRequest =[self requestWithMethod:@"DELETE" path:path parameters:p2];

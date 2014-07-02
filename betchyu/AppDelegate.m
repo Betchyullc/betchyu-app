@@ -29,6 +29,7 @@
     // clear some stuff
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     self.ownId = @"";
+    self.token = @"derp";
     
     // setup url cache
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:8 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
@@ -120,6 +121,7 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [self.navController popToRootViewControllerAnimated:NO];
     [self.mainViewController viewDidAppear:YES];
+    [self sendDeviceTokenToServer:self.token];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -176,7 +178,13 @@
         return;
     }
     // sensually massage the parameters
-    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.ownId, @"fb_id", theToken, @"device", nil];
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.ownId, @"fb_id",
+                                    theToken, @"device",
+                                    self.ownName, @"name",
+                                    [[self.fbUser valueForKey:@"gender"] isEqualToString:@"male"] ? @"true" : @"false", @"is_male",
+                                    [self.fbUser valueForKey:@"email"], @"email",
+                                    [[self.fbUser valueForKey:@"location"] valueForKey:@"name"], @"location",
+                                    nil];
     // ejaculate our data to the server's port-hole
     [[API sharedInstance] post:@"user" withParams:params onCompletion:^(NSDictionary *json) {
         // throw the used response in the trash can
@@ -250,6 +258,8 @@
                      self.ownId = user.id;
                      self.ownName = user.name;
                      NSLog(@"FBuserId: %@", user.id);
+                     NSLog(@"FBuser: %@", user);
+                     self.fbUser = user; // it's okay, because it seems to work
                      [self askAboutGAI];
                  } else {
                      self.ownId = @"";
