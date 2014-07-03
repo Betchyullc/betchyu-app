@@ -11,7 +11,7 @@
 - (void)updated:(NSDictionary *)params;
 @end
 
-@interface BinaryProgressView : UIView
+@interface BinaryProgressView : UIView <UIAlertViewDelegate>
 
 @property UIButton * yes;
 @property UIButton * no;

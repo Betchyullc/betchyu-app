@@ -14,6 +14,7 @@
 @implementation ProfileView
 
 @synthesize owner;
+@synthesize email;
 
 - (id)initWithFrame:(CGRect)frame AndOwner:(UIViewController *)passedOwner {
     self = [super initWithFrame:frame];
@@ -33,6 +34,7 @@
         self.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:self.layer.bounds] CGPath];
         
         int fontSize = 17;
+        int w = frame.size.width;
         
         ////////////////////////
         // The Profile Picture
@@ -62,28 +64,45 @@
         emailLbl.font = FregfS;
         [self addSubview:emailLbl];
         
-        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-            if (!error) {
-                // Success! Include your code to handle the results here
-                UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/3, 40 + dim, frame.size.width, 20)];
-                name.text = [result valueForKey:@"name"];
-                name.textColor = Borange;
-                name.font = FregfS;
-                [self addSubview:name];
-                
-                UILabel *email = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/3, 40 + dim + 35, frame.size.width, 20)];
-                email.text = [result valueForKey:@"email"];
-                email.textColor = Borange;
-                email.font = FregfS;
-                [self addSubview:email];
-            } else {
-                // An error occurred, we need to handle the error
-                // See: https://developers.facebook.com/docs/ios/errors
-            }
+        NSString *path = [NSString stringWithFormat:@"user/%@",ownId];
+        [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+            // Success! Include your code to handle the results here
+            UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/3, 40 + dim, frame.size.width, 20)];
+            name.text = [json valueForKey:@"name"];
+            name.textColor = Borange;
+            name.font = FregfS;
+            [self addSubview:name];
+            
+            self.email          = [[UITextField alloc] initWithFrame:CGRectMake(frame.size.width/3, 40 + dim + 35, frame.size.width, 20)];
+            self.email.text     = [json valueForKey:@"email"];
+            self.email.textColor= Borange;
+            self.email.font     = FregfS;
+            [self addSubview:email];
         }];
+        
+        // the 'Update' button
+        UIButton *updateBtn          = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        updateBtn.frame              = CGRectMake(w/4, frame.size.height - fontSize*2.5, w/2, fontSize*2);
+        updateBtn.backgroundColor    = Bgreen;
+        updateBtn.layer.cornerRadius = 7;
+        updateBtn.tintColor          = [UIColor whiteColor];
+        updateBtn.titleLabel.font    = [UIFont fontWithName:@"ProximaNova-Bold" size:fontSize];
+        [updateBtn setTitle:@"Update" forState:UIControlStateNormal];
+        [updateBtn addTarget:self action:@selector(update:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:updateBtn];
         
     }
     return self;
+}
+
+-(void) update:(UIButton *)sender {
+    NSString *path = [NSString stringWithFormat:@"user/%@",((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+    NSMutableDictionary * params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.email.text, @"email", nil];
+    
+    [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
+        // Success! Include your code to handle the results here
+        [self.email resignFirstResponder];
+    }];
 }
 
 @end

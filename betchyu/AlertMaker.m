@@ -28,7 +28,6 @@
     int duration = [[bet valueForKey:@"duration"] intValue];
     [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSDate *start = [dateFormatter dateFromString: [[bet valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
@@ -40,14 +39,18 @@
                                                          options:0];
 
     // if time-wise, the bet is half over
-    if (components.day >= duration/2) {
-        if ([[bet valueForKey:@"progress"] integerValue] > 50) {
-            [self showAlmostDoneAlert];
-        } else {
-            [self showFallingBehindAlert];
-        }
-    } else {
+    if ([[bet valueForKey:@"verb"] isEqualToString:@"Stop"]) {
         [self showGoalUpdatedAlert];
+    } else {
+        if (components.day >= duration/2) {
+            if ([[bet valueForKey:@"progress"] integerValue] > 50) {
+                [self showAlmostDoneAlert];
+            } else {
+                [self showFallingBehindAlert];
+            }
+        } else {
+            [self showGoalUpdatedAlert];
+        }
     }
 }
 

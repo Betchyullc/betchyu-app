@@ -60,7 +60,12 @@
 }
 
 -(void) fbLike:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/betchyu"]];
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/1411948159028692"];
+    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [[UIApplication sharedApplication] openURL:facebookURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://facebook.com/betchyu"]];
+    }
 }
 
 -(void) twitterFollow:(id)sender {

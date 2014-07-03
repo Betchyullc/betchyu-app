@@ -94,19 +94,7 @@
         [[AlertMaker sharedInstance] pickAndShowCorrectUpdatedAlertFrom:bet];
         return;
     } // don't bother updating in the successful case
-    
-    [[[UIAlertView alloc] initWithTitle:@"You Lose" message:@"Since you smoked, you lose the bet. You'll get a charge on your card." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    
-    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                  [NSNumber numberWithInt:val], @"value",
-                                  [bet valueForKey:@"id"],      @"bet_id",
-                                  nil];
-    
-    //make the call to the web API
-    // POST /updates => {data}
-    [[API sharedInstance] post:@"updates" withParams:params onCompletion:^(NSDictionary *json) {
-        [self.delegate updated:params]; // lets the delegate know that we sent something to the server
-    }];
+    [[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Please confirm that you smoked. This will end the bet!" delegate:self cancelButtonTitle:@"Did not smoke" otherButtonTitles:@"Yes, I smoked",nil] show];
 }
 
 -(void) selectedBinary:(UIButton *)sender {
@@ -130,4 +118,23 @@
     }
 }
 
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) { // cancel
+        return;
+    }
+    int val = self.no.selected ? 1 : 0 ;
+    [[[UIAlertView alloc] initWithTitle:@"You Lose" message:@"Since you smoked, you lose the bet. You'll get a charge on your card." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithInt:val], @"value",
+                                  [bet valueForKey:@"id"],      @"bet_id",
+                                  nil];
+    
+    //make the call to the web API
+    // POST /updates => {data}
+    [[API sharedInstance] post:@"updates" withParams:params onCompletion:^(NSDictionary *json) {
+        [self.delegate updated:params]; // lets the delegate know that we sent something to the server
+    }];
+}
 @end

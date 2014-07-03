@@ -11,6 +11,7 @@
 @interface ProfileView : UIView
 
 @property UIViewController *owner;
+@property UITextField * email;
 
 - (id)initWithFrame:(CGRect)frame AndOwner:(UIViewController *)passedOwner;
 

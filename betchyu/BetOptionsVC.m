@@ -421,6 +421,13 @@
         bet.initial = @([initialInput.text integerValue]);
     }
     
+    // Show guiding message
+    [[[UIAlertView alloc] initWithTitle: @"Nice Goal!"
+                                message: @"Now just pick 3 friends you want to invite. Only 1 needs to sign up."
+                               delegate: nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+    
     [self presentViewController:self.fbFriendVC animated:YES completion:^(void){
         [self addSearchBarToFriendPickerView];
     }];
