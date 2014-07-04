@@ -139,21 +139,35 @@
         HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, imgF.origin.y + imgF.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
         yOff = opponentsHeader.frame.origin.y + opponentsHeader.frame.size.height + 10;
         int diameter = frame.size.width/4.3;
-        NSArray * opponents = [bet valueForKey:@"opponents"];
+        NSArray * acceptedOpponents = [[bet valueForKey:@"opponents"] valueForKey:@"accepted"];
+        NSArray * otherOpponents = [[bet valueForKey:@"opponents"] valueForKey:@"others"];
         UIScrollView *oppScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(15, yOff , frame.size.width -30, diameter + 5)];
-        oppScroll.contentSize = CGSizeMake(opponents.count * (diameter + 4), oppScroll.frame.size.height);
-        for (int i = 0; i < opponents.count; i++) {
+        oppScroll.contentSize = CGSizeMake((acceptedOpponents.count+otherOpponents.count) * (diameter + 4), oppScroll.frame.size.height);
+        for (int i = 0; i < acceptedOpponents.count; i++) {
             CGRect profF  = CGRectMake((diameter+2)*i, 1, diameter, diameter);
-            UIView *profPic = [self getFBPic:[opponents objectAtIndex:i] WithDiameter:diameter AndFrame:profF];
+            UIView *profPic = [self getFBPic:[acceptedOpponents objectAtIndex:i] WithDiameter:diameter AndFrame:profF];
             profPic.layer.borderColor = [Blight CGColor];
             profPic.layer.borderWidth = 2;
             profPic.layer.masksToBounds = YES;
             [oppScroll addSubview:profPic];
         }
+        for (int i = 0; i < otherOpponents.count; i++) {
+            CGRect profF  = CGRectMake((diameter+2)*i + (acceptedOpponents.count *(diameter+2)), 1, diameter, diameter);
+            [self getFBPic:[otherOpponents objectAtIndex:i] AndSetupWithBlock:^(UIImage *img) {
+                UIImageView *profPic = [[UIImageView alloc] initWithImage:[self convertImageToGrayScale:img]];
+                profPic.layer.cornerRadius = diameter / 2;
+                profPic.frame = profF;
+                profPic.layer.borderColor = [Blight CGColor];
+                profPic.layer.borderWidth = 2;
+                profPic.layer.masksToBounds = YES;
+                [oppScroll addSubview:profPic];
+            }];
+            
+        }
         [self addSubview:oppScroll];
         
 /* -----COMMENTS SECTION----- */
-        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, oppScroll.frame.size.height + oppScroll.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
+//        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, oppScroll.frame.size.height + oppScroll.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
         
         // Add everything
         [self addSubview:pic];
@@ -172,15 +186,26 @@
         
         [self addSubview:opponentsHeader];
         
-        [self addSubview:commentsHeader];
+        //[self addSubview:commentsHeader];
         
         // determine contentSize
-        self.contentSize = CGSizeMake(frame.size.width, commentsHeader.frame.origin.y + commentsHeader.frame.size.height);
+        self.contentSize = CGSizeMake(frame.size.width, oppScroll.frame.origin.y + oppScroll.frame.size.height);
     }
     return self;
 }
 
 // Helpers! yay!
+-(void)getFBPic:(NSString *)userId AndSetupWithBlock:(void (^)(UIImage *))block {
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSString *path = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", userId];
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:path]];
+        if ( imageData == nil )
+            return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block([UIImage imageWithData: imageData]);
+        });
+    });
+}
 -(UIView *)getFBPic:(NSString *)userId WithDiameter:(int)dim AndFrame:(CGRect)frame {
     // The Picture inside it
     FBProfilePictureView *profPic = [[FBProfilePictureView alloc]
@@ -319,6 +344,47 @@
     } else {
         return base;
     }
+}
+
+- (UIImage *)convertImageToGrayScale:(UIImage *)image
+{
+    // Create image rectangle with current image width/height
+    CGRect imageRect = CGRectMake(0, 0, image.size.width, image.size.height);
+    
+    // Grayscale color space
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    
+    // Create bitmap content with current image size and grayscale colorspace
+    CGContextRef context = CGBitmapContextCreate(nil, image.size.width, image.size.height, 8, 0, colorSpace, kCGImageAlphaNone);
+    
+    // Draw image into current context, with specified rectangle
+    // using previously defined context (with grayscale colorspace)
+    CGContextDrawImage(context, imageRect, [image CGImage]);
+    
+    // Create bitmap image info from pixel data in current context
+    CGImageRef imageRef = CGBitmapContextCreateImage(context);
+    
+    // Create a new UIImage object
+    UIImage *newImage = [UIImage imageWithCGImage:imageRef];
+    
+    // Release colorspace, context and bitmap information
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CFRelease(imageRef);
+    
+    // Return the new grayscale image
+    return newImage;
+}
+- (UIImage *) imageWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
 }
 
 

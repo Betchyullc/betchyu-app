@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Betchyu-Test</string>
+	<string>Betchyu</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -28,11 +28,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.1.9</string>
+	<string>2.1.11</string>
 	<key>FacebookAppID</key>
 	<string>754096961273788</string>
 	<key>FacebookDisplayName</key>
-	<string>Betchyu-testing</string>
+	<string>Betchyu</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>

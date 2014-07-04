@@ -498,7 +498,7 @@
                           otherButtonTitles:nil] show];
         return;
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"Friends" message:@"Post to your friend's wall to let them know about your goal!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Wall Post" message:@"Post on your friends' wall to get them on board. If you don't want to make a post, hit \"cancel\" and let them know on your own." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         
         [self makePost:[NSNumber numberWithInt:0]];
     }
@@ -561,7 +561,7 @@
                                    @"I just made a goal on Betchyu! Do you think I can do it?", @"caption",
                                    @"http://betchyu.com", @"link",
                                    fid, @"to",
-                                   @"http://i.imgur.com/zq6D8lk.png", @"picture",
+                                   @"http://i.imgur.com/NdxJx8s.png", @"picture",
                                    @"Betchyu", @"name", nil];
     
     // attemp to post the story to friends walls

@@ -76,6 +76,12 @@
 }
 
 - (void) home {
+    if ([self.bet.verb isEqualToString:@"Stop"]) {
+        [[[UIAlertView alloc] initWithTitle:nil message:@"Your bet is now live! If you smoke once, you lose. Be sure to update your progress in \"My Bets.\"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    } else {
+        [[[UIAlertView alloc]initWithTitle:@"Nice job!" message:@"Be sure to update your progress in \"My Bets\". You will lose if you don't complete the goal by the end date." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
+    
     // go to the home page
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

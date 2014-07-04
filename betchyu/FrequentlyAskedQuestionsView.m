@@ -26,7 +26,7 @@
                       @"How do my friends sign up to my goal?",
                       @"Can I create bets other than the ones listed?",
                       @"Is it possible to set goals/bets that are longer than 30 days?",
-                      @"Can I chose another type of reward instead of the Amazon, Target or iTunes gift card?",
+                      @"Can I choose another type of reward instead of the Amazon, Target or iTunes gift card?",
                       @"Can I add friends to a bet once the bet has been created?",
                       @"How do I know when my friend has updated his progress?",
                       @"How do I contact Betchyu?"];

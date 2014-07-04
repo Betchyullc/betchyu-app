@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileView : UIView
+@interface ProfileView : UIView <UITextFieldDelegate>
 
 @property UIViewController *owner;
 @property UITextField * email;

@@ -77,6 +77,7 @@
             self.email.text     = [json valueForKey:@"email"];
             self.email.textColor= Borange;
             self.email.font     = FregfS;
+            self.email.delegate = self;
             [self addSubview:email];
         }];
         
@@ -103,6 +104,17 @@
         // Success! Include your code to handle the results here
         [self.email resignFirstResponder];
     }];
+}
+
+#pragma mark UITextFieldDelegate shit
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.email resignFirstResponder];
 }
 
 @end
