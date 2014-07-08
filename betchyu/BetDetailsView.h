@@ -12,11 +12,16 @@
 #import "ProgressBarView.h"
 @class UpdateView;
 
-@interface BetDetailsView : UIScrollView
+@interface BetDetailsView : UIScrollView <UITextFieldDelegate>
+
+@property NSDictionary *bet;
 
 @property UpdateView * update;
 @property BOOL ownerIsMale;
 @property BOOL isMyBet;
+
+@property UIView *comments;
+@property UITextField *commentBox;
 
 - (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet AndIsMyBet:(BOOL)mine;
 

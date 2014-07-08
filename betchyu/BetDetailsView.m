@@ -15,11 +15,17 @@
 @synthesize isMyBet;
 @synthesize update;
 
+@synthesize comments;
+@synthesize commentBox;
+
+@synthesize bet;
+
 - (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet AndIsMyBet:(BOOL)mine
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.bet = bet;
         self.ownerIsMale = YES;
         self.isMyBet = mine;
         self.backgroundColor = [UIColor whiteColor];
@@ -167,7 +173,10 @@
         [self addSubview:oppScroll];
         
 /* -----COMMENTS SECTION----- */
-//        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, oppScroll.frame.size.height + oppScroll.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
+        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, oppScroll.frame.size.height + oppScroll.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
+        
+        self.comments = [[UIView alloc] initWithFrame:CGRectMake(0, commentsHeader.frame.origin.y + commentsHeader.frame.size.height, frame.size.width, 0)];
+        [self setupComments:bet];
         
         // Add everything
         [self addSubview:pic];
@@ -186,10 +195,11 @@
         
         [self addSubview:opponentsHeader];
         
-        //[self addSubview:commentsHeader];
+        [self addSubview:commentsHeader];
+        [self addSubview:comments];
         
         // determine contentSize
-        self.contentSize = CGSizeMake(frame.size.width, oppScroll.frame.origin.y + oppScroll.frame.size.height);
+        self.contentSize = CGSizeMake(frame.size.width, comments.frame.origin.y + comments.frame.size.height);
     }
     return self;
 }
@@ -390,5 +400,123 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.update.box resignFirstResponder];
+    CGRect vf = [UIScreen mainScreen].applicationFrame;
+    self.frame = CGRectMake(0, vf.origin.y - 20, self.frame.size.width, self.frame.size.height );
+    [self.commentBox resignFirstResponder];
 }
+
+-(void) setupComments:(NSDictionary *)b {
+    int fontSize = 14;
+    int commentHt = fontSize * 5;
+    int diameter = commentHt - 8;
+    
+    [comments removeFromSuperview];
+    comments = [[UIView alloc] initWithFrame:CGRectMake(0, comments.frame.origin.y, comments.frame.size.width, 0)];
+    
+    NSString *path = [NSString stringWithFormat:@"bets/%@/comments", [b valueForKey:@"id"]];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        if (((NSArray *)json).count == 0) {
+            // none notice
+        } else {
+            for (int i = 0; i < ((NSArray *)json).count; i++) {
+                // setup circle face
+                CGRect profF  = CGRectMake(5, i*commentHt, diameter, diameter);
+                NSString *usr = [[((NSArray *)json) objectAtIndex:i] valueForKey:@"user_fb_id"];
+                UIView *profPic = [self getFBPic:usr WithDiameter:diameter AndFrame:profF];
+                profPic.layer.borderColor = [Blight CGColor];
+                profPic.layer.borderWidth = 2;
+                profPic.layer.masksToBounds = YES;
+                // setup name
+                [FBRequestConnection startWithGraphPath:usr completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    if (!error) {
+                        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + 6, comments.frame.size.width - (commentHt + 15), fontSize)];
+                        nameLbl.text = [result valueForKey:@"name"];
+                        nameLbl.font = FblackfS;
+                        nameLbl.textColor = Bdark;
+                        
+                        [comments addSubview:nameLbl];
+                    } else {
+                        // An error occurred, we need to handle the error
+                        // See: https://developers.facebook.com/docs/ios/errors
+                    }
+                }];
+                
+                // setup text
+                NSString *cT = [[((NSArray *)json) objectAtIndex:i] valueForKey:@"text"];
+                UILabel *text;
+                if (cT.length > 33) {
+                    text = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + 12, comments.frame.size.width - (commentHt + 15), commentHt)];
+                } else {
+                    text = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt , comments.frame.size.width - (commentHt + 15), commentHt)];
+                }
+                text.text = cT;
+                text.font = FregfS;
+                text.textColor = Bmid;
+                text.numberOfLines = 0;
+                text.lineBreakMode = NSLineBreakByWordWrapping;
+                
+                [comments addSubview:profPic];
+                [comments addSubview:text];
+            }
+        }
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, commentHt*((NSArray *)json).count, comments.frame.size.width, 2)];
+        line.backgroundColor = Bmid;
+        [comments addSubview:line];
+        
+        // add the submit comment bit
+        self.commentBox = [[UITextField alloc] initWithFrame:CGRectMake(commentHt + 9, commentHt*((NSArray *)json).count + ((commentHt - (fontSize*1.9))/2), comments.frame.size.width - (commentHt + 18), fontSize * 1.9)];
+        commentBox.layer.borderColor = Bmid.CGColor;
+        commentBox.layer.borderWidth = 2;
+        commentBox.textColor = Bmid;
+        commentBox.text = @"Add a comment";
+        commentBox.font = FregfS;
+        commentBox.delegate = self;
+        commentBox.keyboardType = UIKeyboardTypeAlphabet;
+        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 20)];
+        commentBox.leftView = paddingView;
+        commentBox.leftViewMode = UITextFieldViewModeAlways;
+        [comments addSubview:commentBox];
+        
+        comments.frame = CGRectMake(0, comments.frame.origin.y, comments.frame.size.width, commentHt*(((NSArray *)json).count+1));
+        comments.clipsToBounds = NO;
+        comments.layer.masksToBounds = NO;
+        
+        UIImageView *chatImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat-20.png"]];
+        chatImg.frame = CGRectMake(12, comments.frame.size.height - (commentHt-15), commentHt-24, commentHt-30);
+        chatImg.image = [chatImg.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        chatImg.tintColor = Bmid;          // graphic is always gray (light)
+        [comments addSubview:chatImg];
+        
+        [self addSubview:comments];
+        self.contentSize = CGSizeMake(self.frame.size.width, comments.frame.origin.y + comments.frame.size.height);
+    }];
+}
+
+#pragma mark UITextFieldDelegate shit
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField.text isEqualToString:@""]) { return NO; }
+    // send the message to the server
+    NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   [bet valueForKey:@"id"], @"bet_id",
+                                   textField.text, @"text",
+                                   ownId, @"user_id",
+                                   nil];
+    [[API sharedInstance] post:@"comments" withParams:params onCompletion:^(NSDictionary *json) {
+        // we sent the message, yay!
+        [self performSelector:@selector(setupComments:) withObject:self.bet afterDelay:1];
+    }];
+    
+    CGRect vf = [UIScreen mainScreen].applicationFrame;
+    self.frame = CGRectMake(0, vf.origin.y + 20, self.frame.size.width, self.frame.size.height );
+    [textField resignFirstResponder];
+    textField.text = @"";
+    return NO;
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    textField.text = @"";
+    CGRect vf = [UIScreen mainScreen].applicationFrame;
+    self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-112)/2), self.frame.size.width, self.frame.size.height );
+}
+
 @end
