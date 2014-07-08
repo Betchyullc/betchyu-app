@@ -516,7 +516,13 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     textField.text = @"";
     CGRect vf = [UIScreen mainScreen].applicationFrame;
-    self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-112)/2), self.frame.size.width, self.frame.size.height );
+    if (self.frame.size.height > 500 && self.frame.size.width < 500) {          // big iphone
+        self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-112)/2), self.frame.size.width, self.frame.size.height );
+    } else if (self.frame.size.height > 500 && self.frame.size.width > 500) {   // ipad
+        self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-220)/3), self.frame.size.width, self.frame.size.height );
+    } else {                                                                    // small iphone
+        self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-44)/2), self.frame.size.width, self.frame.size.height );
+    }
 }
 
 @end

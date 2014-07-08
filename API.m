@@ -7,8 +7,8 @@
 #import "API.h"
 
 //#define kAPIHost @"http://betchyu.herokuapp.com"  // betchyu live server
-#define kAPIHost @"http://betchyu-staging.herokuapp.com" // staging server
-//#define kAPIHost @"http://localhost:5000"  // local testing server
+//#define kAPIHost @"http://betchyu-staging.herokuapp.com" // staging server
+#define kAPIHost @"http://localhost:5000"  // local testing server
 
 @implementation API
 
