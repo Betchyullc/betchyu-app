@@ -11,6 +11,7 @@
 #import "HowItWorksVC.h"
 #import "FrequentlyAskedQuestionsView.h"
 #import "GAITrackedViewController.h"
+#import "CardInfoView.h"
 
 @interface SettingsVC : GAITrackedViewController <UIPageViewControllerDataSource>
 

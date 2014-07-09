@@ -198,29 +198,40 @@
     //  4. UIAlerts the user that the process is done
     
     /* Do #1 */
-    // tell the user wtf is going on
-    [[[UIAlertView alloc] initWithTitle:@"We Need Something"
-                                message:@"We're gonna need a valid credit card for you to do that. Don't worry, we won't charge it until the bet is over--and even then only if you lost."
-                               delegate:nil
-                      cancelButtonTitle:@"Fair Enough"
-                      otherButtonTitles:nil]
-     show];
-    // showing BrainTree's CreditCard processing page
-    BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
-    CGRect f = CGRectMake(0, -63, self.frame.size.width, 90);
-    BetterBraintreeView *sub = [[BetterBraintreeView alloc] initWithFrame:f];
-    [paymentViewController.view addSubview:sub];
-    [paymentViewController.tableView setContentInset:UIEdgeInsetsMake(78,0,0,0)];
-    // setup it's delegate
-    TempBet * b = [TempBet new];
-    [BraintreeDelegateController sharedInstance].del = self;
-    b.stakeAmount = [selectedBet valueForKey:@"stakeAmount"];
-    [BraintreeDelegateController sharedInstance].bet = b;
-    [BraintreeDelegateController sharedInstance].ident = [selectedBet valueForKey:@"id"];
-    [BraintreeDelegateController sharedInstance].email = sub.email;
-    paymentViewController.delegate = [BraintreeDelegateController sharedInstance];
-    // Now, display the navigation controller that contains the payment form
-    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:paymentViewController animated:YES];
+    
+    NSString *path = [NSString stringWithFormat:@"card/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        if ([[json valueForKey:@"msg"] isEqualToString:@"no card found, man"]) {
+            // tell the user wtf is going on
+            [[[UIAlertView alloc] initWithTitle:@"We Need Something"
+                                        message:@"We're gonna need a valid credit card for you to do that. Don't worry, we won't charge it until the bet is over--and even then only if you lost."
+                                       delegate:nil
+                              cancelButtonTitle:@"Fair Enough"
+                              otherButtonTitles:nil]
+             show];
+            
+            
+            // showing BrainTree's CreditCard processing page
+            BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+            CGRect f = CGRectMake(0, -63, self.frame.size.width, 90);
+            BetterBraintreeView *sub = [[BetterBraintreeView alloc] initWithFrame:f];
+            [paymentViewController.view addSubview:sub];
+            [paymentViewController.tableView setContentInset:UIEdgeInsetsMake(78,0,0,0)];
+            // setup it's delegate
+            TempBet * b = [TempBet new];
+            [BraintreeDelegateController sharedInstance].del = self;
+            b.stakeAmount = [selectedBet valueForKey:@"stakeAmount"];
+            [BraintreeDelegateController sharedInstance].bet = b;
+            [BraintreeDelegateController sharedInstance].ident = [selectedBet valueForKey:@"id"];
+            [BraintreeDelegateController sharedInstance].email = sub.email;
+            paymentViewController.delegate = [BraintreeDelegateController sharedInstance];
+            // Now, display the navigation controller that contains the payment form
+            [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:paymentViewController animated:YES];
+        } else {
+            //skip asking for the card.
+            [self tellServerOfAcceptedBet];
+        }
+    }];
     
     /* Do #2-4 */
     // is done within the delegate methods below. line 370 sets this up ^^

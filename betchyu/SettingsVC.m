@@ -128,7 +128,19 @@
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 -(void)editPayment:(id)sender {
+    UIViewController *vc = [UIViewController new];
+    CGRect f = [UIScreen mainScreen].applicationFrame;
     
+    int y = self.navigationController.navigationBar.frame.size.height + f.origin.y; // navBar + statusBar
+    int h = f.size.height - y;
+    
+    CGRect f2 = CGRectMake(f.origin.x, y, f.size.width, 2*h/3);
+    
+    vc.view = [UIView new];
+    vc.view.backgroundColor = Blight;
+    [vc.view addSubview:[[CardInfoView alloc] initWithFrame:f2]];
+    
+    [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 
 -(void) howItWorksPressed:(id)sender {

@@ -142,12 +142,26 @@
 
 
 -(void)reviewBet:(id)sender {
-    //make and display the VC
-    [[[UIAlertView alloc] initWithTitle: @"Last Step!"
-                                message: @"To make this real, we need your payment info. Once your friend confirms, the bet is on! Only the loser will be charged at the end."
-                               delegate: self
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil] show];
+    NSString *path = [NSString stringWithFormat:@"card/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        if ([[json valueForKey:@"msg"] isEqualToString:@"no card found, man"]) {
+            //make and display the VC
+            [[[UIAlertView alloc] initWithTitle: @"Last Step!"
+                                        message: @"To make this real, we need your payment info. Once your friend confirms, the bet is on! Only the loser will be charged at the end."
+                                       delegate: self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil] show];
+        } else {
+            //skip asking for the card.
+            [self betchyu];
+            
+            // make the summary VC
+            BetSummaryVC *vc = [[BetSummaryVC alloc]initWithBet:self.bet];
+            vc.title = @"Bet Summary";
+            // show the summary vc
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }];
 }
 
 //method to send the bet data to the server
@@ -204,7 +218,6 @@
             vc.title = @"Bet Summary";
             // show the summary vc
             [self.navigationController pushViewController:vc animated:YES];
-            
         } else {
             // the card was bad, so do nothing
         }
@@ -233,5 +246,6 @@
         [self.navigationController pushViewController:paymentViewController animated:YES];
     }
 }
+
 
 @end

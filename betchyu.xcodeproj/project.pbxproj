@@ -94,6 +94,7 @@
 		89826374194FA070006A95E2 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826370194FA070006A95E2 /* right-arrow.png */; };
 		89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826371194FA070006A95E2 /* right-arrow@2x.png */; };
 		899A9399196C6FF100B849DD /* BetterBraintreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 899A9398196C6FF100B849DD /* BetterBraintreeView.m */; };
+		899A939C196DACDA00B849DD /* CardInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 899A939B196DACDA00B849DD /* CardInfoView.m */; };
 		89B1A6B01859236C006A656F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6AF1859236C006A656F /* API.m */; };
 		89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */; };
 		89B1A6BB1864ACC7006A656F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BA1864ACC7006A656F /* logo.png */; };
@@ -295,6 +296,8 @@
 		89826371194FA070006A95E2 /* right-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow@2x.png"; sourceTree = "<group>"; };
 		899A9397196C6FF100B849DD /* BetterBraintreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterBraintreeView.h; sourceTree = "<group>"; };
 		899A9398196C6FF100B849DD /* BetterBraintreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetterBraintreeView.m; sourceTree = "<group>"; };
+		899A939A196DACDA00B849DD /* CardInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardInfoView.h; sourceTree = "<group>"; };
+		899A939B196DACDA00B849DD /* CardInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardInfoView.m; sourceTree = "<group>"; };
 		89B1A6AE1859236C006A656F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = API.h; path = ../API.h; sourceTree = "<group>"; };
 		89B1A6AF1859236C006A656F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = API.m; path = ../API.m; sourceTree = "<group>"; };
 		89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExistingBetDetailsVC.h; sourceTree = "<group>"; };
@@ -820,6 +823,8 @@
 				890B987A1948CFF3004DE649 /* FriendsPastBetsView.m */,
 				89FE6A8C1961FA810040C33C /* FrequentlyAskedQuestionsView.h */,
 				89FE6A8D1961FA810040C33C /* FrequentlyAskedQuestionsView.m */,
+				899A939A196DACDA00B849DD /* CardInfoView.h */,
+				899A939B196DACDA00B849DD /* CardInfoView.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -1142,6 +1147,7 @@
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
 				8948F546194B8AF500FF1519 /* ProgressTrackingVC.m in Sources */,
+				899A939C196DACDA00B849DD /* CardInfoView.m in Sources */,
 				8926AAE7194F73F4006FDF11 /* BetOptionsTopView.m in Sources */,
 				890B9868194740BD004DE649 /* CompletionBorderView.m in Sources */,
 				8957380D189830BB00E693A5 /* Graph.m in Sources */,
