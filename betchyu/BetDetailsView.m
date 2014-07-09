@@ -20,12 +20,12 @@
 
 @synthesize bet;
 
-- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet AndIsMyBet:(BOOL)mine
+- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)b AndIsMyBet:(BOOL)mine
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.bet = bet;
+        self.bet = b;
         self.ownerIsMale = YES;
         self.isMyBet = mine;
         self.backgroundColor = [UIColor whiteColor];

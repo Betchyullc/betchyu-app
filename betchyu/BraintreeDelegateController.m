@@ -14,6 +14,8 @@
 @synthesize del; // the UIAlertViewDelegate pointer
 @synthesize ident;
 
+@synthesize email;
+
 #pragma mark - Singleton methods
 /**
  * Singleton methods
@@ -35,6 +37,24 @@
 - (void)paymentViewController:(BTPaymentViewController *)paymentViewController
         didSubmitCardWithInfo:(NSDictionary *)cardInfo
          andCardInfoEncrypted:(NSDictionary *)cardInfoEncrypted {
+    // handle the email info
+    if (email && ([email.text isEqualToString:@""] || [email.text isEqualToString:@"No email given"]) ) {
+        [(BTPaymentViewController *)((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController.topViewController prepareForDismissal];
+        [[[UIAlertView alloc] initWithTitle: @"Email"
+                                    message: @"Please put in a real email. You'll need this to recieve your prize."
+                                   delegate: self.del
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+        return;
+    } else {
+        NSString *path = [NSString stringWithFormat:@"user/%@",((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+        NSMutableDictionary * params = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.email.text, @"email", nil];
+        // update the user's email
+        [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
+            // do diddly squat
+        }];
+    }
+    
     // Determine if we are in test-mode or real mode
     BTEncryption * braintree;
     if ([[[API sharedInstance].baseURL absoluteString] isEqualToString:@"http://localhost:5000"]
@@ -45,7 +65,7 @@
     }
     
     // Do something with cardInfo dictionary
-    NSMutableDictionary *enc = [[NSMutableDictionary alloc]initWithDictionary:cardInfoEncrypted]; // nill to begin with unless VenmoT is used
+    NSMutableDictionary *enc = [[NSMutableDictionary alloc]initWithDictionary:cardInfoEncrypted]; // nil to begin with unless VenmoT is used
     
     // manually encrypt the cardInfo
     [cardInfo enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {

@@ -208,6 +208,8 @@
         } else {
             // the card was bad, so do nothing
         }
+    } else if ([alertView.title isEqualToString:@"Email"]) {
+        // don't do shit
     } else {
         // TRACK THIS SHIT AND ANALYZE IT
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -217,10 +219,15 @@
         
         // showing BrainTree's CrediCard processing page, after the user clicks the OK button on the alert we gave them
         BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+        CGRect f = CGRectMake(0, -63, self.view.frame.size.width, 90);
+        BetterBraintreeView *sub = [[BetterBraintreeView alloc] initWithFrame:f];
+        [paymentViewController.view addSubview:sub];
+        [paymentViewController.tableView setContentInset:UIEdgeInsetsMake(78,0,0,0)];
         // setup it's delegate
         [BraintreeDelegateController sharedInstance].del = self;//the UIAlertViewDelegate
         [BraintreeDelegateController sharedInstance].bet = self.bet;
         [BraintreeDelegateController sharedInstance].ident = nil;
+        [BraintreeDelegateController sharedInstance].email = sub.email;
         paymentViewController.delegate = [BraintreeDelegateController sharedInstance];
         // Now, display the navigation controller that contains the payment form
         [self.navigationController pushViewController:paymentViewController animated:YES];

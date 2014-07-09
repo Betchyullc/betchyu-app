@@ -207,12 +207,17 @@
      show];
     // showing BrainTree's CreditCard processing page
     BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+    CGRect f = CGRectMake(0, -63, self.frame.size.width, 90);
+    BetterBraintreeView *sub = [[BetterBraintreeView alloc] initWithFrame:f];
+    [paymentViewController.view addSubview:sub];
+    [paymentViewController.tableView setContentInset:UIEdgeInsetsMake(78,0,0,0)];
     // setup it's delegate
     TempBet * b = [TempBet new];
     [BraintreeDelegateController sharedInstance].del = self;
     b.stakeAmount = [selectedBet valueForKey:@"stakeAmount"];
     [BraintreeDelegateController sharedInstance].bet = b;
     [BraintreeDelegateController sharedInstance].ident = [selectedBet valueForKey:@"id"];
+    [BraintreeDelegateController sharedInstance].email = sub.email;
     paymentViewController.delegate = [BraintreeDelegateController sharedInstance];
     // Now, display the navigation controller that contains the payment form
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:paymentViewController animated:YES];

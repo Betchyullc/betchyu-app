@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "BraintreeDelegateController.h"
+#import "BetterBraintreeView.h"
 
 @interface PendingBetsView : UIView <UIAlertViewDelegate>
 

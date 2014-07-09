@@ -18,6 +18,7 @@
 @property TempBet * bet;
 @property id del;
 @property NSNumber * ident;
+@property UITextField * email;
 
 +(BraintreeDelegateController *)sharedInstance;
 

@@ -10,6 +10,8 @@
 #import "StakeDetailsView.h"
 #import "BetSummaryVC.h"
 #import "BTPaymentViewController.h"
+#import "ProfileView.h"
+#import "BetterBraintreeView.h"
 
 @interface StakeDetailsVC : GAITrackedViewController <UIAlertViewDelegate>
 

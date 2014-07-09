@@ -93,6 +93,7 @@
 		89826373194FA070006A95E2 /* left-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8982636F194FA070006A95E2 /* left-arrow@2x.png */; };
 		89826374194FA070006A95E2 /* right-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826370194FA070006A95E2 /* right-arrow.png */; };
 		89826375194FA070006A95E2 /* right-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89826371194FA070006A95E2 /* right-arrow@2x.png */; };
+		899A9399196C6FF100B849DD /* BetterBraintreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 899A9398196C6FF100B849DD /* BetterBraintreeView.m */; };
 		89B1A6B01859236C006A656F /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6AF1859236C006A656F /* API.m */; };
 		89B1A6B4185F87E3006A656F /* ExistingBetDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1A6B3185F87E3006A656F /* ExistingBetDetailsVC.m */; };
 		89B1A6BB1864ACC7006A656F /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 89B1A6BA1864ACC7006A656F /* logo.png */; };
@@ -292,6 +293,8 @@
 		8982636F194FA070006A95E2 /* left-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow@2x.png"; sourceTree = "<group>"; };
 		89826370194FA070006A95E2 /* right-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow.png"; sourceTree = "<group>"; };
 		89826371194FA070006A95E2 /* right-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right-arrow@2x.png"; sourceTree = "<group>"; };
+		899A9397196C6FF100B849DD /* BetterBraintreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetterBraintreeView.h; sourceTree = "<group>"; };
+		899A9398196C6FF100B849DD /* BetterBraintreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetterBraintreeView.m; sourceTree = "<group>"; };
 		89B1A6AE1859236C006A656F /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = API.h; path = ../API.h; sourceTree = "<group>"; };
 		89B1A6AF1859236C006A656F /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = API.m; path = ../API.m; sourceTree = "<group>"; };
 		89B1A6B2185F87E3006A656F /* ExistingBetDetailsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExistingBetDetailsVC.h; sourceTree = "<group>"; };
@@ -522,6 +525,8 @@
 				89772F741950D081008A06EB /* StakeDetailsView.h */,
 				89772F751950D081008A06EB /* StakeDetailsView.m */,
 				89772F801951FC74008A06EB /* BetSummary */,
+				899A9397196C6FF100B849DD /* BetterBraintreeView.h */,
+				899A9398196C6FF100B849DD /* BetterBraintreeView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1132,6 +1137,7 @@
 				8948F533194A431100FF1519 /* ProgressBarView.m in Sources */,
 				89FE6A371959AA5A0040C33C /* Reachability.m in Sources */,
 				892154B91850F36F0052A7C0 /* TempBet.m in Sources */,
+				899A9399196C6FF100B849DD /* BetterBraintreeView.m in Sources */,
 				89C65166193D1E31004B64B6 /* DashboardVC.m in Sources */,
 				892154B71850F36F0052A7C0 /* LoginViewController.m in Sources */,
 				89B3F5C61850EB320055F8DB /* AppDelegate.m in Sources */,
