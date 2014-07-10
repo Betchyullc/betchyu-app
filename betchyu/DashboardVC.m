@@ -20,6 +20,10 @@
 @synthesize howItWorksContainerVC;
 @synthesize spinner;
 
+@synthesize pendingBets;
+@synthesize myBets;
+@synthesize friendsBets;
+
 - (id)initWithInviteNumber:(NSString *)numInvs {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
@@ -99,9 +103,13 @@
     //make the call to the web API
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
         if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
+            if ([((NSArray *)json) count] == pendingBets.count) {
+                return;
+            }
             // json is our array of Bets, hopefully
             [((Dashboard *)self.view) adjustPendingHeight:((NSArray *)json).count];
             [((Dashboard *)self.view).pending addBets:(NSArray *)json];
+            pendingBets = (NSArray*)json;
         } else {
             NSLog(@"something went wrong: %@", json);
         }
@@ -124,9 +132,13 @@
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
         
         if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
+            if ([((NSArray *)json) count] == myBets.count) {
+                return;
+            }
             // json is our array of Bets, hopefully
             [((Dashboard *)self.view) adjustMyBetsHeight:((NSArray *)json).count];
             [((Dashboard *)self.view).my addBets:(NSArray *)json];
+            myBets = (NSArray*)json;
         } else {
             NSLog(@"something went wrong: %@", json);
         }
@@ -149,9 +161,13 @@
         [self.spinner stopAnimating]; // we done with getting stuff from the server, so we stop the spinner
         
         if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
+            if ([((NSArray *)json) count] == friendsBets.count) {
+                return;
+            }
             // json is our array of Bets, hopefully
             [((Dashboard *)self.view) adjustFriendsBetsHeight:((NSArray *)json).count];
             [((Dashboard *)self.view).friends addBets:(NSArray *)json];
+            friendsBets = (NSArray *)json;
         } else {
             NSLog(@"something went wrong: %@", json);
         }

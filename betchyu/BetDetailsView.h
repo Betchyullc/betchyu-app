@@ -24,6 +24,6 @@
 @property UIView *comments;
 @property UITextField *commentBox;
 
-- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet AndIsMyBet:(BOOL)mine;
+- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)bet AndIsMyBet:(BOOL)mine AndIsOffer:(BOOL)offer;
 
 @end

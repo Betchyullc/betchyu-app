@@ -20,7 +20,7 @@
 
 @synthesize bet;
 
-- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)b AndIsMyBet:(BOOL)mine
+- (id)initWithFrame:(CGRect)frame AndBet:(NSDictionary *)b AndIsMyBet:(BOOL)mine AndIsOffer:(BOOL)offer
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -142,38 +142,49 @@
         stakeLbl.font = [UIFont fontWithName:@"ProximaNova-Regular" size:fontS+2];
         
 /* -----OPPONENTS SECTION----- */
-        HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, imgF.origin.y + imgF.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
-        yOff = opponentsHeader.frame.origin.y + opponentsHeader.frame.size.height + 10;
-        int diameter = frame.size.width/4.3;
-        NSArray * acceptedOpponents = [[bet valueForKey:@"opponents"] valueForKey:@"accepted"];
-        NSArray * otherOpponents = [[bet valueForKey:@"opponents"] valueForKey:@"others"];
-        UIScrollView *oppScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(15, yOff , frame.size.width -30, diameter + 5)];
-        oppScroll.contentSize = CGSizeMake((acceptedOpponents.count+otherOpponents.count) * (diameter + 4), oppScroll.frame.size.height);
-        for (int i = 0; i < acceptedOpponents.count; i++) {
-            CGRect profF  = CGRectMake((diameter+2)*i, 1, diameter, diameter);
-            UIView *profPic = [self getFBPic:[acceptedOpponents objectAtIndex:i] WithDiameter:diameter AndFrame:profF];
-            profPic.layer.borderColor = [Blight CGColor];
-            profPic.layer.borderWidth = 2;
-            profPic.layer.masksToBounds = YES;
-            [oppScroll addSubview:profPic];
-        }
-        for (int i = 0; i < otherOpponents.count; i++) {
-            CGRect profF  = CGRectMake((diameter+2)*i + (acceptedOpponents.count *(diameter+2)), 1, diameter, diameter);
-            [self getFBPic:[otherOpponents objectAtIndex:i] AndSetupWithBlock:^(UIImage *img) {
-                UIImageView *profPic = [[UIImageView alloc] initWithImage:[self convertImageToGrayScale:img]];
-                profPic.layer.cornerRadius = diameter / 2;
-                profPic.frame = profF;
-                profPic.layer.borderColor = [Blight CGColor];
-                profPic.layer.borderWidth = 2;
-                profPic.layer.masksToBounds = YES;
-                [oppScroll addSubview:profPic];
-            }];
+        UIView *next;
+        if (offer) {
+            HeadingBarView * offerHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, imgF.origin.y + imgF.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Offer"];
+            [self addSubview:offerHeader];
+            int fontSize = 18;
+            yOff = offerHeader.frame.origin.y + offerHeader.frame.size.height + 10;
+            next = [[UIView alloc] initWithFrame:CGRectMake(0, yOff, frame.size.width, 50)];
+            // make accept button
+            UIButton * accept = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 6 - 5, 10, frame.size.width / 3, 30)];
+            [accept addTarget:self action:@selector(acceptBet:) forControlEvents:UIControlEventTouchUpInside];
+            accept.backgroundColor = Bgreen;
+            [accept setTitle:@"Accept" forState:UIControlStateNormal];
+            [accept setTintColor:[UIColor whiteColor]];
+            accept.titleLabel.font = FregfS;
+            accept.layer.cornerRadius = 9;
+            accept.clipsToBounds = YES;
+            [next addSubview:accept];
+            // make reject button
+            UIButton * reject = [[UIButton alloc] initWithFrame:CGRectMake(frame.size.width / 2 + 5, 10, frame.size.width / 3, 29)];
+            [reject addTarget:self action:@selector(rejectBet:) forControlEvents:UIControlEventTouchUpInside];
+            [reject setTitle:@"Reject" forState:UIControlStateNormal];
+            reject.backgroundColor  = Bred;
+            reject.tintColor        = [UIColor whiteColor];
+            reject.titleLabel.font  = [UIFont fontWithName:@"ProximaNova-Regular" size:(fontSize-1)];
+            reject.layer.cornerRadius = 9;
+            reject.clipsToBounds    = YES;
+            [next addSubview:reject];
+
+            [self addSubview:next];
+        } else {
+            HeadingBarView * opponentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, imgF.origin.y + imgF.size.height + 10, frame.size.width, fontS*1.8) AndTitle:@"Opponents"];
+            [self addSubview:opponentsHeader];
             
+            yOff = opponentsHeader.frame.origin.y + opponentsHeader.frame.size.height + 10;
+            int diameter = frame.size.width/4.3;
+            
+            next = [[UIScrollView alloc] initWithFrame:CGRectMake(15, yOff , frame.size.width -30, diameter + 5)];
+            next = [self makeOpponentsScrollViewFromDiameter:diameter AndScrollView:next];
+            [self addSubview:next];
         }
-        [self addSubview:oppScroll];
         
 /* -----COMMENTS SECTION----- */
-        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, oppScroll.frame.size.height + oppScroll.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
+        HeadingBarView * commentsHeader = [[HeadingBarView alloc] initWithFrame:CGRectMake(0, next.frame.size.height + next.frame.origin.y + 7, frame.size.width, fontS*1.8) AndTitle:@"Comments"];
         
         self.comments = [[UIView alloc] initWithFrame:CGRectMake(0, commentsHeader.frame.origin.y + commentsHeader.frame.size.height, frame.size.width, 0)];
         [self setupComments:bet];
@@ -193,8 +204,6 @@
         [self addSubview:stakeImg];
         [self addSubview:stakeLbl];
         
-        [self addSubview:opponentsHeader];
-        
         [self addSubview:commentsHeader];
         [self addSubview:comments];
         
@@ -205,6 +214,38 @@
 }
 
 // Helpers! yay!
+-(UIScrollView *) makeOpponentsScrollViewFromDiameter:(int)diameter AndScrollView:(UIScrollView *)oppScroll {
+    NSArray * acceptedOpponents = [[bet valueForKey:@"opponents"] valueForKey:@"accepted"];
+    NSArray * otherOpponents = [[bet valueForKey:@"opponents"] valueForKey:@"others"];
+    
+    for (int i = 0; i < acceptedOpponents.count; i++) {
+        CGRect profF  = CGRectMake((diameter+2)*i, 1, diameter, diameter);
+        UIView *profPic = [self getFBPic:[acceptedOpponents objectAtIndex:i] WithDiameter:diameter AndFrame:profF];
+        profPic.layer.borderColor = [Blight CGColor];
+        profPic.layer.borderWidth = 2;
+        profPic.layer.masksToBounds = YES;
+        [oppScroll addSubview:profPic];
+    }
+    for (int i = 0; i < otherOpponents.count; i++) {
+        CGRect profF  = CGRectMake((diameter+2)*i + (acceptedOpponents.count *(diameter+2)), 1, diameter, diameter);
+        [self getFBPic:[otherOpponents objectAtIndex:i] AndSetupWithBlock:^(UIImage *img) {
+            UIImageView *profPic = [[UIImageView alloc] initWithImage:[self convertImageToGrayScale:img]];
+            profPic.layer.cornerRadius = diameter / 2;
+            profPic.frame = profF;
+            profPic.layer.borderColor = [Blight CGColor];
+            profPic.layer.borderWidth = 2;
+            profPic.layer.masksToBounds = YES;
+            [oppScroll addSubview:profPic];
+        }];
+        
+    }
+    
+    
+    oppScroll.contentSize = CGSizeMake((acceptedOpponents.count+otherOpponents.count) * (diameter + 4), oppScroll.frame.size.height);
+    
+    return oppScroll;
+}
+
 -(void)getFBPic:(NSString *)userId AndSetupWithBlock:(void (^)(UIImage *))block {
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSString *path = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", userId];
@@ -489,6 +530,118 @@
     }];
 }
 
+// API call stuff
+-(void)acceptBet:(UIButton *)sender {
+    // May return nil if a tracker has not already been initialized with a property
+    // ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"       // Event category (required)
+                                                          action:@"button_press"    // Event action (required)
+                                                           label:@"Accept Bet"      // Event label
+                                                           value:nil] build]];      // Event value
+    
+    // this method does the following, in order:
+    //  1. asks for Credit Card info via BTLibrary
+    //  2. tells the server the info, which makes, but does not submit the transaction
+    //  3. tells the server that the bet is accepted
+    //  4. UIAlerts the user that the process is done
+    
+    /* Do #1 */
+    
+    NSString *path = [NSString stringWithFormat:@"card/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
+    [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        if ([[json valueForKey:@"msg"] isEqualToString:@"no card found, man"]) {
+            // tell the user wtf is going on
+            [[[UIAlertView alloc] initWithTitle:@"We Need Something"
+                                        message:@"We're gonna need a valid credit card for you to do that. Don't worry, we won't charge it until the bet is over--and even then only if you lost."
+                                       delegate:nil
+                              cancelButtonTitle:@"Fair Enough"
+                              otherButtonTitles:nil]
+             show];
+            
+            
+            // showing BrainTree's CreditCard processing page
+            BTPaymentViewController *paymentViewController = [BTPaymentViewController paymentViewControllerWithVenmoTouchEnabled:NO];
+            CGRect f = CGRectMake(0, -63, self.frame.size.width, 90);
+            BetterBraintreeView *sub = [[BetterBraintreeView alloc] initWithFrame:f];
+            [paymentViewController.view addSubview:sub];
+            [paymentViewController.tableView setContentInset:UIEdgeInsetsMake(78,0,0,0)];
+            // setup it's delegate
+            TempBet * b = [TempBet new];
+            [BraintreeDelegateController sharedInstance].del = self;
+            b.stakeAmount = [bet valueForKey:@"stakeAmount"];
+            [BraintreeDelegateController sharedInstance].bet = b;
+            [BraintreeDelegateController sharedInstance].ident = [bet valueForKey:@"id"];
+            [BraintreeDelegateController sharedInstance].email = sub.email;
+            paymentViewController.delegate = [BraintreeDelegateController sharedInstance];
+            // Now, display the navigation controller that contains the payment form
+            [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:paymentViewController animated:YES];
+        } else {
+            //skip asking for the card.
+            [self tellServerOfAcceptedBet];
+        }
+    }];
+    
+    /* Do #2-4 */
+    // is done within the delegate methods below. line 370 sets this up ^^
+}
+
+-(void)tellServerOfAcceptedBet {
+    /* Do #3 */
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
+    NSString *path =[NSString stringWithFormat:@"invites/%@", [bet valueForKey:@"invite"]];
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"accepted", @"status",
+                                  app.ownName, @"name",
+                                  nil];
+    //make the call to the web API
+    // PUT /invites/:id => {status: "accepted"}
+    [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
+        /* Do #4 */
+        [app.navController popToRootViewControllerAnimated:YES];
+    }];
+    
+    // tell them what's going on
+    [[[UIAlertView alloc] initWithTitle:@""
+                                message:@"You have accepted your friend's bet. Your card will be charged if you lose the bet."
+                               delegate:nil
+                      cancelButtonTitle:@"OK!"
+                      otherButtonTitles:nil]
+     show];
+}
+
+-(void)rejectBet:(UIButton *)sender {
+    // May return nil if a tracker has not already been initialized with a property
+    // ID.
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"       // Event category (required)
+                                                          action:@"button_press"    // Event action (required)
+                                                           label:@"Reject Bet"      // Event label
+                                                           value:nil] build]];      // Event value
+    
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
+    // this method does the following, in order:
+    //  1. tells the server that the invite has been rejected
+    NSString *path =[NSString stringWithFormat:@"invites/%@", [bet valueForKey:@"invite"]];
+    NSMutableDictionary* params =[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  @"rejected", @"status",
+                                  app.ownName, @"name",
+                                  nil];
+    //make the call to the web API
+    // PUT /invites/:id => {status: "rejected"}
+    [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
+        /* Do #4 */
+        // Show the result in an alert
+        [[[UIAlertView alloc] initWithTitle:@"Lame..."
+                                    message:@"You have rejected your friend's bet. That's not very sportsman-like."
+                                   delegate:nil
+                          cancelButtonTitle:@"ok"
+                          otherButtonTitles:nil]
+         show];
+        [app.navController popToRootViewControllerAnimated:YES];
+    }];
+}
+
 #pragma mark UITextFieldDelegate methods
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     if ([textField.text isEqualToString:@""]) { return NO; }
@@ -524,8 +677,18 @@
 
 #pragma mark - UIAlertViewDelegate methods
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [self sendDeleteForComment:alertView.tag];
+    if ([alertView.title isEqualToString:@"Credit Card"]) {
+        if ([alertView.message isEqualToString:@"Card is approved"]) {
+            // Then dismiss the paymentViewController
+            // the loading thing is removed before the alert comes up
+            [self tellServerOfAcceptedBet];
+        } else {
+            // the card was bad, so do nothing
+        }
+    } else {
+        if (buttonIndex == 1) {
+            [self sendDeleteForComment:alertView.tag];
+        }
     }
 }
 

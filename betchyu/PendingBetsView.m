@@ -175,8 +175,8 @@
 
 - (void) showDetails:(UIButton *)sender {
     // make the Bet Details View Controller
-    ExistingBetDetailsVC *vc = [[ExistingBetDetailsVC alloc] initWithJSON:[bets objectAtIndex:sender.tag]];
-    vc.title = @"The Bet";
+    ExistingBetDetailsVC *vc = [[ExistingBetDetailsVC alloc] initWithJSON:[bets objectAtIndex:sender.tag] AndOfferBool:YES];
+    vc.title = @"Sign Up";
     [((AppDelegate *)([[UIApplication sharedApplication] delegate])).navController pushViewController:vc animated:YES];
 }
 

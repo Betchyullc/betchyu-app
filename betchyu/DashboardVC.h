@@ -23,7 +23,9 @@
 @property SettingsVC * howItWorksContainerVC;
 @property UIActivityIndicatorView *spinner;
 
-
+@property NSArray *pendingBets;
+@property NSArray *myBets;
+@property NSArray *friendsBets;
 
 - (id)initWithInviteNumber:(NSString *)numInvs;
 - (void)getAndAddPendingBets:(id)useless;

@@ -22,7 +22,7 @@
 }
 
 - (void)loadView {
-    self.view = [[BetDetailsView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame AndBet:betJSON AndIsMyBet:YES];
+    self.view = [[BetDetailsView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame AndBet:betJSON AndIsMyBet:YES AndIsOffer:NO];
 }
 
 @end
