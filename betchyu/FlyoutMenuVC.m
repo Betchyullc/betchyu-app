@@ -443,7 +443,7 @@
 
 - (HowItWorksVC *)viewControllerAtIndex:(NSUInteger)index {
     
-    HowItWorksVC *childViewController = [[HowItWorksVC alloc] initWithNibName:nil bundle:nil];
+    HowItWorksVC *childViewController = [[HowItWorksVC alloc] init];
     childViewController.index = index;
     
     return childViewController;

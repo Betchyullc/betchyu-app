@@ -103,7 +103,7 @@
     //make the call to the web API
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
         if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
-            if ([((NSArray *)json) count] == pendingBets.count) {
+            if ([((NSArray *)json) count] == pendingBets.count && pendingBets.count > 0) {
                 return;
             }
             // json is our array of Bets, hopefully
@@ -132,7 +132,7 @@
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
         
         if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
-            if ([((NSArray *)json) count] == myBets.count) {
+            if ([((NSArray *)json) count] == myBets.count && myBets.count > 0) {
                 return;
             }
             // json is our array of Bets, hopefully
@@ -161,7 +161,7 @@
         [self.spinner stopAnimating]; // we done with getting stuff from the server, so we stop the spinner
         
         if ([((NSArray *)json) respondsToSelector:@selector(objectAtIndex:)]) {
-            if ([((NSArray *)json) count] == friendsBets.count) {
+            if ([((NSArray *)json) count] == friendsBets.count && friendsBets.count > 0) {
                 return;
             }
             // json is our array of Bets, hopefully

@@ -162,6 +162,18 @@
     ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:5]).index = 5;
     ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:6]).index = 6;
     ((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:7]).index = 7;
+    // add the 'x'
+    int fontSize = 15;
+    UIButton *x = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 48, 29, fontSize +10, fontSize +10)];
+    [x setTitle:@"X" forState:UIControlStateNormal];
+    [x addTarget:((HowItWorksVC *)[self.pagesForHowItWorks objectAtIndex:0]) action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
+    [x setTitleColor:Borange forState:UIControlStateNormal];
+    x.titleLabel.font = FblackfS;
+    x.layer.borderColor = Borange.CGColor;
+    x.layer.borderWidth = 2;
+    x.layer.cornerRadius = (fontSize +10)/2;
+    [pvc.view addSubview:x];
+    [pvc.view bringSubviewToFront:x];
     NSArray *viewControllers = [NSArray arrayWithObject:[self.pagesForHowItWorks objectAtIndex:0]];
     
     [pvc setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
