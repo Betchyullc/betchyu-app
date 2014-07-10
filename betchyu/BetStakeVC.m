@@ -37,7 +37,6 @@
 - (void) loadView {
     // Create main UIScrollView (the container for what follows)
     UIScrollView *mainView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    int h = mainView.frame.size.height;
     int w = mainView.frame.size.width;
     int topHeight = w>500 ? 320 : 180;
     

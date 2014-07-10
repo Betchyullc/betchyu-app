@@ -75,7 +75,7 @@
 - (IBAction)performLogin:(id)sender{
     [self.spinner startAnimating];
     
-    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [appDelegate openSession];
 }
 - (void)loginFailed

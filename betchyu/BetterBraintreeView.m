@@ -20,8 +20,6 @@
         NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
         
         int fontSize = 17;
-        int w = frame.size.width;
-        int dim = frame.size.width / 4;
         
         /// The 'Name' indicator
         UIView *nameBack = [[UIView alloc] initWithFrame:CGRectMake(4, -5, frame.size.width - 8, 30)];

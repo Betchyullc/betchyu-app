@@ -473,15 +473,13 @@
     [self.fbFriendVC updateView];
 }
 
-////////////////////////
-// friend picker stuff
-////////////////////////
+#pragma mark - FBFriendPickerDelegate methods
 - (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker {
     // need to clear the search, so that the facebookVC will re-determine the selection list.
     // this prevents bugs with search-selected people not being included in the actual invitations
-    self.searchText = nil;
+    //self.searchText = nil;
     [self.searchBar resignFirstResponder];
-    [self.fbFriendVC updateView];
+    //[self.fbFriendVC updateView];
     // this re-updates the list of friends we're gonna use to make invitations.
     bet.friends = friendPicker.selection;
 }
@@ -521,6 +519,20 @@
         return YES;
     }
     return YES;
+}
+// makes us add a gray circle to each friend, so that it's obvoius where the selection mark will appear.
+- (void) friendPickerViewControllerDataDidChange:(FBFriendPickerViewController *)friendPicker {
+    NSArray *cells = fbFriendVC.tableView.visibleCells;
+    for (int i = 0; i < cells.count; i++){
+        UITableViewCell *cell = (UITableViewCell *)[cells objectAtIndex:i];
+        int h  = cell.frame.size.height;
+        int w  = cell.frame.size.width;
+        UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(w - (h/2 +11), h/4, h/2, h/2)];
+        circle.layer.borderColor = Bmid.CGColor;
+        circle.layer.borderWidth = 2;
+        circle.layer.cornerRadius = h/4;
+        [cell.contentView addSubview:circle];
+    }
 }
 
 /**

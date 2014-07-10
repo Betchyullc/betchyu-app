@@ -284,13 +284,13 @@
     }];
 }
 
--(int)getDaysInFromBet:(NSDictionary *)bet {
+-(int)getDaysInFromBet:(NSDictionary *)b {
     [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    NSDate *start = [dateFormatter dateFromString: [[bet valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
+    NSDate *start = [dateFormatter dateFromString: [[b valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
     
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
@@ -301,16 +301,16 @@
     
 }
 
--(int)getDaysToGoFromBet:(NSDictionary *)bet {
+-(int)getDaysToGoFromBet:(NSDictionary *)b {
     [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    NSDate *start = [dateFormatter dateFromString: [[bet valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
+    NSDate *start = [dateFormatter dateFromString: [[b valueForKey:@"created_at"] substringWithRange:NSMakeRange(0, 10)]];
     
     NSDateComponents *components = [NSDateComponents new];
-    components.day = [[bet valueForKey:@"duration"] integerValue];
+    components.day = [[b valueForKey:@"duration"] integerValue];
     NSDate *end = [[NSCalendar currentCalendar]dateByAddingComponents:components
                                                                toDate:start
                                                               options:0];

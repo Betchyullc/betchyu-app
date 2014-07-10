@@ -28,6 +28,5 @@
 @property int last;
 
 -(id)initWithFrame:(CGRect)frame;
--(void) howItWorksPressed:(id)sender;
 
 @end
