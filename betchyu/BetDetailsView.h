@@ -10,9 +10,10 @@
 #import "HeadingBarView.h"
 #import <math.h>
 #import "ProgressBarView.h"
+#import "UISwipeWithTag.h"
 @class UpdateView;
 
-@interface BetDetailsView : UIScrollView <UITextFieldDelegate>
+@interface BetDetailsView : UIScrollView <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property NSDictionary *bet;
 

@@ -1,10 +1,8 @@
-//
 //  StakeDetailsVC.h
 //  betchyu
 //
-//  Created by Adam Baratz on 6/17/14.
+//  Created by Daniel Zapata on 6/17/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "StakeDetailsView.h"
@@ -18,6 +16,7 @@
 @property (strong) TempBet *bet;
 @property int currentStake;
 @property StakeDetailsView * staticStuff;
+@property BOOL nextTapped;
 
 - (id)initWithBet:(TempBet *)betObj;
 

@@ -320,19 +320,19 @@
     
     return components.day;
 }
--(NSString *)getProgressTextFromBet:(NSDictionary *)bet {
-    NSString *n = [[bet valueForKey:@"noun"] lowercaseString];
+-(NSString *)getProgressTextFromBet:(NSDictionary *)b {
+    NSString *n = [[b valueForKey:@"noun"] lowercaseString];
     NSString * two; NSString * three; NSString * four; NSString * five;
     
     //default
-    three = [NSString stringWithFormat:@"%i",(int)roundf([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"amount"] intValue])];
-    four  = [bet valueForKey:@"amount"];
+    three = [NSString stringWithFormat:@"%i",(int)roundf([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[b valueForKey:@"amount"] intValue])];
+    four  = [b valueForKey:@"amount"];
     five  = n;
     
     if ([n isEqualToString:@"smoking"]) {
         two   = @"not smoked";
-        three = [NSString stringWithFormat:@"%.0f",([[bet valueForKey:@"progress"] floatValue] / 100.0 * [[bet valueForKey:@"duration"] integerValue])];
-        four  = [bet valueForKey:@"duration"];
+        three = [NSString stringWithFormat:@"%.0f",([[b valueForKey:@"progress"] floatValue] / 100.0 * [[b valueForKey:@"duration"] integerValue])];
+        four  = [b valueForKey:@"duration"];
         five  = @"days";
     } else if ( [n isEqualToString:@"pounds"] ) {
         two   = @"lost";
@@ -356,8 +356,7 @@
     }
 }
 
-- (UIImage *)convertImageToGrayScale:(UIImage *)image
-{
+- (UIImage *)convertImageToGrayScale:(UIImage *)image {
     // Create image rectangle with current image width/height
     CGRect imageRect = CGRectMake(0, 0, image.size.width, image.size.height);
     
@@ -385,17 +384,6 @@
     // Return the new grayscale image
     return newImage;
 }
-- (UIImage *) imageWithView:(UIView *)view
-{
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return img;
-}
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -418,7 +406,15 @@
         if (((NSArray *)json).count == 0) {
             // none notice
         } else {
+            UISwipeWithTag *recognizer;
             for (int i = 0; i < ((NSArray *)json).count; i++) {
+                // setup delete guesture swipe right recognizer
+                recognizer = [[UISwipeWithTag alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+                [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+                recognizer.tag = [[[((NSArray *)json) objectAtIndex:i] valueForKey:@"id"] integerValue];
+                UIView *recogView = [[UIView alloc] initWithFrame:CGRectMake(0, i*commentHt, comments.frame.size.width, commentHt)];
+                [recogView addGestureRecognizer:recognizer];
+                
                 // setup circle face
                 CGRect profF  = CGRectMake(5, i*commentHt, diameter, diameter);
                 NSString *usr = [[((NSArray *)json) objectAtIndex:i] valueForKey:@"user_fb_id"];
@@ -457,6 +453,7 @@
                 
                 [comments addSubview:profPic];
                 [comments addSubview:text];
+                [comments addSubview:recogView];
             }
         }
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, commentHt*((NSArray *)json).count, comments.frame.size.width, 2)];
@@ -492,8 +489,8 @@
     }];
 }
 
-#pragma mark UITextFieldDelegate shit
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+#pragma mark UITextFieldDelegate methods
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
     if ([textField.text isEqualToString:@""]) { return NO; }
     // send the message to the server
     NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
@@ -513,7 +510,7 @@
     textField.text = @"";
     return NO;
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void) textFieldDidBeginEditing:(UITextField *)textField {
     textField.text = @"";
     CGRect vf = [UIScreen mainScreen].applicationFrame;
     if (self.frame.size.height > 500 && self.frame.size.width < 500) {          // big iphone
@@ -523,6 +520,34 @@
     } else {                                                                    // small iphone
         self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-44)/2), self.frame.size.width, self.frame.size.height );
     }
+}
+
+#pragma mark - UIAlertViewDelegate methods
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self sendDeleteForComment:alertView.tag];
+    }
+}
+
+// comment deletion helpers //
+/// handles the swipe right for deleteing a comment
+-(void) handleSwipeFrom:(UISwipeWithTag *)r {
+    UIAlertView *a =[[UIAlertView alloc] initWithTitle:@"Delete Comment" message:@"Sure you want to delete this comment?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    a.tag = r.tag;
+    [a show];
+}
+/// sends a delete request to the server for the given comment id
+-(void) sendDeleteForComment:(int) i {
+    NSString *path = [NSString stringWithFormat:@"comments/%i", i];
+    [[API sharedInstance] deletePath:path withParams:nil onCompletion:^(NSDictionary *json) {
+        if ([[json valueForKey:@"msg"] isEqualToString:@"you can't see this"]) {
+            // the user tried to delete someone else's comment. Dumbass.
+            [[[UIAlertView alloc] initWithTitle:@"Delete Comment" message:@"That comment isn't yours." delegate:nil cancelButtonTitle:@"Oh." otherButtonTitles: nil] show];
+        } else {
+            // the deletion was successful.
+            [self setupComments:bet];
+        }
+    }];
 }
 
 @end

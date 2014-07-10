@@ -1,10 +1,8 @@
-//
 //  StakeDetailsVC.m
 //  betchyu
 //
-//  Created by Adam Baratz on 6/17/14.
+//  Created by Daniel Zapata on 6/17/14.
 //  Copyright (c) 2014 BetchyuLLC. All rights reserved.
-//
 
 #import "StakeDetailsVC.h"
 
@@ -17,12 +15,14 @@
 @synthesize bet;
 @synthesize currentStake;
 @synthesize staticStuff;
+@synthesize nextTapped;
 
 - (id)initWithBet:(TempBet *)betObj
 {
     self = [super init];
     if (self) {
         self.screenName = @"Stake Details (step 4)";
+        self.nextTapped = NO;
         // Custom initialization
         bet = betObj;
         currentStake = 10;
@@ -142,6 +142,9 @@
 
 
 -(void)reviewBet:(id)sender {
+    if (self.nextTapped) { return; }
+    self.nextTapped = YES;  // lock this method so we don't double request
+    
     NSString *path = [NSString stringWithFormat:@"card/%@", ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId];
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
         if ([[json valueForKey:@"msg"] isEqualToString:@"no card found, man"]) {

@@ -22,24 +22,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Let the device know we want to receive push notifications
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge
-                                                                           | UIRemoteNotificationTypeSound
-                                                                           | UIRemoteNotificationTypeAlert)];
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     // clear some stuff
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    self.ownId = @"";
-    self.token = @"derp";
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;       // de-badge the app
+    self.ownId = @"";               // clear our fb userId
+    self.token = @"derp";           // clear our token until the phone tells us it
     
-    // setup url cache
+    // setup url cache and activity indicator
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:8 * 1024 * 1024 diskCapacity:20 * 1024 * 1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     // setup view controller stuff
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    // the thing which enables the flyout menu
     self.stackViewController = [[MTStackViewController alloc] initWithNibName:nil bundle:nil];
     [stackViewController setAnimationDurationProportionalToPosition:YES];
     stackViewController.disableSwipeWhenContentNavigationControllerDrilledDown = YES;
@@ -54,7 +51,7 @@
     
     [stackViewController setLeftContainerView:[[MTZoomContainerView alloc] initWithFrame:foldFrame]];
     [stackViewController setLeftViewController:flyOutNav];
-    
+    // the dashboard
     self.mainViewController = [[DashboardVC alloc] initWithInviteNumber:@"0"];
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainViewController];
     [stackViewController setContentViewController:self.navController];
@@ -104,28 +101,24 @@
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
+- (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [self.navController popToRootViewControllerAnimated:NO];
     [self.mainViewController viewDidAppear:YES];
     [self sendDeviceTokenToServer:self.token];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface..
     
     // We need to properly handle activation of the application with regards to Facebook Login
@@ -133,14 +126,12 @@
     [FBSession.activeSession handleDidBecomeActive];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void)applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
 
-- (void)saveContext
-{
+- (void)saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
@@ -154,14 +145,13 @@
 }
 
 #pragma mark - Push Notification stuff
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
-{
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
     // format that dirty, dirty token
     NSString *newToken = [deviceToken description];
 	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
 	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     // log it for pleasureable release
-	NSLog(@"My token is: %@", newToken);
+	// NSLog(@"My token is: %@", newToken);
     
     // save it up for later, baby
     self.token = newToken;
@@ -191,8 +181,7 @@
     }];
 }
 
-- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
-{
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error {
 	NSLog(@"Failed to get token, error: %@", error);
     [self sendDeviceTokenToServer:@"derp"];
     // save it up for later, baby
@@ -217,11 +206,7 @@
 
 #pragma mark - FB stuff
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
@@ -257,8 +242,6 @@
                  if (!error) {
                      self.ownId = user.id;
                      self.ownName = user.name;
-                     NSLog(@"FBuserId: %@", user.id);
-                     NSLog(@"FBuser: %@", user);
                      self.fbUser = user; // it's okay, because it seems to work
                      [self askAboutGAI];
                  } else {
@@ -305,8 +288,7 @@
     }
 }
 
-- (void)openSession
-{
+- (void)openSession {
     [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
                                        allowLoginUI:YES
                                   completionHandler:

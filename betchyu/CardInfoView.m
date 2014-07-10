@@ -25,6 +25,7 @@
         NSString * ownId = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownId;
         NSString * ownName = ((AppDelegate *)([[UIApplication sharedApplication] delegate])).ownName;
         
+        // background appearance effects
         self.backgroundColor = [UIColor whiteColor];
         self.layer.masksToBounds = NO;
         self.clipsToBounds      = NO;
@@ -34,9 +35,9 @@
         self.layer.shadowOpacity= 0.7f;
         self.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:self.layer.bounds] CGPath];
         
+        // convinience variables
         int fontSize = 17;
         int w = frame.size.width;
-        int dim = frame.size.width / 4;
         
         /// The 'Name' indicator
         UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, frame.size.width, 20)];
@@ -44,7 +45,7 @@
         nameLbl.textColor = Bmid;
         nameLbl.font = FregfS;
         [self addSubview:nameLbl];
-        
+            // Displays their name -- not editable.
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/3, 10, frame.size.width, 20)];
         name.text = ownName;
         name.textColor = Borange;
@@ -57,7 +58,7 @@
         cardLbl.textColor = Bmid;
         cardLbl.font = FregfS;
         [self addSubview:cardLbl];
-        
+            // get card info from server, please.
         NSString *path = [NSString stringWithFormat:@"card/%@",ownId];
         [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
             // Success! Include your code to handle the results here

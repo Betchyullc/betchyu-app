@@ -113,6 +113,7 @@
     return NO;
 }
 
+// this will make the keyboard go away when the user taps some part of this view.
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [self.email resignFirstResponder];
 }
