@@ -527,7 +527,8 @@
         UITableViewCell *cell = (UITableViewCell *)[cells objectAtIndex:i];
         int h  = cell.frame.size.height;
         int w  = cell.frame.size.width;
-        UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(w - (h/2 +11), h/4, h/2, h/2)];
+        // 11 if just 1 screen of friends, and 15 if ABC picker shows up
+        UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(w - (h/2 +11 + 15), h/4, h/2, h/2)];
         circle.layer.borderColor = Bmid.CGColor;
         circle.layer.borderWidth = 2;
         circle.layer.cornerRadius = h/4;
