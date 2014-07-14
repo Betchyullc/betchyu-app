@@ -25,5 +25,12 @@
 @property UITextField *initialInput;
 
 - (id)initWithBetVerb:(NSString *)verbName;
+-(void) setupDurationLabelFromFrame:(CGRect)frame AndFontSize:(int)fontSize;
+-(UILabel *) getInLabelFromFrame:(CGRect)frame AndFontSize:(int)fontSize;
+-(UISlider *) makeDateScrollerFromFrame:(CGRect)frame;
+-(UIButton *)getChooseOpponentsButton:(CGRect)openCalendarFrame WithWidth:(int)w AndFontSize:(int)fontSize;
+-(void) chooseOpponents:(id)sender;
+-(void)addSearchBarToFriendPickerView;
+
 
 @end

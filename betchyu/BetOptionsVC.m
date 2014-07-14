@@ -502,7 +502,8 @@
 }
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerCancelWasPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
+    [app.navController.topViewController dismissViewControllerAnimated:YES completion:nil];
 }
 // allows us to limit which friends get shown on the friend picker (based on the search)
 - (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker shouldIncludeUser:(id<FBGraphUser>)user {
@@ -555,6 +556,7 @@
 // recursivley calls itself to go through all the friend shtye selected
 // on last friend, moves to next VC
 - (void)makePost:(NSNumber *)index {
+    AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
     // May return nil if a tracker has not already been initialized with a property
     // ID.
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -584,10 +586,10 @@
          } else {
              // move on to the next VC when we're done with last friend modal post
              if ([index integerValue] == bet.friends.count-1) {
-                 [self dismissViewControllerAnimated:YES completion:^(void){ // gets rid of the fbVC
+                 [app.navController.topViewController dismissViewControllerAnimated:YES completion:^(void){ // gets rid of the fbVC
                      BetStakeVC *vc = [[BetStakeVC alloc] initWithBet:self.bet];
                      vc.title = @"Set Stake";
-                     [self.navigationController pushViewController:vc animated:YES];
+                     [app.navController pushViewController:vc animated:YES];
                  }];
              }
              

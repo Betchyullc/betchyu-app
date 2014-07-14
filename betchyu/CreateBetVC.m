@@ -27,6 +27,7 @@
         [betTypes addObject:@"Stop Smoking"];
         [betTypes addObject:@"Run More"];
         [betTypes addObject:@"Workout More"];
+        [betTypes addObject:@"Custom Bet"];
     }
     return self;
 }
@@ -98,6 +99,8 @@
         cell.layer.shadowOffset = CGSizeMake(0, 15);
         cell.layer.shadowOpacity= 0.7f;
         cell.layer.shadowPath   = [[UIBezierPath bezierPathWithRect:cell.layer.bounds] CGPath];
+    } else {
+        img = [UIImage imageNamed:@"info_button.png"];
     }
     cell.imageView.image = img;
     
@@ -136,9 +139,16 @@
 // moves to next step in flow
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *verb = [self.betTypes objectAtIndex:indexPath.row];
-    BetOptionsVC *vc =[[BetOptionsVC alloc] initWithBetVerb:verb];
-    vc.title = @"Bet Options";
-    [self.navigationController pushViewController:vc animated:true];
+    UIViewController *vc;
+    if ([verb isEqualToString:@"Custom Bet"]){
+        vc = [UIViewController new];
+        vc.view = [[CustomBetDefineView alloc] initWithFrame:CGRectMake(0, 0, vc.view.frame.size.width, 200)];
+        vc.title = @"Define Bet";
+    } else {
+        vc = [[BetOptionsVC alloc] initWithBetVerb:verb];
+        vc.title = @"Bet Options";
+    }
+    [self.navigationController pushViewController:vc animated:YES];
     return NO;
 }
 

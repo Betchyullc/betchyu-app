@@ -6,6 +6,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BetOptionsVC.h"
+#import "CustomBetDefineView.h"
 
 @interface CreateBetVC : UITableViewController
 
