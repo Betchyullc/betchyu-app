@@ -240,7 +240,6 @@
         
     }
     
-    
     oppScroll.contentSize = CGSizeMake((acceptedOpponents.count+otherOpponents.count) * (diameter + 4), oppScroll.frame.size.height);
     
     return oppScroll;
@@ -382,8 +381,8 @@
     } else if ( [n isEqualToString:@"times"] ) {
         two   = @"worked out";
     } else {
-        two   = @"verbed";
-        five  = @"nouns";
+        two   = [NSString stringWithFormat:@"%@ed", [b valueForKey:@"verb"]];
+        five  = [b valueForKey:@"noun"];
     }
     return [NSString stringWithFormat:@"In total, %@ has %@ %@ / %@ %@.", ownerIsMale ? @"he": @"she", two, three, four, five];
 }

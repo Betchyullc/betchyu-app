@@ -117,7 +117,8 @@
 
 -(void)update:(id)sender {
     if (self.btnLocked) { return; }
-    if ( self.box.text.length == 0 ||  [self.box.text floatValue] > 550 || [self.box.text floatValue] < 0) {
+    int max = [[self.bet valueForKey:@"initial"] integerValue] == 0 ? [[self.bet valueForKey:@"amount"] integerValue] *10 : 550;
+    if ( self.box.text.length == 0 ||  [self.box.text floatValue] > max || [self.box.text floatValue] < 0) {
         [self errorBox:YES];
         [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
         return; // should show error

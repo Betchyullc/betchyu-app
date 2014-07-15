@@ -60,16 +60,16 @@
         // verb-box
         verb            = [[UITextField alloc] initWithFrame:CGRectMake(w/4, 32, w/2, fontSize + 3)];
         verb.tag        = 1;
-        verb.text       = @"verb";
+        verb.text       = @"verb (run)";
         verb.textAlignment = NSTextAlignmentCenter;
         verb.font       = FregfS;
         verb.textColor  = Borange;
         verb.delegate   = self;
         [main addSubview:verb];
         // amount-box
-        amount            = [[UITextField alloc] initWithFrame:CGRectMake((w-w/4)/2, 64, w/4, fontSize + 3)];
+        amount            = [[UITextField alloc] initWithFrame:CGRectMake(w/4, 64, w/2, fontSize + 3)];
         amount.tag        = 2;
-        amount.text       = @"#";
+        amount.text       = @"# (5)";
         amount.textAlignment = NSTextAlignmentCenter;
         amount.font       = FregfS;
         amount.textColor  = Borange;
@@ -79,7 +79,7 @@
         // noun-box
         noun            = [[UITextField alloc] initWithFrame:CGRectMake(w/4, 96, w/2, fontSize + 3)];
         noun.tag        = 3;
-        noun.text       = @"noun";
+        noun.text       = @"noun (miles)";
         noun.textAlignment = NSTextAlignmentCenter;
         noun.font       = FregfS;
         noun.textColor  = Borange;
@@ -131,6 +131,8 @@
         
         
         [self addSubview:main];
+        
+        [[[UIAlertView alloc] initWithTitle:@"Custom Bet" message:@"These bets are a bit like a Mad lib. Fill in the words to make your own bet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
     return self;
 }
@@ -159,8 +161,17 @@
 -(void) chooseOpponents:(UIButton *)sender {
     AppDelegate * app = ((AppDelegate *)([[UIApplication sharedApplication] delegate]));
     
-    if ([amount.text isEqualToString:@"#"]) {
-        [self errorBox:YES];
+    if ([verb.text isEqualToString:@"verb (run)"] || [verb.text isEqualToString:@""]) {
+        [self errorBox:YES box:verb];
+        [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
+        return;
+    }
+    if ([amount.text isEqualToString:@"# (5)"] || [amount.text isEqualToString:@""]) {
+        [self errorBox:YES box:amount];
+        [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
+        return;
+    }if ([noun.text isEqualToString:@"noun (miles)"] || [noun.text isEqualToString:@""]) {
+        [self errorBox:YES box:noun];
         [self performSelector:@selector(errorBox:) withObject:NO afterDelay:1];
         return;
     }
@@ -192,12 +203,21 @@
 
 }
 
+-(void)errorBox:(BOOL)error box:(UITextField *)box {
+    if (error) {
+        box.layer.borderColor = [Bred CGColor];
+        box.layer.borderWidth = 2;
+    } else {
+        box.layer.borderWidth = 0;
+    }
+}
 -(void)errorBox:(BOOL)error {
     if (error) {
-        self.amount.layer.borderColor = [Bred CGColor];
-        self.amount.layer.borderWidth = 2;
+        //wont happen
     } else {
-        self.amount.layer.borderWidth = 0;
+        verb.layer.borderWidth = 0;
+        amount.layer.borderWidth = 0;
+        noun.layer.borderWidth = 0;
     }
 }
 
@@ -212,6 +232,9 @@
 
 #pragma mark UITextFieldDelegate shit
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
+    amount.text = [amount.text isEqualToString:@""] ? @"# (5)" : amount.text;
+    noun.text = [noun.text isEqualToString:@""] ? @"noun (miles)" : noun.text;
+    verb.text = [verb.text isEqualToString:@""] ? @"verb (run)" : verb.text;
     textField.text = @"";
 }
 

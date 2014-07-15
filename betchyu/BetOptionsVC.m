@@ -275,7 +275,7 @@
     [slider setMinimumTrackTintColor:Borange];
     [slider setThumbImage:[UIImage imageNamed:@"1.jpg"] forState:UIControlStateNormal];
     slider.thumbTintColor = Borange;
-    slider.maximumValue = isWorkout ? 30 : 300;
+    slider.maximumValue = isWorkout ? 30 : 50;
     [slider addTarget:self
                 action:@selector(updateSliderValue:)
       forControlEvents:UIControlEventValueChanged];
@@ -529,7 +529,10 @@
         int h  = cell.frame.size.height;
         int w  = cell.frame.size.width;
         // 11 if just 1 screen of friends, and 15 if ABC picker shows up
-        UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(w - (h/2 +11 + 15), h/4, h/2, h/2)];
+        UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(w - (h/2 +11 + 15), h/4, h/2, h/2)];;
+        if (cells.count <= 8) {
+            circle = [[UIView alloc] initWithFrame:CGRectMake(w - (h/2 +11), h/4, h/2, h/2)];
+        }
         circle.layer.borderColor = Bmid.CGColor;
         circle.layer.borderWidth = 2;
         circle.layer.cornerRadius = h/4;

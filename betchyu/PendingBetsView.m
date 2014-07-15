@@ -248,8 +248,9 @@
     //make the call to the web API
     // PUT /invites/:id => {status: "accepted"}
     [[API sharedInstance] put:path withParams:params onCompletion:^(NSDictionary *json) {
-         /* Do #4 */
-         [app.navController popToRootViewControllerAnimated:YES];
+        /* Do #4 */
+        [app.navController popToRootViewControllerAnimated:YES];
+        [app.mainViewController viewDidAppear:YES];
      }];
     
     // tell them what's going on
