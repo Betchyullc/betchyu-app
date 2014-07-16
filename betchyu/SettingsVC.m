@@ -201,6 +201,7 @@
                                     sender.on ? @"true" : @"false", @"allow_analytics", nil];
     [[API sharedInstance] post:@"user" withParams:params onCompletion:^(NSDictionary *json) {
         // do nothing
+        [GAI sharedInstance].optOut = !sender.on;
     }];
 }
 

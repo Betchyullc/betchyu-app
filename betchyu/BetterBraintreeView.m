@@ -65,6 +65,13 @@
             [self addSubview:email];
         }];
         
+        UILabel *notice = [[UILabel alloc] initWithFrame:CGRectMake(10, 225, frame.size.width- 20, fontSize+3)];
+        notice.font     = FregfS;
+        notice.textColor= Bdark;
+        notice.text     = @"Powered by Braintree.";
+        [self addSubview:notice];
+        
+        
     }
     return self;
 }

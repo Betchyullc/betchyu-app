@@ -23,6 +23,8 @@
 @synthesize searchText;
 @synthesize initialInput;
 
+@synthesize selectedView;
+
 - (id)initWithBetVerb:(NSString *)verbName {
     self = [super init];
     if (self) {
@@ -431,20 +433,29 @@
     }];
 }
 
+// add selected list to fbFriendVC
+- (void) addSelectedViewToFriendPickerView {
+    if (self.selectedView == nil) {
+        CGFloat tableH = 44.0;
+        self.selectedView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, tableH)];
+        self.selectedView.delegate = self;
+        
+        [self.fbFriendVC.canvasView addSubview:self.selectedView];
+        CGRect newFrame = self.fbFriendVC.view.bounds;
+        newFrame.size.height -= tableH;
+        newFrame.origin.y = tableH;
+        self.fbFriendVC.tableView.frame = newFrame;
+    }
+}
+
 //////////////////////////////////////////
 // search bar stuff for FBFriendPicker  //
 //////////////////////////////////////////
 - (void)addSearchBarToFriendPickerView {
     if (self.searchBar == nil) {
         CGFloat searchBarHeight = 44.0;
-        self.searchBar =
-        [[UISearchBar alloc]
-         initWithFrame:
-         CGRectMake(0,0,
-                    self.view.bounds.size.width,
-                    searchBarHeight)];
-        self.searchBar.autoresizingMask = self.searchBar.autoresizingMask |
-        UIViewAutoresizingFlexibleWidth;
+        self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, searchBarHeight)];
+        self.searchBar.autoresizingMask = self.searchBar.autoresizingMask | UIViewAutoresizingFlexibleWidth;
         self.searchBar.delegate = self;
         self.searchBar.showsCancelButton = YES;
         

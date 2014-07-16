@@ -23,6 +23,7 @@
 @property (retain, nonatomic) UISearchBar *searchBar;
 @property (retain, nonatomic) NSString *searchText;
 @property UITextField *initialInput;
+@property UITableView *selectedView;
 
 - (id)initWithBetVerb:(NSString *)verbName;
 -(void) setupDurationLabelFromFrame:(CGRect)frame AndFontSize:(int)fontSize;
