@@ -12,7 +12,7 @@
 #import "TouchesBeganHelper.h"
 #import "GAITrackedViewController.h"
 
-@interface BetOptionsVC : GAITrackedViewController <FBFriendPickerDelegate, UISearchBarDelegate, UITextFieldDelegate>
+@interface BetOptionsVC : GAITrackedViewController <FBFriendPickerDelegate, UISearchBarDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property TempBet * bet;
 @property NSString * passedBetName;

@@ -188,7 +188,7 @@
         //success
         for (NSMutableDictionary<FBGraphUser> *friend in bet.friends) {
             NSMutableDictionary *newParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                              friend.id,                   @"invitee",
+                                              [friend objectForKey:@"id"],                   @"invitee",
                                               ownerString,                 @"inviter",
                                               @"open",                     @"status",
                                               [json objectForKey:@"id"],   @"bet_id",

@@ -443,6 +443,7 @@
     
     NSString *path = [NSString stringWithFormat:@"bets/%@/comments", [b valueForKey:@"id"]];
     [[API sharedInstance] get:path withParams:nil onCompletion:^(NSDictionary *json) {
+        int extraYoff = 0;
         if (((NSArray *)json).count == 0) {
             // none notice
         } else {
@@ -452,11 +453,11 @@
                 recognizer = [[UISwipeWithTag alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
                 [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
                 recognizer.tag = [[[((NSArray *)json) objectAtIndex:i] valueForKey:@"id"] integerValue];
-                UIView *recogView = [[UIView alloc] initWithFrame:CGRectMake(0, i*commentHt, comments.frame.size.width, commentHt)];
+                UIView *recogView = [[UIView alloc] initWithFrame:CGRectMake(0, i*commentHt + extraYoff, comments.frame.size.width, commentHt)];
                 [recogView addGestureRecognizer:recognizer];
                 
                 // setup circle face
-                CGRect profF  = CGRectMake(5, i*commentHt, diameter, diameter);
+                CGRect profF  = CGRectMake(5, i*commentHt + extraYoff, diameter, diameter);
                 NSString *usr = [[((NSArray *)json) objectAtIndex:i] valueForKey:@"user_fb_id"];
                 UIView *profPic = [self getFBPic:usr WithDiameter:diameter AndFrame:profF];
                 profPic.layer.borderColor = [Blight CGColor];
@@ -465,7 +466,7 @@
                 // setup name
                 [FBRequestConnection startWithGraphPath:usr completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                     if (!error) {
-                        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + 6, comments.frame.size.width - (commentHt + 15), fontSize)];
+                        UILabel *nameLbl = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + 6 + extraYoff, comments.frame.size.width - (commentHt + 15), fontSize)];
                         nameLbl.text = [result valueForKey:@"name"];
                         nameLbl.font = FblackfS;
                         nameLbl.textColor = Bdark;
@@ -481,27 +482,32 @@
                 NSString *cT = [[((NSArray *)json) objectAtIndex:i] valueForKey:@"text"];
                 UILabel *text;
                 if (cT.length > 33) {
-                    text = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + 12, comments.frame.size.width - (commentHt + 15), commentHt)];
+                    text = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + 12 + extraYoff, comments.frame.size.width - (commentHt + 15), commentHt)];
                 } else {
-                    text = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt , comments.frame.size.width - (commentHt + 15), commentHt)];
+                    text = [[UILabel alloc] initWithFrame:CGRectMake(commentHt + 9, i*commentHt + extraYoff, comments.frame.size.width - (commentHt + 15), commentHt)];
                 }
                 text.text = cT;
                 text.font = FregfS;
                 text.textColor = Bmid;
                 text.numberOfLines = 0;
                 text.lineBreakMode = NSLineBreakByWordWrapping;
+                NSLog(@"%i",[self lineCountForLabel:text]);
+                if ([self lineCountForLabel:text] > 3) {
+                    NSLog(@"here");
+                    extraYoff += ([self lineCountForLabel:text]-3) * fontSize;
+                }
                 
                 [comments addSubview:profPic];
                 [comments addSubview:text];
                 [comments addSubview:recogView];
             }
         }
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, commentHt*((NSArray *)json).count, comments.frame.size.width, 2)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, commentHt*((NSArray *)json).count + extraYoff, comments.frame.size.width, 2)];
         line.backgroundColor = Bmid;
         [comments addSubview:line];
         
         // add the submit comment bit
-        self.commentBox = [[UITextField alloc] initWithFrame:CGRectMake(commentHt + 9, commentHt*((NSArray *)json).count + ((commentHt - (fontSize*1.9))/2), comments.frame.size.width - (commentHt + 18), fontSize * 1.9)];
+        self.commentBox = [[UITextField alloc] initWithFrame:CGRectMake(commentHt + 9, commentHt*((NSArray *)json).count + ((commentHt - (fontSize*1.9))/2) + extraYoff, comments.frame.size.width - (commentHt + 18), fontSize * 1.9)];
         commentBox.layer.borderColor = Bmid.CGColor;
         commentBox.layer.borderWidth = 2;
         commentBox.textColor = Bmid;
@@ -514,7 +520,7 @@
         commentBox.leftViewMode = UITextFieldViewModeAlways;
         [comments addSubview:commentBox];
         
-        comments.frame = CGRectMake(0, comments.frame.origin.y, comments.frame.size.width, commentHt*(((NSArray *)json).count+1));
+        comments.frame = CGRectMake(0, comments.frame.origin.y, comments.frame.size.width, commentHt*(((NSArray *)json).count+1) + extraYoff);
         comments.clipsToBounds = NO;
         comments.layer.masksToBounds = NO;
         
@@ -641,6 +647,12 @@
     }];
 }
 
+- (int)lineCountForLabel:(UILabel *)label {
+    CGSize size = [label.text sizeWithFont:label.font constrainedToSize:label.frame.size lineBreakMode:UILineBreakModeWordWrap];
+    
+    return ceil(size.height / label.font.lineHeight);
+}
+
 #pragma mark UITextFieldDelegate methods
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     if ([textField.text isEqualToString:@""]) { return NO; }
@@ -672,6 +684,12 @@
     } else {                                                                    // small iphone
         self.frame = CGRectMake(0, self.frame.origin.y -((vf.size.height-44)/2), self.frame.size.width, self.frame.size.height );
     }
+}
+-(BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.text.length < 255 || [string isEqualToString:@""]) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - UIAlertViewDelegate methods

@@ -378,7 +378,6 @@
     // update the data we pass on
     bet.amount = [NSNumber numberWithInt:val];
 }
-
 /// handles the duration of the bet
 -(void)updateDateValue:(UISlider *)sender {
     // update what they can see
@@ -433,24 +432,74 @@
     }];
 }
 
+#pragma mark - UITableView Delegates and Data Sources and initialization setup
 // add selected list to fbFriendVC
 - (void) addSelectedViewToFriendPickerView {
     if (self.selectedView == nil) {
         CGFloat tableH = 44.0;
-        self.selectedView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, tableH)];
+        self.selectedView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44.0, self.view.bounds.size.width, tableH) style:UITableViewStylePlain];
         self.selectedView.delegate = self;
+        self.selectedView.dataSource = self;
         
         [self.fbFriendVC.canvasView addSubview:self.selectedView];
-        CGRect newFrame = self.fbFriendVC.view.bounds;
+        CGRect newFrame = self.fbFriendVC.tableView.frame;
         newFrame.size.height -= tableH;
-        newFrame.origin.y = tableH;
+        newFrame.origin.y = 44.0 + tableH;
         self.fbFriendVC.tableView.frame = newFrame;
     }
 }
+-(void) removeSelectedViewFromFriendPickerView {
+    int tableH = self.selectedView.frame.size.height;
+    CGRect newFrame = self.fbFriendVC.tableView.frame;
+    newFrame.size.height += tableH;
+    newFrame.origin.y = 44.0;
+    self.fbFriendVC.tableView.frame = newFrame;
+    
+    [self.fbFriendVC.canvasView bringSubviewToFront:self.fbFriendVC.tableView];
+    
+    selectedView = nil;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    // Configure the cell...
+    cell.textLabel.text = [[bet.friends objectAtIndex:indexPath.row] valueForKey:@"name"];
+    cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0];
+    cell.textLabel.textColor = Bdark;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    /*UIImage *img = [UIImage image]
+    cell.imageView.image = img;*/
+    
+    cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check-22.png"]];
+    /*((UIImageView *)cell.accessoryView).image = [((UIImageView *)cell.accessoryView).image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    ((UIImageView *)cell.accessoryView).tintColor = Bgreen;*/
+    ((UIImageView *)cell.accessoryView).bounds = CGRectMake(0, 0, 24, 24);
+    
+    
+    return cell;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return self.bet.friends.count;
+}
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    searchBar.text = [[bet.friends objectAtIndex:indexPath.row] valueForKey:@"name"];
+    [self handleSearch:searchBar];
+    
+    return nil;
+}
 
-//////////////////////////////////////////
-// search bar stuff for FBFriendPicker  //
-//////////////////////////////////////////
+
+#pragma mark - UISearchBar stuff for FBFriendPicker
 - (void)addSearchBarToFriendPickerView {
     if (self.searchBar == nil) {
         CGFloat searchBarHeight = 44.0;
@@ -460,8 +509,8 @@
         self.searchBar.showsCancelButton = YES;
         
         [self.fbFriendVC.canvasView addSubview:self.searchBar];
-        CGRect newFrame = self.fbFriendVC.view.bounds;
-        newFrame.size.height -= searchBarHeight;
+        CGRect newFrame = self.fbFriendVC.tableView.frame;
+        newFrame.size.height = self.fbFriendVC.view.frame.size.height - searchBarHeight - 64;
         newFrame.origin.y = searchBarHeight;
         self.fbFriendVC.tableView.frame = newFrame;
     }
@@ -488,14 +537,40 @@
 - (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker {
     // need to clear the search, so that the facebookVC will re-determine the selection list.
     // this prevents bugs with search-selected people not being included in the actual invitations
-    //self.searchText = nil;
+    self.searchText = nil;
+    self.searchBar.text = @"";
     [self.searchBar resignFirstResponder];
-    //[self.fbFriendVC updateView];
+    [self.fbFriendVC updateView];
     // this re-updates the list of friends we're gonna use to make invitations.
     bet.friends = friendPicker.selection;
+    
+    if (friendPicker.selection.count == 0) {
+        [self removeSelectedViewFromFriendPickerView];
+    } else {
+        if (selectedView == nil) {
+            [self addSelectedViewToFriendPickerView];
+        } else {
+            if (friendPicker.selection.count <= 4) {
+                
+                // expand the frame of the selectedView
+                CGRect f = self.selectedView.frame;
+                int diff = f.size.height;
+                f.size.height = 44 * friendPicker.selection.count;
+                diff = f.size.height - diff;
+                selectedView.frame = f;
+                
+                CGRect newFrame = self.fbFriendVC.tableView.frame;
+                newFrame.size.height -= diff;
+                newFrame.origin.y += diff;
+                self.fbFriendVC.tableView.frame = newFrame;
+            }
+            [self.selectedView reloadData];
+        }
+    }
 }
 // handles the user touching the done button on the FB friend selector
 - (void)facebookViewControllerDoneWasPressed:(id)sender {
+    
     // handle the user NOT selecting a friend... bad users.
     if (bet.friends.count == 0) {
         [[[UIAlertView alloc] initWithTitle: @"Hey!"
@@ -533,7 +608,7 @@
     return YES;
 }
 // makes us add a gray circle to each friend, so that it's obvoius where the selection mark will appear.
-- (void) friendPickerViewControllerDataDidChange:(FBFriendPickerViewController *)friendPicker {
+/*- (void) friendPickerViewControllerDataDidChange:(FBFriendPickerViewController *)friendPicker {
     NSArray *cells = fbFriendVC.tableView.visibleCells;
     for (int i = 0; i < cells.count; i++){
         UITableViewCell *cell = (UITableViewCell *)[cells objectAtIndex:i];
@@ -549,7 +624,7 @@
         circle.layer.cornerRadius = h/4;
         [cell.contentView addSubview:circle];
     }
-}
+}*/
 
 /**
  * A function for parsing URL parameters.
